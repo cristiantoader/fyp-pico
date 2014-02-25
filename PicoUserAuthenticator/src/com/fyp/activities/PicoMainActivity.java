@@ -3,15 +3,12 @@ package com.fyp.activities;
 import com.fyp.activities.R;
 import com.fyp.activities.util.SystemUiHider;
 import com.fyp.services.UAService;
-import com.fyp.services.UserAuthenticatorService;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +16,6 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -37,12 +33,6 @@ public class PicoMainActivity extends Activity {
 	@SuppressWarnings("unused")
 	private View controlsView;
 	private TextView contentView;
-
-	/**
-	 * Intent to authenticator service
-	 */
-	private Intent picoService;
-	private PicoBroadcastReceiver receiver;
 
 	private final Messenger messageReceiver = new Messenger(new IncomingHandler());
 	private Messenger messageService = null;
@@ -70,61 +60,15 @@ public class PicoMainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		registerReceiver();
+		doBindService();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		unregisterReceiver(receiver);
+		doUnbindService();
 	}
-
-	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the system
-	 * UI. This is to prevent the jarring behavior of controls going away while
-	 * interacting with activity UI.
-	 */
-	View.OnClickListener buttonStartListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if (picoService == null) {
-				picoService = new Intent(PicoMainActivity.this,
-						UserAuthenticatorService.class);
-				picoService.putExtra("command", "start");
-				startService(picoService);
-			} else {
-				contentView.append("Pico service already running.\n");
-			}
-		}
-	};
-
-	View.OnClickListener buttonStopListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if (picoService != null) {
-				// issue stop command
-				picoService.putExtra("command", "stop");
-				startService(picoService);
-
-				// remove service
-				picoService = null;
-			} else {
-				contentView.append("Pico service NULL\n");
-			}
-
-		}
-	};
-
-	private void registerReceiver() {
-		receiver = new PicoBroadcastReceiver();
-
-		IntentFilter intentFilter = new IntentFilter(
-				PicoBroadcastReceiver.INTENT_RECEIVER);
-		intentFilter.addCategory(Intent.CATEGORY_DEFAULT);
-
-		registerReceiver(receiver, intentFilter);
-	}
-
+	
 	private void doBindService() {
 		bindService(new Intent(this, UAService.class), serviceConnection,
 				Context.BIND_AUTO_CREATE);
@@ -138,30 +82,45 @@ public class PicoMainActivity extends Activity {
 		}
 	}
 
-	public class PicoBroadcastReceiver extends BroadcastReceiver {
-		public static final String INTENT_RECEIVER = "com.fyp.activities.intentreceiver";
-		private static final String RESULT = "result";
-
+	/**
+	 * Touch listener to use for in-layout UI controls to delay hiding the system
+	 * UI. This is to prevent the jarring behavior of controls going away while
+	 * interacting with activity UI.
+	 */
+	View.OnClickListener buttonStartListener = new View.OnClickListener() {
 		@Override
-		public void onReceive(Context context, Intent intent) {
-			Log.d("BroadcastReceiver", "received intent");
-
-			Bundle bundle = intent.getExtras();
-			if (bundle != null) {
-				String result = String.valueOf(bundle.getBoolean(RESULT));
-				contentView.append(result + "\n");
+		public void onClick(View v) {
+			if (!boundService) {
+				doBindService();
+			} else {
+				contentView.append("Pico service already bound. \n");
 			}
 		}
-	}
+	};
+
+	View.OnClickListener buttonStopListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			if (boundService) {
+				doUnbindService();
+			} else {
+				contentView.append("Pico service already not bound. \n");
+			}
+
+		}
+	};
 
 	@SuppressLint("HandlerLeak")
 	class IncomingHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
+			
 			case UAService.MSG_GET_STATUS:
-				contentView.append("Received from service: " + msg.arg1 + "\n");
+				boolean authenticated = (msg.arg1 == 1);
+				contentView.append("Received from service: " + authenticated + "\n");
 				break;
+			
 			default:
 				super.handleMessage(msg);
 			}
@@ -173,7 +132,6 @@ public class PicoMainActivity extends Activity {
 	 */
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
-
 			messageService = new Messenger(service);
 
 			try {

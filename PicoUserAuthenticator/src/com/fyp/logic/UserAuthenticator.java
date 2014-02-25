@@ -7,18 +7,28 @@ import com.fyp.logic.authenticators.AuthDevDummy;
 
 public class UserAuthenticator {
 
+	private static UserAuthenticator uaSingleton = null;
+	
 	private int confidence;
 	private LinkedList<AuthDev> devices;
 
 	private static final int authThreshold = 50;
 
-	public UserAuthenticator() {
+	private UserAuthenticator() {
 		// initialise list and get available devices.
 		this.devices = new LinkedList<AuthDev>();
 		this.getAvailableDevices();
 
 		// calculate initial confidence level.
 		this.calculateConfidence();
+	}
+	
+	public static UserAuthenticator getUserAuthenticator() {
+		if (uaSingleton == null) {
+			uaSingleton = new UserAuthenticator();
+		}
+		
+		return uaSingleton;
 	}
 
 	/**
