@@ -46,7 +46,7 @@ public class PicoMainActivity extends Activity {
 
 	private final Messenger messageReceiver = new Messenger(new IncomingHandler());
 	private Messenger messageService = null;
-	private boolean boundService = false;
+	private boolean boundService = false;;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
