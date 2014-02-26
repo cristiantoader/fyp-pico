@@ -1,4 +1,4 @@
-package com.fyp.logic.authenticators;
+package com.fyp.authenticator;
 
 public abstract class AuthDev {
 	

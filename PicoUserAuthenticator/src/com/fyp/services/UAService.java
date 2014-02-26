@@ -2,7 +2,7 @@ package com.fyp.services;
 
 import java.util.ArrayList;
 
-import com.fyp.logic.UserAuthenticator;
+import com.fyp.authenticator.UserAuthenticator;
 
 import android.annotation.SuppressLint;
 import android.app.Service;

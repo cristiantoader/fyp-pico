@@ -1,9 +1,9 @@
-package com.fyp.logic;
+package com.fyp.authenticator;
 
 import java.util.LinkedList;
 
-import com.fyp.logic.authenticators.AuthDev;
-import com.fyp.logic.authenticators.AuthDevDummy;
+import com.fyp.authenticator.AuthDev;
+import com.fyp.authenticator.AuthDevDummy;
 
 public class UserAuthenticator {
 

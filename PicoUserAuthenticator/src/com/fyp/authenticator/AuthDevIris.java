@@ -1,4 +1,4 @@
-package com.fyp.logic.authenticators;
+package com.fyp.authenticator;
 
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
