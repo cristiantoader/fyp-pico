@@ -1,25 +1,40 @@
 package com.fyp.authenticator.voice;
 
-import java.io.File;
 import java.util.Random;
 
+import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.util.Log;
 
 import com.fyp.authenticator.AuthDev;
+import com.fyp.services.AuthVoiceService;
+import com.fyp.services.UAService;
 
-import marf.*;
-import marf.util.*;
-
+/**
+ * TODO: tie this to a service context such that communication is possible with
+ * the voice service.
+ * 
+ * @author cristi
+ * 
+ */
 public class AuthDevVoice extends AuthDev {
 
 	private static AuthDevVoice dev = null;
-	private AuthDevVoiceDAO db = null;
+
+	private Messenger messageService = null;
+	private final Messenger messageReceiver = new Messenger(new IncomingHandler());
+	private boolean boundService = false;
 
 	private AuthDevVoice() {
 		this.confidence = 100;
-		this.db = new AuthDevVoiceDAO("speakers.txt");
-
-		this.initMARF();
 	}
 
 	public AuthDevVoice getDevice() {
@@ -44,55 +59,57 @@ public class AuthDevVoice extends AuthDev {
 		this.confidence = new Random().nextInt(100);
 	}
 
-	private void initMARF() {
-		try {
-			db.connect();
-			db.query();
-
-			MARF.setPreprocessingMethod(MARF.DUMMY);
-			MARF.setFeatureExtractionMethod(MARF.FFT);
-			MARF.setClassificationMethod(MARF.EUCLIDEAN_DISTANCE);
-			MARF.setDumpSpectrogram(false);
-			MARF.setSampleFormat(MARF.WAV);
-
-			MARF.DEBUG = false;
-
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		/*
-		 * Training
-		 */
-		try {
-			// TODO: training files..
-			File[] dir = new File("training").listFiles();
-
-			for (int i = 0; i < dir.length; i++) {
-				String strFileName = dir[i].getPath();
-
-				if (strFileName.endsWith(".wav")) {
-					MARF.setSampleFile(strFileName);
-
-					int id = db.getIDByFilename(strFileName, true);
-					if (id != -1) {
-						MARF.setCurrentSubject(id);
-						MARF.train();
-					} else {
-						Log.e("MARF", "No speaker found for \"" + strFileName + "\".");
-					}
-					
-				}
-			}
-		} catch (NullPointerException e) {
-			Log.e("MARG", "Folder not found.");
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("Done training on folder.");
+	private void doBindService(Context ctx) {
+		ctx.bindService(new Intent(ctx, AuthVoiceService.class), serviceConnection,
+				Context.BIND_AUTO_CREATE);
+		boundService = true;
 	}
+
+	private void doUnbindService(Context ctx) {
+		if (boundService) {
+			ctx.unbindService(serviceConnection);
+			boundService = false;
+		}
+	}
+
+	/**
+	 * Class for interacting with the main interface of the service.
+	 */
+	private ServiceConnection serviceConnection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			messageService = new Messenger(service);
+
+			try {
+				Message msg = Message.obtain(null, UAService.MSG_REGISTER_CLIENT);
+				msg.replyTo = messageReceiver;
+				messageService.send(msg);
+
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		public void onServiceDisconnected(ComponentName className) {
+			messageService = null;
+		}
+	};
+
+	@SuppressLint("HandlerLeak")
+	class IncomingHandler extends Handler {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+
+			case UAService.MSG_GET_STATUS:
+				boolean authenticated = (msg.arg1 == 1);
+				Log.i("AuthDevVoice", "Received from service: " + authenticated + "\n");
+				break;
+
+			default:
+				super.handleMessage(msg);
+			}
+		}
+	}
+
 }
