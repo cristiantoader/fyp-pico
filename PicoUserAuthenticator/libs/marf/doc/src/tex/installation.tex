@@ -1,0 +1,387 @@
+ \title{MARF Installation Instructions}
+
+  {\bf Short Version}
+
+make
+
+
+   The long version is the rest of this
+
+\begin{verbatim}
+  <title>Requirements</title>
+
+  <para>
+   In general, any modern platform should be able to run
+   <productname>MARF</>.
+  </para>
+
+  <para>
+   The following software packages are required for building
+   <productname>MARF</>:
+
+   <itemizedlist>
+    <listitem>
+     <para>
+      <indexterm>
+       <primary>make</primary>
+      </indexterm>
+
+      <acronym>GNU</> <application>make</> is required; other
+      <application>make</> programs will <emphasis>not</> work.
+      <acronym>GNU</> <application>make</> is often installed under
+      the name <filename>gmake</filename>; this document will always
+      refer to it by that name. (On some systems GNU make is the
+      default tool with the name <filename>make</>.) To test for
+      <acronym>GNU</acronym> <application>make</application> enter
+<screen>
+<userinput>gmake --version</userinput>
+</screen>
+      It is recommended to use version 3.76.1 or later.
+     </para>
+    </listitem>
+
+    <listitem>
+     <para>
+      You need a Java compiler. Recent
+      versions of <productname>javac</> are recommendable.
+     </para>
+    </listitem>
+
+    <listitem>
+     <para>
+NeuralNetwork module requires the JAXP XML parser. You can get it
+<ulink url="http://java.sun.com/xml/downloads/javaxmlpack.html">here</ulink>.
+
+Click the "Download now" under the heading "Java XML Pack - Summer 02 Update
+Release". This should be the right one.
+     </para>
+    </listitem>
+
+
+    <listitem>
+     <para>
+      <indexterm>
+       <primary>installation</primary>
+       <secondary>on Windows</secondary>
+      </indexterm>
+     </para>
+    </listitem>
+   </itemizedlist>
+  </para>
+
+  <para>
+   The following packages are required in the
+   default configuration, as explained below.
+
+   <itemizedlist>
+    <listitem>
+     <para>
+     </para>
+
+     <para>
+     </para>
+    </listitem>
+
+   </itemizedlist>
+  </para>
+
+  <para>
+  </para>
+
+  <para>
+  </para>
+ </sect1>
+
+<![%standalone-ignore;[
+ <sect1 id="install-getsource">
+  <title>Getting The Source</title>
+
+  <para>
+   The <productname>MARF</> sources can be obtained
+   from <ulink
+   url="http://marf.sf.net"></ulink>.
+<screen>
+<userinput>gunzip MARF-&version;.tar.gz</userinput>
+<userinput>tar xf MARF-&version;.tar</userinput>
+</screen>
+   This will create a directory
+   <filename>MARF-&version;</filename> under the current directory
+   with the <productname>MARF</> sources.
+   Change into that directory for the rest
+   of the installation procedure.
+  </para>
+ </sect1>
+]]>
+
+ <sect1 id="install-upgrading">
+  <title>If You Are Upgrading</title>
+
+  <indexterm zone="install-upgrading">
+   <primary>upgrading</primary>
+  </indexterm>
+
+  <para>
+   The internal data storage format changes with new releases of
+   <productname>MARF</>. Therefore, .
+  </para>
+
+  <procedure>
+   <step>
+    <para>
+    </para>
+   </step>
+
+   <step>
+    <para>
+     <indexterm>
+      <primary></primary>
+     </indexterm>
+
+    </para>
+
+    <para>
+    </para>
+
+    <para>
+    </para>
+   </step>
+
+   <step>
+    <para>
+    </para>
+
+    <para>
+    </para>
+   </step>
+
+   <step>
+    <para>
+     If you are installing in the same place as the old version then
+     it is also a good idea to move the old installation out of the
+     way, in case you have trouble and need to revert to it.
+     Use a command like this:
+<screen>
+<userinput>mv</>
+</screen>
+    </para>
+   </step>
+  </procedure>
+
+  <para>
+  </para>
+
+  <para>
+  </para>
+ </sect1>
+
+
+ <sect1 id="install-procedure">
+  <title>Installation Procedure</title>
+
+  <procedure>
+
+  <step id="configure">
+   <title>Configuration</>
+
+   <indexterm zone="configure">
+    <primary></primary>
+   </indexterm>
+
+   <para>
+   </para>
+
+   <para>
+     <note>
+      <para>
+      </para>
+     </note>
+    </para>
+
+    </para>
+   </step>
+
+  <step>
+   <title>Build</title>
+
+   <para>
+    To start the build, type
+<screen>
+<userinput>gmake</userinput>
+</screen>
+    (Remember to use <acronym>GNU</> <application>make</>.) The build
+    may take anywhere from 5 minutes to half an hour depending on your
+    hardware. The last line displayed should be
+<screen>
+(-: MARF build has been successful :-)
+</screen>
+   </para>
+  </step>
+
+  <step>
+   <title>Regression Tests</title>
+
+   <indexterm>
+    <primary>regression test</primary>
+   </indexterm>
+
+   <para>
+    If you want to test the newly built server before you install it,
+    you can run the regression tests at this point. The regression
+    tests are a test suite to verify that <productname>MARF</>
+    runs on your machine in the way the developers expected it
+    to. Type
+<screen>
+<userinput>gmake test</userinput>
+</screen>
+   </para>
+  </step>
+
+  <step id="install">
+   <title>Installing The Files</title>
+
+   <note>
+    <para>
+     If you are upgrading an existing system and are going to install
+     the new files over the old ones, then you should have backed up
+     your data and shut down the old server by now, as explained in
+     <xref linkend="install-upgrading"> above.
+    </para>
+   </note>
+
+   <para>
+    To install <productname>MARF</> enter
+<screen>
+<userinput>gmake install</userinput>
+</screen>
+    This will install files into the directories that were specified.
+   </para>
+
+   <para>
+   </para>
+
+   <para>
+   </para>
+
+   <para>
+   </para>
+
+  </step>
+  </procedure>
+
+  <formalpara>
+   <title>Uninstall:</title>
+   <para>
+    To undo the installation use the command <command>gmake
+    uninstall</>. However, this will not remove any created directories.
+   </para>
+  </formalpara>
+
+  <formalpara>
+   <title>Cleaning:</title>
+
+   <para>
+    After the installation you can make room by removing the built
+    files from the source tree with the command <command>gmake
+    clean</>. This will preserve the files made by the configure
+    program, so that you can rebuild everything with <command>gmake</>
+    later on.
+   </para>
+  </formalpara>
+
+  <para>
+   If you perform a build and then discover that your configure
+   options were wrong, or if you change anything that configure
+   investigates (for example, software upgrades), then it's a good
+   idea to do <command>gmake distclean</> before reconfiguring and
+   rebuilding.  Without this, your changes in configuration choices
+   may not propagate everywhere they need to.
+  </para>
+ </sect1>
+
+ <sect1 id="install-post">
+  <title>Post-Installation Setup</title>
+
+  <sect2>
+   <title>Shared Libraries</title>
+
+   <indexterm>
+    <primary>shared libraries</primary>
+   </indexterm>
+
+   <para>
+   </para>
+
+  </sect2>
+
+  <sect2>
+   <title>Environment Variables</title>
+
+   <indexterm>
+    <primary><envar>PATH</envar></primary>
+   </indexterm>
+
+   <para>
+   </para>
+  </sect2>
+ </sect1>
+
+
+<![%standalone-include;[
+ <sect1 id="install-getting-started">
+  <title>Getting Started</title>
+
+  <para>
+   The following is a quick summary of how to get <productname>MARF</> up and
+   running once installed.
+  </para>
+
+  <procedure>
+   <step>
+    <para>
+    </para>
+   </step>
+
+   <step>
+    <para>
+    </para>
+   </step>
+
+   <step>
+    <para>
+    </para>
+
+    <para>
+    </para>
+
+    <para>
+     In order to allow TCP/IP connections (rather than only Unix
+     domain socket ones) you need to pass the <option>-i</> option to
+     <filename>postmaster</>.
+    </para>
+   </step>
+
+   <step>
+    <para>
+     Create a database:
+<screen>
+<userinput>createdb testdb</>
+</screen>
+     Then enter
+<screen>
+<userinput>psql testdb</>
+</screen>
+     to connect to that database. At the prompt you can enter SQL
+     commands and start experimenting.
+    </para>
+   </step>
+  </procedure>
+
+  <title>What Now?</title>
+
+
+  <title>Supported Platforms</title>
+   <productname>MARF</> has been verified by the developers
+   to work on the platforms listed below. A supported
+   platform generally means that <productname>MARF</> builds and
+   installs according to these instructions.
+\end{verbatim}

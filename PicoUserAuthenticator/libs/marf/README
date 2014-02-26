@@ -1,0 +1,27 @@
+README
+------
+
+Identification:
+
+  $Header: /cvsroot/marf/marf/README,v 1.5.2.1 2003/02/16 21:38:42 mokhov Exp $
+
+What's Here:
+
+  Here you can try to find the following:
+
+  README    - this file
+  INSTALL   - installation instructions
+  TODO      - work to do and work in progress
+  HISTORY   - project's history
+  COPYRIGHT - MARF distribution terms
+  ChangeLog - GNU-style ChangeLog file with a list of changes committed to the CVS
+
+  marf.jpx  - JBuilder project file for MARF
+
+  Makefile  - a GNU-style make file for UNIXen to build the marf-<ver>.jar
+              the documentation, and distribution files.
+
+  /doc      - has project documentation sources
+  /src      - MARF source code
+
+EOF

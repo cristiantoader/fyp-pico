@@ -1,0 +1,16 @@
+\contentsline {figure}{\numberline {1}{\ignorespaces Overall Architecture}}{10}
+\contentsline {figure}{\numberline {2}{\ignorespaces The Core Pipeline}}{11}
+\contentsline {figure}{\numberline {3}{\ignorespaces MARF Java Packages}}{12}
+\contentsline {figure}{\numberline {4}{\ignorespaces Storage}}{16}
+\contentsline {figure}{\numberline {5}{\ignorespaces Preprocessing}}{22}
+\contentsline {figure}{\numberline {6}{\ignorespaces Normalization of aihua5.wav from the testing set.}}{23}
+\contentsline {figure}{\numberline {7}{\ignorespaces FFT of normalized aihua5.wav from the testing set.}}{23}
+\contentsline {figure}{\numberline {8}{\ignorespaces Low-pass filter applied to aihua5.wav.}}{24}
+\contentsline {figure}{\numberline {9}{\ignorespaces High-pass filter applied to aihua5.wav.}}{25}
+\contentsline {figure}{\numberline {10}{\ignorespaces Band-pass filter applied to aihua5.wav.}}{25}
+\contentsline {figure}{\numberline {11}{\ignorespaces High frequency boost filter applied to aihua5.wav.}}{26}
+\contentsline {figure}{\numberline {12}{\ignorespaces Feature Extraction}}{28}
+\contentsline {figure}{\numberline {13}{\ignorespaces Classification}}{33}
+\contentsline {figure}{\numberline {14}{\ignorespaces GUI Package}}{37}
+\contentsline {figure}{\numberline {15}{\ignorespaces LPC spectrogram obtained for ian15.wav}}{54}
+\contentsline {figure}{\numberline {16}{\ignorespaces LPC spectrogram obtained for graham13.wav}}{54}

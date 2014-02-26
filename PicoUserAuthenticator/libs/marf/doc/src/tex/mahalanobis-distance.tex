@@ -1,0 +1,20 @@
+\subsubsection{Mahalanobis Distance}\label{sect:mahalanobis}
+
+This distance classification is meant to be able to detect features
+that tend to vary together in the same cluster if linear
+transformations are applied to them, so it becomes invariant
+from these transformations unlike all the other, previously seen
+distance classifiers.
+
+$$ d(x,y) = \sqrt{(x-y) C^{-1} (x-y)^{T}} $$
+
+\noindent
+where $x$ and $y$ are feature vectors of the same length $n$, and
+$C$ is a covariance matrix, learnt during training for co-related
+features.
+
+In this release, namely 0.2.0, it's not implemented yet, only with
+the covariance matrix being an identity matrix, $ C = I $,
+making Mahalanobis distance be the same as the Euclidean one. We plan
+to have it fully implemented in the next release, when we
+decide how we go about matrix/vector operations in MARF.

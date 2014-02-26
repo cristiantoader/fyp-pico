@@ -1,0 +1,58 @@
+  \title{MARF Source Code}
+
+   \title{Formatting}
+
+   \par
+    Source code formatting uses a 4 column tab spacing, currently with
+    tabs preserved (i.e. tabs are not expanded to spaces).
+   
+
+   \par
+    For Emacs, add the following (or something similar)
+    to your <filename>~/.emacs</filename>
+    initialization file:
+
+\begin{verbatim}
+;; check for files with a path containing "marf"
+(setq auto-mode-alist
+  (cons '("\\(marf\\).*\\.java\\'" . marf-java-mode)
+        auto-mode-alist))
+(setq auto-mode-alist
+  (cons '("\\(marf\\).*\\.java\\'" . marf-java-mode)
+        auto-mode-alist))
+
+(defun pgsql-java-mode ()
+  ;; sets up formatting for MARF Java code
+  (interactive)
+  (c-mode)
+  (setq-default tab-width 4)
+  (c-set-style "bsd")             ; set c-basic-offset to 4, plus other stuff
+  (c-set-offset 'case-label '+)   ; tweak case indent to match MARF custom
+  (setq indent-tabs-mode t))      ; make sure we keep tabs when indenting
+\end{verbatim}
+   
+
+   \par
+    For <application>vim</application>, your
+    <filename>~/.vimrc</filename> or equivalent file should contain
+    the following:
+
+\begin{verbatim}
+set tabstop=4
+\end{verbatim}
+
+    or equivalently from within vim, try
+
+\begin{verbatim}
+:set ts=4
+\end{verbatim}
+   
+
+   \par
+    The text browsing tools <application>more</application> and
+    <application>less</application> can be invoked as
+
+\begin{verbatim}
+more -x4
+less -x4
+\end{verbatim}

@@ -1,0 +1,147 @@
+\section{Experementation Results}\label{sect:results}
+\noindent
+\rule{7.0in}{.013in}
+
+\subsection{Notes}
+
+Before we get to numbers, few notes and observations first:
+
+\begin{enumerate}
+
+\item We've got more samples since the demo. The obvious: by increasing the number of samples our results got
+      better; with few exceptions, however. This can be explained by
+      the diversity of the recording equipment, a lot less than uniform
+      number of samples per speaker, and absence of noise and silence
+      removal. All the samples were recorded in not the same environments.
+      The results then start averaging after awhile.
+
+\item Another observation we made from our output, is that
+      when the speaker is guessed incorrectly, quite often the second
+      guess is correct, so we included this in our results as if we were
+      ``guessing'' right from the second attempt.
+
+\item FUN. Interesting to note, that we also tried to take some
+      samples of music bands, and feed it to our application
+      along with the speakers, and application's performance didn't suffer,
+      yet even improved because the samples were treated in
+      the same manner. The groups were not mentioned in the table,
+      so we name them here: Van Halen [8:1] and Red Hot Chili Peppers [10:1] (where numbers
+      represent [training:testing] samples used).
+
+\end{enumerate}
+
+\clearpage
+
+\subsection{Configuration Explained}
+
+Configuration parameters were exracted from the command line
+which SpeakerIdentApp was invoked with. They mean the following:
+
+\vspace{15pt}
+\hrule
+{\small
+\begin{verbatim}
+Usage:
+    java SpeakerIdentApp --train <samples-dir> [options]  -- train mode
+                         --ident <sample> [options]       -- identification mode
+                         --stats                          -- display stats
+                         --reset                          -- reset stats
+                         --version                        -- display version info
+                         --help                           -- display this help and exit
+
+Options (one or more of the following):
+
+Preprocessing:
+
+  -norm         - use just normalization, no filtering
+  -low          - use low pass filter
+  -high         - use high pass filter
+  -boost        - use high frequency boost filter
+  -band         - use bandpass filter
+
+Feature Extraction:
+
+  -lpc          - use LPC
+  -fft          - use FFT
+  -randfe       - use random feature extraction
+
+Classification:
+
+  -nn           - use Neural Network
+  -cheb         - use Chebyshev Distance
+  -eucl         - use Euclidean Distance
+  -mink         - use Minkowski Distance
+  -randcl       - use random classification
+
+Misc:
+
+  -debug        - include verbose debug output
+  -spectrogram  - dump spectrogram image after feature extraction
+  -graph        - dump wave graph before preprocessing and after feature extraction
+  <integer>     - expected speaker ID
+\end{verbatim}}
+\hrule
+\vspace{15pt}
+
+\clearpage
+
+\subsection{Consolidated Results}
+
+Our ultimate results \footnote{as of \input{date}} for all configurations we can have
+and samples we've got are in the Table \ref{tab:results}.
+Looks like our best results are with
+``-norm -fft -cheb'',
+``-norm -fft -eucl'',
+``-norm -fft -mah'',
+``-high -fft -eucl'',
+``-high -fft -mah'' and,
+``-high -fft -mink''
+with the top result being 80\%.
+
+\input{stats}
+
+%\begin{table}
+%\begin{minipage}[b]{\textwidth}
+%\centering
+%\begin{tabular}{|c|c|l|c|c|l|} \hline
+%Run \# & Guess & Configuration & GOOD & BAD & Recogniton Rate,\%\\ \hline\hline
+%\input{stats}
+%1 & {\bf 1st} & {\bf -norm -fft -eucl} &  {\bf 14} & {\bf 6} & {\bf 70.0}\\
+% & 2nd & -norm -fft -eucl &  18 & 2 & 90.0\\ \hline
+%2 & 1st & -high -lpc -cheb &  12 & 8 & 60.0\\
+% & 2nd & -high -lpc -cheb &  14 & 6 & 70.0\\ \hline
+%3 & {\bf 1st} & {\bf -low -fft -eucl} &  {\bf 14} & {\bf 6} & {\bf 70.0}\\
+% & 2nd & -low -fft -eucl &  17 & 3 & 85.0\\ \hline
+%4 & {\bf 1st} & {\bf -boost -fft -cheb} &  {\bf 14} & {\bf 6} & {\bf 70.0}\\
+% & 2nd & -boost -fft -cheb &  15 & 5 & 75.0\\ \hline
+%5 & 1st & -norm -lpc -cheb &  13 & 7 & 65.0\\
+% & 2nd & -norm -lpc -cheb &  15 & 5 & 75.0\\ \hline
+%6 & {\bf 1st} & {\bf -high -fft -eucl} &  {\bf 14} & {\bf 6} & {\bf 70.0}\\
+% & 2nd & -high -fft -eucl &  18 & 2 & 90.0\\ \hline
+%7 & 1st & -low -lpc -eucl &  11 & 9 & 55.00000000000001\\
+% & 2nd & -low -lpc -eucl &  13 & 7 & 65.0\\ \hline
+%8 & 1st & -boost -lpc -cheb &  13 & 7 & 65.0\\
+% & 2nd & -boost -lpc -cheb &  15 & 5 & 75.0\\ \hline
+%9 & 1st & -high -lpc -eucl &  11 & 9 & 55.00000000000001\\
+% & 2nd & -high -lpc -eucl &  14 & 6 & 70.0\\ \hline
+%{\bf 10} & {\sc 1st} & {\sc -norm -fft -cheb} &  {\bf 16} & {\bf 4} & {\bf 80.0}\\
+% & 2nd & -norm -fft -cheb &  17 & 3 & 85.0\\ \hline
+%11 & 1st & -boost -fft -eucl &  13 & 7 & 65.0\\
+% & 2nd & -boost -fft -eucl &  16 & 4 & 80.0\\ \hline
+%12 & 1st & -low -fft -cheb &  12 & 8 & 60.0\\
+% & 2nd & -low -fft -cheb &  14 & 6 & 70.0\\ \hline
+%13 & 1st & -norm -lpc -eucl &  13 & 7 & 65.0\\
+% & 2nd & -norm -lpc -eucl &  15 & 5 & 75.0\\ \hline
+%14 & {\bf 1st} & {\bf -high -fft -cheb} &  {\bf 14} & {\bf 6} & {\bf 70.0}\\
+% & 2nd & -high -fft -cheb &  18 & 2 & 90.0\\ \hline
+%15 & 1st & -boost -lpc -eucl &  13 & 7 & 65.0\\
+% & 2nd & -boost -lpc -eucl &  15 & 5 & 75.0\\ \hline
+%16 & 1st & -low -lpc -cheb &  13 & 7 & 65.0\\
+% & 2nd & -low -lpc -cheb &  15 & 5 & 75.0\\ \hline
+%\end{tabular}
+%\end{minipage}
+%\caption{Consolidated results.}
+%\label{tab:results}
+%\end{table}
+
+%\input{old-results.tex}

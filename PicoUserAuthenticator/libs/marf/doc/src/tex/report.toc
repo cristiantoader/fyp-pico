@@ -1,0 +1,69 @@
+\contentsline {section}{\numberline {0.1}Intro}{6}
+\contentsline {subsection}{\numberline {0.1.1}What is MARF?}{6}
+\contentsline {subsection}{\numberline {0.1.2}Authors}{6}
+\contentsline {subsection}{\numberline {0.1.3}Purpose}{6}
+\contentsline {subsection}{\numberline {0.1.4}Project Source and Location}{6}
+\contentsline {subsection}{\numberline {0.1.5}Why Java?}{7}
+\contentsline {section}{\numberline {0.2}COPYRIGHT}{8}
+\contentsline {section}{\numberline {0.3}MARF Architecture}{9}
+\contentsline {subsection}{\numberline {0.3.1}Application Point of View}{9}
+\contentsline {subsection}{\numberline {0.3.2}Packages and Physical Layout}{9}
+\contentsline {subsection}{\numberline {0.3.3}Current Limitations}{14}
+\contentsline {section}{\numberline {0.4}Methodology}{15}
+\contentsline {subsection}{\numberline {0.4.1}Storage}{15}
+\contentsline {subsubsection}{\numberline {0.4.1.1}Speaker Database}{15}
+\contentsline {subsubsection}{\numberline {0.4.1.2}Storing Features, Training, and Classification Data}{15}
+\contentsline {subsubsection}{\numberline {0.4.1.3}File Location}{17}
+\contentsline {subsubsection}{\numberline {0.4.1.4}Sample and Feature Sizes}{17}
+\contentsline {subsubsection}{\numberline {0.4.1.5}Parameter Passing}{17}
+\contentsline {subsubsection}{\numberline {0.4.1.6}Result}{17}
+\contentsline {subsubsection}{\numberline {0.4.1.7}Sample Format}{18}
+\contentsline {subsubsection}{\numberline {0.4.1.8}Sample Loading Process}{18}
+\contentsline {subsection}{\numberline {0.4.2}Preprocessing}{21}
+\contentsline {subsubsection}{\numberline {0.4.2.1}Normalization}{21}
+\contentsline {subsubsection}{\numberline {0.4.2.2}FFT Filter}{21}
+\contentsline {subsubsection}{\numberline {0.4.2.3}Low-Pass Filter}{24}
+\contentsline {subsubsection}{\numberline {0.4.2.4}High-Pass Filter}{24}
+\contentsline {subsubsection}{\numberline {0.4.2.5}Band-Pass Filter}{24}
+\contentsline {subsubsection}{\numberline {0.4.2.6}High Frequency Boost}{24}
+\contentsline {subsubsection}{\numberline {0.4.2.7}Noise Removal}{26}
+\contentsline {subsection}{\numberline {0.4.3}Feature Extraction}{27}
+\contentsline {subsubsection}{\numberline {0.4.3.1}The Hamming Window}{27}
+\contentsline {subsubsection}{\numberline {0.4.3.2}Fast Fourier Transform (FFT)}{27}
+\contentsline {paragraph}{\numberline {0.4.3.2.1}FFT Feature Extraction}{29}
+\contentsline {subsubsection}{\numberline {0.4.3.3}Linear Predictive Coding (LPC)}{29}
+\contentsline {paragraph}{\numberline {0.4.3.3.1}Theory}{29}
+\contentsline {paragraph}{\numberline {0.4.3.3.2}Usage for Feature Extraction}{31}
+\contentsline {subsubsection}{\numberline {0.4.3.4}Random Feature Extraction}{31}
+\contentsline {subsection}{\numberline {0.4.4}Classification}{32}
+\contentsline {subsubsection}{\numberline {0.4.4.1}Chebyshev Distance}{32}
+\contentsline {subsubsection}{\numberline {0.4.4.2}Euclidean Distance}{32}
+\contentsline {subsubsection}{\numberline {0.4.4.3}Minkowski Distance}{34}
+\contentsline {subsubsection}{\numberline {0.4.4.4}Mahalanobis Distance}{34}
+\contentsline {subsubsection}{\numberline {0.4.4.5}Artificial Neural Network}{34}
+\contentsline {paragraph}{\numberline {0.4.4.5.1}Theory}{34}
+\contentsline {paragraph}{\numberline {0.4.4.5.2}Training}{35}
+\contentsline {paragraph}{\numberline {0.4.4.5.3}Usage as a Classifier}{35}
+\contentsline {subsubsection}{\numberline {0.4.4.6}Random Classification}{36}
+\contentsline {section}{\numberline {0.5}GUI}{37}
+\contentsline {subsection}{\numberline {0.5.1}Spectrogram}{37}
+\contentsline {subsection}{\numberline {0.5.2}Wave Grapher}{38}
+\contentsline {section}{\numberline {0.6}Sample Data and Experimentation}{39}
+\contentsline {subsection}{\numberline {0.6.1}Sample Data}{39}
+\contentsline {subsection}{\numberline {0.6.2}Comparison Setup}{39}
+\contentsline {subsection}{\numberline {0.6.3}What Else Could/Should/Will Be Done}{42}
+\contentsline {subsubsection}{\numberline {0.6.3.1}Combination of Feature Extraction Methods}{42}
+\contentsline {subsubsection}{\numberline {0.6.3.2}Entire Recognition Path}{42}
+\contentsline {subsubsection}{\numberline {0.6.3.3}More Methods}{42}
+\contentsline {section}{\numberline {0.7}Experementation Results}{43}
+\contentsline {subsection}{\numberline {0.7.1}Notes}{43}
+\contentsline {subsection}{\numberline {0.7.2}Configuration Explained}{44}
+\contentsline {subsection}{\numberline {0.7.3}Consolidated Results}{45}
+\contentsline {section}{\numberline {0.8}Conclusions}{52}
+\contentsline {section}{\numberline {0.9}APPENDIX}{54}
+\contentsline {subsection}{\numberline {0.9.1}Spectrogram Examples}{54}
+\contentsline {subsection}{\numberline {0.9.2}MARF Source Code}{54}
+\contentsline {subsection}{\numberline {0.9.3}SpeakerIdentApp and SpeakersIdentDb Source Code}{55}
+\contentsline {subsubsection}{\numberline {0.9.3.1}SpeakerIdentApp.java}{55}
+\contentsline {subsubsection}{\numberline {0.9.3.2}SpeakersIdentDb.java}{62}
+\contentsline {subsection}{\numberline {0.9.4}TODO}{71}

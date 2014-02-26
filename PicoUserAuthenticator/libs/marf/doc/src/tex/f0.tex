@@ -1,0 +1,23 @@
+
+\par
+F0 (the fundamental frequency, or "pitch").
+The text doesn't go into too much detail but gives a few techniques. Most
+seem to involve another preprocesing to remove high frequencies and then
+some estimation and postprocessing correction. Another, more detailed
+source may be needed.
+
+\par
+Another consideration will be window. The obvious one is:
+
+$r(t) = 1 for 0 <= t <= N-1
+     = 0 otherwise$
+
+\par
+But supposedly the Hamming window is better:
+
+$h(t) = 0.54 - 0.46 cos((2*pi*t)/(N-1)) for 0 <= t <= N-1
+     = 0 otherwise$
+
+\par
+N is length of window. From the text, for LPC extraction N should be
+between 20-30ms.

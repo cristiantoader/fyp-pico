@@ -1,0 +1,58 @@
+$Header: /cvsroot/marf/marf/HISTORY,v 1.4.2.1 2003/02/16 21:38:42 mokhov Exp $
+
+This project has started as a course project for Pattern Recognition,
+Fall 2002, at Concordia University (http://www.concordia.ca/),
+Dept. of Computer Science (http://www.cs.concordia.ca), Montreal, Canada,
+by four students:
+
+  Ian Clément
+  Serguei Mokhov
+  Dimitrios Nicolacopoulos
+  Stephen Sinclair
+
+The project seems to have survived past that school term,
+and is being maintained by us.
+
+There has been three official "releases" of our framework and
+and SpeakerIdentApp so far.
+
+- Monday, February 10, 2003
+
+  MARF 0.2.0 - Our first release after the project submission
+
+    - new API in MARF - train()/recognize()
+    - global Makefile build system
+      - Compilation
+      - Distros
+    - TrainingSet improvments
+    - new modules
+        - BandpassFilter
+        - MinkowskiDistance
+        - More or less functional NeuralNet
+        - "Random" feature extraction and classification
+        - MahalanobisDistance, particular case for identity matrix
+    - improved docs (a lot!)
+    - code robustness via exceptions and 'final'
+
+  SpeakerIdentApp, 0.2.0
+    - Incorporates changes to MARF
+    - New helpful options
+
+
+- December 20, 2002
+
+  MARF 0.1.2 - Project
+
+  Includes what we have submitted (including an ISO CD image) as our final
+  project deliverables, the MARF, SpeakerIdenApp along with voice samples,
+  and the report.
+
+
+- December 8, 2002
+
+  MARF 0.1.0 - Demo
+
+  In-class demo of our project to the professor, Dr. Suen, and Javad Sadri of
+  at least what we've got working that day :-)
+
+EOF

@@ -1,0 +1,211 @@
+MARF TODO/Wishlist
+------------------
+
+$Header: /cvsroot/marf/marf/TODO,v 1.36 2003/02/10 09:56:35 mokhov Exp $
+
+
+THE APPS
+
+- SpeakerIdentApp
+  - GUI
+  - Real Time recording (does it belong here?)
+  - Move dir. read from the app to MARF in training section {0.3.0}
+  - Enhance batch recognition (do not re-load training set per sample) {0.3.0}
+  - Add --batch-ident option {0.3.0}
+  - Enhance options with arguments, e.g. -fft=1024, -lpc=40, -lpc=40,256, keeping the existing defaults
+  - Add option: -data-dir=DIRNAME other than default to specify a dir where to store training sets and stuff
+  - Add -mah=r
+  - Add single file training option
+  - make binary/optimized distro
+  - Dump stats: -classic -latex -csv
+  - Improve on javadoc
+  - ChangeLog
+  * Sort the stats
+  * Add classification methods to training in testing.sh
+
+- SpeechRecognition
+
+- InstrumentIdentification
+
+- LanguageIdentification
+
++- Fix TestNN
+
+- Regression Tests?
+  - one script calls all the apps and compares new results vs. expected
+
+* batch plan execution
+
+
+THE BUILD SYSTEM
+
+  * global makefile in /marf
+  * fix doc's global makefile
+  * Global Makefile for apps
+    (will descend to each dir and build all the apps.)
+  - Build and package distrubution
+    - MARF
+    - App
+  - Perhaps at some point we'd need make/project files for other Java IDEs, such as
+    - Sun Studio (Forte is dead)
+    - IBM Visual Age
+    ? Visual J++
+
+THE FRAMEWORK
+
+- Preprocessing
+  * Move BandPassFilter and HighFrequencyBoost under FFTFilter package with CVS comments
+  * Tweak the filter values of HighPass and HighFrequencyBoost filters
+  - Make dump()/restore() to serialize filtered output {0.3.0}
+  - Implement
+    - Enable changing values of frequency boundaries and coeffs. in filters by an app.
+    - Endpoint {1.0.0}
+    * Bandpass filter {0.2.0}
+    - Highpass Filter with High Frequency Boost together {0.?.0}
+    - "Compressor" [steve]
+    - Methods:  {1.0.0}
+      - removeNoise()
+      - removeSilence()
+      - cropAudio()
+
+- Feature Extraction
+  - Make modules to dump their
+    features for future use by NNet and maybe others {0.3.0}
+  - Implement {1.0.0}
+    - F0
+    - Cepstral
+    - Segmentation
+    * RandomFeatureExtraction {0.2.0}
+
+- Classification
+  - Implement
+    * Minkowski's Distance {0.2.0}
+    +---- Mahalanobis Distance {0.3.0}
+    - Stochastic [serge] {1.0.0}
+      - Gaussian Mixture Models
+    - Hidden Markov Models {1.0.0}
+    * RandomClassification {0.2.0}
+
+  - Fix and document NNet {0.*.0}
+    * dump()/retore() {0.2.0}
+    - add % of correct/incorrect expected to train() {0.3.0}
+    - ArrayList ---> Vector, because ArrayList is NOT thread-safe {0.3.0}
+    +- Epoch training
+
+  - Distance Classifiers
+    - make distance() throw an exception maybe?
+    * Move under Distance package
+
+- Speech package
+  - Recognition
+  - Dictionaries
+  - Generation
+
+- Stats {0.3.0}
+  - Move stats collection from the app and other places to StatsCollector
+  - Timing
+  - Batch progress report
+
+- Algos
+  - Algorithm decoupling to marf.algos or marf.algorithms or ... {0.4.0}
+  - marf.algos.Search
+  - marf.util.DataStructures -- Node / Graph --- to be used by the networks and state machines
+  - move hamming() from FeatureExtraction
+
+- GUI {0.5.0}
+  - Make them actual GUI components to be included into App
+    - Spectrogram
+      * Fix filename stuff (module_dirname to module_filename)
+    - WaveGrapher
+  - Fix WaveGrapher
+    - Sometimes dumps files of 0 length
+    - Make it actually ouput PPM or smth like that (configurable?)
+    - Too huge files for samp output.
+    - Have LPC understand it
+  - Config tool
+  - Web interface?
+
+- MARF.java
+  - Concurrent use of modules of the same type (e.g. FFT and F0)
+  - impl
+    ? streamedRecognition()
+    +- train()
+       - Add single file training
+    - Inter-module compatibility (i.e. specific modules can only work
+      with specific modules and not others)
+      - Module Compatibility Matrix
+      - Module integer and String IDs
+  +- enhance error reporting
+  - Server Part {2.0.0}
+
+- Exceptions {0.3.0}
+  - StorageException
+  ? Have all marf exceptions inherit from util.MARFException
+
+- marf.util
+  - Move NeuralNetowork.indent()
+  - Move MARF.debug() --> marf.util.debug.debugln()
+  - marf.util.debug.debug()
+  ? marf.util.upgrade
+
+- Storage
+  - ModuleParams: have Hastables instead of Vectors
+    to allow params in any order and in any number.
+  - Keep all data files under marf.data dir, like training sets, XML, etc {0.3.0}
+  - DUMP_BINARY (w/o compression) {0.3.0}
+  - Move DUMP_* flags up to StorageManager?
+  +- Revise TrainingSet stuff
+    - TrainingSet
+      - upgradability {?.?.?}
+      - convertability: bin.gzip <-> bin <-> csv
+  - FeatureSet {0.3.0}
+
+- Clean up
+  - CVS:
+    - Remove --x permissions introduced from windoze in files:
+      - /marf/doc/src/tex/sampleloading.tex
+      - /marf/doc/src/graphics/*.png
+      - /marf/doc/src/graphics/arch/*.png
+      - /marf/doc/src/graphics/fft_spectrograms/*.ppm
+      - /marf/doc/src/graphics/lpc_spectrograms/*.ppm
+      - /marf/doc/arch.mdl
+      - /marf/src/marf/Classification/Distance/EuclideanDistance.java
+      - /marf/src/marf/Preprocessing/FFTFilter.java
+      - /apps/SpeakerIdentApp/SpeakerIdentApp.jpx
+      - /apps/SpeakerIdentApp/testing-samples/*.wav
+      - /apps/SpeakerIdentApp/testing-samples/*.wav
+      - /apps/TestFilters/TestFilters.*
+    - Rename /marf/doc/sgml to /marf/doc/styles
+    - Remove /marf/doc/styles/ref
+    * Move disatance classifiers with CVS log
+      to Distance
+    * remove uneeded attics and corresponding dirs
+      * "Ceptral"
+      * Bogus samples
+
+THE CODE
+
+- Define coding standards
+- Propagate them throughout the code
+
+THE DOCS
+
+- docs [s]
+  - autosync history and the report
+  - ChangeLog
+  * report components [serge]
+  - Arch Update [serge]
+    +- gfx model (rr)
+      - gui: add StorageManager
+    * update doc
+    * newer images
+  * better doc format and formulas
+  - index
+  - Results:
+    - Add modules params used, like r=6 in Minkowski, FFT input 1024, etc
+
+* web site
+  * CVS
+  * autoupdate from CVS
+
+EOF

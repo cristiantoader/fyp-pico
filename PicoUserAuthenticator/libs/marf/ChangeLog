@@ -1,0 +1,2136 @@
+2003-02-17 16:04  mokhov
+
+	* src/Makefile: Update makefile to properly handle jaxp dir on
+	nettemp.
+
+2003-02-17 15:19  mokhov
+
+	* doc/src/tex/: conclusions.tex, results.tex: Backpatch results and
+	conclusios to more reflect reality.
+
+2003-02-17 15:18  mokhov
+
+	* doc/src/tex/: conclusions.tex, results.tex: Update results and
+	conclusions with more correct info.
+
+2003-02-17 11:01  mokhov
+
+	* doc/src/tex/stats.tex: Make results more proper, i.e. in the case
+	of NNet and FFT and RandFE, which are bogus due to lack of memory
+	errors.
+
+2003-02-17 11:00  mokhov
+
+	* doc/src/tex/stats.tex: Make results more proper. Excludes the
+	exreme case of NNet w/ FFT and RandFE.
+
+2003-02-16 16:39  mokhov
+
+	* src/marf/Preprocessing/: Preprocessing.java,
+	PreprocessingException.java: Backpatch Preprocessing comment fixes.
+
+2003-02-16 16:38  mokhov
+
+	* COPYRIGHT, ChangeLog, HISTORY, INSTALL, Makefile, README,
+	src/Makefile: Backpatch: Update documentary and legal notes. Add
+	COPYRIGHT and ChangeLog.  Improve distro build and make sure it
+	includes all that necessary.
+
+2003-02-16 16:38  mokhov
+
+	* COPYRIGHT, ChangeLog, HISTORY, INSTALL, Makefile, README,
+	src/Makefile, src/marf/Preprocessing/Preprocessing.java,
+	src/marf/Preprocessing/PreprocessingException.java: Update
+	documentary and legal notes. Add COPYRIGHT and ChangeLog.  Improve
+	distro build and make sure it includes all that necessary.
+
+2003-02-16 14:52  mokhov
+
+	* doc/src/tex/: gui.tex, legal.tex, report.tex, spectrogram.tex,
+	wave-grapher.tex: Backpatch: Add legal stuff, forgotten last time.
+	Update GUI section and use forgotten spectrogram.tex. Split off
+	Wave Grapher into wave-grapher.tex. Bump version to 0.2.1.
+
+2003-02-16 14:52  mokhov
+
+	* doc/src/tex/: gui.tex, legal.tex, references.tex, report.tex,
+	spectrogram.tex, wave-grapher.tex: Add legal stuff, forgotten last
+	time. Update GUI section and use forgotten spectrogram.tex. Split
+	off Wave Grapher into wave-grapher.tex. Bump version to 0.3.0.
+
+2003-02-16 14:05  mokhov
+
+	* src/marf/util/: InvalidSampleFormatException.java,
+	MARFException.java, NotImplementedException.java: Backpatch: Update
+	comments.
+
+2003-02-16 14:04  mokhov
+
+	* src/marf/util/: InvalidSampleFormatException.java,
+	MARFException.java, NotImplementedException.java: Update comments.
+
+2003-02-16 13:59  mokhov
+
+	* src/marf/Storage/: Sample.java, SampleLoader.java,
+	TrainingSet.java: Backpatch: cosmetic updates and comment fixes.
+
+2003-02-16 13:59  mokhov
+
+	* src/marf/Storage/: Sample.java, SampleLoader.java,
+	TrainingSet.java: Cosmetic updates and comment fixes.
+
+2003-02-16 13:30  mokhov
+
+	* src/marf/gui/Spectrogram.java: Backpatch: Cosmetic: IOException
+	-> java.io.Exception
+
+2003-02-16 13:30  mokhov
+
+	* src/marf/gui/Spectrogram.java: Cosmetic: IOException ->
+	java.io.IOException
+
+2003-02-16 13:26  mokhov
+
+	* src/marf/FeatureExtraction/: FeatureExtraction.java,
+	FeatureExtractionException.java, Cepstral/Cepstral.java,
+	F0/F0.java, FFT/FFT.java, LPC/LPC.java,
+	RandomFeatureExtraction/RandomFeatureExtraction.java,
+	Segmentation/Segmentation.java: Backpatch: Fix comments in feature
+	extraction modules. Make explicit ref. to IOException as
+	java.io.IOException --- considered a good practice.
+
+2003-02-16 13:26  mokhov
+
+	* src/marf/FeatureExtraction/: FeatureExtraction.java,
+	FeatureExtractionException.java, Cepstral/Cepstral.java,
+	F0/F0.java, FFT/FFT.java, LPC/LPC.java,
+	RandomFeatureExtraction/RandomFeatureExtraction.java,
+	Segmentation/Segmentation.java: Fix comments in feature extraction
+	modules. Make explicit ref. to IOException as java.io.Exception ---
+	considered a good practice.
+
+2003-02-16 13:08  mokhov
+
+	* src/marf/Classification/: Classification.java,
+	ClassificationException.java, Distance/ChebyshevDistance.java,
+	Distance/Distance.java, Distance/MahalanobisDistance.java,
+	Markov/Markov.java, NeuralNetwork/NeuralNetwork.java,
+	NeuralNetwork/Neuron.java: Backpatch: update Classification modules
+	WRT documentation and 'final' stuff. Make implicit things explicit,
+	e.g.  cases in switch().
+
+2003-02-16 12:57  mokhov
+
+	* src/marf/Classification/: Classification.java,
+	ClassificationException.java, Distance/ChebyshevDistance.java,
+	Distance/Distance.java, Distance/MahalanobisDistance.java,
+	Markov/Markov.java, NeuralNetwork/NeuralNetwork.java,
+	NeuralNetwork/Neuron.java: Update classification modules WRT
+	documentation and 'final' stuff. Make implicit things explicit,
+	e.g.  cases in switch().
+
+2003-02-16 12:48  mokhov
+
+	* src/marf/MARF.java: Backpatch: update comments and bump version
+	to 0.2.1
+
+2003-02-16 12:48  mokhov
+
+	* src/marf/MARF.java: Update comments and bump version to 0.3.0
+
+2003-02-10 04:56  mokhov
+
+	* HISTORY, TODO: Final update of HISTORY and TODO before I tag
+	0.2.0.
+
+2003-02-10 03:52  mokhov
+
+	* Makefile, TODO, doc/Makefile, doc/src/Makefile,
+	doc/src/tex/Makefile, src/Makefile: Quick build distro hackery for
+	0.2.0. Should be revised for later versions.
+
+2003-02-10 01:53  mokhov
+
+	* doc/src/tex/: intro.tex, report.tex: Update title and contacts.
+
+2003-02-09 23:48  mokhov
+
+	* doc/src/tex/: Makefile, intro.tex: Add contact info. Fix Makefile
+	to use PERL for untabulation instead of sed, simply because sed
+	isn't working for me all the time I want (it replaces all 't's
+	instead of '\t' here, at school, and does work properly at home.
+	PERL always works.
+
+2003-02-09 21:54  mokhov
+
+	* TODO, doc/arch.mdl, doc/src/graphics/arch/arch-general.png,
+	doc/src/graphics/arch/classification.png,
+	doc/src/graphics/arch/feature-extraction.png,
+	doc/src/graphics/arch/gui.png, doc/src/graphics/arch/packages.png,
+	doc/src/graphics/arch/pipeline.png,
+	doc/src/graphics/arch/preprocessing.png,
+	doc/src/graphics/arch/storage.png, doc/src/tex/Makefile,
+	doc/src/tex/architecture.tex, doc/src/tex/gui.tex,
+	doc/src/tex/high-frequency-boost.tex,
+	doc/src/tex/mahalanobis-distance.tex, doc/src/tex/storage.tex:
+	Update docs, finally alls the diagrams are in.	Hopefully we are
+	almost ready for a release!
+
+2003-02-09 14:02  mokhov
+
+	* TODO, src/marf/Preprocessing/Preprocessing.java,
+	src/marf/Preprocessing/FFTFilter/FFTFilter.java,
+	src/marf/Preprocessing/FFTFilter/HighFrequencyBoost.java:
+	Documentary fixes: comments and TODO update.
+
+2003-02-09 13:47  mokhov
+
+	* doc/src/tex/: Makefile, data.tex, experimentation.tex,
+	results.tex, stats.tex: Update results and stats to be generated
+	and split into tables semi-automatically from the app's output. 
+	Label and reference table. Improve Makefile to update cross-refs
+	automatically. Well, after this commit I declare the textual part
+	of the docs sort of BETA for 0.2.0. Need to only update the class
+	and sequence diagrams now.
+
+2003-02-09 12:11  mokhov
+
+	* doc/src/tex/: appendix.tex, experimentation.tex, gui.tex,
+	preprocessing.tex, report.tex: Add new section: GUI, with
+	Spectrogram and WaveGrapher explicitly mentioned. Fix some typos.
+	Add more \label and \ref stuff.
+
+2003-02-09 11:24  mokhov
+
+	* src/marf/: MARF.java, FeatureExtraction/FFT/FFT.java,
+	Storage/Loaders/WAVLoader.java: Improve comments.
+
+2003-02-09 02:33  mokhov
+
+	* doc/src/tex/: Makefile, appendix.tex, architecture.tex,
+	bandpass-filter.tex, classification.tex, experimentation.tex,
+	feature-extraction.tex, fft-filter.tex, high-frequency-boost.tex,
+	high-pass.tex, low-pass.tex, lpc.tex, normalization.tex,
+	preprocessing.tex, results.tex, sampleloading.tex, storage.tex:
+	Move graphs to preprocessing 1 for each type as an example.  Get
+	rid of graphs from the appendix -- it's no longer a school project.
+	Improve appendix for included code. Make Makefile more reportive on
+	what it's doing. Put dynamic figure refs.
+
+2003-02-09 01:47  mokhov
+
+	* doc/src/graphics/graphs/: band-pass-filter.png, fft.png,
+	high-frequency-boost.png, high-pass-filter.png,
+	low-pass-filter.png, wav-normalized.png: Add graphs as examples for
+	the preprocessing section in the report. Mostly filters.
+
+2003-02-08 22:06  mokhov
+
+	* doc/src/tex/: appendix.tex, experimentation.tex, results.tex:
+	Update results WRT date (gen. dynamically), now just need to update
+	results themselves :-) Minor typos in expermentation and appendix
+
+2003-02-08 16:23  mokhov
+
+	* doc/src/tex/: appendix.tex, architecture.tex, data.tex,
+	euclidean-distance.tex, experimentation.tex, fft-filter.tex,
+	fft.tex, lpc.tex, mahalanobis-distance.tex, preprocessing.tex,
+	random-feature-extraction.tex, results.tex, sampleloading.tex,
+	storage.tex: Spell-check run. Section appendices. Improve appendix
+	and enclosed source code and as other text font sizes. Minor clean
+	ups. WE ARE GETTING THERE! :-)
+
+2003-02-08 12:18  mokhov
+
+	* doc/src/tex/: Makefile, bandpass-filter.tex,
+	chebyshev-distance.tex, classification.tex, conclusions.tex,
+	data.tex, euclidean-distance.tex, experimentation.tex,
+	feature-extraction.tex, fft-filter.tex, fft.tex, hamming.tex,
+	high-frequency-boost.tex, high-pass.tex, low-pass.tex, lpc.tex,
+	mahalanobis-distance.tex, methodology.tex, minkowski-distance.tex,
+	nnet.tex, noise-removal.tex, normalization.tex, preprocessing.tex,
+	random-classification.tex, random-feature-extraction.tex,
+	report.tex, results.tex, sampleloading.tex, storage.tex: Next
+	iteration of 0.2.0 doc fixes: re-sectionnning again to group all
+	storage, preprocessing, feat. extr, and classification under
+	methodology, as it was supposed to be at the beginning. Fixes and
+	additions in math formulas where appropriate. Add docs for
+	Mahalanobis, random feat.extr., and bandpass filter. Minor updates
+	elsewhere.
+
+2003-02-07 23:05  mokhov
+
+	* TODO, src/marf/gui/WaveGrapher.java: Update long-forgotten TODO.
+	Cosmetic update yet again for WaveGrapher.
+
+2003-02-07 22:09  mokhov
+
+	* doc/src/tex/: Makefile, architecture.tex, report.tex,
+	storage.tex: Make date dynamic in on the title page. Minor updates
+	elsewhere.
+
+2003-02-06 22:21  mokhov
+
+	* TODO: Update TODO a little WRT speech.
+
+2003-02-06 19:51  mokhov
+
+	* doc/src/tex/: architecture.tex, bandpass-filter.tex,
+	chebyshev-distance.tex, classification.tex, euclidean-distance.tex,
+	feature-extraction.tex, fft-filter.tex, fft.tex, hamming.tex,
+	high-frequency-boost.tex, high-pass.tex, intro.tex, low-pass.tex,
+	lpc.tex, mahalanobis-distance.tex, minkowski-distance.tex,
+	nnet.tex, noise-removal.tex, normalization.tex,
+	random-classification.tex, random-feature-extraction.tex,
+	report.tex, sampleloading.tex, storage.tex, toc.tex: Doc update.
+	Most notably: sections/subsections, TOC, list of figures, many math
+	formulas. Also includes some content and orpho fixes.  Loooot more
+	to go.
+
+2003-02-06 01:56  mokhov
+
+	* src/marf/gui/Spectrogram.java: Cosmetic fixes: structure and
+	comments.
+
+2003-02-06 01:39  mokhov
+
+	* src/marf/gui/WaveGrapher.java: Cosmetic stuff and coding
+	standards propagation.
+
+2003-02-06 01:37  mokhov
+
+	* src/marf/Storage/: SampleLoader.java, Loaders/MP3Loader.java,
+	Loaders/ULAWLoader.java, Loaders/WAVLoader.java: Loaders update:
+	make writeAudioData() return # of data written.  Document more.
+	Make more methods 'final'
+
+2003-02-05 14:25  mokhov
+
+	* doc/src/tex/: Makefile, appendix.tex, architecture.tex,
+	classification.tex, experimentation.tex, fft-filter.tex,
+	methodology.tex, preprocessing.tex, report.tex, sampleloading.tex,
+	storage.tex: Doc improvements and fixes. Way more to go. 1024 FFT
+	features to 512, same for similar examples. Cosmetic/math fixes. 
+	Make TODO to the appendix. Make testing.sh be generated off the
+	actual script. Makefile improvements. Stamp 0.2.0 version, remove
+	our school IDs, replace "Pattern Recognition - Fall 2002" by "MARF
+	- v.0.2.0"
+
+2003-02-01 10:10  mokhov
+
+	* TODO: Update TODO WRT build system.
+
+2003-02-01 10:03  mokhov
+
+	* doc/src/tex/: Makefile, appendix.tex, bandpass-filter.tex,
+	chebyshev-distance.tex, classification.tex, intro.tex,
+	mahalanobis-distance.tex, minkowski-distance.tex,
+	random-classification.tex, random-feature-extraction.tex:
+	Preliminary update of the docs: new files, 3 of them empty yet, but
+	just to do not forget (banpass-filter, mahalonobis-distance, and
+	random-feature etxraction), other two have some contents in them
+	(minkowski and random-classification). Other files were adjusted
+	with more proper wordin because this becomes less of a school
+	report now. Makefile was tweaked to include the most current app's
+	source code into the document in the appendix automatically. Need
+	to tweak font size though.
+
+2003-01-30 11:03  mokhov
+
+	* TODO, src/marf/Classification/Distance/MahalanobisDistance.java: 
+	Update TODO with new/forgotten things. Cosmectic update in
+	Mahalobis Distance.
+
+2003-01-29 14:33  mokhov
+
+	* TODO, src/marf/Classification/Distance/MahalanobisDistance.java:
+	A coule of corrections in spelling and a new TODO
+
+2003-01-29 13:59  mokhov
+
+	* TODO: Update TODO with new items.
+
+2003-01-29 13:58  mokhov
+
+	* src/marf/Classification/Distance/: EuclideanDistance.java,
+	MahalanobisDistance.java: Implement scpecial case of Mahalanobis
+	Distance, which is an equivalent to Euclidean distance as is for
+	0.2.0. That is Covarience matrix is an identity matrix for this
+	case. At least distance() won't trow an exception.
+
+2003-01-29 00:29  mokhov
+
+	* src/marf/Storage/ModuleParams.java: Missing import for debug() in
+	the defaults in ModuleParams
+
+2003-01-28 19:46  mokhov
+
+	* src/marf/:
+	FeatureExtraction/RandomFeatureExtraction/RandomFeatureExtraction.j
+	ava, Storage/SampleLoader.java, Storage/Loaders/ULAWLoader.java:
+	Fixes after cosmetic fixes :-): formatting, missing { }, comments
+
+2003-01-28 18:54  mokhov
+
+	*
+	src/marf/FeatureExtraction/RandomFeatureExtraction/RandomFeatureExt
+	raction.java: Cosmetical: fixed comments and a NNet TODO in
+	resources.
+
+2003-01-28 18:53  mokhov
+
+	* src/marf/Storage/: ModuleParams.java, Result.java, Sample.java,
+	SampleLoader.java, StorageManager.java, Loaders/MP3Loader.java,
+	Loaders/ULAWLoader.java: Cosmetic: fixes in comments and made many
+	things 'final'
+
+2003-01-26 15:51  mokhov
+
+	* TODO: Updated TODO
+
+2003-01-26 13:09  mokhov
+
+	* TODO, src/marf/Classification/Classification.java,
+	src/marf/Classification/NeuralNetwork/NeuralNetwork.java: Still
+	hearing eachoes from receent TrainingSet changes...  Made two
+	methods: load/saveTrainingSet() which Classification calls in
+	dump/restore and some explicit calls to these new methods to avoid
+	clashing with overriden dump/restore and load/save TrainingSet
+	uncoditionally. Corresponding changes to NNet. Update TODO for
+	preprocessing.
+
+2003-01-26 02:07  mokhov
+
+	* src/marf/: Classification/Classification.java,
+	Storage/TrainingSet.java: Interim bug fix in dump/restore when file
+	initially is not there for a global training set cluster.
+
+2003-01-26 01:40  mokhov
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java:
+	Corresponding change to NNet WRT TrainingSet
+
+2003-01-26 01:39  mokhov
+
+	* src/marf/: Classification/Classification.java,
+	Storage/TrainingSet.java: Finally promised changes to TrainingSet
+	-- filenames are back. Will require complete retraining.
+
+2003-01-26 01:13  mokhov
+
+	* TODO, src/marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	src/marf/Classification/RandomClassification/RandomClassification.j
+	ava: Being more precise, complete, explicit, and concise.  Slightly
+	anal though... :-)
+
+2003-01-26 01:10  mokhov
+
+	* src/marf/Preprocessing/: Preprocessing.java, Dummy/Dummy.java,
+	Endpoint/Endpoint.java, FFTFilter/BandpassFilter.java,
+	FFTFilter/FFTFilter.java, FFTFilter/HighFrequencyBoost.java,
+	FFTFilter/HighPassFilter.java, FFTFilter/LowPassFilter.java:
+	Implement BandpassFilter, push some API implementation/exceptions
+	up to Preprocessing.  Make cosmetic/comment fixes.
+
+2003-01-25 23:41  mokhov
+
+	* src/Makefile: Backout API doc build changes, so that online
+	version gets rebuilt properly.
+
+2003-01-25 16:29  mokhov
+
+	* TODO, doc/src/tex/nnet.tex: TODO and minu doc. fixes
+
+2003-01-25 16:29  mokhov
+
+	* src/Makefile: Makefile knows about RandomClassification and few
+	clean up changes.
+
+2003-01-25 16:28  mokhov
+
+	* src/marf/Storage/TrainingSet.java: TrainingSet reworked a bit. 
+	TODO: Re-add filename check to avoid dupes and false means
+	(bsaically uncomment stuff; this will require a lot of retraining
+	though..., so TODO item: TrainingSet upgrade utility)
+
+2003-01-25 16:26  mokhov
+
+	* src/marf/FeatureExtraction/FeatureExtraction.java: Minor
+	notational change.
+
+2003-01-25 16:25  mokhov
+
+	* src/marf/MARF.java: Enable MARF be aware of RandomClassification,
+	put accessors for the module objects, comment fixes, change
+	BANDPASS_FILTER --> BANDPASS_FFT_FILTER
+
+2003-01-25 16:00  mokhov
+
+	* src/marf/Classification/: Classification.java,
+	Distance/Distance.java, Markov/Markov.java,
+	Stochastic/Stochastic.java: TrainingSet story is revisited again (a
+	new update will come shortly as well)
+	
+	generic train() in Classification now implements some stuff for
+	building TrainingSet if it's not there, hence this was removed from
+	Distance. If derivatives plan to use mean vectors of the
+	TrainingSet, they should call super.train() as their first thing in
+	overridden train().
+	
+	If they also override dump()/restore(), they might need to do
+	super.dump()/super.restore() depending on the module. 
+	NeuralNetwork, for example does only super.train() in it's train()
+	to bring in/update the training set, but dump()/restore() deal only
+	with XML of the net itself.
+	
+	Filenames of the global clusters have changed to:
+	
+	marf.Storage.TrainingSet.<PR>.<FE>.<NOF>.[bin|csv]
+	
+	to differentiate between the same FE module but with different
+	sizes of feature vectors, i.e. Number Of Features.
+
+2003-01-25 15:52  mokhov
+
+	* src/marf/Classification/NeuralNetwork/: NeuralNetwork.java,
+	Neuron.java: A-believed-to-be-working NNet. Major fixes include
+	removinf dump() in classification and moving commit() call inside
+	for() in train(). The reason for the latter is that after eveyr
+	subtraing interation weights were not kept, so the last trained
+	subject was only committed... Other are mostly cos metical
+	enhancements, as well as training stuff for TrainingSet is included
+	--- super.traing() as for any other classification module.
+	
+	Do NOT try to run it against FFT of 1024.
+	
+	Will still need revisions, but I guess this is more or less final
+	commit of the nnet for 0.2.0
+
+2003-01-25 15:46  mokhov
+
+	*
+	src/marf/Classification/RandomClassification/RandomClassification.j
+	ava: Random classification module. Picks and ID at random from all
+	the IDs. The bottomline for all classification modules. Usually
+	guess es 15%-20% correctly. Made for test and stub purposes.
+
+2003-01-20 19:55  mokhov
+
+	* src/marf/Classification/Distance/MahalanobisDistance.java:
+	Mahalanobis: The Beginnings
+
+2003-01-18 14:07  mokhov
+
+	* README, TODO, doc/src/tex/architecture.tex,
+	doc/src/tex/intro.tex, src/Makefile: Documentation updates.
+
+2003-01-18 13:46  mokhov
+
+	* src/marf/MARF.java: MARF incorporates changes for
+	MahalanobisDistance and RandomFeatureExtraction.
+
+2003-01-18 13:45  mokhov
+
+	* src/marf/Storage/: Result.java, Sample.java, TrainingSet.java:
+	Cosmetic/comment/debug fixes.  NOTE: More methods made final,
+	including TrainingSet.	That leads to change of the on-disk format
+	of the TrainingSet, so older versions of the class in the binary
+	mode won't reload, and an exception will be thrown. This either
+	requires a complete rertaining or don't compile this right now.
+
+2003-01-18 13:27  mokhov
+
+	* src/marf/Preprocessing/Preprocessing.java: Making normalize()
+	final.
+
+2003-01-18 13:24  mokhov
+
+	* src/marf/FeatureExtraction/: FeatureExtraction.java,
+	Cepstral/Cepstral.java, F0/F0.java, FFT/FFT.java, LPC/LPC.java,
+	RandomFeatureExtraction/RandomFeatureExtraction.java,
+	Segmentation/Segmentation.java: FeatureExtraction Updates:
+	
+	- Moved 'implementes StorageManager' up to generic
+	FeatureExtraction - Few more comments - Few more methods made final
+	- New module : RandomFE, which uses next pseudo random number from 
+	 Gaussian distribution and mutliplies by the values in the incoming
+	  vector; feature vector by default of 256 doubles. using htis one 
+	 Distance classifiers had a stable max of 30 %, so this is our	
+	physical mininmum for the real algos :-)
+
+2003-01-18 13:17  mokhov
+
+	* src/marf/Classification/: Distance/Distance.java,
+	Distance/MahalanobisDistance.java,
+	NeuralNetwork/NeuralNetwork.java: Classification Commit: - Fixed a
+	bug in computing second best ID; most of our second best ID   stats
+	were wrong unless the speaker with the min distance was the   last
+	in the training set :-( I descovered that in the output when   the
+	second best for distance classifiers was 'Unknown' or 0
+	
+	- NNet has it's TrainingSet manipulations back as per recent
+	comment   from Ian; compiles, but untested.
+	
+	- Adding a stub for Mahalanobis distance classifier
+
+2003-01-17 22:47  mokhov
+
+	* Makefile, TODO, doc/Makefile, doc/src/Makefile,
+	doc/src/sgml/Makefile, doc/src/sgml/architecture.sgml,
+	doc/src/sgml/book-decl.sgml, doc/src/sgml/chebyshev-distance.sgml,
+	doc/src/sgml/conclusions.sgml, doc/src/sgml/contacts.sgml,
+	doc/src/sgml/cvs.sgml, doc/src/sgml/data.sgml,
+	doc/src/sgml/developer.sgml, doc/src/sgml/docguide.sgml,
+	doc/src/sgml/entities.sgml, doc/src/sgml/euclidean-distance.sgml,
+	doc/src/sgml/experimentation.sgml, doc/src/sgml/f0.sgml,
+	doc/src/sgml/fft-filter.sgml, doc/src/sgml/fft.sgml,
+	doc/src/sgml/filelist.sgml, doc/src/sgml/fixrtf,
+	doc/src/sgml/hamming.sgml, doc/src/sgml/high-frequency-boost.sgml,
+	doc/src/sgml/history.sgml, doc/src/sgml/install-win32.sgml,
+	doc/src/sgml/installation.sgml, doc/src/sgml/intro.sgml,
+	doc/src/sgml/legal.sgml, doc/src/sgml/lpc.sgml,
+	doc/src/sgml/maintenance.sgml, doc/src/sgml/nnet.sgml,
+	doc/src/sgml/noise-removal.sgml, doc/src/sgml/normalization.sgml,
+	doc/src/sgml/notation.sgml, doc/src/sgml/problems.sgml,
+	doc/src/sgml/programmer.sgml, doc/src/sgml/protocol.sgml,
+	doc/src/sgml/refentry.sgml, doc/src/sgml/reference.ced,
+	doc/src/sgml/references.sgml, doc/src/sgml/report.sgml,
+	doc/src/sgml/results.sgml, doc/src/sgml/sample-formats.sgml,
+	doc/src/sgml/sources.sgml, doc/src/sgml/spectrogram.sgml,
+	doc/src/sgml/standalone-install.sgml, doc/src/sgml/start.sgml,
+	doc/src/sgml/storage.sgml, doc/src/sgml/stylesheet.dsl,
+	doc/src/sgml/training.sgml, doc/src/tex/Makefile: Some clean up and
+	improving build system: - removed *.sgml stuff, will maintain only
+	the LaTeX version of it.  - update of TODO for next CVS clean up -
+	created few missing makefiles
+
+2003-01-17 16:44  mokhov
+
+	* marf.jpx.local: Removed since doesn't belong here and stores
+	personal settings per session instance.
+
+2003-01-14 00:10  mokhov
+
+	* TODO, src/marf/Classification/Distance/Distance.java,
+	src/marf/Classification/Distance/MinkowskiDistance.java: Few
+	cosmetic changes and update of TODO
+
+2003-01-12 15:35  mokhov
+
+	* src/marf/Classification/Distance/: EuclideanDistance.java,
+	MinkowskiDistance.java: a couple of typos :-)
+
+2003-01-12 15:30  mokhov
+
+	* src/marf/: MARF.java,
+	Classification/Distance/ChebyshevDistance.java,
+	Classification/Distance/EuclideanDistance.java,
+	Classification/Distance/MinkowskiDistance.java: Here you go -- a
+	new distance classifier! MinkowskiDistance is in, though app is not
+	aware of it. It compiles, but was never tested yet, I gotta run.
+	But should be OK.
+
+2003-01-12 11:51  mokhov
+
+	* README, TODO, src/marf/FeatureExtraction/FeatureExtraction.java,
+	src/marf/FeatureExtraction/LPC/LPC.java: Pure documentary and
+	cosmetic commit.
+
+2003-01-12 10:36  mokhov
+
+	* TODO, src/marf/util/MARFException.java: TODO update and
+	MARFException to actually give us the error message.
+
+2003-01-12 10:31  mokhov
+
+	* src/marf/Preprocessing/FFTFilter/FFTFilter.java: A huge bug is
+	fixed in FFTFIlter. freqResponse was declared static and so are
+	methods using it. That would mean all instances of all filters in
+	here running concurrently will mess with the exac same instance of
+	frequency response array, which ain't good at all!
+
+2003-01-12 10:27  mokhov
+
+	* src/marf/FeatureExtraction/: FeatureExtraction.java,
+	FFT/FFT.java, LPC/LPC.java, Segmentation/Segmentation.java: Mostly
+	performance improvements and comsmetic commit: - new hamming() was
+	added to actually apply hamming window	 to an array --- this
+	avoids 1024 (default) hamming() calls	in FFT and 128 in LPC,
+	instead we have ONE in both.	hamming will have to be moved one
+	day to marf.util.math	 I guess along with some matrix
+	manipulation when I get    to implement mahalanobis distance.  -
+	few more methdos were made final - the rest is more cosmecit --
+	comments and code-readability improvements
+
+2003-01-12 09:58  mokhov
+
+	* src/marf/Classification/NeuralNetwork/: NeuralNetwork.java,
+	Neuron.java: My next passage over NNet: It made to work and run
+	within the framework 'properly, but: with FFT it simply runs out of
+	memory -- the net is to huge (in terms of links), and I haven't
+	figured out a rationale on how many hidden layer and how many
+	neuros should be in those layers.  For # of input neurons I take a
+	size of a feature vector, and out put is 32, because 32 bits is an
+	int size.
+	
+	It does work efficiently and not memrory consuming at all with LPC
+	(hey, we;ve got only 20 coeffs. vs. 1024 of FFT!) but the end
+	result as of now is that it recognized only the last subject it was
+	trained on.
+	
+	Created generate(), a somewhat mimic'ing nnetgen.pl that takes # of
+	neurons in layers and generates the net and the links in terms of
+	data structures. It's initially called if the global cluster file
+	is not there in initializ(), so we dump a new fresh one.
+	
+	Other than that, comments say it all, cleanups, more documentation,
+	proper handling of the input params from app, etc.
+	
+	That epoch thing is still to be cleared out.
+
+2003-01-12 09:48  mokhov
+
+	* src/marf/Classification/: Markov/Markov.java,
+	Stochastic/Stochastic.java: Cosmetic commits: - removed implements
+	StrorageManager, as parent does so - Stochastic was missing javadoc
+	comments somehow (?!)
+
+2003-01-12 09:45  mokhov
+
+	* src/marf/Classification/Distance/Distance.java: Moved back in
+	dump() in train() (see my previous commit, 1.47, to MARF) Removed
+	'implements StorageManager' since Classification now has it
+
+2003-01-12 09:42  mokhov
+
+	* src/marf/MARF.java: OK, changes in MARF: - more methods made
+	final - more correct handling of UNSET situation in train() - some
+	rearrangements in restore() and train() (mostly cosmetic) -
+	temporarily removed dump()/restore() calls in train() and moved  
+	them down <classifier>.train() again, since we're not there yet  
+	to avoid dump() on every training sample -- more thought required -
+	added extra WaveGrapher dump past preprocessing, though I still  
+	think the whole thing should be moved out from	 MARF
+
+2003-01-10 02:28  mokhov
+
+	* TODO, src/Makefile, src/marf/MARF.java,
+	src/marf/Classification/NeuralNetwork/NeuralNetwork.java: Allow
+	numeric version return from MARF for comparison in Apps
+	
+	Makefile as a optimize target to build .class files the most
+	optimized way w/o any debugging -- speads things app
+	
+	Other changes are cosmetic, I'm still floating around NNet...
+
+2003-01-07 14:11  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Classification/Distance/ChebyshevDistance.java,
+	marf/Classification/Distance/EuclideanDistance.java,
+	marf/Preprocessing/FFTFilter/BandpassFilter.java,
+	marf/Preprocessing/FFTFilter/FFTFilter.java,
+	marf/Preprocessing/FFTFilter/HighFrequencyBoost.java: Post-CVS
+	clean-up changes to make it compile again.
+
+2003-01-05 16:07  mokhov
+
+	* HISTORY, TODO: Committing documentary updates
+
+2003-01-05 16:03  mokhov
+
+	* src/marf/: MARF.java, Classification/Classification.java,
+	Classification/Distance/Distance.java,
+	Classification/NeuralNetwork/NeuralNetwork.java,
+	FeatureExtraction/FeatureExtraction.java,
+	FeatureExtraction/FFT/FFT.java, FeatureExtraction/LPC/LPC.java,
+	Preprocessing/Preprocessing.java,
+	Preprocessing/FFTFilter/FFTFilter.java,
+	Preprocessing/FFTFilter/HighFrequencyBoost.java,
+	Storage/ModuleParams.java, Storage/Result.java,
+	Storage/TrainingSet.java, gui/Spectrogram.java,
+	gui/WaveGrapher.java, util/MARFException.java: Finished
+	improvements in TrainginSet, and some other modules, extra
+	comments, etc. MARFs API bumped to 0.2.0, many methods were made
+	final; new clustering - global a nd local, global refers to the
+	ways tatining sets are stored and mainpulated, local - store only
+	mean vectors. My next prioritties from TODO: CVS clean up and work
+	on classififers - I think I've found a major problem in NNet, so it
+	might get fixed rather soon, and implement new classifies
+
+2003-01-04 01:51  mokhov
+
+	* src/marf/: MARF.java, Classification/Distance/Distance.java,
+	Classification/NeuralNetwork/NeuralNetwork.java,
+	Storage/TrainingSet.java: Code improvement before major changes: -
+	More readable and document code of TrainingSet - Few more comments
+	in DIstance NNet, etc The next step will involve building training
+	set and implementing train() of distance classifiers in more proper
+	way. Also the TrainingSet dump/restore mechanism will be rewritten
+	to make it possible to have binary zipped file (our current
+	training.set is 7Mb!) I will keep it still for DEBUG mode though. 
+	---s
+
+2003-01-03 15:05  mokhov
+
+	* HISTORY, INSTALL, TODO: Some documentary/advocay/TODO stuff.
+
+2002-12-25 21:41  mokhov
+
+	* doc/src/tex/lpc.tex, src/Makefile, src/marf/MARF.java,
+	src/marf/Classification/Classification.java,
+	src/marf/Classification/Distance/ChebyshevDistance.java,
+	src/marf/Classification/Distance/Distance.java,
+	src/marf/Classification/Distance/EuclideanDistance.java,
+	src/marf/Classification/Markov/Markov.java,
+	src/marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	src/marf/Classification/NeuralNetwork/Neuron.java,
+	src/marf/FeatureExtraction/FeatureExtraction.java,
+	src/marf/FeatureExtraction/Cepstral/Cepstral.java,
+	src/marf/FeatureExtraction/F0/F0.java,
+	src/marf/FeatureExtraction/FFT/FFT.java,
+	src/marf/FeatureExtraction/LPC/LPC.java,
+	src/marf/Preprocessing/Preprocessing.java,
+	src/marf/Preprocessing/Dummy/Dummy.java,
+	src/marf/Preprocessing/Endpoint/Endpoint.java,
+	src/marf/Preprocessing/FFTFilter/BandpassFilter.java,
+	src/marf/Preprocessing/FFTFilter/FFTFilter.java,
+	src/marf/Preprocessing/FFTFilter/HighFrequencyBoost.java,
+	src/marf/Preprocessing/FFTFilter/HighPassFilter.java,
+	src/marf/Preprocessing/FFTFilter/LowPassFilter.java,
+	src/marf/Storage/ModuleParams.java, src/marf/Storage/Result.java:
+	Before I tag 0.1.2 in the CVS, made few comments and other
+	improvements for the past week.
+	
+	- Typos in docs - New makefile targets to *really* clean stuff -
+	Comments throuthout the code - Neural Network initial code clean up
+	and first   comments. Still requires a lot of work. Who knows,	
+	maybe we'll fix it one day ;-)
+	
+	After this commit I gonna tag CVS and MARF_0_1_2_RELEASE so we can
+	always get this version whenever needed.
+	
+	Happy Holidays :-) Again: and no, am not crazy :)
+
+2002-12-20 20:52  mokhov
+
+	* src/Makefile: making altall to jar just class files. was used in
+	prep. of the CD
+
+2002-12-18 16:52  mokhov
+
+	* src/marf/: FeatureExtraction/LPC/LPC.java,
+	util/NotImplementedException.java: cannot detach myself from it :)
+	- comsetic fixes
+
+2002-12-17 22:02  mokhov
+
+	* src/: Makefile, marf/util/MARFException.java: -typo in the
+	exception and newer makefile  allowig build MARF here in CS by
+	specifying  make altall for alternative build  using the 1.4
+	compiler w/o having to	download JAXP stuff eahc time
+	
+	- donl't look at me as if am crazy just   getting ready for the PR
+	exam.
+
+2002-12-17 11:34  mokhov
+
+	* doc/src/tex/references.tex: Per Jimmy. I guess I gotta reprint
+	that page :)
+	
+	Forgot to mention: the 3rd reference in the bibliography section
+	should be:     -Ifeachor/Jervis (2002), "Digital Signal
+	Processing", Prentice Hall. New Jersey, US.
+	
+	Looks good dude!
+	
+	-Jim
+
+2002-12-17 11:28  mokhov
+
+	* doc/src/tex/: appendix.tex, fft.tex, sampleloading.tex,
+	storage.tex: last updates; am printing it right now and delivering
+	it to Sadri. I put a note in the appendix for MARF source code that
+	they can grab it from the net, but included SpeakerIdentApp's code
+	entirely separately.
+
+2002-12-17 09:15  mokhov
+
+	* doc/src/tex/report.tex: slight improvement o fthe title page
+
+2002-12-17 09:13  mokhov
+
+	* doc/src/tex/: architecture.tex, classification.tex,
+	conclusions.tex, experimentation.tex, feature-extraction.tex,
+	intro.tex, methodology.tex, preprocessing.tex, references.tex,
+	report.tex, results.tex, sampleloading.tex: looks like done.
+
+2002-12-17 03:46  mokhov
+
+	* doc/src/tex/appendix.tex: little quirks
+
+2002-12-17 03:16  mokhov
+
+	* doc/src/tex/architecture.tex, doc/src/tex/chebyshev-distance.tex,
+	doc/src/tex/conclusions.tex, doc/src/tex/euclidean-distance.tex,
+	doc/src/tex/experimentation.tex, doc/src/tex/fft.tex,
+	doc/src/tex/hamming.tex, doc/src/tex/high-frequency-boost.tex,
+	doc/src/tex/intro.tex, doc/src/tex/lpc.tex,
+	doc/src/tex/methodology.tex, doc/src/tex/nnet.tex,
+	doc/src/tex/references.tex, doc/src/tex/results.tex,
+	doc/src/tex/sampleloading.tex, doc/src/tex/storage.tex,
+	src/marf/FeatureExtraction/LPC/LPC.java,
+	src/marf/util/MARFException.java: After reading beta 1 report... 
+	Here are some fixes for beta 2 :) That includes docs and some code.
+
+2002-12-17 01:57  mokhov
+
+	* doc/src/tex/intro.tex: started reading what I wrote :)
+
+2002-12-17 01:45  mokhov
+
+	* doc/src/graphics/lpc_spectrograms/: graham13_wav.png,
+	ian15_wav.png: used in the report. should I add more of these?
+
+2002-12-17 01:34  mokhov
+
+	* doc/src/tex/: appendix.tex, architecture.tex,
+	chebyshev-distance.tex, classification.tex, conclusions.tex,
+	data.tex, euclidean-distance.tex, experimentation.tex,
+	feature-extraction.tex, fft-filter.tex, fft.tex, hamming.tex,
+	high-frequency-boost.tex, high-pass.tex, intro.tex, low-pass.tex,
+	lpc.tex, methodology.tex, nnet.tex, noise-removal.tex,
+	normalization.tex, old-results.tex, output.tex, preprocessing.tex,
+	references.tex, report.tex, results.tex, sampleloading.tex,
+	storage.tex, toc.tex, training.tex: well.... The Report Beta 1,
+	Please "Test"
+
+2002-12-16 14:16  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Classification/Distance/Distance.java,
+	marf/FeatureExtraction/FFT/FFT.java,
+	marf/FeatureExtraction/LPC/LPC.java,
+	marf/Preprocessing/FFTFilter/FFTFilter.java,
+	marf/Preprocessing/FFTFilter/HighPassFilter.java,
+	marf/Preprocessing/FFTFilter/LowPassFilter.java,
+	marf/Preprocessing/FFTFilter/HighFrequencyBoost.java,
+	marf/Storage/Sample.java, marf/Storage/TrainingSet.java,
+	marf/gui/Spectrogram.java: - Most notably - Filters, High Pass and
+	High Boost - Optimizations - Comments
+
+2002-12-16 13:13  pwrslave
+
+	* doc/src/graphics/lpc_spectrograms/: aihua5.wav.ppm,
+	graham13.wav.ppm, graham14.wav.ppm, ian15.wav.ppm, ira4.wav.ppm,
+	jihed3.wav.ppm, jim6.wav.ppm, madhumita4.wav.ppm,
+	michelle1.wav.ppm, nick1.wav.ppm, rita6.wav.ppm,
+	sei-sphere.wav.ppm, serge-label.wav.ppm, shabana8.wav.ppm,
+	steve-test1.wav.ppm, steve-test2.wav.ppm, steve2.wav.ppm,
+	suen2.wav.ppm: fft/lpc spectograms
+
+2002-12-16 13:08  pwrslave
+
+	* doc/src/graphics/fft_spectrograms/: aihua5.wav.ppm,
+	graham13.wav.ppm, graham14.wav.ppm, ian15.wav.ppm, ira4.wav.ppm,
+	jihed3.wav.ppm, jim6.wav.ppm, madhumita4.wav.ppm,
+	michelle1.wav.ppm, nick1.wav.ppm, rita6.wav.ppm,
+	sei-sphere.wav.ppm, serge-label.wav.ppm, shabana8.wav.ppm,
+	steve-test1.wav.ppm, steve-test2.wav.ppm, steve2.wav.ppm,
+	suen2.wav.ppm: fft/lpc spectograms
+
+2002-12-15 22:51  mokhov
+
+	* doc/src/tex/: architecture.tex, references.tex, report.tex: smth
+	has changed
+
+2002-12-15 22:40  radarsat1
+
+	* src/marf/gui/WaveGrapher.java: generates the text files for
+	graphing
+
+2002-12-15 22:39  radarsat1
+
+	* doc/src/graphics/graphs/image001.png,
+	doc/src/graphics/graphs/image002.png,
+	doc/src/graphics/graphs/image003.png,
+	doc/src/graphics/graphs/image004.png,
+	doc/src/graphics/graphs/image005.png,
+	doc/src/graphics/graphs/image006.png,
+	doc/src/graphics/graphs/image007.png,
+	doc/src/graphics/graphs/image008.png,
+	doc/src/graphics/graphs/image009.png,
+	doc/src/graphics/graphs/image010.png,
+	doc/src/graphics/graphs/image011.png,
+	doc/src/graphics/graphs/image012.png,
+	doc/src/graphics/graphs/image013.png,
+	doc/src/graphics/graphs/image014.png,
+	doc/src/graphics/graphs/image015.png,
+	doc/src/graphics/graphs/image016.png,
+	doc/src/graphics/graphs/image017.png,
+	doc/src/graphics/graphs/image018.png,
+	doc/src/graphics/graphs/image019.png,
+	doc/src/graphics/graphs/image020.png,
+	doc/src/graphics/graphs/image021.png,
+	doc/src/graphics/graphs/image022.png,
+	doc/src/graphics/graphs/image023.png,
+	doc/src/graphics/graphs/image024.png,
+	doc/src/graphics/graphs/image025.png,
+	doc/src/graphics/graphs/image026.png,
+	doc/src/graphics/graphs/image027.png,
+	doc/src/graphics/graphs/image028.png, src/Makefile,
+	src/marf/MARF.java, src/marf/FeatureExtraction/FFT/FFT.java: new
+	graphs
+
+2002-12-15 22:08  mokhov
+
+	* doc/src/graphics/arch/: arch-general.png, classification.png,
+	feature-extraction.png, packages.png, pipeline.png,
+	preprocessing.png, storage.png: - Finally more or less good arch
+	images.
+
+2002-12-15 21:45  mokhov
+
+	* doc/arch.mdl: arch models recovery/update
+
+2002-12-15 19:17  radarsat1
+
+	* doc/src/tex/results.tex: new results with 2nd-guess enabled
+
+2002-12-15 18:50  radarsat1
+
+	* doc/src/tex/references.tex, src/Makefile,
+	src/marf/Storage/TrainingSet.java: Fix.
+
+2002-12-15 17:43  mokhov
+
+	* doc/src/tex/report.tex: - few more touches before I leave for
+	school	and I leave NOW
+
+2002-12-15 17:09  radarsat1
+
+	* doc/src/tex/Makefile, doc/src/tex/preprocessing.tex,
+	src/Makefile, src/marf/FeatureExtraction/FFT/FFT.java,
+	src/marf/Storage/TrainingSet.java: Just a few more comments...
+
+2002-12-15 15:46  mokhov
+
+	* src/marf/MARF.java: added getResult() to return Result object for
+	convenience
+
+2002-12-15 15:20  pwrslave
+
+	* doc/src/tex/sampleloading.tex: Added references...
+
+2002-12-15 15:19  pwrslave
+
+	* doc/src/graphics/: graham14FFT.png, graham14wave.png,
+	shabana8FFT.png, shabana8wave.png: Graphs of new speakers...
+
+2002-12-15 15:04  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Classification/Distance/Distance.java,
+	marf/Storage/Result.java: "Second Best" Prerequisites. It all
+	compiles; I'll need to finish tweaking the app to use this.
+	
+	- Makefile - I put back things Steve removed.	 (We can always
+	remove them as needed, but better    way is to find one proper
+	config for all cases:	 - school, - our homes.)
+	
+	- Distance classifier has been more or less documented	 and made
+	to collect stats and store them in Result
+	
+	- Result has now not just ID of the speaked identified,   but also
+	IDs of all other subjects and a distance from	them. A new method
+	returns second best ID. Result	 was fairly documented as well.
+	
+	- MARF was altered to have the config avail in astring	 (to preven
+	app's failure when there are no args supplied	for modules; it'll
+	simply query MARF for the config   instead of command line
+	arguments)
+
+2002-12-15 14:45  mokhov
+
+	* src/marf/gui/Spectrogram.java: oops :-) forgot tochange other
+	places
+
+2002-12-15 14:37  mokhov
+
+	* src/marf/FeatureExtraction/LPC/LPC.java: Same as FFT from the
+	last commit, spectro-related.  Ian, please comment stuff in here
+	too.
+
+2002-12-15 14:35  mokhov
+
+	* src/marf/gui/Spectrogram.java: - To differentiate bewteen feat.
+	extr. modules;	 otherwise, files from LPC overwrite the ones	of
+	FFT (or the reverse)
+
+2002-12-15 14:34  mokhov
+
+	* src/marf/FeatureExtraction/FFT/FFT.java: - Steve, just little
+	one-line change, Spectrogram-related   To reduce clashing
+
+2002-12-15 12:34  mokhov
+
+	* doc/src/tex/: architecture.tex, chebyshev-distance.tex: - mini
+	interim commit to avoid more merge conflicts
+
+2002-12-15 01:48  pwrslave
+
+	* doc/src/tex/sampleloading.tex: Just corrected some typos and aded
+	a reference to Ian's book
+
+2002-12-15 01:29  pwrslave
+
+	* doc/src/graphics/: ira4_boost_FFT.png, ira4_boost_wave.png,
+	ira4_norm_FFT.png, ira4_norm_wave.png, jim6_boost_FFT.png,
+	jim6_boost_wave.png, jim6_norm_FFT.png, jim6_norm_wave.png,
+	sei-sphere_boost_FFT.png, sei-sphere_boost_wave.png,
+	sei-sphere_norm_FFT.png, sei-sphere_norm_wave.png: Preprocessing
+	and filtering graphs (only 3 testing samples...)
+
+2002-12-14 23:43  radarsat1
+
+	* doc/src/tex/: noise-removal.tex, normalization.tex,
+	preprocessing.tex: Some more docs.  Serguei are these formatted
+	correctly?
+
+2002-12-14 22:14  mokhov
+
+	* doc/src/: graphics/aihua5FFT.png, graphics/aihua5wave.png,
+	graphics/ian15FFT.png, graphics/ian15wave.png,
+	graphics/ira4FFT.png, graphics/ira4wave.png,
+	graphics/jihed3FFT.png, graphics/jihed3wave.png,
+	graphics/jim6FFT.png, graphics/jim6wave.png,
+	graphics/jimmy1-spectro.png, graphics/madhumita4FFT.png,
+	graphics/madhumita4wave.png, graphics/michelle1FFT.png,
+	graphics/michelle1wave.png, graphics/nick1FFT.png,
+	graphics/nick1wave.png, graphics/rita6FFT.png,
+	graphics/rita6wave.png, graphics/sei-sphereFFT.png,
+	graphics/sei-spherewave.png, graphics/serge-labelFFT.png,
+	graphics/serge-labelwave.png, graphics/steve2FFT.png,
+	graphics/steve2wave.png, graphics/suen2FFT.png,
+	graphics/suen2wave.png, tex/architecture.tex,
+	tex/feature-extraction.tex, tex/lpc.tex: - interim update   -
+	figured out image problem (JPEG compression must no be progressive!
+	    else LaTeX fails to read it)   - images were converted
+
+2002-12-14 21:52  radarsat1
+
+	* doc/src/tex/euclidean-distance.tex, doc/src/tex/hamming.tex,
+	src/Makefile: Updated some docs, plus added samples of me & my
+	brother.
+
+2002-12-14 20:20  mokhov
+
+	* doc/src/tex/: architecture.tex, lpc.tex: tried out formulas :-)
+
+2002-12-14 19:55  mokhov
+
+	* doc/src/tex/: Makefile, architecture.tex, classification.tex,
+	feature-extraction.tex, lpc.tex, methodology.tex,
+	preprocessing.tex, report.tex, sampleloading.tex: - report
+	improvements   - learning more and more LaTeX :-)   - there are
+	problems with images, however :(     sometiems they get included,
+	sometimes not.
+
+2002-12-14 16:23  mokhov
+
+	* doc/src/tex/: lpc.tex, references.tex, sampleloading.tex: - few
+	corrections
+
+2002-12-14 15:37  mokhov
+
+	* doc/src/tex/: chebyshev-distance.tex, conclusions.tex, cvs.tex,
+	data.tex, experimentation.tex, f0.tex, fft-filter.tex, fft.tex,
+	hamming.tex, history.tex, installation.tex, intro.tex, legal.tex,
+	noise-removal.tex, report.tex, results.tex, sample-formats.tex,
+	sampleloading.tex, sources.tex, storage.tex, training.tex: - second
+	round report clean-up
+
+2002-12-14 12:55  mokhov
+
+	* doc/src/tex/: architecture.tex, report.tex: - small changes
+
+2002-12-14 12:51  mokhov
+
+	* doc/src/tex/: architecture.tex, report.tex: - a couple of changes
+	to test graphics and   some other parts of LaTeX
+
+2002-12-14 02:05  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Classification/Distance/Distance.java,
+	marf/FeatureExtraction/FFT/FFT.java, marf/Storage/Sample.java: -
+	updated jar - post-Steve updates   - line wrapping   - more
+	comments   - more get methods for MARF class variables	   in case
+	they get used from ouside MARF like	with prerocessing and
+	feature extration methods...  - all chunck-related is chunkanized
+	now :-)
+
+2002-12-13 23:09  mokhov
+
+	* doc/src/tex/: chebyshev-distance.tex, euclidean-distance.tex,
+	fft-filter.tex, fft.tex, high-frequency-boost.tex, lpc.tex,
+	methodology.tex, nnet.tex, report.tex, sampleloading.tex,
+	storage.tex: Few updates:   - includes Steve's and Jimmy's stuff  
+	- some clean up   - will do more later on.
+	
+	Still a lot cleanup to do,
+
+2002-12-13 21:57  mokhov
+
+	* doc/src/tex/: Makefile, architecture.tex, chebyshev-distance.tex,
+	classification.tex, conclusions.tex, cvs.tex, data.tex,
+	euclidean-distance.tex, experimentation.tex, f0.tex,
+	feature-extraction.tex, fft-filter.tex, fft.tex, hamming.tex,
+	high-frequency-boost.tex, history.tex, installation.tex, intro.tex,
+	legal.tex, lpc.tex, methodology.tex, nnet.tex, noise-removal.tex,
+	normalization.tex, notation.tex, preprocessing.tex, references.tex,
+	report.tex, results.tex, sample-formats.tex, sources.tex,
+	spectrogram.tex, storage.tex, training.tex: Interim commit of the
+	LaTeX docs: - Still needs cleaning up - Still needs linkag - I've
+	found a way to include tex files   in each other, but it apparently
+	allows	 only one level of nesting:
+	
+	  \include{file}
+	
+	  assuming there is file.tex in there
+	
+	- To build a PDF:
+	
+	  make
+	
+	This is an interim update and doesn not include Steve's and Jimmy's
+	stuff yet linked. Will do rather soon.
+
+2002-12-13 20:00  radarsat1
+
+	* src/marf/Classification/Distance/Distance.java: Bug fix: Wasn't
+	distinguishing properly in the comparison: apples & oranges.
+
+2002-12-13 18:47  radarsat1
+
+	* src/: Makefile, marf/MARF.java,
+	marf/FeatureExtraction/FFT/FFT.java, marf/Storage/TrainingSet.java:
+	Updated FFT algorithm to use overlapping Hamming windows.  Also
+	improved TrainingSet to differentiate properly between boost and
+	non-boost training samples.  nick8.wav and nick9.wav were empty, so
+	I copied nick6.wav and nick7.wav in order to stop them from
+	generating errors.
+
+2002-12-13 14:17  pwrslave
+
+	* doc/src/tex/sampleloading.tex: doc for sample format and loading
+
+2002-12-13 08:50  iclement
+
+	* doc/src/sgml/lpc.sgml: DEV: REplaced emails with my text
+
+2002-12-13 08:36  iclement
+
+	* doc/src/sgml/nnet.sgml: DEV: Added my nnet text
+
+2002-12-12 15:27  mokhov
+
+	* src/marf/Storage/: ModuleParams.java, Sample.java: - mostly
+	comments
+
+2002-12-12 14:47  mokhov
+
+	* src/: test.java, marf/Storage/ArtificialSample.java,
+	marf/Storage/Sample.java, marf/Storage/Wave.java: -
+	ArtificialSample and Wave are gone for good - Sample consumed the
+	both
+
+2002-12-12 13:10  mokhov
+
+	* src/marf/: Preprocessing/Preprocessing.java,
+	Stats/StatsCollector.java, Storage/ArtificialSample.java,
+	Storage/Sample.java, Storage/SampleLoader.java,
+	Storage/Loaders/MP3Loader.java, Storage/Loaders/ULAWLoader.java,
+	Storage/Loaders/WAVLoader.java: - post-Jimmy updates:	- Omitted
+	comments   - cosmetic fixes - more comments
+	
+	- Tested with SpeakerIdentApp	Works as before.  - Are we looking
+	into removal of Wave and ArtificialSample   classes?
+
+2002-12-12 11:55  pwrslave
+
+	* src/marf/Preprocessing/Preprocessing.java: Just removed code from
+	constructor...
+
+2002-12-12 11:53  pwrslave
+
+	* src/marf/Storage/: Loaders/MP3Loader.java,
+	Loaders/ULAWLoader.java, Loaders/WAVLoader.java, Sample.java,
+	SampleLoader.java: New Storage implementations!
+
+2002-12-12 01:36  mokhov
+
+	* src/marf/MARF.java: - just pure comments commit; I think most of
+	MARF.java documented   WRT javadoc
+
+2002-12-12 01:25  mokhov
+
+	* src/marf/MARF.java: 
+	- comment test, to see whether docs are updated
+
+2002-12-12 01:08  mokhov
+
+	* src/Makefile: - for automatic API docs generation in our web dir
+
+2002-12-12 00:34  mokhov
+
+	* src/marf/FeatureExtraction/: FFT/FFT.java, LPC/LPC.java: -
+	releasing whatever I hold before the docs
+
+2002-12-11 17:07  mokhov
+
+	* src/marf/MARF.java: just a wwrong comment
+
+2002-12-11 14:29  mokhov
+
+	* doc/src/sgml/stylesheet.css, src/Makefile, src/marf/MARF.java,
+	src/marf/FeatureExtraction/FFT/FFT.java,
+	src/marf/Preprocessing/Preprocessing.java,
+	src/marf/gui/Spectrogram.java: - ok slight docs styles update -
+	Makefile was missing Distance and Chebyshev Distance, so they never
+	  ended up in the API docs - more comments - specotrogram output
+	fixed in terms of file size of the pic
+	
+	There is still an issue with the Spectrogram, I guess simple one --
+	I noticed that it takes 1 less feature vectors than avail (from the
+	debug output); this yet to be fixed.
+
+2002-12-11 02:55  mokhov
+
+	* doc/src/sgml/euclidean-distance.sgml: can never remember how to
+	spell euclidean
+
+2002-12-11 02:34  mokhov
+
+	* doc/src/sgml/: architecture.sgml, chebyshev-distance.sgml,
+	data.sgml, experimentation.sgml, f0.sgml, fft-filter.sgml,
+	fft.sgml, hamming.sgml, high-frequency-boost.sgml,
+	installation.sgml, lpc.sgml, nnet.sgml, noise-removal.sgml,
+	normalization.sgml, problems.sgml, programmer.sgml, protocol.sgml,
+	references.sgml, report.sgml, sample-formats.sgml,
+	spectrogram.sgml, start.sgml, storage.sgml, training.sgml: -
+	processed all the emails from archives, sorted it out	according
+	to the relevance to the report/doc sections   ,still need to format
+	them though, but this is next pahse - next phase:   - add
+	architecture and API images/class diagrams   - SGMLize completeely
+	the stuff   - make it coherent	   - consitent person	  - remove
+	swearings     - styles	   - organization   - write up missing
+	sections   - results   - integrate PPt, arch, and propsal contents 
+	 - ...
+	
+	NOTE: this interim update, I still have to make it build       send
+	me some your sections in plain text
+	
+	For the math... maybe we should stick to PS->GIF or smth for the
+	time beeing.
+	
+	Ian, spectros now are quite diff from jimmy1,gif, but I include
+	jimmy1 fro the time being.
+
+2002-12-10 19:16  mokhov
+
+	* doc/src/sgml/: architecture.sgml, fft.sgml, installation.sgml,
+	intro.sgml, lpc.sgml, maintenance.sgml, nnet.sgml, notation.sgml:
+	interim doc cleanup FFT, LPC, and NN can be filled in.
+	
+	I'll do it in an hour from my mail and README's unless smb does it
+	before that.
+
+2002-12-10 17:47  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Classification/Classification.java,
+	marf/Classification/Distance/ChebyshevDistance.java,
+	marf/Classification/Distance/Distance.java,
+	marf/Classification/Distance/EuclideanDistance.java,
+	marf/FeatureExtraction/FeatureExtraction.java,
+	marf/FeatureExtraction/Cepstral/Cepstral.java,
+	marf/FeatureExtraction/F0/F0.java,
+	marf/FeatureExtraction/FFT/FFT.java,
+	marf/FeatureExtraction/LPC/LPC.java,
+	marf/FeatureExtraction/Segmentation/Segmentation.java,
+	marf/Preprocessing/Preprocessing.java,
+	marf/Preprocessing/Dummy/Dummy.java,
+	marf/Preprocessing/Endpoint/Endpoint.java,
+	marf/Preprocessing/FFTFilter/BandpassFilter.java,
+	marf/Preprocessing/FFTFilter/FFTFilter.java,
+	marf/Preprocessing/FFTFilter/HighFrequencyBoost.java,
+	marf/gui/Spectrogram.java:  ok, here's a big one
+	
+	- a lot of comments and comment tags were added - Created abstract
+	DIstance class, so that all distance   classifier just have to
+	implement distance() method - some little comment fixes elswhere -
+	some stub code fixes
+	
+	It all compiles and the app works, tested before the commit,
+
+2002-12-10 09:09  iclement
+
+	* src/marf/FeatureExtraction/LPC/LPC.java: DEV: Added spectrogram
+	output if requested
+
+2002-12-10 09:08  iclement
+
+	* src/marf/gui/Spectrogram.java: DEV: Whoops... here are the
+	changes. Fixed output dimention problems
+
+2002-12-08 19:29  mokhov
+
+	* marf.jpx.local, doc/presentation.ppt: whatever
+
+2002-12-08 16:10  pwrslave
+
+	* src/marf/Storage/: Sample.java, Loaders/WAVLoader.java: minor
+	changes resents ArrayIndex after each setArray...
+
+2002-12-08 15:50  iclement
+
+	* src/marf/gui/Spectrogram.java: DEV: Whoops... good now
+
+2002-12-08 15:40  radarsat1
+
+	* src/marf/FeatureExtraction/FFT/FFT.java: Bugfix on FFT.  Problem
+	was that the first chunk wasn't retrieved properly.
+
+2002-12-08 15:25  iclement
+
+	* src/marf/gui/Spectrogram.java: DEV: REmoved diff tags
+
+2002-12-08 15:24  iclement
+
+	* src/Makefile: DEV: Removed Diff tags
+
+2002-12-08 13:21  iclement
+
+	* src/marf/Classification/NeuralNetwork/: NeuralNetwork.java,
+	Neuron.java: DEV: Some integration fixes
+
+2002-12-08 11:20  mokhov
+
+	* src/marf/MARF.java: just a comment
+
+2002-12-08 11:12  mokhov
+
+	* TODO, doc/presentation.ppt, doc/src/Makefile,
+	doc/src/sgml/Makefile, doc/src/sgml/architecture.sgml,
+	doc/src/sgml/book-decl.sgml, doc/src/sgml/conclusions.sgml,
+	doc/src/sgml/contacts.sgml, doc/src/sgml/cvs.sgml,
+	doc/src/sgml/developer.sgml, doc/src/sgml/docguide.sgml,
+	doc/src/sgml/entities.sgml, doc/src/sgml/experimentation.sgml,
+	doc/src/sgml/fft.sgml, doc/src/sgml/filelist.sgml,
+	doc/src/sgml/fixrtf, doc/src/sgml/history.sgml,
+	doc/src/sgml/install-win32.sgml, doc/src/sgml/installation.sgml,
+	doc/src/sgml/intro.sgml, doc/src/sgml/legal.sgml,
+	doc/src/sgml/lpc.sgml, doc/src/sgml/maintenance.sgml,
+	doc/src/sgml/nnet.sgml, doc/src/sgml/notation.sgml,
+	doc/src/sgml/problems.sgml, doc/src/sgml/programmer.sgml,
+	doc/src/sgml/protocol.sgml, doc/src/sgml/refentry.sgml,
+	doc/src/sgml/reference.ced, doc/src/sgml/references.sgml,
+	doc/src/sgml/report.sgml, doc/src/sgml/results.sgml,
+	doc/src/sgml/sources.sgml, doc/src/sgml/standalone-install.sgml,
+	doc/src/sgml/start.sgml, doc/src/sgml/stylesheet.dsl: - Mostly
+	initial, barely usable dosc:   - TODO update   - somewhat ported
+	SGML sources from PostgreSQL documentation     (will be filling it
+	in afterwards)	 - Intial PPT to work on in school for presentation
+
+2002-12-08 10:57  mokhov
+
+	* src/marf/: Classification/Classification.java,
+	Classification/Distance/ChebyshevDistance.java,
+	Classification/Distance/EuclideanDistance.java,
+	FeatureExtraction/LPC/LPC.java,
+	Preprocessing/FFTFilter/FFTFilter.java: - minor cosmetic changes in
+	comments - and in messages
+
+2002-12-08 09:45  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Classification/Distance/ChebyshevDistance.java,
+	marf/Classification/Distance/EuclideanDistance.java,
+	marf/Storage/Sample.java, marf/gui/Spectrogram.java: - Chebyshev
+	(city-block) distance measure (from Ian's book, mostly	 a
+	simplified copy of Eucleadian distance - Corresp. changes to the
+	MARF - some cleanup and fixes
+
+2002-12-08 00:17  mokhov
+
+	* src/marf/FeatureExtraction/FFT/FFT.java: should've compiled first
+	:-)
+
+2002-12-08 00:15  mokhov
+
+	* src/marf/FeatureExtraction/FFT/FFT.java: - make FFT to fill in
+	spectrogram closer to reality - TODO: Steve, would you make the
+	windows overlap in FFT? 	Make window size configurable and
+	amke it part of the experiment
+
+2002-12-07 23:36  mokhov
+
+	* src/marf/gui/Spectrogram.java: Fixed Spectrogram after security
+	kicked us out
+
+2002-12-07 23:23  iclement
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java: DEV:
+	Parallel Euclidean usage of TrainingSet. Compiles, but will require
+	a test app.
+
+2002-12-07 23:15  radarsat1
+
+	* marf.jpx, marf.jpx.local, src/marf/MARF.java,
+	src/marf/Classification/Distance/EuclideanDistance.java,
+	src/marf/FeatureExtraction/LPC/LPC.java,
+	src/marf/Preprocessing/Dummy/Dummy.java,
+	src/marf/Storage/TrainingSet.java, src/marf/gui/Spectrogram.java:
+	SpeakerIdentApp now has command line parameters to be used for
+	batch processing.
+
+2002-12-07 22:45  mokhov
+
+	* TODO, src/marf/gui/Spectrogram.java: fixing spectro bug for
+	testing
+
+2002-12-07 22:24  radarsat1
+
+	* marf.jpx.local, src/marf/MARF.java,
+	src/marf/Classification/Distance/EuclideanDistance.java: Euclidean
+	classifier now implemented! Running SpeakerIdentApp now identifies
+	a speaker based on the training set.  Hurrah!
+
+2002-12-07 22:08  mokhov
+
+	* src/marf/: MARF.java, FeatureExtraction/FeatureExtraction.java,
+	FeatureExtraction/FFT/FFT.java, gui/Spectrogram.java: - second
+	phase of spectrogram integration - few more comments
+
+2002-12-07 20:52  mokhov
+
+	* src/marf/: MARF.java, FeatureExtraction/FeatureExtraction.java,
+	FeatureExtraction/FFT/FFT.java, Storage/StorageManager.java,
+	gui/Spectrogram.java: interim mostly costmetic commit
+
+2002-12-07 20:01  pwrslave
+
+	* src/marf/Storage/Sample.java: Added javadoc comments
+
+2002-12-07 18:59  mokhov
+
+	* TODO, marf.jpx.local, src/Makefile, src/marf/MARF.java,
+	src/marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	src/marf/Storage/Sample.java, src/marf/gui/Spectrogram.java:
+	Post-Steve update.    - TODO	- Makefile for here (school)	-
+	MARF WRT spectrogram	- some cleanup in spectrogram (need a
+	couple of touches now to actually fit it inside      FFT and graph
+	it)    - cosmetics changes - comments and placeholders for
+	comments, please      fill in!
+
+2002-12-07 18:49  radarsat1
+
+	* marf.jpx.local, src/marf/Classification/Classification.java,
+	src/marf/Classification/Distance/EuclideanDistance.java,
+	src/marf/Classification/Markov/Markov.java,
+	src/marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	src/marf/Classification/Stochastic/Stochastic.java,
+	src/marf/FeatureExtraction/FeatureExtraction.java,
+	src/marf/Storage/TrainingSet.java: Updating training set
+	implementation again.  Should be everything.
+
+2002-12-07 18:46  radarsat1
+
+	* src/marf/MARF.java: 
+	Works with training set update.
+
+2002-12-07 18:18  mokhov
+
+	* TODO: TODO more reflects reality (hopefully)
+
+2002-12-07 18:03  mokhov
+
+	* src/marf/Preprocessing/Preprocessing.java: some debug
+
+2002-12-07 17:46  mokhov
+
+	* TODO: commit dammit!
+
+2002-12-07 17:31  mokhov
+
+	* TODO, src/marf/MARF.java,
+	src/marf/Preprocessing/Preprocessing.java: normalize() is done in
+	preproecessing.  pretty primitive, but hey!
+
+2002-12-07 17:07  mokhov
+
+	* TODO, src/marf/FeatureExtraction/FFT/FFT.java: - small things to
+	do not hold for too long.    -- doing normalize() now
+
+2002-12-07 16:41  mokhov
+
+	* TODO, src/marf/Preprocessing/Preprocessing.java,
+	src/marf/Storage/Sample.java: - cosmetic updates
+
+2002-12-07 16:38  iclement
+
+	* src/marf/FeatureExtraction/LPC/LPC.java: DEV: Fixed the NaN error
+	by quick .isNaN() hack :-P
+
+2002-12-07 15:34  pwrslave
+
+	* src/marf/FeatureExtraction/FFT/FFT.java: Small bug discovered...
+	very last feature was being set to 0 (padding loop)
+
+2002-12-07 15:30  mokhov
+
+	* src/marf/: MARF.java, Stats/StatsCollector.java: - little
+	debuggin method in MARF - JBuilder was complaingin about empty
+	StatsCollector
+
+2002-12-07 14:53  pwrslave
+
+	* src/marf/FeatureExtraction/: FFT/FFT.java, LPC/LPC.java: Got rid
+	of setSampleArrayFromStream() in extractfeatures since this is now
+	done in Preprocessing constructor...
+
+2002-12-07 14:51  pwrslave
+
+	* src/marf/Preprocessing/Preprocessing.java: Preprocessing object
+	updates contents of oSample.adSample during instantiation rather
+	than calling setSampleArrayfromStream() from extractfeatures() in
+	FFT and LPC which is caca...
+
+2002-12-07 13:42  mokhov
+
+	* TODO, src/marf/MARF.java: 
+	minor things
+
+2002-12-07 10:06  mokhov
+
+	* src/marf/Preprocessing/FFTFilter/FFTFilter.java: - Make FFT
+	filter read module params in case   it it requested to remove noise
+	and/or silence
+
+2002-12-07 03:19  mokhov
+
+	* src/marf/: MARF.java, Storage/TrainingSet.java: - more proper way
+	of doing that
+
+2002-12-07 02:54  mokhov
+
+	* src/marf/: MARF.java, Preprocessing/PreprocessingException.java,
+	Preprocessing/Endpoint/Endpoint.java,
+	Preprocessing/FFTFilter/BandpassFilter.java: 
+	- few missed updates from the past commit.
+
+2002-12-07 02:38  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Preprocessing/Preprocessing.java,
+	marf/Preprocessing/Dummy/Dummy.java,
+	marf/Preprocessing/FFTFilter/FFTFilter.java,
+	marf/Preprocessing/FFTFilter/HighFrequencyBoost.java,
+	marf/Storage/Sample.java, marf/Storage/TrainingSet.java,
+	marf/gui/Spectrogram.java: 
+	most notably filters are in, first cut.  MARF compiles, the apps
+	are hopefully not broken because there is none in the CVS yet to
+	breka with this.
+	
+	preprocessing was altered to have a new method, exception, related
+	modules wre updated as well
+	
+	some cosmetical changes elsehwere
+	
+	will keep working i guess later
+
+2002-12-07 01:18  mokhov
+
+	* src/marf/Preprocessing/FFTFilter/FFTFilter.java: just adding it
+	what I have left since past afternoom
+
+2002-12-06 19:45  radarsat1
+
+	* marf.jpx, marf.jpx.local, src/Makefile, src/marf/MARF.java,
+	src/marf/Classification/Classification.java,
+	src/marf/Classification/Distance/EuclideanDistance.java,
+	src/marf/Classification/Markov/Markov.java,
+	src/marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	src/marf/Classification/Stochastic/Stochastic.java,
+	src/marf/Preprocessing/Dummy/Dummy.java,
+	src/marf/Storage/TrainingSet.java: 
+	Implemented some rudimentary saving and loading of the training
+	set.  Classification modules were extended to contain a pointer to
+	the training set, since it will be needed for both training as well
+	as for identification.	Not 100% sure this is the right way to do
+	it, so I'd like to have Serguei & others go over the method I used
+	to implement training before trying to make any more progress.
+	
+	My assumption is that training involves recording a bunch of
+	feature vectors for various samples and writing them to the file. 
+	It is acknowledged that "training" for the neural net requires
+	another step, to train the net based on the collection of feature
+	vectors.  Not quite sure that this is allowed for.  Please take a
+	look.
+
+2002-12-06 18:24  radarsat1
+
+	* src/marf/Classification/Distance/EuclideanDistance.java: 
+	Doesn't do much yet.
+
+2002-12-06 18:20  radarsat1
+
+	* src/marf/MARF.java: 
+	Added the EUCLIDEAN_DIST classifier, and implemented iterative
+	training.  (That is, MARF now calls the Classifier.train() method,
+	although train() isn't yet implemented in any of the classifiers.)
+
+2002-12-06 17:19  pwrslave
+
+	* src/marf/FeatureExtraction/LPC/LPC.java: Uses getSampleArray()
+	instead of readAudioData...
+
+2002-12-06 16:17  pwrslave
+
+	* src/marf/: Storage/Sample.java, FeatureExtraction/FFT/FFT.java:
+	new and improved sample class
+
+2002-12-06 12:51  mokhov
+
+	* src/Makefile: Make it build here in school  assuming:    -
+	/mn/nettemp/marf for all JAXP and marf.jar stuff
+
+2002-12-06 12:50  pwrslave
+
+	* src/marf/Storage/Sample.java: Bug fix..
+
+2002-12-06 10:48  mokhov
+
+	* TODO: 
+	little update of TODO
+
+2002-12-06 10:11  iclement
+
+	* src/marf/gui/Spectrogram.java: DEV: Spectrogram class added. No
+	file writing yet.
+
+2002-12-06 10:09  mokhov
+
+	* src/marf/: FeatureExtraction/FFT/FFT.java,
+	Storage/ArtificialSample.java, Storage/Sample.java: - the problem
+	is in extractFeatures() of FFT.java   still requires more tracing,
+	especially that   the sample is properly loaded.
+	
+	  Steve, can you dedbug that while am on the road?
+
+2002-12-05 15:23  mokhov
+
+	* src/marf/: Classification/Classification.java,
+	Storage/TrainingSet.java: - more or less typical impl. of a
+	training set, now actual   serialization needed.
+
+2002-12-05 14:42  mokhov
+
+	* src/marf/Storage/TrainingSet.java: 
+	- stub, will be used for training, i.e. associating   speaker's ID
+	with feature sets, I guess   per discussion with Ian
+
+2002-12-05 14:28  mokhov
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java: - Ian,
+	I fixed NN just to make it compile, please check the diff   of
+	changes see if everything is correct. I had to add setInputs()	 as
+	well
+	
+	- marf.jar, well since Jimmy added it, I updated it as well with  
+	fresh sources
+
+2002-12-04 10:49  iclement
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java: DEV:
+	Added epoch training and binary output interpretation
+
+2002-12-03 12:41  pwrslave
+
+	* src/marf/Storage/Loaders/WAVLoader.java: Minor modification in
+	constructor...
+
+2002-12-02 02:18  pwrslave
+
+	* src/marf/FeatureExtraction/: FFT/FFT.java, LPC/LPC.java: Minor
+	touch ups...
+
+2002-12-02 02:13  pwrslave
+
+	* src/marf/Storage/: Sample.java, Wave.java, SampleLoader.java,
+	Loaders/WAVLoader.java, ArtificialSample.java: Uncoupled
+	SampleLoader and Sample...
+
+2002-12-01 03:16  pwrslave
+
+	* marf.jpx, marf.jpx.local: Includes marf archive...
+
+2002-12-01 03:12  pwrslave
+
+	* src/marf/Storage/SampleLoader.java: Added new method during
+	debugging although not really needed at the end, but can be useful
+
+2002-11-30 17:37  pwrslave
+
+	* marf.jpx.local, marf.jpx: Project file used for JBuilder
+
+2002-11-30 17:07  mokhov
+
+	* src/marf/: MARF.java, Classification/Stochastic/Stochastic.java,
+	Preprocessing/FFTFilter/BandpassFilter.java: MARF now includes and
+	invokes all the modules, so few similar potential compile problems
+	fixed in the unimplemented modules.
+
+2002-11-30 16:47  mokhov
+
+	* src/marf/Classification/Markov/Markov.java: This should solve the
+	compile failures reported by Jimmy. Reason: since Markov class was
+	never included or needed anywhere, it never got compiled from the
+	command line. Perhaps I should change the build system somehow...
+
+2002-11-25 02:43  mokhov
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java: making
+	general MARF's API train() to work in NN.  see usage example in
+	apps/TestNN
+
+2002-11-25 02:01  mokhov
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java: - NN
+	was made compilable within the framework   but requires lot more
+	work
+
+2002-11-25 01:49  mokhov
+
+	* src/: Makefile, marf/FeatureExtraction/FeatureExtraction.java,
+	marf/FeatureExtraction/LPC/LPC.java,
+	marf/Storage/ArtificialSample.java, marf/Storage/Sample.java,
+	marf/Storage/SampleLoader.java, marf/Storage/Wave.java,
+	marf/Storage/Loaders/MP3Loader.java,
+	marf/Storage/Loaders/ULAWLoader.java,
+	marf/Storage/Loaders/WAVLoader.java,
+	marf/util/InvalidSampleFormatException.java: Mostly work on
+	Storage:   - Wave sample class	 - WAVLoader   - Generic
+	SampleLoader Basically Jimmy's stuff was split accross these all
+	Sample was also affected so was ArtificialSample' to reflect mthod
+	signature changes hamming thing was also move into
+	FeatureExtraction as static part.  Makefile now produces marf.jar
+	if yo upoint your class path to it or copy to your jre/lib/ext dir
+	for it to become visible to use for apps.
+
+2002-11-24 11:16  mokhov
+
+	* src/marf/: MARF.java,
+	Classification/NeuralNetwork/NeuralNetwork.java,
+	FeatureExtraction/LPC/LPC.java, Storage/ModuleParams.java: - LPC is
+	believed to be more or less frameworked --- still need to port	
+	the testing app, but that requires porting Wave stuff first :-) -
+	New addition: ModuleParams - a collection of Vectors, a Vector	
+	per module. An app can sepcify module specific params, put   into
+	the corresponding Vectors, init MARF and etc. The module   should
+	know how to extract and downcast params from these vectors   See
+	constructor of LPC for example. The app will follow.  - MARF has
+	been altered to accomodate ModuleParams addition.
+
+2002-11-24 03:20  mokhov
+
+	* src/: Makefile, test.java,
+	marf/Classification/ClassificationException.java,
+	marf/FeatureExtraction/FeatureExtraction.java,
+	marf/FeatureExtraction/FeatureExtractionException.java,
+	marf/FeatureExtraction/FFT/FFT.java,
+	marf/Storage/ArtificialSample.java, marf/Storage/Sample.java:
+	Mostly feature extraction, FFT in particular: - Made fully
+	dunctional FFT - FeatureExtractionExcpetion (analogous to that of
+	Classificayion) - Few changes nad dummy things to test FFT - an app
+	was made to work with the frameworked FFT!
+
+2002-11-23 18:26  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	marf/FeatureExtraction/FeatureExtraction.java,
+	marf/FeatureExtraction/LPC/LPC.java,
+	marf/FeatureExtraction/Segmentation/Segmentation.java,
+	marf/Storage/Result.java: The framework made compile at the
+	following price: - Need to work a bit on NN stuff, right now it's  
+	commented out.
+	
+	Other changes include: - make install will now "install" the
+	framework   into the speaker ident app dir - a kludge	but makes
+	the app to compile--- will be extended soon - Result object has
+	more stuff in it - Few fixes in MARF where LpC was listed in thre
+	classif.    section  - Others
+	
+	Aftre this commit it is compilable by make in /src
+
+2002-11-23 16:24  mokhov
+
+	* src/: Makefile, marf/Classification/Markov/Markov.java,
+	marf/Classification/Stochastic/Stochastic.java,
+	marf/FeatureExtraction/Cepstral/Cepstral.java,
+	marf/FeatureExtraction/FFT/FFT.java, marf/Storage/Result.java:
+	Further advances twards framework.
+
+2002-11-23 11:46  mokhov
+
+	* src/marf/Classification/: Classification.java,
+	NeuralNetwork/NeuralNetwork.java, NeuralNetwork/Neuron.java: Update
+	of frameworked NN. Ian, if you're working on it, incorporate some
+	chages in your working copy.
+
+2002-11-23 11:19  mokhov
+
+	* src/marf/FeatureExtraction/: FeatureExtraction.java,
+	FFT/FFT.java: cosmetic stuff and API enformcement
+
+2002-11-23 11:10  mokhov
+
+	* src/marf/: FeatureExtraction/FeatureExtraction.java,
+	FeatureExtraction/FFT/FFT.java, Storage/SampleLoader.java,
+	Storage/Wave.java: Start of integration of FFT and Wave sample
+	loading.  NOT COMPILABLE AS OF NOW, still needs work, just bringing
+	a bit up to date the stuff.
+
+2002-11-19 08:04  iclement
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java: DEV:
+	Replaced various NNet exceptions with generalized
+	ClassificationException
+
+2002-11-18 09:19  mokhov
+
+	* src/marf/Classification/ClassificationException.java: just a
+	typo, please ignore
+
+2002-11-17 22:47  mokhov
+
+	* src/marf/: MARF.java, Classification/Classification.java,
+	Classification/ClassificationException.java,
+	Classification/Markov/Markov.java,
+	Classification/Stochastic/Stochastic.java: -
+	ClassificationException per Ian's recent stuff - NN itself is
+	untouched.
+
+2002-11-17 20:27  iclement
+
+	* src/marf/Classification/NeuralNetwork/Neuron.java: DEV: From
+	/resources/NeuralNetwork/
+
+2002-11-17 20:26  iclement
+
+	* src/marf/Classification/NeuralNetwork/NeuralNetwork.java: DEV:
+	Added NeuralNet code from /resouces/NeuralNet. Probably needs
+	tweaking. Trainaing definitly does not work
+
+2002-11-17 20:19  iclement
+
+	* src/marf/FeatureExtraction/LPC/LPC.java: DEV: Filled in with LPC
+	code from /rescources/LPC. Should work, but will need testing in
+	the complete marf build
+
+2002-11-09 19:28  mokhov
+
+	* src/: Makefile, marf/MARF.java,
+	marf/Preprocessing/Preprocessing.java, marf/Storage/Result.java,
+	marf/util/MARFException.java: Pure cosmetical changes in the
+	javadoc comments and cleanup.
+
+2002-11-09 15:50  mokhov
+
+	* TODO: TODO update
+
+2002-11-09 15:16  mokhov
+
+	* src/: Makefile, test.java, marf/MARF.java,
+	marf/Classification/Markov/Markov.java,
+	marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	marf/Classification/Stochastic/Stochastic.java,
+	marf/FeatureExtraction/F0/F0.java,
+	marf/FeatureExtraction/FFT/FFT.java,
+	marf/FeatureExtraction/LPC/LPC.java,
+	marf/Preprocessing/Preprocessing.java,
+	marf/Preprocessing/Dummy/Dummy.java,
+	marf/Preprocessing/Endpoint/Endpoint.java,
+	marf/Storage/Result.java, marf/Storage/Sample.java,
+	marf/Storage/SampleLoader.java, marf/Storage/StorageManager.java,
+	marf/Storage/Loaders/MP3Loader.java,
+	marf/Storage/Loaders/ULAWLoader.java,
+	marf/Storage/Loaders/WAVLoader.java,
+	marf/util/InvalidSampleFormatException.java,
+	marf/util/MARFException.java,
+	marf/util/NotImplementedException.java: The Framework Made
+	Compile!!!! make - would compile it all make apidoc - would
+	generate docs in the level ../../www make apidoc-dev - same, for
+	developers Added new exception and test class to test compile (a
+	kludge, but works) make clean - will remove all *.class files from
+	all subdirs, use before commit.
+
+2002-11-09 13:44  mokhov
+
+	* doc/src/sgml/stylesheet.css: doc traces start sneaking in. for
+	those wishing observe stylesheets used for the onlie version here
+	it is
+
+2002-11-09 13:36  mokhov
+
+	* src/: Makefile, marf/util/NotImplementedException.java: Makefile
+	is fixed WRT to javadoc API generation.  NotImpl exception had
+	wrong constructor :)
+
+2002-11-09 12:17  mokhov
+
+	* src/Makefile: Somewhat fixed makefile
+
+2002-11-09 12:05  mokhov
+
+	* src/: Makefile, marf/MARF.java: Keeping you updated before begin
+	compile.  Created a global Makefile for the MARF sources and fixed
+	a typo in the MARF.java itsek.	Note: Makefile is going to be
+	tested now, please dont think its final version.
+
+2002-11-09 11:24  mokhov
+
+	* src/marf/: Classification/Classification.java,
+	Classification/Markov/Markov.java,
+	Classification/NeuralNetwork/NeuralNetwork.java,
+	Classification/Stochastic/Stochastic.java,
+	Preprocessing/Dummy/Dummy.java: Few more 'frameworked' stuff. Most
+	notable is Classification. Put missing import in Dummy.  Next stage
+	- trying to make it all compile.
+
+2002-11-09 03:19  mokhov
+
+	* src/marf/FeatureExtraction/FFT/FFT.java: Forgot to add
+	'frameworked' FFT stub.
+
+2002-11-09 03:14  mokhov
+
+	* src/marf/: MARF.java, FeatureExtraction/FeatureExtraction.java,
+	FeatureExtraction/F0/F0.java, FeatureExtraction/LPC/LPC.java,
+	FeatureExtraction/Segmentation/Segmentation.java,
+	Preprocessing/Preprocessing.java, Preprocessing/Dummy/Dummy.java,
+	Preprocessing/Endpoint/Endpoint.java,
+	Preprocessing/FFTFilter/BandpassFilter.java, Storage/Result.java,
+	Storage/StorageManager.java, util/MARFException.java,
+	util/NotImplementedException.java: The Framework Must Grow! :-)
+	Resistance is futile! Moving towards smth more compilable. LPC,
+	FFT, F0 guys note: when you are ready to integratem consult the
+	stub and the interfaces before blindly overriding them. Do cvs
+	update before you commit! More changes will follow.
+
+2002-11-09 00:21  mokhov
+
+	* src/marf/gui/Spectrogram.java: Just a stub for Ian to work on.
+	Empty feel free to insert whatever :-) On top, declare: package
+	marf.gui;
+
+2002-11-08 00:04  mokhov
+
+	* TODO, doc/arch.mdl: Update TODO. Draft: Architecture in class
+	diagrams in RR's *.mdl and *.jpg
+
+2002-11-07 23:43  mokhov
+
+	* TODO: update of things TODO, mostly mine, if you you want you can
+	add yours too
+
+2002-11-07 23:37  mokhov
+
+	* src/marf/FeatureExtraction/F0/F0.java: F0 Stub to be implemented.
+
+2002-11-07 22:47  mokhov
+
+	* src/marf/: Classification/Classification.java,
+	FeatureExtraction/FeatureExtraction.java,
+	FeatureExtraction/LPC/LPC.java: Intermediate commit getting some
+	meat into generic Classif and Fearure extr. Showing on the blank
+	LPC use of Extraction
+
+2002-11-07 21:52  mokhov
+
+	* src/marf/MARF.java: Minor updates in MARF and FFT.  FFT changes
+	icnlude basic intergration steps into the framework.
+
+2002-11-07 21:29  mokhov
+
+	* src/marf/: MARF.java, Preprocessing/Preprocessing.java,
+	Storage/Sample.java: Few MARF updates, really minor.  Created base
+	Preprocessing Sample and Preprocessing got some stuff incorporated
+	from Jimmy.  Still keep on working, just a chekcpoint...
+
+2002-11-07 17:28  mokhov
+
+	* src/marf/: MARF.java, Storage/Sample.java: intermediate commit
+	before the class :-) some changes in MARF and added Sample class
+
+2002-11-07 11:31  radarsat1
+
+	* src/marf/MARF.java: 
+	Moved "FFT" to "Feature Extraction" Added "Filter" and "Noise
+	Reduction" to "Preprocessing Modules" Added "Stochastic" to
+	"Classification Modules"
+
+2002-10-20 20:35  mokhov
+
+	* src/marf/MARF.java: Update MARF from 0 to something :)
+
+2002-10-14 16:17  mokhov
+
+	* doc/proposal.txt: Added header stuff. We should use it any source
+	file.
+
+2002-10-14 16:00  mokhov
+
+	* doc/architecture.txt, src/marf/MARF.java,
+	src/marf/Classification/Classification.java,
+	src/marf/Classification/Markov/Markov.java,
+	src/marf/Classification/NeuralNetwork/NeuralNetwork.java,
+	src/marf/Classification/Stochastic/Stochastic.java,
+	src/marf/FeatureExtraction/FeatureExtraction.java,
+	src/marf/FeatureExtraction/LPC/LPC.java,
+	src/marf/FeatureExtraction/Segmentation/Segmentation.java,
+	src/marf/Preprocessing/Preprocessing.java,
+	src/marf/Preprocessing/FFTFilter/BandpassFilter.java,
+	src/marf/Preprocessing/Endpoint/Endpoint.java,
+	src/marf/Stats/StatsCollector.java,
+	src/marf/Storage/SampleLoader.java,
+	src/marf/Storage/StorageManager.java,
+	src/marf/Storage/Loaders/MP3Loader.java,
+	src/marf/Storage/Loaders/ULAWLoader.java,
+	src/marf/Storage/Loaders/WAVLoader.java: Initial check it of the
+	stub srachitecture. Please don't swear.
+
+2002-10-14 15:47  mokhov
+
+	* HISTORY, INSTALL, TODO: Initial empty stub files to be filled in
+	later.
+
+2002-10-10 23:49  mokhov
+
+	* README: Tiny README update to smth more meaningfull.
+
+2002-10-10 21:51  mokhov
+
+	* README: Just playing around, so that README isn't empty.
+
+2002-10-10 21:35  mokhov
+
+	* README, doc/proposal.txt: Initial revision
+
+2002-10-10 21:35  mokhov
+
+	* README, doc/proposal.txt: Initial check in, Take II. Got messed
+	up with the directory levels.
+
