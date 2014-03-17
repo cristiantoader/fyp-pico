@@ -16,16 +16,26 @@ import android.util.Log;
 
 public class UAService extends Service {
 
+	/** Bridge to user authenticator class which provides functionality. */
 	private static UserAuthenticator ua = null;
+	
+	/** Authenticator thread responsible of broadcasting messages. */
 	private static AuthenticatorThread serviceThread = null;
-
+	/** List of binded clients. */
 	private ArrayList<Messenger> clients = new ArrayList<Messenger>();
+	/** Message receiver from binded clients. */
 	private final Messenger messenger = new Messenger(new IncomingHandler());
 
+	/* Constants used with client communication. */
 	public static final int MSG_REGISTER_CLIENT = 0;
 	public static final int MSG_UNREGISTER_CLIENT = 1;
 	public static final int MSG_GET_STATUS = 2;
 
+	/**
+	 * When creating the service it gets a reference to the UserAuthenticator and
+	 * starts the authenticator thread which is responsible for broadcasting
+	 * results.
+	 */
 	@Override
 	public void onCreate() {
 		Log.i("UAService", "onCreate");
@@ -40,6 +50,9 @@ public class UAService extends Service {
 		}
 	}
 
+	/**
+	 * Destroy method cleans up creation.
+	 */
 	@Override
 	public void onDestroy() {
 		Log.i("UAService", "onDestroy");
@@ -54,7 +67,7 @@ public class UAService extends Service {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (ua != null) {
 			ua = null;
 		}
@@ -62,7 +75,7 @@ public class UAService extends Service {
 
 	/**
 	 * When binding to the service, we return an interface to our messenger for
-	 * sending messages to the service.
+	 * this service to receive messages.
 	 */
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -72,6 +85,8 @@ public class UAService extends Service {
 
 	@SuppressLint("HandlerLeak")
 	class IncomingHandler extends Handler {
+		
+		
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -104,6 +119,13 @@ public class UAService extends Service {
 		}
 	}
 
+	/**
+	 * Authenticator thread responsible of broadcasting the result to registered
+	 * clients.
+	 * 
+	 * @author cristi
+	 * 
+	 */
 	private class AuthenticatorThread extends Thread {
 		private volatile boolean stop;
 
