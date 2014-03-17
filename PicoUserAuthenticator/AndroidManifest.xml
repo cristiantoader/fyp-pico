@@ -25,15 +25,21 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name="com.fyp.services.UserAuthenticatorService"
-            android:process=":UAS_process" >
+        <service 
+            android:name="com.fyp.authenticator.UAService"
+            android:process=":UAService">
         </service>
         
         <service 
-            android:name="com.fyp.services.UAService"
-            android:process=":UAService2">
+            android:name="com.fyp.authenticator.dummy.AuthDummyService"
+            android:process=":AuthDummyService">
         </service>
+        
+        <service 
+            android:name="com.fyp.authenticator.voice.AuthVoiceService"
+            android:process=":AuthVoiceService">
+        </service>
+        
     </application>
 
 </manifest>

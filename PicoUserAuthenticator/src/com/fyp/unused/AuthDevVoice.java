@@ -1,4 +1,6 @@
-package com.fyp.authenticator.voice;
+package com.fyp.unused;
+
+// TODO: outdated
 
 import java.util.Random;
 
@@ -14,9 +16,8 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.fyp.authenticator.AuthDev;
-import com.fyp.services.AuthVoiceService;
-import com.fyp.services.UAService;
+import com.fyp.authenticator.UAService;
+import com.fyp.authenticator.voice.AuthVoiceService;
 
 /**
  * TODO: tie this to a service context such that communication is possible with
@@ -25,7 +26,7 @@ import com.fyp.services.UAService;
  * @author cristi
  * 
  */
-public class AuthDevVoice extends AuthDev {
+public class AuthDevVoice {
 
 	private static AuthDevVoice dev = null;
 
@@ -34,7 +35,7 @@ public class AuthDevVoice extends AuthDev {
 	private boolean boundService = false;
 
 	private AuthDevVoice() {
-		this.confidence = 100;
+//		this.confidence = 100;
 	}
 
 	public AuthDevVoice getDevice() {
@@ -45,18 +46,18 @@ public class AuthDevVoice extends AuthDev {
 		return dev;
 	}
 
-	@Override
-	public int getConfidence() {
-		this.calculateConfidence();
-		return this.confidence;
-	}
+//	@Override
+//	public int getConfidence() {
+//		this.calculateConfidence();
+//		return this.confidence;
+//	}
 
 	public static boolean checkExists() {
 		return true;
 	}
 
 	private void calculateConfidence() {
-		this.confidence = new Random().nextInt(100);
+//		this.confidence = new Random().nextInt(100);
 	}
 
 	private void doBindService(Context ctx) {

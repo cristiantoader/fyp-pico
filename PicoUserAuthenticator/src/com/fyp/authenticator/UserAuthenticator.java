@@ -2,48 +2,33 @@ package com.fyp.authenticator;
 
 import java.util.LinkedList;
 
-import com.fyp.authenticator.AuthDev;
-import com.fyp.authenticator.AuthDevDummy;
+import com.fyp.authenticator.dummy.AuthDummyService;
+import com.fyp.authenticator.voice.AuthVoiceService;
+
+import android.app.Service;
 
 public class UserAuthenticator {
 
-	/** Overall confidence level TODO: subject to change. */
-	private int confidence;
+	/** UAService service reference used for binding on other services. */
+	private Service uaservice = null;
 
-	/** List of available devices used for authentication. */
-	private LinkedList<AuthDev> devices;
+	/** List of available device services used for authentication. */
+	private LinkedList<AuthMech> mechanism;
 
 	/** Default authentication threshold. */
 	private static final int authThreshold = 50;
-
-	/** Singleton object for the UserAuthenticator class. */
-	private static UserAuthenticator uaSingleton = null;
+	/** Overall confidence level. */
+	private int confidence;
 
 	/**
 	 * Private constructor for the singleton object. Initialises the list of
 	 * available devices and calculates an initial confidence level.
-	 * 
-	 * TODO: not sure if we need to calculate anything manually, maybe should only
-	 * rely on requests.
 	 */
-	private UserAuthenticator() {
-		this.devices = new LinkedList<AuthDev>();
-		this.getAvailableDevices();
+	public UserAuthenticator(Service service) {
+		this.uaservice = service;
+		this.mechanism = new LinkedList<AuthMech>();
 
-		this.calculateConfidence();
-	}
-
-	/**
-	 * Getter for the singleton class object.
-	 * 
-	 * @return reference to the UserAuthenticator singleton object.
-	 */
-	public static UserAuthenticator getUserAuthenticator() {
-		if (uaSingleton == null) {
-			uaSingleton = new UserAuthenticator();
-		}
-
-		return uaSingleton;
+		this.initAvailableDevices();
 	}
 
 	/**
@@ -64,8 +49,8 @@ public class UserAuthenticator {
 	private void calculateConfidence() {
 		int confidence = 0;
 
-		for (AuthDev device : this.devices) {
-			confidence += device.getConfidence();
+		for (AuthMech mech : this.mechanism) {
+			confidence += mech.getConfidence();
 		}
 
 		// cap the confidence level at 100
@@ -80,15 +65,14 @@ public class UserAuthenticator {
 	 * Checks the available devices that may be used for authentication and
 	 * returns a list of devices.
 	 * 
-	 * TODO: add devices.
+	 * TODO: may automate this using XML list in resources/
 	 * 
 	 * @return list of authentication devices.
 	 */
-	private void getAvailableDevices() {
-		// dummy device
-		if (AuthDevDummy.checkExists()) {
-			this.devices.add(AuthDevDummy.getDevice());
-		}
+	private void initAvailableDevices() {
+		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
+//	this.mechanism.add(new AuthMech(uaservice, AuthVoiceService.class));
+
 	}
 
 }

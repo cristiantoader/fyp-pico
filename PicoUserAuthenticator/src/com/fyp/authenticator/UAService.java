@@ -1,8 +1,7 @@
-package com.fyp.services;
+package com.fyp.authenticator;
 
 import java.util.ArrayList;
 
-import com.fyp.authenticator.UserAuthenticator;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -26,9 +25,11 @@ public class UAService extends Service {
 	/** Message receiver from binded clients. */
 	private final Messenger messenger = new Messenger(new IncomingHandler());
 
-	/* Constants used with client communication. */
+	/** Constant used to register a client for broadcast. */
 	public static final int MSG_REGISTER_CLIENT = 0;
+	/** Constant used to unregister a client for broadcast. */
 	public static final int MSG_UNREGISTER_CLIENT = 1;
+	/** Constant used to request user authentication status. */
 	public static final int MSG_GET_STATUS = 2;
 
 	/**
@@ -41,7 +42,7 @@ public class UAService extends Service {
 		Log.i("UAService", "onCreate");
 
 		if (ua == null) {
-			ua = UserAuthenticator.getUserAuthenticator();
+			ua = new UserAuthenticator(this);
 		}
 
 		if (serviceThread == null) {
@@ -85,7 +86,6 @@ public class UAService extends Service {
 
 	@SuppressLint("HandlerLeak")
 	class IncomingHandler extends Handler {
-
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {

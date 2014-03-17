@@ -2,7 +2,7 @@ package com.fyp.activities;
 
 import com.fyp.activities.R;
 import com.fyp.activities.util.SystemUiHider;
-import com.fyp.services.UAService;
+import com.fyp.authenticator.UAService;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
