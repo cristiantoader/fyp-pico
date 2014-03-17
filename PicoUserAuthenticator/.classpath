@@ -5,8 +5,8 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="libs/marf/marf-0.2.1.jar" sourcepath="libs/marf/src"/>
-	<classpathentry kind="lib" path="libs/recognito/recognito.jar" sourcepath="libs/recognito/src"/>
+	<classpathentry kind="lib" path="libs/marf-0.2.1.jar" sourcepath="libs/marf/src"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre7/lib/rt.jar"/>
+	<classpathentry kind="lib" path="libs/recognito.jar" sourcepath="libs/recognito"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

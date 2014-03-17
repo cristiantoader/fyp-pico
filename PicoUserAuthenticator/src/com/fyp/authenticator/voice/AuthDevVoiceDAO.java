@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import com.bitsinharmony.recognito.Recognito;
-import com.bitsinharmony.recognito.VocalPrint;
 
 public class AuthDevVoiceDAO {
 
