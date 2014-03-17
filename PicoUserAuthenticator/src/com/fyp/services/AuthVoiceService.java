@@ -15,8 +15,9 @@ import android.os.RemoteException;
 import android.util.Log;
 
 /**
- * TODO: randomly or non randomly start recording and validate input using this
- * service.
+ * Observable service which needs to keep track of the user authentication
+ * state. When requested, the UAService will require to know the current state
+ * of this observable.
  * 
  * @author cristi
  * 
@@ -29,10 +30,21 @@ public class AuthVoiceService extends Service {
 
 	private ArrayList<Messenger> clients = new ArrayList<Messenger>();
 	private Messenger messenger = new Messenger(new IncomingHandler());
+
+	/** DAO bridge for communicating with the underlying voice recognition API. */
 	private AuthDevVoiceDAO voiceDAO = null;
 
 	private AuthenticatorThread voiceThread = null;
 
+	/**
+	 * When creating the service a voice DAO is created in order to interact with
+	 * the voice recognition library. An authenticator thread is started which
+	 * authenticates the user periodically.
+	 * 
+	 * TODO: create a way to intercept calls and authenticate the user during the
+	 * call.
+	 * 
+	 */
 	@Override
 	public void onCreate() {
 		Log.i("AuthVoiceService", "onCreate");
@@ -48,6 +60,10 @@ public class AuthVoiceService extends Service {
 
 	}
 
+	/**
+	 * When service is destroyed the authenticator thread is closed and the voice
+	 * DAO is unreferenced.
+	 */
 	@Override
 	public void onDestroy() {
 		Log.i("AuthVoiceService", "onDestroy");

@@ -7,27 +7,42 @@ import com.fyp.authenticator.AuthDevDummy;
 
 public class UserAuthenticator {
 
-	private static UserAuthenticator uaSingleton = null;
-	
+	/** Overall confidence level TODO: subject to change. */
 	private int confidence;
+
+	/** List of available devices used for authentication. */
 	private LinkedList<AuthDev> devices;
 
+	/** Default authentication threshold. */
 	private static final int authThreshold = 50;
 
+	/** Singleton object for the UserAuthenticator class. */
+	private static UserAuthenticator uaSingleton = null;
+
+	/**
+	 * Private constructor for the singleton object. Initialises the list of
+	 * available devices and calculates an initial confidence level.
+	 * 
+	 * TODO: not sure if we need to calculate anything manually, maybe should only
+	 * rely on requests.
+	 */
 	private UserAuthenticator() {
-		// initialise list and get available devices.
 		this.devices = new LinkedList<AuthDev>();
 		this.getAvailableDevices();
 
-		// calculate initial confidence level.
 		this.calculateConfidence();
 	}
-	
+
+	/**
+	 * Getter for the singleton class object.
+	 * 
+	 * @return reference to the UserAuthenticator singleton object.
+	 */
 	public static UserAuthenticator getUserAuthenticator() {
 		if (uaSingleton == null) {
 			uaSingleton = new UserAuthenticator();
 		}
-		
+
 		return uaSingleton;
 	}
 

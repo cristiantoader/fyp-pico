@@ -18,7 +18,7 @@ public class UAService extends Service {
 
 	/** Bridge to user authenticator class which provides functionality. */
 	private static UserAuthenticator ua = null;
-	
+
 	/** Authenticator thread responsible of broadcasting messages. */
 	private static AuthenticatorThread serviceThread = null;
 	/** List of binded clients. */
@@ -85,8 +85,7 @@ public class UAService extends Service {
 
 	@SuppressLint("HandlerLeak")
 	class IncomingHandler extends Handler {
-		
-		
+
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
