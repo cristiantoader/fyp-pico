@@ -1,11 +1,8 @@
 package com.fyp.authenticator.voice;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
-// TODO: this file is broken in android
-import javax.sound.sampled.UnsupportedAudioFileException;
 import com.bitsinharmony.recognito.Recognito;
 
 public class AuthDevVoiceDAO {
