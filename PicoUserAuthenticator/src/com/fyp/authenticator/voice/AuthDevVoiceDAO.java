@@ -1,7 +1,11 @@
 package com.fyp.authenticator.voice;
 
 import java.io.File;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import android.util.Log;
 
 import com.bitsinharmony.recognito.Recognito;
 
@@ -21,16 +25,24 @@ public class AuthDevVoiceDAO {
 		}
 	}
 
-	public boolean getMatch(String filename) {
-		List<String> matches = null;
+	public double getMatch(String filename) {
+		double result = 0;
+		Map<Double, String> matches = null;
 
 		try {
 			matches = recognito.recognize(new File(filename));
+			for (Entry<Double, String> entry : matches.entrySet()) {
+				if (entry.getValue().equals("owner")) {
+					Log.i("recognito", "found owner at distance: " + entry.getKey());
+					result = entry.getKey();
+				}
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return matches.get(0).equals("owner");
+		return result;
 	}
 
 	public void trainRecognito() {
