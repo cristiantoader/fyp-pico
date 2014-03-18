@@ -1,10 +1,11 @@
 package com.fyp.activities;
 
+import java.lang.ref.WeakReference;
+
 import com.fyp.activities.R;
 import com.fyp.activities.util.SystemUiHider;
 import com.fyp.authenticator.UAService;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -34,7 +35,7 @@ public class PicoMainActivity extends Activity {
 	private View controlsView;
 	private TextView contentView;
 
-	private final Messenger messageReceiver = new Messenger(new IncomingHandler());
+	private final Messenger messageReceiver = new Messenger(new IncomingHandler(this));
 	private Messenger messageService = null;
 	private boolean boundService = false;;
 
@@ -110,15 +111,20 @@ public class PicoMainActivity extends Activity {
 		}
 	};
 
-	@SuppressLint("HandlerLeak")
-	class IncomingHandler extends Handler {
+	static class IncomingHandler extends Handler {
+		WeakReference<PicoMainActivity> amwr;
+		
+		public IncomingHandler(PicoMainActivity am) {
+			this.amwr = new WeakReference<PicoMainActivity>(am);
+		}
+		
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			
 			case UAService.MSG_GET_STATUS:
 				boolean authenticated = (msg.arg1 == 1);
-				contentView.append("Received from service: " + authenticated + "\n");
+				amwr.get().contentView.append("Received from service: " + authenticated + "\n");
 				break;
 			
 			default:

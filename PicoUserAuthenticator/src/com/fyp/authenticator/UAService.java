@@ -1,9 +1,8 @@
 package com.fyp.authenticator;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-
-import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -23,7 +22,7 @@ public class UAService extends Service {
 	/** List of binded clients. */
 	private ArrayList<Messenger> clients = new ArrayList<Messenger>();
 	/** Message receiver from binded clients. */
-	private final Messenger messenger = new Messenger(new IncomingHandler());
+	private final Messenger messenger = new Messenger(new IncomingHandler(this));
 
 	/** Constant used to register a client for broadcast. */
 	public static final int MSG_REGISTER_CLIENT = 0;
@@ -44,7 +43,7 @@ public class UAService extends Service {
 		if (ua == null) {
 			ua = new UserAuthenticator(this);
 		}
-
+		
 		if (serviceThread == null) {
 			serviceThread = new AuthenticatorThread();
 			serviceThread.start();
@@ -83,31 +82,41 @@ public class UAService extends Service {
 		Log.i("UAService", "onBind");
 		return messenger.getBinder();
 	}
+	
+	static class IncomingHandler extends Handler {
+    private final WeakReference<UAService> service; 
 
-	@SuppressLint("HandlerLeak")
-	class IncomingHandler extends Handler {
+    public IncomingHandler(UAService service) {
+    	this.service = new WeakReference<UAService>(service);
+    }
+    
 		@Override
 		public void handleMessage(Message msg) {
+			UAService uas = service.get();
+			if (uas == null) {
+				return;
+			}
+			
 			switch (msg.what) {
 			case MSG_REGISTER_CLIENT:
-				clients.add(msg.replyTo);
+				uas.clients.add(msg.replyTo);
 				break;
 
 			case MSG_UNREGISTER_CLIENT:
-				clients.remove(msg.replyTo);
+				uas.clients.remove(msg.replyTo);
 				break;
 
 			case MSG_GET_STATUS:
 				Messenger req = msg.replyTo;
 
-				if (clients.contains(req)) {
+				if (uas.clients.contains(req)) {
 					try {
 						int value = (ua.isAuthenticated() == true) ? 1 : 0;
 						req.send(Message.obtain(null, MSG_GET_STATUS, value, 0));
 
 					} catch (RemoteException e) {
 						e.printStackTrace();
-						clients.remove(req);
+						uas.clients.remove(req);
 					}
 				}
 

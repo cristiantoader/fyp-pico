@@ -1,6 +1,7 @@
 package com.fyp.authenticator;
 
-import android.annotation.SuppressLint;
+import java.lang.ref.WeakReference;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -21,7 +22,7 @@ public abstract class AuthMechService extends Service {
 	/** Messenger used for writing to the client. */
 	protected Messenger clientWriter = null;
 	/** Messenger used for reading from the client. */
-	protected Messenger clientReader = new Messenger(new IncomingHandler());
+	protected Messenger clientReader = new Messenger(new IncomingHandler(this));
 
 	/**
 	 * Method called when the service is created.
@@ -47,19 +48,27 @@ public abstract class AuthMechService extends Service {
 	 * @author cristi
 	 * 
 	 */
-	@SuppressLint("HandlerLeak")
-	class IncomingHandler extends Handler {
+	static class IncomingHandler extends Handler {
+
+		private final WeakReference<AuthMechService> service;
+
+		public IncomingHandler(AuthMechService service) {
+			this.service = new WeakReference<AuthMechService>(service);
+		}
+
 		@Override
 		public void handleMessage(Message msg) {
+			AuthMechService am = service.get();
+
 			switch (msg.what) {
 
 			case AUTH_MECH_REGISTER:
-				clientWriter = msg.replyTo;
+				am.clientWriter = msg.replyTo;
 				break;
 
 			case AUTH_MECH_UNREGISTER:
-				if (clientWriter == msg.replyTo) {
-					clientWriter = null;
+				if (am.clientWriter == msg.replyTo) {
+					am.clientWriter = null;
 				}
 				break;
 
@@ -78,5 +87,4 @@ public abstract class AuthMechService extends Service {
 		}
 	}
 
-	
 }

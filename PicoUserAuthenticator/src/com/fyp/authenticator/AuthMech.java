@@ -1,6 +1,7 @@
 package com.fyp.authenticator;
 
-import android.annotation.SuppressLint;
+import java.lang.ref.WeakReference;
+
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -33,7 +34,7 @@ public class AuthMech {
 	/** Messenger used for sending messages to the service. */
 	private Messenger sender = null;
 	/** Messenger used for receiving messages from the service. */
-	private Messenger receiver = new Messenger(new IncomingHandler());
+	private Messenger receiver = new Messenger(new IncomingHandler(this));
 
 	/** Current confidence level registered by the authentication mechanism. */
 	private int mechConfidence = 0;
@@ -50,12 +51,7 @@ public class AuthMech {
 	}
 
 	/**
-	 * Method used to bind on this service.
-	 * 
-	 * @param service
-	 *          service that binds on this service.
-	 * @param conn
-	 *          Service connection used for binding on this service.
+	 * Method used to bind on corresponding mechanism service.
 	 */
 	public void doBindService() {
 		uaservice.bindService(new Intent(uaservice, mechServiceClass),
@@ -64,7 +60,7 @@ public class AuthMech {
 	}
 
 	/**
-	 * Method used to unBind on this service.
+	 * Method used to unBind service.
 	 * 
 	 * @param conn
 	 *          service connection to unbind.
@@ -104,14 +100,19 @@ public class AuthMech {
 		}
 	};
 
-	@SuppressLint("HandlerLeak")
-	class IncomingHandler extends Handler {
+	static class IncomingHandler extends Handler {
+		WeakReference<AuthMech> amwr;
+
+		public IncomingHandler(AuthMech am) {
+			this.amwr = new WeakReference<AuthMech>(am);
+		}
+
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 
 			case AuthMechService.AUTH_MECH_GET_STATUS:
-				mechConfidence = msg.arg1;
+				amwr.get().mechConfidence = msg.arg1;
 				break;
 
 			default:
