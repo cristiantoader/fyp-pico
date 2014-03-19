@@ -35,7 +35,8 @@ public class PicoMainActivity extends Activity {
 	private View controlsView;
 	private TextView contentView;
 
-	private final Messenger messageReceiver = new Messenger(new IncomingHandler(this));
+	private final Messenger messageReceiver = new Messenger(new IncomingHandler(
+			this));
 	private Messenger messageService = null;
 	private boolean boundService = false;;
 
@@ -51,6 +52,7 @@ public class PicoMainActivity extends Activity {
 		findViewById(R.id.Button01).setOnClickListener(buttonStartListener);
 		findViewById(R.id.Button03).setOnClickListener(buttonStopListener);
 
+		findViewById(R.id.Button02).setOnClickListener(buttonRecognitoListener);
 	}
 
 	@Override
@@ -69,7 +71,7 @@ public class PicoMainActivity extends Activity {
 		super.onPause();
 		doUnbindService();
 	}
-	
+
 	private void doBindService() {
 		bindService(new Intent(this, UAService.class), serviceConnection,
 				Context.BIND_AUTO_CREATE);
@@ -111,22 +113,30 @@ public class PicoMainActivity extends Activity {
 		}
 	};
 
+	View.OnClickListener buttonRecognitoListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			startActivity(new Intent(PicoMainActivity.this, RecognitoActivity.class));
+		}
+	};
+
 	static class IncomingHandler extends Handler {
 		WeakReference<PicoMainActivity> amwr;
-		
+
 		public IncomingHandler(PicoMainActivity am) {
 			this.amwr = new WeakReference<PicoMainActivity>(am);
 		}
-		
+
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			
+
 			case UAService.MSG_GET_STATUS:
 				boolean authenticated = (msg.arg1 == 1);
-				amwr.get().contentView.append("Received from service: " + authenticated + "\n");
+				amwr.get().contentView.append("Received from service: " + authenticated
+						+ "\n");
 				break;
-			
+
 			default:
 				super.handleMessage(msg);
 			}
