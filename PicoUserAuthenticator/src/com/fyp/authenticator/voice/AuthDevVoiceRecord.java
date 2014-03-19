@@ -17,7 +17,7 @@ public class AuthDevVoiceRecord {
 	private AudioRecord mRecorder = null;
 
 	/** Recording thread. */
-	private RecordingThread rt = null;
+	private RecordingThread rt = new RecordingThread();
 
 	/** Variable stating if recording was saved. */
 	private boolean recordingSaved = false;
@@ -72,7 +72,7 @@ public class AuthDevVoiceRecord {
 		double[] result = null;
 		int fileSize = 0;
 
-		if (doneRecoring() == false || !hasRecording()) {
+		if (doneRecoring() == false && !hasRecording()) {
 			return null;
 		}
 

@@ -32,10 +32,17 @@ public class AuthDevVoiceDAO {
 	 * data in order to train the recognito library.
 	 */
 	public void trainRecognito() {
+		Log.i("trainRecognito", "entering");
+
 		if (!this.ownerRecord.hasRecording()) {
 			Log.e(this.getClass().toString(), "Null owner recording data..");
 			return;
 		}
+		
+		Log.i("trainRecognito", "recording data" + this.ownerRecord.getRecordingData());
+		Log.i("trainRecognito", "recording data len" + this.ownerRecord.getRecordingData().length);
+		Log.i("trainRecognito", "recording sample rate" + this.ownerRecord.getSampleRate());
+
 
 		// TODO: remove after testing is over.
 		@SuppressWarnings("unused")

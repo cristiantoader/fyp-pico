@@ -62,7 +62,7 @@ public class AuthVoiceService extends AuthMechService {
 	 */
 	private class AuthenticatorThread extends Thread {
 		private static final int AUTH_PERIOD = 1 * 1000;
-		private static final int RECORD_TIME = 10 * 1000;
+		private static final int RECORD_TIME = 3 * 1000;
 
 		private volatile boolean stop;
 		private AuthDevVoiceDAO voiceDAO;
