@@ -1,78 +1,76 @@
 package com.fyp.authenticator.voice;
 
-import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.bitsinharmony.recognito.Recognito;
 import com.bitsinharmony.recognito.VocalPrint;
 
 public class AuthDevVoiceDAO {
+	/** Owner voice record manager. */
+	private AuthDevVoiceRecord ownerRecord = null;
 
+	/** Reference to recognito library object */
 	private Recognito<String> recognito = new Recognito<String>();
 
-	public AuthDevVoiceDAO() {
-		// trainRecognito();
+	/**
+	 * Constructor
+	 * 
+	 * @param ctx
+	 *          android context for application path.
+	 */
+	public AuthDevVoiceDAO(Context ctx) {
+		this.ownerRecord = new AuthDevVoiceRecord(ctx, "owner.3gp");
+		trainRecognito();
 	}
 
-	public VocalPrint addVocalPrint(String fileName) {
-		VocalPrint result = null;
-		
-		try {
-			result = recognito.createVocalPrint("owner", new File(fileName));
-		} catch (Exception e) {
-			e.printStackTrace();
+	/**
+	 * Trains recognito library for the owner's voice. Searches through internal
+	 * data in order to train the recognito library.
+	 */
+	public void trainRecognito() {
+		if (!this.ownerRecord.hasRecording()) {
+			Log.e(this.getClass().toString(), "Null owner recording data..");
+			return;
 		}
-		
-		return result;
+
+		// TODO: remove after testing is over.
+		@SuppressWarnings("unused")
+		VocalPrint result = recognito.createVocalPrint("owner",
+				this.ownerRecord.getRecordingData(), this.ownerRecord.getSampleRate());
 	}
 
-	public VocalPrint addVocalPrint(double[] vocalSample, float sampleRate) {
-		VocalPrint result = recognito.createVocalPrint("owner", vocalSample, sampleRate);
-		return result;
-	}
 
-	public double getMatch(String filename) {
+	/**
+	 * Return's the match distance between the current recording and the owner.
+	 * 
+	 * @param filename
+	 * @return recording match indicator.
+	 */
+	public double getMatch(AuthDevVoiceRecord record) {
 		double result = 0;
 		Map<Double, String> matches = null;
 
-		try {
-			matches = recognito.recognize(new File(filename));
-			for (Entry<Double, String> entry : matches.entrySet()) {
-				if (entry.getValue().equals("owner")) {
-					Log.i("recognito", "found owner at distance: " + entry.getKey());
-					result = entry.getKey();
-				}
-			}
+		if (record == null || !record.hasRecording()) {
+			return 0;
+		}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		matches = recognito.recognize(record.getRecordingData(),
+				record.getSampleRate());
+
+		for (Entry<Double, String> entry : matches.entrySet()) {
+
+			if (entry.getValue().equals("owner")) {
+				Log.i("recognito", "found owner at distance: " + entry.getKey());
+				result = entry.getKey();
+				break;
+			}
 		}
 
 		return result;
 	}
 
-	public void trainRecognito() {
-		File dir = new File("audio");
-
-		for (File file : dir.listFiles()) {
-			String fileName = file.getPath();
-
-			if (fileName.endsWith(".wav")) {
-				try {
-					recognito.createVocalPrint("owner", file);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
-
-	}
-
 }
-
-// EOF

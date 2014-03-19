@@ -26,7 +26,7 @@ public class AuthVoiceService extends AuthMechService {
 		Log.i("AuthVoiceService", "onCreate");
 
 		if (voiceDAO == null) {
-			voiceDAO = new AuthDevVoiceDAO();
+			voiceDAO = new AuthDevVoiceDAO(this);
 		}
 
 		if (voiceThread == null) {

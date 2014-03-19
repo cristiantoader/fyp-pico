@@ -21,7 +21,7 @@ import android.widget.EditText;
 
 public class RecognitoActivity extends Activity {
 	private static final String LOG_TAG = "AudioRecordTest";
-	private static final String FILE_NAME = "/owner.3gp";
+	private static final String FILE_NAME = "owner.3gp";
 
 	private EditText timerDisplay = null;
 
@@ -29,10 +29,10 @@ public class RecognitoActivity extends Activity {
 	private Button mPlayButton = null;
 	private Button mSaveButton = null;
 
+	// TODO: these two need to be removed, the player also is unlikely to work in
+	// the future
 	private AudioRecord mRecorder = null;
 	private MediaPlayer mPlayer = null;
-
-	private static final int SAMPLE_RATE = 44100;
 
 	OnClickListener clickerRecord = new OnClickListener() {
 		private boolean recording = false;
@@ -54,13 +54,13 @@ public class RecognitoActivity extends Activity {
 			}
 
 		};
-		
+
 		private void startTimer() {
 			this.mStartTime = System.currentTimeMillis();
 			timerDisplay.setText(String.format("%d:%02d", 0, 0));
 			timerHandler.postDelayed(timerRunable, 1000);
 		}
-		
+
 		private void stopTimer() {
 			this.mStartTime = 0;
 			timerHandler.removeCallbacks(timerRunable);
@@ -84,7 +84,7 @@ public class RecognitoActivity extends Activity {
 			this.record = new AuthDevVoiceRecord(RecognitoActivity.this, FILE_NAME);
 			this.record.startRecord();
 		}
-		
+
 		private void stopRecording() {
 			this.recording = false;
 			this.record.stopRecord();
@@ -125,14 +125,13 @@ public class RecognitoActivity extends Activity {
 		}
 	};
 
-	OnClickListener clickerSave = new OnClickListener() {
+	OnClickListener clickerTest = new OnClickListener() {
 
 		public void onClick(View v) {
 			if (recordingExists()) {
 				Log.i("RecognitoActivity", "recording exists!");
 
-				AuthDevVoiceDAO voiceDAO = new AuthDevVoiceDAO();
-				voiceDAO.addVocalPrint(getRecordingData(), SAMPLE_RATE);
+				AuthDevVoiceDAO voiceDAO = new AuthDevVoiceDAO(RecognitoActivity.this);
 
 			} else {
 				Log.i("RecognitoActivity", "recording not present!");
@@ -142,41 +141,6 @@ public class RecognitoActivity extends Activity {
 		private boolean recordingExists() {
 			return new File(getFilesDir() + FILE_NAME).exists();
 		}
-
-		private double[] getRecordingData() {
-			FileInputStream in = null;
-			double[] result = null;
-			int fileSize = 0;
-			
-			if (!recordingExists()) {
-				return null;
-			}
-
-			try {
-				in = new FileInputStream(getFilesDir() + FILE_NAME);
-				
-				fileSize = (int) in.getChannel().size();
-				result = new double[fileSize];
-
-				for (int i = 0; i < fileSize; i++) {
-					int val = in.read();
-					if (val == -1)
-						break;
-					
-					result[i] = ((double) val / 128) - 1;
-				}
-
-				in.close();
-				
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			return result;
-		}
-
 	};
 
 	@Override
@@ -191,8 +155,8 @@ public class RecognitoActivity extends Activity {
 		this.mPlayButton = (Button) findViewById(R.id.ButtonRecognitoPlay);
 		this.mPlayButton.setOnClickListener(clickerPlay);
 
-		this.mSaveButton = (Button) findViewById(R.id.ButtonRecognitoSave);
-		this.mSaveButton.setOnClickListener(clickerSave);
+		this.mSaveButton = (Button) findViewById(R.id.ButtonRecognitoTest);
+		this.mSaveButton.setOnClickListener(clickerTest);
 
 		this.timerDisplay = (EditText) findViewById(R.id.timer1);
 	}

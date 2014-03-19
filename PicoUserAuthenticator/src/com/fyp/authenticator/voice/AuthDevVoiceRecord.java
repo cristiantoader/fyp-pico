@@ -1,5 +1,7 @@
 package com.fyp.authenticator.voice;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,8 +16,11 @@ public class AuthDevVoiceRecord {
 	/** Audio recorder object. */
 	private AudioRecord mRecorder = null;
 
-	/** Recording thread.  */
+	/** Recording thread. */
 	private RecordingThread rt = null;
+
+	/** Variable stating if recording was saved. */
+	private boolean recordingSaved = false;
 
 	/** Audio record data. */
 	private final int SAMPLE_RATE = 44100;
@@ -49,8 +54,72 @@ public class AuthDevVoiceRecord {
 
 		this.rt.stopThread();
 		this.rt = null;
+
+		this.recordingSaved = true;
 	}
-	
+
+	public int getSampleRate() {
+		return this.SAMPLE_RATE;
+	}
+
+	/**
+	 * Retrieves the recording data from the record saved in internal memory.
+	 * 
+	 * @return recording data from the record saved in internal memory.
+	 */
+	public double[] getRecordingData() {
+		FileInputStream in = null;
+		double[] result = null;
+		int fileSize = 0;
+
+		if (doneRecoring() == false || !hasRecording()) {
+			return null;
+		}
+
+		try {
+			in = new FileInputStream(getAbsoluteFilePath());
+
+			fileSize = (int) in.getChannel().size();
+			result = new double[fileSize];
+
+			for (int i = 0; i < fileSize; i++) {
+				int val = in.read();
+				if (val == -1)
+					break;
+
+				result[i] = ((double) val / 128) - 1;
+			}
+
+			in.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	/**
+	 * Checks if the recording process is over and the recording was marked as
+	 * saved.
+	 * 
+	 * @return true if the recording is done, false otherwise.
+	 */
+	public boolean doneRecoring() {
+		return this.recordingSaved;
+	}
+
+	/**
+	 * Checks if the recording file exists in the file system.
+	 * 
+	 * @return true if the file exists, false otherwise.
+	 */
+	public boolean hasRecording() {
+		return new File(getAbsoluteFilePath()).exists();
+	}
+
 	private String getAbsoluteFilePath() {
 		return this.filePath + "/" + this.fileName;
 	}

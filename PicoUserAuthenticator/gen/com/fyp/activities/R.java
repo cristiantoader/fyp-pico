@@ -30,7 +30,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int Button03=0x7f070004;
         public static final int ButtonRecognitoPlay=0x7f070009;
         public static final int ButtonRecognitoRecord=0x7f07000a;
-        public static final int ButtonRecognitoSave=0x7f07000b;
+        public static final int ButtonRecognitoTest=0x7f07000b;
         public static final int LinearLayout1=0x7f070000;
         public static final int LinearLayoutRecognito=0x7f070007;
         public static final int fullscreen_content_controls=0x7f070002;
@@ -46,7 +46,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int Play=0x7f050007;
         public static final int Recognito=0x7f050005;
         public static final int Record=0x7f050006;
-        public static final int Save=0x7f050008;
+        public static final int Test=0x7f050008;
         public static final int app_name=0x7f050000;
         public static final int dummy_button=0x7f050001;
         public static final int pause=0x7f050003;
