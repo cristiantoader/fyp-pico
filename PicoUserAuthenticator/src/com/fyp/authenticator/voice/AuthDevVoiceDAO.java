@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import android.util.Log;
 
 import com.bitsinharmony.recognito.Recognito;
+import com.bitsinharmony.recognito.VocalPrint;
 
 public class AuthDevVoiceDAO {
 
@@ -17,12 +18,21 @@ public class AuthDevVoiceDAO {
 		// trainRecognito();
 	}
 
-	public void addVocalPrint(String fileName) {
+	public VocalPrint addVocalPrint(String fileName) {
+		VocalPrint result = null;
+		
 		try {
-			recognito.createVocalPrint("owner", new File(fileName));
+			result = recognito.createVocalPrint("owner", new File(fileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return result;
+	}
+
+	public VocalPrint addVocalPrint(double[] vocalSample, float sampleRate) {
+		VocalPrint result = recognito.createVocalPrint("owner", vocalSample, sampleRate);
+		return result;
 	}
 
 	public double getMatch(String filename) {

@@ -30,6 +30,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int Button03=0x7f070004;
         public static final int ButtonRecognitoPlay=0x7f070009;
         public static final int ButtonRecognitoRecord=0x7f07000a;
+        public static final int ButtonRecognitoSave=0x7f07000b;
         public static final int LinearLayout1=0x7f070000;
         public static final int LinearLayoutRecognito=0x7f070007;
         public static final int fullscreen_content_controls=0x7f070002;

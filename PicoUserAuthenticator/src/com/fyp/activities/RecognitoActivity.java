@@ -1,10 +1,16 @@
 package com.fyp.activities;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.fyp.authenticator.voice.AuthDevVoiceDAO;
+import com.fyp.authenticator.voice.AuthDevVoiceRecord;
+
 import android.app.Activity;
+import android.media.AudioRecord;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -13,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-// TODO: http://stackoverflow.com/questions/8499042/android-audiorecord-example
 public class RecognitoActivity extends Activity {
 	private static final String LOG_TAG = "AudioRecordTest";
 	private static final String FILE_NAME = "/owner.3gp";
@@ -22,14 +27,17 @@ public class RecognitoActivity extends Activity {
 
 	private Button mRecordButton = null;
 	private Button mPlayButton = null;
+	private Button mSaveButton = null;
 
-	private MediaRecorder mRecorder = null;
+	private AudioRecord mRecorder = null;
 	private MediaPlayer mPlayer = null;
 
+	private static final int SAMPLE_RATE = 44100;
 
 	OnClickListener clickerRecord = new OnClickListener() {
-		private boolean mStartRecording = true;
+		private boolean recording = false;
 		private long mStartTime = 0;
+		private AuthDevVoiceRecord record = null;
 
 		private Handler timerHandler = new Handler();
 		private Runnable timerRunable = new Runnable() {
@@ -46,17 +54,23 @@ public class RecognitoActivity extends Activity {
 			}
 
 		};
-
-		public void onClick(View v) {
-			onRecord(mStartRecording);
-			mStartRecording = !mStartRecording;
+		
+		private void startTimer() {
+			this.mStartTime = System.currentTimeMillis();
+			timerDisplay.setText(String.format("%d:%02d", 0, 0));
+			timerHandler.postDelayed(timerRunable, 1000);
+		}
+		
+		private void stopTimer() {
+			this.mStartTime = 0;
+			timerHandler.removeCallbacks(timerRunable);
 		}
 
-		private void onRecord(boolean start) {
-			if (start) {
+		public void onClick(View v) {
+			if (recording == false) {
 				startTimer();
 				startRecording();
-				mRecordButton.setText("Save");
+				mRecordButton.setText("Stop");
 
 			} else {
 				stopTimer();
@@ -65,36 +79,17 @@ public class RecognitoActivity extends Activity {
 			}
 		}
 
-		private void startTimer() {
-			this.mStartTime = System.currentTimeMillis();
-			timerDisplay.setText(String.format("%d:%02d", 0, 0));
-			timerHandler.postDelayed(timerRunable, 1000);
-		}
-
 		private void startRecording() {
-			try {
-				mRecorder = new MediaRecorder();
-				mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-				mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-				mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-				mRecorder.setOutputFile(getFilesDir() + FILE_NAME);
-				mRecorder.prepare();
-				mRecorder.start();
-			} catch (IOException e) {
-				Log.e(LOG_TAG, "prepare() failed");
-			}
+			this.recording = true;
+			this.record = new AuthDevVoiceRecord(RecognitoActivity.this, FILE_NAME);
+			this.record.startRecord();
 		}
-
-		private void stopTimer() {
-			this.mStartTime = 0;
-			timerHandler.removeCallbacks(timerRunable);
-		}
-
+		
 		private void stopRecording() {
-			mRecorder.stop();
-			mRecorder.release();
-			mRecorder = null;
+			this.recording = false;
+			this.record.stopRecord();
 		}
+
 	};
 
 	OnClickListener clickerPlay = new OnClickListener() {
@@ -130,6 +125,59 @@ public class RecognitoActivity extends Activity {
 		}
 	};
 
+	OnClickListener clickerSave = new OnClickListener() {
+
+		public void onClick(View v) {
+			if (recordingExists()) {
+				Log.i("RecognitoActivity", "recording exists!");
+
+				AuthDevVoiceDAO voiceDAO = new AuthDevVoiceDAO();
+				voiceDAO.addVocalPrint(getRecordingData(), SAMPLE_RATE);
+
+			} else {
+				Log.i("RecognitoActivity", "recording not present!");
+			}
+		}
+
+		private boolean recordingExists() {
+			return new File(getFilesDir() + FILE_NAME).exists();
+		}
+
+		private double[] getRecordingData() {
+			FileInputStream in = null;
+			double[] result = null;
+			int fileSize = 0;
+			
+			if (!recordingExists()) {
+				return null;
+			}
+
+			try {
+				in = new FileInputStream(getFilesDir() + FILE_NAME);
+				
+				fileSize = (int) in.getChannel().size();
+				result = new double[fileSize];
+
+				for (int i = 0; i < fileSize; i++) {
+					int val = in.read();
+					if (val == -1)
+						break;
+					
+					result[i] = ((double) val / 128) - 1;
+				}
+
+				in.close();
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			return result;
+		}
+
+	};
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -142,6 +190,9 @@ public class RecognitoActivity extends Activity {
 
 		this.mPlayButton = (Button) findViewById(R.id.ButtonRecognitoPlay);
 		this.mPlayButton.setOnClickListener(clickerPlay);
+
+		this.mSaveButton = (Button) findViewById(R.id.ButtonRecognitoSave);
+		this.mSaveButton.setOnClickListener(clickerSave);
 
 		this.timerDisplay = (EditText) findViewById(R.id.timer1);
 	}
