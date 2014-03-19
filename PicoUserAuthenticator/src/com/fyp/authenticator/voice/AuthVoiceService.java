@@ -61,22 +61,46 @@ public class AuthVoiceService extends AuthMechService {
 	 * 
 	 */
 	private class AuthenticatorThread extends Thread {
-		private static final int AUTH_PERIOD = 1000;
+		private static final int AUTH_PERIOD = 1 * 1000;
+		private static final int RECORD_TIME = 10 * 1000;
+
 		private volatile boolean stop;
+		private AuthDevVoiceDAO voiceDAO;
 
 		public AuthenticatorThread() {
 			this.stop = false;
+			this.voiceDAO = new AuthDevVoiceDAO(AuthVoiceService.this);
 		}
 
 		@Override
 		public void run() {
 			while (stop != true) {
 				try {
+					int score = 0;
+					AuthDevVoiceRecord record = new AuthDevVoiceRecord(
+							AuthVoiceService.this, "challenge.3gp");
+					Log.d(this.getClass().toString(), "Starting loop...");
+
 					Thread.sleep(AUTH_PERIOD);
 
-					// TODO: use DAO to actually send good results based on periodic input
-					// validation.
-					clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS, 50, 0));
+					// gathering a recording sample.
+					Log.d(this.getClass().toString(), "Gathering input...");
+					record.startRecord();
+					Thread.sleep(RECORD_TIME);
+					record.stopRecord();
+					
+					// this would be an unexplained error.
+					Log.d(this.getClass().toString(), "Getting score...");
+					if (!record.hasRecording()) {
+						Log.e(this.getClass().toString(), "record not created!");
+						continue;
+					}
+					
+					// sending match score.
+					score = (int) Math.floor(this.voiceDAO.getMatch(record));
+					
+					Log.d(this.getClass().toString(), "Sending score " + score + "...");
+					clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
 
 				} catch (InterruptedException e) {
 					e.printStackTrace();
