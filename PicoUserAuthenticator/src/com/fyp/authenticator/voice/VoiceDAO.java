@@ -9,9 +9,9 @@ import android.util.Log;
 import com.bitsinharmony.recognito.Recognito;
 import com.bitsinharmony.recognito.VocalPrint;
 
-public class AuthDevVoiceDAO {
+public class VoiceDAO {
 	/** Owner voice record manager. */
-	private AuthDevVoiceRecord ownerRecord = null;
+	private VoiceRecord ownerRecord = null;
 
 	/** Reference to recognito library object */
 	private Recognito<String> recognito = new Recognito<String>();
@@ -22,8 +22,8 @@ public class AuthDevVoiceDAO {
 	 * @param ctx
 	 *          android context for application path.
 	 */
-	public AuthDevVoiceDAO(Context ctx) {
-		this.ownerRecord = new AuthDevVoiceRecord(ctx, "owner.3gp");
+	public VoiceDAO(Context ctx) {
+		this.ownerRecord = new VoiceRecord(ctx, "owner.3gp");
 		trainRecognito();
 	}
 
@@ -57,7 +57,7 @@ public class AuthDevVoiceDAO {
 	 * @param filename
 	 * @return recording match indicator.
 	 */
-	public double getMatch(AuthDevVoiceRecord record) {
+	public double getMatch(VoiceRecord record) {
 		double result = 0;
 		Map<Double, String> matches = null;
 

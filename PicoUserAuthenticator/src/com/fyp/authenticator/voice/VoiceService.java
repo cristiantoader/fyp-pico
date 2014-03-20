@@ -14,10 +14,10 @@ import android.util.Log;
  * @author cristi
  * 
  */
-public class AuthVoiceService extends AuthMechService {
+public class VoiceService extends AuthMechService {
 
 	/** DAO bridge for communicating with the underlying voice recognition API. */
-	private AuthDevVoiceDAO voiceDAO = null;
+	private VoiceDAO voiceDAO = null;
 
 	/** Thread used to periodically authenticate the user and broadcast result. */
 	private AuthenticatorThread voiceThread = null;
@@ -26,7 +26,7 @@ public class AuthVoiceService extends AuthMechService {
 		Log.i("AuthVoiceService", "onCreate");
 
 		if (voiceDAO == null) {
-			voiceDAO = new AuthDevVoiceDAO(this);
+			voiceDAO = new VoiceDAO(this);
 		}
 
 		if (voiceThread == null) {
@@ -65,11 +65,11 @@ public class AuthVoiceService extends AuthMechService {
 		private static final int RECORD_TIME = 3 * 1000;
 
 		private volatile boolean stop;
-		private AuthDevVoiceDAO voiceDAO;
+		private VoiceDAO voiceDAO;
 
 		public AuthenticatorThread() {
 			this.stop = false;
-			this.voiceDAO = new AuthDevVoiceDAO(AuthVoiceService.this);
+			this.voiceDAO = new VoiceDAO(VoiceService.this);
 		}
 
 		@Override
@@ -79,8 +79,8 @@ public class AuthVoiceService extends AuthMechService {
 					int score = 0;
 					// TODO: can change this to having a separate method for recording a
 					// challenge..
-					AuthDevVoiceRecord record = new AuthDevVoiceRecord(
-							AuthVoiceService.this, "challenge.3gp");
+					VoiceRecord record = new VoiceRecord(
+							VoiceService.this, "challenge.3gp");
 					Log.d(this.getClass().toString(), "Starting loop...");
 
 					Thread.sleep(AUTH_PERIOD);

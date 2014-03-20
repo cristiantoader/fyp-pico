@@ -50,7 +50,7 @@
         </service>
         
         <service 
-            android:name="com.fyp.authenticator.voice.AuthVoiceService"
+            android:name="com.fyp.authenticator.voice.VoiceService"
             android:process=":AuthVoiceService">
         </service>
         

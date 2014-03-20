@@ -17,7 +17,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.fyp.authenticator.UAService;
-import com.fyp.authenticator.voice.AuthVoiceService;
+import com.fyp.authenticator.voice.VoiceService;
 
 /**
  * TODO: tie this to a service context such that communication is possible with
@@ -61,7 +61,7 @@ public class AuthDevVoice {
 	}
 
 	private void doBindService(Context ctx) {
-		ctx.bindService(new Intent(ctx, AuthVoiceService.class), serviceConnection,
+		ctx.bindService(new Intent(ctx, VoiceService.class), serviceConnection,
 				Context.BIND_AUTO_CREATE);
 		boundService = true;
 	}

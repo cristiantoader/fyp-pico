@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.fyp.authenticator.voice.AuthDevVoiceDAO;
-import com.fyp.authenticator.voice.AuthDevVoiceRecord;
+import com.fyp.authenticator.voice.VoiceDAO;
+import com.fyp.authenticator.voice.VoiceRecord;
 
 import android.app.Activity;
 import android.media.AudioRecord;
@@ -37,7 +37,7 @@ public class RecognitoActivity extends Activity {
 	OnClickListener clickerRecord = new OnClickListener() {
 		private boolean recording = false;
 		private long mStartTime = 0;
-		private AuthDevVoiceRecord record = null;
+		private VoiceRecord record = null;
 
 		private Handler timerHandler = new Handler();
 		private Runnable timerRunable = new Runnable() {
@@ -81,7 +81,7 @@ public class RecognitoActivity extends Activity {
 
 		private void startRecording() {
 			this.recording = true;
-			this.record = new AuthDevVoiceRecord(RecognitoActivity.this, FILE_NAME);
+			this.record = new VoiceRecord(RecognitoActivity.this, FILE_NAME);
 			this.record.startRecord();
 		}
 
@@ -131,7 +131,7 @@ public class RecognitoActivity extends Activity {
 			if (recordingExists()) {
 				Log.i("RecognitoActivity", "recording exists!");
 
-				AuthDevVoiceDAO voiceDAO = new AuthDevVoiceDAO(RecognitoActivity.this);
+				VoiceDAO voiceDAO = new VoiceDAO(RecognitoActivity.this);
 
 			} else {
 				Log.i("RecognitoActivity", "recording not present!");

@@ -11,7 +11,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 
-public class AuthDevVoiceRecord {
+public class VoiceRecord {
 
 	/** Audio recorder object. */
 	private AudioRecord mRecorder = null;
@@ -32,7 +32,7 @@ public class AuthDevVoiceRecord {
 	private String fileName = null;
 	private String filePath = null;
 
-	public AuthDevVoiceRecord(Context context, String fileName) {
+	public VoiceRecord(Context context, String fileName) {
 		this.fileName = fileName;
 		this.filePath = context.getFilesDir().toString();
 

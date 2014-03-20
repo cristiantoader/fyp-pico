@@ -3,7 +3,7 @@ package com.fyp.authenticator;
 import java.util.LinkedList;
 
 import com.fyp.authenticator.dummy.AuthDummyService;
-import com.fyp.authenticator.voice.AuthVoiceService;
+import com.fyp.authenticator.voice.VoiceService;
 
 import android.app.Service;
 
@@ -71,7 +71,7 @@ public class UserAuthenticator {
 	 */
 	private void initAvailableDevices() {
 		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
-		this.mechanism.add(new AuthMech(uaservice, AuthVoiceService.class));
+		this.mechanism.add(new AuthMech(uaservice, VoiceService.class));
 
 	}
 
