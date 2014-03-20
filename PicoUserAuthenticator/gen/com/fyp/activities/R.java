@@ -12,75 +12,47 @@ public final class R {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int buttonBarButtonStyle=0x7f010003;
+        public static final int buttonBarButtonStyle=0x7f010001;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static int buttonBarStyle=0x7f010002;
-        /** <p>May be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-<p>May be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>any</code></td><td>-1</td><td></td></tr>
-<tr><td><code>back</code></td><td>99</td><td></td></tr>
-<tr><td><code>front</code></td><td>98</td><td></td></tr>
-</table>
-         */
-        public static int camera_id=0x7f010001;
-        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static int show_fps=0x7f010000;
+        public static final int buttonBarStyle=0x7f010000;
     }
     public static final class color {
-        public static int black_overlay=0x7f050000;
+        public static final int black_overlay=0x7f040000;
     }
     public static final class drawable {
-        public static int ic_launcher=0x7f020000;
+        public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static int Button01=0x7f040006;
-        public static int Button02=0x7f040009;
-        public static int Button03=0x7f040007;
-        public static int ButtonRecognitoPlay=0x7f04000c;
-        public static int ButtonRecognitoRecord=0x7f04000d;
-        public static int ButtonRecognitoTest=0x7f04000e;
-        public static int LinearLayout1=0x7f040003;
-        public static int LinearLayoutRecognito=0x7f04000a;
-        public static int any=0x7f040000;
-        public static int back=0x7f040001;
-        public static int front=0x7f040002;
-        public static int fullscreen_content_controls=0x7f040005;
-        public static int fullscreen_content_controls2=0x7f040008;
-        public static int text=0x7f040004;
-        public static int timer1=0x7f04000b;
+        public static final int Button01=0x7f070008;
+        public static final int Button02=0x7f07000b;
+        public static final int Button03=0x7f070009;
+        public static final int ButtonRecognitoPlay=0x7f070003;
+        public static final int ButtonRecognitoRecord=0x7f070004;
+        public static final int ButtonRecognitoTest=0x7f070005;
+        public static final int LinearLayout1=0x7f070002;
+        public static final int LinearLayoutRecognito=0x7f070000;
+        public static final int fullscreen_content_controls=0x7f070007;
+        public static final int fullscreen_content_controls2=0x7f07000a;
+        public static final int text=0x7f070006;
+        public static final int timer1=0x7f070001;
     }
     public static final class layout {
-        public static int activity_pico_main=0x7f030000;
-        public static int activity_recognito=0x7f030001;
+        public static final int activity_face=0x7f030000;
+        public static final int activity_pico_main=0x7f030001;
+        public static final int activity_recognito=0x7f030002;
     }
     public static final class string {
-        public static int Play=0x7f060007;
-        public static int Recognito=0x7f060005;
-        public static int Record=0x7f060006;
-        public static int Test=0x7f060008;
-        public static int app_name=0x7f060000;
-        public static int dummy_button=0x7f060001;
-        public static int pause=0x7f060003;
-        public static int start=0x7f060002;
-        public static int stop=0x7f060004;
+        public static final int Play=0x7f050007;
+        public static final int Recognito=0x7f050005;
+        public static final int Record=0x7f050006;
+        public static final int Test=0x7f050008;
+        public static final int app_name=0x7f050000;
+        public static final int dummy_button=0x7f050001;
+        public static final int pause=0x7f050003;
+        public static final int start=0x7f050002;
+        public static final int stop=0x7f050004;
     }
     public static final class style {
         /** 
@@ -107,15 +79,15 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f060000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static int AppTheme=0x7f070001;
-        public static int ButtonBar=0x7f070003;
-        public static int ButtonBarButton=0x7f070004;
-        public static int FullscreenActionBarStyle=0x7f070005;
-        public static int FullscreenTheme=0x7f070002;
+        public static final int AppTheme=0x7f060001;
+        public static final int ButtonBar=0x7f060003;
+        public static final int ButtonBarButton=0x7f060004;
+        public static final int FullscreenActionBarStyle=0x7f060005;
+        public static final int FullscreenTheme=0x7f060002;
     }
     public static final class styleable {
         /** 
@@ -136,7 +108,7 @@ containing a value of this type.
            @see #ButtonBarContainerTheme_buttonBarStyle
          */
         public static final int[] ButtonBarContainerTheme = {
-            0x7f010002, 0x7f010003
+            0x7f010000, 0x7f010001
         };
         /**
           <p>This symbol is the offset where the {@link com.fyp.activities.R.attr#buttonBarButtonStyle}
@@ -158,58 +130,5 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           @attr name com.fyp.activities:buttonBarStyle
         */
         public static final int ButtonBarContainerTheme_buttonBarStyle = 0;
-        /** Attributes that can be used with a CameraBridgeViewBase.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CameraBridgeViewBase_camera_id com.fyp.activities:camera_id}</code></td><td></td></tr>
-           <tr><td><code>{@link #CameraBridgeViewBase_show_fps com.fyp.activities:show_fps}</code></td><td></td></tr>
-           </table>
-           @see #CameraBridgeViewBase_camera_id
-           @see #CameraBridgeViewBase_show_fps
-         */
-        public static final int[] CameraBridgeViewBase = {
-            0x7f010000, 0x7f010001
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.fyp.activities.R.attr#camera_id}
-          attribute's value can be found in the {@link #CameraBridgeViewBase} array.
-
-
-          <p>May be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-<p>May be one of the following constant values.</p>
-<table>
-<colgroup align="left" />
-<colgroup align="left" />
-<colgroup align="left" />
-<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
-<tr><td><code>any</code></td><td>-1</td><td></td></tr>
-<tr><td><code>back</code></td><td>99</td><td></td></tr>
-<tr><td><code>front</code></td><td>98</td><td></td></tr>
-</table>
-          @attr name com.fyp.activities:camera_id
-        */
-        public static final int CameraBridgeViewBase_camera_id = 1;
-        /**
-          <p>This symbol is the offset where the {@link com.fyp.activities.R.attr#show_fps}
-          attribute's value can be found in the {@link #CameraBridgeViewBase} array.
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.fyp.activities:show_fps
-        */
-        public static final int CameraBridgeViewBase_show_fps = 0;
     };
 }

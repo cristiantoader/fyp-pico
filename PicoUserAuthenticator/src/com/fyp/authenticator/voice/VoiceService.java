@@ -16,18 +16,11 @@ import android.util.Log;
  */
 public class VoiceService extends AuthMechService {
 
-	/** DAO bridge for communicating with the underlying voice recognition API. */
-	private VoiceDAO voiceDAO = null;
-
 	/** Thread used to periodically authenticate the user and broadcast result. */
 	private AuthenticatorThread voiceThread = null;
 
 	public void onCreate() {
 		Log.i("AuthVoiceService", "onCreate");
-
-		if (voiceDAO == null) {
-			voiceDAO = new VoiceDAO(this);
-		}
 
 		if (voiceThread == null) {
 			voiceThread = new AuthenticatorThread();
@@ -49,9 +42,6 @@ public class VoiceService extends AuthMechService {
 			}
 		}
 
-		if (voiceDAO != null) {
-			voiceDAO = null;
-		}
 	}
 
 	/**

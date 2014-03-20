@@ -1,8 +1,5 @@
 package com.fyp.authenticator.face;
 
-import org.opencv.android.OpenCVLoader;
-import org.opencv.contrib.FaceRecognizer;
-
 import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
@@ -12,17 +9,6 @@ import com.fyp.authenticator.AuthMechService;
 public class FaceService extends AuthMechService {
 
 	private AuthenticatorThread faceThread = null;
-
-	/**
-	 * Loading OpenCV
-	 */
-	static {
-		if (!OpenCVLoader.initDebug()) {
-			Log.e("FaceService", "Failed to load OpenCV");
-		} else {
-			Log.i("FaceService", "OpenCV loaded successfully!");
-		}
-	}
 
 	@Override
 	public void onCreate() {
