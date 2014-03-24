@@ -9,6 +9,9 @@
         android:targetSdkVersion="19" />
 	
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    
+    <uses-feature android:name="android.hardware.camera" />
     
     <application
         android:allowBackup="true"
@@ -52,6 +55,11 @@
         <service 
             android:name="com.fyp.authenticator.voice.VoiceService"
             android:process=":AuthVoiceService">
+        </service>
+        
+        <service 
+            android:name="com.fyp.authenticator.face.FaceService"
+            android:process=":AuthFaceService">
         </service>
         
     </application>
