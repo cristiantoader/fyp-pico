@@ -7,18 +7,20 @@
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="19" />
-	
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- TODO: Remove this when not testing.  -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     
     <uses-feature android:name="android.hardware.camera" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
         <activity
             android:name="com.fyp.activities.PicoMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -30,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.fyp.activities.RecognitoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -38,30 +39,38 @@
             android:theme="@style/FullscreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.fyp.activities.FaceActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <service 
+        <service
             android:name="com.fyp.authenticator.UAService"
-            android:process=":UAService">
+            android:process=":UAService" >
         </service>
-        
-        <service 
+        <service
             android:name="com.fyp.authenticator.dummy.AuthDummyService"
-            android:process=":AuthDummyService">
+            android:process=":AuthDummyService" >
         </service>
-        
-        <service 
+        <service
             android:name="com.fyp.authenticator.voice.VoiceService"
-            android:process=":AuthVoiceService">
+            android:process=":AuthVoiceService" >
         </service>
-        
-        <service 
+        <service
             android:name="com.fyp.authenticator.face.FaceService"
-            android:process=":AuthFaceService">
+            android:process=":AuthFaceService" >
         </service>
-        
     </application>
 
 </manifest>

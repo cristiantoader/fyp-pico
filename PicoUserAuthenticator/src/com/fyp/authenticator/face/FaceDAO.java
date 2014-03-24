@@ -10,7 +10,7 @@ public class FaceDAO {
 	private FaceRec faceRec = null;
 
 	private String trainDirectory = null;
-	
+
 	private static final String OWNER_IMG = "owner.png";
 	private static final String NUM_FACES = "1";
 	private static final String THRESHOLD = "2";
@@ -29,18 +29,23 @@ public class FaceDAO {
 	}
 
 	public double getMatch(Bitmap faceObject) {
+		double result = 0;
 		MatchResult r = this.faceRec.findMatchResult(faceObject,
 				Integer.parseInt(NUM_FACES), Double.parseDouble(THRESHOLD));
 
 		if (r.getMatchSuccess() == false) {
 			Log.d("FaceDAO", "no match");
+			result = -1;
+		} else {
+			Log.d("FaceDAO", "match found");
+			result = r.getMatchDistance();
 		}
 
 		if (r.getMatchMessage() != null) {
 			Log.d("FaceDAO", r.getMatchMessage());
 		}
-		
-		return r.getMatchDistance();
+
+		return result;
 	}
 
 }

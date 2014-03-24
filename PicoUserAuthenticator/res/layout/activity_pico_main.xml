@@ -55,15 +55,24 @@
         android:layout_gravity="fill_horizontal"
         android:background="@color/black_overlay"
         android:gravity="bottom"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         tools:ignore="UselessParent" >
 
         <Button
-            android:id="@+id/Button02"
+            android:id="@+id/ButtonVoice"
             style="?buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/Recognito" />
+        
+         <Button
+            android:id="@+id/ButtonFace"
+            style="?buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Face" />
     </LinearLayout>
 
 </LinearLayout>

@@ -52,7 +52,9 @@ public class PicoMainActivity extends Activity {
 		findViewById(R.id.Button01).setOnClickListener(buttonStartListener);
 		findViewById(R.id.Button03).setOnClickListener(buttonStopListener);
 
-		findViewById(R.id.Button02).setOnClickListener(buttonRecognitoListener);
+		findViewById(R.id.ButtonVoice).setOnClickListener(buttonAudioListener);
+		findViewById(R.id.ButtonFace).setOnClickListener(buttonFaceListener);
+
 	}
 
 	@Override
@@ -113,10 +115,17 @@ public class PicoMainActivity extends Activity {
 		}
 	};
 
-	View.OnClickListener buttonRecognitoListener = new View.OnClickListener() {
+	View.OnClickListener buttonAudioListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			startActivity(new Intent(PicoMainActivity.this, RecognitoActivity.class));
+		}
+	};
+	
+	View.OnClickListener buttonFaceListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			startActivity(new Intent(PicoMainActivity.this, FaceActivity.class));
 		}
 	};
 

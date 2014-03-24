@@ -73,7 +73,7 @@ public class UserAuthenticator {
 	private void initAvailableDevices() {
 		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
 		this.mechanism.add(new AuthMech(uaservice, VoiceService.class));
-		this.mechanism.add(new AuthMech(uaservice, FaceService.class));
+//		this.mechanism.add(new AuthMech(uaservice, FaceService.class));
 	}
 
 }

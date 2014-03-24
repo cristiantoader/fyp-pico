@@ -7,8 +7,10 @@
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
     <string name="Recognito">Recognito</string>
+    <string name="Face">Facce</string>
     <string name="Record">Record</string>
     <string name="Play">Play</string>
     <string name="Test">Test</string>
+    <string name="Capture">Capture</string>
 
 </resources>
