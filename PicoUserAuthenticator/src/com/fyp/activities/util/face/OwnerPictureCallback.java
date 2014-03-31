@@ -61,7 +61,6 @@ public class OwnerPictureCallback implements PictureCallback {
 		this.mFaceDetector = new FaceDetector(bmp.getWidth(), bmp.getHeight(), 10);
 		int numFaces = this.mFaceDetector.findFaces(bmp, faces);
 
-		// TODO: should restrict numFaces to be one.
 		Log.d(TAG, "Found " + numFaces + " faces.");
 		if (numFaces == 1) {
 

@@ -1,5 +1,8 @@
 package com.fyp.authenticator.face;
 
+import java.io.File;
+
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import facerecognition.javafaces.FaceRec;
@@ -15,17 +18,20 @@ public class FaceDAO {
 	private static final String NUM_FACES = "1";
 	private static final String THRESHOLD = "2";
 
-	public FaceDAO() {
-		this.faceRec = new FaceRec();
-		// TODO;
-		this.trainDirectory = "TODO";
+	private static final String TAG = "FaceDAO";
 
+	public FaceDAO(Context ctx) {
+		this.faceRec = new FaceRec(ctx);
+		this.trainDirectory = ctx.getFilesDir().toString();
 		this.trainFaceRecognizer();
 	}
 
 	public void trainFaceRecognizer() {
-		this.faceRec.processSelections(OWNER_IMG, trainDirectory, NUM_FACES,
-				THRESHOLD);
+		MatchResult r = this.faceRec.processSelections(getAbsoluteFilePath(),
+				trainDirectory, NUM_FACES, THRESHOLD);
+
+		Log.d(TAG, "train-");
+		printMatch(r);
 	}
 
 	public double getMatch(Bitmap faceObject) {
@@ -33,19 +39,45 @@ public class FaceDAO {
 		MatchResult r = this.faceRec.findMatchResult(faceObject,
 				Integer.parseInt(NUM_FACES), Double.parseDouble(THRESHOLD));
 
+		Log.d(TAG, "getMatch-");
+		printMatch(r);
+
 		if (r.getMatchSuccess() == false) {
-			Log.d("FaceDAO", "no match");
+			Log.d(TAG, "no match");
 			result = -1;
 		} else {
-			Log.d("FaceDAO", "match found");
+			Log.d(TAG, "match found");
 			result = r.getMatchDistance();
-		}
-
-		if (r.getMatchMessage() != null) {
-			Log.d("FaceDAO", r.getMatchMessage());
 		}
 
 		return result;
 	}
 
+	private String getAbsoluteFilePath() {
+		String res = this.trainDirectory + "/" + OWNER_IMG;
+		Log.d(TAG, res);
+
+		File test = new File(res);
+		if (test.exists()) {
+			Log.d(TAG, "File exists.");
+		} else {
+			Log.d(TAG, "File does not exist.");
+		}
+
+		return res;
+	}
+
+	private static void printMatch(MatchResult r) {
+		if (r != null) {
+			Log.d(TAG, "MatchResult success: " + r.getMatchSuccess());
+			Log.d(TAG, "MatchResult distance: " + r.getMatchDistance());
+
+			String aux;
+			aux = r.getMatchFileName() == null ? r.getMatchFileName() : "";
+			Log.d(TAG, "MatchResult file name: " + aux);
+
+			aux = r.getMatchMessage() == null ? r.getMatchFileName() : "";
+			Log.d(TAG, "MatchResult message: " + aux);
+		}
+	}
 }
