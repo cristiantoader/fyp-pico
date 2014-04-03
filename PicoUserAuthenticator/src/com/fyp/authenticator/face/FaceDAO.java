@@ -21,38 +21,47 @@ public class FaceDAO {
 	private static final String TAG = "FaceDAO";
 
 	public FaceDAO(Context ctx) {
+		Log.d(TAG, "FaceDAO+");
+		
 		this.faceRec = new FaceRec(ctx);
 		
 		this.trainDirectory = ctx.getFilesDir().toString();
 		this.ownerImage = getOwnerImage();
 		
 		this.trainFaceRecognizer();
+		
+		Log.d(TAG, "FaceDAO-");
 	}
 
 	public void trainFaceRecognizer() {
+		Log.d(TAG, "trainFaceRecognizer+");
+		
 		MatchResult r = this.faceRec.processSelections(getAbsoluteFilePath(),
 				trainDirectory, NUM_FACES, THRESHOLD);
-
-		Log.d(TAG, "train-");
 		printMatch(r);
+		
+		Log.d(TAG, "trainFaceRecognizer-");
 	}
 
 	public double getMatch(Bitmap faceObject) {
 		double result = 0;
-		MatchResult r = this.faceRec.findMatchResult(faceObject,
+		MatchResult r = null;
+		
+		Log.d(TAG, "getMatch+");
+		
+		r = this.faceRec.findMatchResult(faceObject,
 				Integer.parseInt(NUM_FACES), Double.parseDouble(THRESHOLD));
-
-		Log.d(TAG, "getMatch-");
 		printMatch(r);
 
 		if (r.getMatchSuccess() == false) {
-			Log.d(TAG, "no match");
+			Log.d(TAG, "getMatch: No match found!");
 			result = -1;
 		} else {
-			Log.d(TAG, "match found");
+			Log.d(TAG, "getMatch: Match found!");
 			result = r.getMatchDistance();
 		}
 
+		Log.d(TAG, "getMatch- " + result);
 		return result;
 	}
 
@@ -87,6 +96,8 @@ public class FaceDAO {
 	private String getOwnerImage() {
 		String owner = null;
 		
+		Log.d(TAG, "getOwnerImage+");
+		
 		File dir = new File(this.trainDirectory);
 		for (File file : dir.listFiles()) {
 			if (file.isDirectory()) {
@@ -100,6 +111,7 @@ public class FaceDAO {
 			}
 		}
 		
+		Log.d(TAG, "getOwnerImage- " + owner);
 		return owner;
 	}
 }

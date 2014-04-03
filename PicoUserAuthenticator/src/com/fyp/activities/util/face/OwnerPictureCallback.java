@@ -92,7 +92,6 @@ public class OwnerPictureCallback implements PictureCallback {
 				(int) (0.5 * bmp.getWidth()), 
 				(int) (0.5 * bmp.getHeight()), true);
 		
-
 		
 		// TODO: extract face and save face only!
 		FaceDetector.Face[] faces = new FaceDetector.Face[10];

@@ -27,7 +27,6 @@ public class FaceService extends AuthMechService {
 	public void onCreate() {
 		Log.d(TAG, "onCreate+");
 
-		// TODO: figure out how to better support this.
 		if (!isSupported()) {
 			throw new RuntimeException("Camera not supported!");
 		}
@@ -77,35 +76,33 @@ public class FaceService extends AuthMechService {
 
 			while (this.running) {
 				try {
-					Log.d("FaceService", "starting loop");
+					Log.d(TAG, "start...");
 					int score = 0;
 					double dscore = 0;
 
-					// taking picture
 					Thread.sleep(AUTH_PERIOD);
-					Log.d("FaceService", "taking picture");
-					this.initialiseCamera();
+					
+					Log.d(TAG, "initialise camera...");
+					while(this.initialiseCamera() != true)
+						Thread.sleep(50);
+					
+					Log.d(TAG, "taking picture...");
 					this.camera.takePicture(null, null, jpgCallpack);
 
 					// get match based on image
 					while (this.faceReady.compareAndSet(true, false)
-							|| this.picture == null)
-						Log.d("FaceService", "Not ready!");
-
-					if (this.picture != null) {
-						dscore = this.dao.getMatch(this.picture);
-						Log.d("FaceService", "dscore: " + dscore);
-					} else {
-						dscore = -1;
-						Log.e(TAG, "Picture was null!");
+							|| this.picture == null) {
+						Log.d(TAG, "waiting for picture...");
+						Thread.sleep(50);
 					}
 
-					score = (int) Math.floor(dscore);
-
-					// sending the score
-					Log.d(this.getClass().toString(), "Sending score " + score + "...");
-					clientWriter.send(Message
-							.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
+					dscore = this.dao.getMatch(this.picture);
+					score = (int) (Math.floor(dscore) * 100);
+					
+					Log.d(TAG, "dscore: " + dscore);
+					Log.d(TAG, "Sending score " + score + "...");
+					
+					clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
 
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -130,37 +127,47 @@ public class FaceService extends AuthMechService {
 			}
 		}
 
-		private void initialiseCamera() {
+		private boolean initialiseCamera() {
+			boolean success = false;
+			
 			try {
-				this.camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+				Log.d(TAG, "initialiseCamera+");
 				
+				this.camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
+
 				if (FaceService.this.getResources().getConfiguration().orientation != 
 						Configuration.ORIENTATION_LANDSCAPE) {
+					Log.d(TAG, "initialiseCamera: orientation 90");
 					camera.setDisplayOrientation(90);
+					
 				} else {
+					Log.d(TAG, "initialiseCamera: orientation 0");
 					camera.setDisplayOrientation(0);
 				}
 
 				this.camera.setPreviewTexture(new SurfaceTexture(1));
 				this.camera.startPreview();
-
+				
+				success = true;
+			
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
-			} finally {
-				Log.i(TAG, "Time to recover.");
 			}
+			
+			Log.d(TAG, "initialiseCamera- " + success);
+			return success;
 		}
-
+		
+		// TODO: this code repeats in OwnerPictureCallback
 		PictureCallback jpgCallpack = new PictureCallback() {
 			public void onPictureTaken(byte[] data, Camera camera) {
 				Log.d("CAMERA", "onPictureTaken - raw");
 
 				camera.stopPreview();
 				camera.release();
-
-				// TODO: this code repeats in OwnerPictureCallback
+				
 				Bitmap bmp = null;
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				options.inPreferredConfig = Bitmap.Config.RGB_565;	
