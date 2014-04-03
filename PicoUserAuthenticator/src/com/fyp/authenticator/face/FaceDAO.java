@@ -13,8 +13,8 @@ public class FaceDAO {
 	private FaceRec faceRec = null;
 
 	private String trainDirectory = null;
-
-	private static final String OWNER_IMG = "owner.png";
+	private String ownerImage = null;
+	
 	private static final String NUM_FACES = "1";
 	private static final String THRESHOLD = "2";
 
@@ -22,7 +22,10 @@ public class FaceDAO {
 
 	public FaceDAO(Context ctx) {
 		this.faceRec = new FaceRec(ctx);
+		
 		this.trainDirectory = ctx.getFilesDir().toString();
+		this.ownerImage = getOwnerImage();
+		
 		this.trainFaceRecognizer();
 	}
 
@@ -54,7 +57,7 @@ public class FaceDAO {
 	}
 
 	private String getAbsoluteFilePath() {
-		String res = this.trainDirectory + "/" + OWNER_IMG;
+		String res = this.trainDirectory + "/" + ownerImage;
 		Log.d(TAG, res);
 
 		File test = new File(res);
@@ -79,5 +82,24 @@ public class FaceDAO {
 			aux = r.getMatchMessage() == null ? r.getMatchFileName() : "";
 			Log.d(TAG, "MatchResult message: " + aux);
 		}
+	}
+	
+	private String getOwnerImage() {
+		String owner = null;
+		
+		File dir = new File(this.trainDirectory);
+		for (File file : dir.listFiles()) {
+			if (file.isDirectory()) {
+				continue;
+			}
+			
+			String fn = file.getName();
+			if (fn.startsWith("owner") && fn.endsWith(".png")) {
+				owner = fn;
+				break;
+			}
+		}
+		
+		return owner;
 	}
 }

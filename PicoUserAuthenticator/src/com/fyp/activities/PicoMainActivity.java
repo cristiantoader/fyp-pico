@@ -54,7 +54,6 @@ public class PicoMainActivity extends Activity {
 
 		findViewById(R.id.ButtonVoice).setOnClickListener(buttonAudioListener);
 		findViewById(R.id.ButtonFace).setOnClickListener(buttonFaceListener);
-
 	}
 
 	@Override

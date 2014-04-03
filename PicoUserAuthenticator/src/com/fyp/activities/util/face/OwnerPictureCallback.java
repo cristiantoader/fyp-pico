@@ -25,8 +25,41 @@ public class OwnerPictureCallback implements PictureCallback {
 	private static final String TAG = "OwnerPictureCallback";
 
 	public OwnerPictureCallback(Context ctx) {
-		this.fileName = "owner.png";
 		this.filePath = ctx.getFilesDir().toString();
+		this.fileName = "owner" + getNextOwner() + ".png";
+	}
+	
+	private int getNextOwner() {
+		int lastOwner = 0;
+		File dir = new File (this.filePath);
+		
+		if (!dir.exists() || !dir.isDirectory()) {
+			Log.e(TAG, "Error with owner file!");
+			return 0;
+		}
+		
+		for(File file : dir.listFiles()) {
+			String name = file.getName();
+
+			if (file.isDirectory() || !name.endsWith(".png")) {
+				continue;
+			}
+
+			if (name.startsWith("owner")) {
+				int owner = 0;
+				for (int i = 5; Character.isDigit(name.charAt(i)); i++) {
+					owner *= 10;
+					owner += name.charAt(i);
+				}
+				
+				if (owner > lastOwner) {
+					lastOwner = owner;
+				}
+			}
+		}
+		
+		Log.d(TAG, "next owner: " + lastOwner + 1);
+		return lastOwner + 1;
 	}
 
 	@Override
@@ -55,7 +88,12 @@ public class OwnerPictureCallback implements PictureCallback {
 		rotMatrix.postRotate(270);
 		
 		bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), rotMatrix, true);
+		bmp = Bitmap.createScaledBitmap(bmp, 
+				(int) (0.5 * bmp.getWidth()), 
+				(int) (0.5 * bmp.getHeight()), true);
+		
 
+		
 		// TODO: extract face and save face only!
 		FaceDetector.Face[] faces = new FaceDetector.Face[10];
 		this.mFaceDetector = new FaceDetector(bmp.getWidth(), bmp.getHeight(), 10);

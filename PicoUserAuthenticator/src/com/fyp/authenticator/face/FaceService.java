@@ -182,7 +182,10 @@ public class FaceService extends AuthMechService {
 				rotMatrix.postRotate(270);
 				
 				bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), rotMatrix, true);
-				
+				bmp = Bitmap.createScaledBitmap(bmp,
+						(int) (0.5 * bmp.getWidth()),
+						(int) (0.5 * bmp.getHeight()), true);
+
 				AuthenticatorThread.this.picture = bmp;
 				AuthenticatorThread.this.faceReady.set(true);
 
