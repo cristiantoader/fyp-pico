@@ -83,8 +83,14 @@ public class FaceService extends AuthMechService {
 					Thread.sleep(AUTH_PERIOD);
 					
 					Log.d(TAG, "initialise camera...");
-					while(this.initialiseCamera() != true)
+					while(this.initialiseCamera() != true) {
+						if (this.camera != null) {
+							this.camera.stopPreview();
+							this.camera.release();
+						}
+						
 						Thread.sleep(50);
+					}
 					
 					Log.d(TAG, "taking picture...");
 					this.camera.takePicture(null, null, jpgCallpack);
