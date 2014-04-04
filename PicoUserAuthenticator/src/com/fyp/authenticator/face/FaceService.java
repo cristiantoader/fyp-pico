@@ -70,19 +70,12 @@ public class FaceService extends AuthMechService {
 
 		private Camera camera = null;
 		private volatile Bitmap picture = null;
+		
+		private final SurfaceTexture dummyTexture = new SurfaceTexture(1);
 
 		public void run() {
 			this.dao = new FaceDAO(FaceService.this);
 
-			Log.d(TAG, "initialise camera...");
-			while(this.initialiseCamera() != true) {
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-			
 			while (this.running) {
 				try {
 					Log.d(TAG, "start...");
@@ -91,8 +84,10 @@ public class FaceService extends AuthMechService {
 
 					Thread.sleep(AUTH_PERIOD);
 					
-					this.camera.setPreviewTexture(new SurfaceTexture(1));
-					this.camera.startPreview();
+					Log.d(TAG, "initialise camera...");
+					while(this.initialiseCamera() != true) {
+						Thread.sleep(50);
+					}
 					
 					Log.d(TAG, "taking picture...");
 					this.camera.takePicture(null, null, jpgCallpack);
@@ -115,8 +110,6 @@ public class FaceService extends AuthMechService {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} catch (RemoteException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
@@ -157,11 +150,15 @@ public class FaceService extends AuthMechService {
 					camera.setDisplayOrientation(0);
 				}
 
+				this.camera.setPreviewTexture(dummyTexture);
+				this.camera.startPreview();
 				
 				success = true;
 			
 			} catch (Exception e) {
 				e.printStackTrace();
+				this.camera.stopPreview();
+				this.camera.release();
 			}
 			
 			Log.d(TAG, "initialiseCamera- " + success);
@@ -173,9 +170,9 @@ public class FaceService extends AuthMechService {
 			public void onPictureTaken(byte[] data, Camera camera) {
 				Log.d("CAMERA", "onPictureTaken - raw");
 
-//				camera.stopPreview();
-//				camera.unlock();
-//				camera.release();
+				camera.stopPreview();
+				camera.unlock();
+				camera.release();
 
 				Bitmap bmp = null;
 				BitmapFactory.Options options = new BitmapFactory.Options();
