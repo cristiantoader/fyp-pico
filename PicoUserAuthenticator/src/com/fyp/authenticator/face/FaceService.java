@@ -69,11 +69,20 @@ public class FaceService extends AuthMechService {
 		private static final int AUTH_PERIOD = 3 * 1000;
 
 		private Camera camera = null;
-		private Bitmap picture = null;
+		private volatile Bitmap picture = null;
 
 		public void run() {
 			this.dao = new FaceDAO(FaceService.this);
 
+			Log.d(TAG, "initialise camera...");
+			while(this.initialiseCamera() != true) {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			while (this.running) {
 				try {
 					Log.d(TAG, "start...");
@@ -82,15 +91,8 @@ public class FaceService extends AuthMechService {
 
 					Thread.sleep(AUTH_PERIOD);
 					
-					Log.d(TAG, "initialise camera...");
-					while(this.initialiseCamera() != true) {
-						if (this.camera != null) {
-							this.camera.stopPreview();
-							this.camera.release();
-						}
-						
-						Thread.sleep(50);
-					}
+					this.camera.setPreviewTexture(new SurfaceTexture(1));
+					this.camera.startPreview();
 					
 					Log.d(TAG, "taking picture...");
 					this.camera.takePicture(null, null, jpgCallpack);
@@ -114,6 +116,8 @@ public class FaceService extends AuthMechService {
 					e.printStackTrace();
 				} catch (RemoteException e) {
 					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 
@@ -135,10 +139,12 @@ public class FaceService extends AuthMechService {
 
 		private boolean initialiseCamera() {
 			boolean success = false;
-			
+
+			Log.d(TAG, "initialiseCamera+");
+
 			try {
-				Log.d(TAG, "initialiseCamera+");
-				
+				Log.d(TAG, "initialiseCamera: open");
+
 				this.camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
 
 				if (FaceService.this.getResources().getConfiguration().orientation != 
@@ -151,13 +157,9 @@ public class FaceService extends AuthMechService {
 					camera.setDisplayOrientation(0);
 				}
 
-				this.camera.setPreviewTexture(new SurfaceTexture(1));
-				this.camera.startPreview();
 				
 				success = true;
 			
-			} catch (IOException e) {
-				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -171,9 +173,10 @@ public class FaceService extends AuthMechService {
 			public void onPictureTaken(byte[] data, Camera camera) {
 				Log.d("CAMERA", "onPictureTaken - raw");
 
-				camera.stopPreview();
-				camera.release();
-				
+//				camera.stopPreview();
+//				camera.unlock();
+//				camera.release();
+
 				Bitmap bmp = null;
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				options.inPreferredConfig = Bitmap.Config.RGB_565;	
