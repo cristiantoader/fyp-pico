@@ -1,6 +1,5 @@
 package com.fyp.authenticator.face;
 
-import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.content.pm.PackageManager;
@@ -67,6 +66,7 @@ public class FaceService extends AuthMechService {
 		private FaceDAO dao = null;
 
 		private static final int AUTH_PERIOD = 3 * 1000;
+		private static final double THRESHOLD = 1;
 
 		private Camera camera = null;
 		private volatile Bitmap picture = null;
@@ -79,7 +79,6 @@ public class FaceService extends AuthMechService {
 			while (this.running) {
 				try {
 					Log.d(TAG, "start...");
-					int score = 0;
 					double dscore = 0;
 
 					Thread.sleep(AUTH_PERIOD);
@@ -100,7 +99,11 @@ public class FaceService extends AuthMechService {
 					}
 
 					dscore = this.dao.getMatch(this.picture);
-					score = (int) (Math.floor(dscore) * 100);
+					if (dscore > THRESHOLD) {
+						dscore = THRESHOLD;
+					}
+					
+					score = (int) (Math.floor((1 - dscore / THRESHOLD) * 100));
 					
 					Log.d(TAG, "dscore: " + dscore);
 					Log.d(TAG, "Sending score " + score + "...");

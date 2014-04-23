@@ -16,6 +16,8 @@ public class VoiceDAO {
 	/** Reference to recognito library object */
 	private Recognito<String> recognito = new Recognito<String>();
 
+	private static final String TAG = "VoiceDAO";
+	
 	/**
 	 * Constructor
 	 * 
@@ -35,13 +37,13 @@ public class VoiceDAO {
 		Log.i("trainRecognito", "entering");
 
 		if (!this.ownerRecord.hasRecording()) {
-			Log.e(this.getClass().toString(), "Null owner recording data..");
+			Log.e(TAG, "Null owner recording data..");
 			return;
 		}
 		
-		Log.i("trainRecognito", "recording data" + this.ownerRecord.getRecordingData());
-		Log.i("trainRecognito", "recording data len" + this.ownerRecord.getRecordingData().length);
-		Log.i("trainRecognito", "recording sample rate" + this.ownerRecord.getSampleRate());
+		Log.i(TAG, "traing data" + this.ownerRecord.getRecordingData());
+		Log.i(TAG, "traing data len" + this.ownerRecord.getRecordingData().length);
+		Log.i(TAG, "traing sample rate" + this.ownerRecord.getSampleRate());
 
 
 		// TODO: remove after testing is over.

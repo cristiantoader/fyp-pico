@@ -1,9 +1,6 @@
 package com.fyp.activities;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import com.fyp.authenticator.voice.VoiceDAO;
 import com.fyp.authenticator.voice.VoiceRecord;
@@ -92,39 +89,6 @@ public class RecognitoActivity extends Activity {
 
 	};
 
-	OnClickListener clickerPlay = new OnClickListener() {
-		private boolean mStartPlaying = true;
-
-		public void onClick(View v) {
-			onPlay(mStartPlaying);
-			mStartPlaying = !mStartPlaying;
-		}
-
-		private void onPlay(boolean start) {
-			if (start) {
-				startPlaying();
-			} else {
-				stopPlaying();
-			}
-		}
-
-		private void startPlaying() {
-			try {
-				mPlayer = new MediaPlayer();
-				mPlayer.setDataSource(getFilesDir() + FILE_NAME);
-				mPlayer.prepare();
-				mPlayer.start();
-			} catch (IOException e) {
-				Log.e(LOG_TAG, "prepare() failed");
-			}
-		}
-
-		private void stopPlaying() {
-			mPlayer.release();
-			mPlayer = null;
-		}
-	};
-
 	OnClickListener clickerTest = new OnClickListener() {
 
 		public void onClick(View v) {
@@ -139,7 +103,7 @@ public class RecognitoActivity extends Activity {
 		}
 
 		private boolean recordingExists() {
-			return new File(getFilesDir() + FILE_NAME).exists();
+			return new File(getFilesDir() + "/" + FILE_NAME).exists();
 		}
 	};
 
@@ -151,9 +115,6 @@ public class RecognitoActivity extends Activity {
 
 		this.mRecordButton = (Button) findViewById(R.id.ButtonRecognitoRecord);
 		this.mRecordButton.setOnClickListener(clickerRecord);
-
-		this.mPlayButton = (Button) findViewById(R.id.ButtonRecognitoPlay);
-		this.mPlayButton.setOnClickListener(clickerPlay);
 
 		this.mSaveButton = (Button) findViewById(R.id.ButtonRecognitoTest);
 		this.mSaveButton.setOnClickListener(clickerTest);

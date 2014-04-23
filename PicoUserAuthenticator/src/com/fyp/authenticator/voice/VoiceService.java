@@ -19,6 +19,8 @@ public class VoiceService extends AuthMechService {
 	/** Thread used to periodically authenticate the user and broadcast result. */
 	private AuthenticatorThread voiceThread = null;
 
+	private static final double THRESHOLD = 2;
+	
 	public void onCreate() {
 		Log.i("AuthVoiceService", "onCreate");
 
@@ -66,7 +68,6 @@ public class VoiceService extends AuthMechService {
 		public void run() {
 			while (stop != true) {
 				try {
-					int score = 0;
 					// TODO: can change this to having a separate method for recording a
 					// challenge..
 					VoiceRecord record = new VoiceRecord(
@@ -89,7 +90,12 @@ public class VoiceService extends AuthMechService {
 					}
 
 					// sending match score.
-					score = (int) Math.floor(this.voiceDAO.getMatch(record));
+					double dscore = this.voiceDAO.getMatch(record);
+					if (dscore > THRESHOLD) {
+						dscore = THRESHOLD;
+					}
+					
+					score = (int) Math.floor((1 - dscore / THRESHOLD) * 100);
 
 					Log.d(this.getClass().toString(), "Sending score " + score + "...");
 					clientWriter.send(Message

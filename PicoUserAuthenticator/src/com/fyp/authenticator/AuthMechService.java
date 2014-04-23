@@ -2,6 +2,7 @@ package com.fyp.authenticator;
 
 import java.lang.ref.WeakReference;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -9,9 +10,13 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.util.Log;
 
 public abstract class AuthMechService extends Service {
 
+	/** Latest authentication score. */
+	protected int score = 0;
+	
 	/** Register to the authentication mechanism service. */
 	protected static final int AUTH_MECH_REGISTER = 0;
 	/** Unregister to the authentication mechanism service. */
@@ -48,7 +53,8 @@ public abstract class AuthMechService extends Service {
 	 * @author cristi
 	 * 
 	 */
-	static class IncomingHandler extends Handler {
+	@SuppressLint("HandlerLeak") 
+	class IncomingHandler extends Handler {
 
 		private final WeakReference<AuthMechService> service;
 
@@ -74,8 +80,8 @@ public abstract class AuthMechService extends Service {
 
 			case AUTH_MECH_GET_STATUS:
 				try {
-					// TODO: change value
-					msg.replyTo.send(Message.obtain(null, AUTH_MECH_GET_STATUS, 1, 0));
+					Log.d("AuthMechAbstract", "Score requested, sending " + score);
+					msg.replyTo.send(Message.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}

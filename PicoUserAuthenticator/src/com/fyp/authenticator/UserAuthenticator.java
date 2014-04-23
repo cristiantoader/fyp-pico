@@ -7,6 +7,7 @@ import com.fyp.authenticator.face.FaceService;
 import com.fyp.authenticator.voice.VoiceService;
 
 import android.app.Service;
+import android.util.Log;
 
 public class UserAuthenticator {
 
@@ -20,6 +21,8 @@ public class UserAuthenticator {
 	private static final int authThreshold = 50;
 	/** Overall confidence level. */
 	private int confidence;
+	
+	private static final String TAG = "UserAuthenticator";
 
 	/**
 	 * Private constructor for the singleton object. Initialises the list of
@@ -53,6 +56,8 @@ public class UserAuthenticator {
 		for (AuthMech mech : this.mechanism) {
 			confidence += mech.getConfidence();
 		}
+		
+		confidence /= this.mechanism.size();
 
 		// cap the confidence level at 100
 		if (confidence > 100) {
@@ -60,6 +65,7 @@ public class UserAuthenticator {
 		}
 
 		this.confidence = confidence;
+		Log.i(TAG, "Authentication confidence: " + this.confidence);
 	}
 
 	/**
@@ -71,7 +77,7 @@ public class UserAuthenticator {
 	 * @return list of authentication devices.
 	 */
 	private void initAvailableDevices() {
-		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
+//		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
 		this.mechanism.add(new AuthMech(uaservice, VoiceService.class));
 		this.mechanism.add(new AuthMech(uaservice, FaceService.class));
 	}
