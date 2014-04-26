@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  25 APR 2014 16:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  26 APR 2014 16:45
 entering extended mode
 **main
 
@@ -785,12 +785,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ------------------------------------------------------------------------------
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-_output\main.toc [3
-
-
-])
+_output\main.toc)
 \tf@toc=\write4
- [4]
+ [3
+
+
+]
 ------------------------------------------------------------------------------
  List of Figures
 ------------------------------------------------------------------------------
@@ -798,7 +798,7 @@ _output\main.toc [3
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.lof)
 \tf@lof=\write5
- [5
+ [4
 
 
 ]
@@ -809,14 +809,14 @@ _output\main.lof)
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.lot)
 \tf@lot=\write6
- [6
+ [5
 
 
 ]
 ------------------------------------------------------------------------------
  Abbreviations
 ------------------------------------------------------------------------------
-[7
+[6
 
 
 
@@ -824,7 +824,7 @@ _output\main.lot)
 ------------------------------------------------------------------------------
  Symbols
 ------------------------------------------------------------------------------
-[8
+[7
 
 
 
@@ -835,51 +835,84 @@ Chapter 1.
 ------------------------------------------------------------------------------
  1 Introduction
 ------------------------------------------------------------------------------
-[1
-
-
-
-])
+)
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/2-literature.tex [2]
+Chapters/2-literature.tex [1
+
+
+
+]
 Chapter 2.
 ------------------------------------------------------------------------------
  2 Literature Review
 ------------------------------------------------------------------------------
-[3
 
-])
+Package natbib Warning: Citation `stajano2011pico' on page 2 undefined on input
+ line 19.
+
+[2
+
+]
+
+Package natbib Warning: Citation `stajano2011pico' on page 3 undefined on input
+ line 27.
+
+
+Package natbib Warning: Citation `stajano2000resurrecting' on page 3 undefined 
+on input line 29.
+
+[3]
+Overfull \hbox (7.92474pt too wide) in paragraph at lines 50--51
+[]\OT1/cmr/m/n/10.95 Biometric mech-a-nisms re-ceive mixed scores on us-abil-it
+y. None of them have the infrequent-
+ []
+
+
+Overfull \hbox (1.87183pt too wide) in paragraph at lines 52--53
+\OT1/cmr/m/n/10.95 achieved by bio-met-ric schemes. None of the mech-a-nisms ma
+n-age to fully achieve memory-
+ []
+
+[4]
+
+Package natbib Warning: Citation `wimberly2011using' on page 5 undefined on inp
+ut line 56.
+
+)
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/3-work.tex [4]
+Chapters/3-work.tex [5]
 Chapter 3.
 ------------------------------------------------------------------------------
  3 Main work todo
 ------------------------------------------------------------------------------
-[5
+[6
 
 ])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/4-conclusion.tex [6]
+Chapters/4-conclusion.tex [7]
 Chapter 4.
 ------------------------------------------------------------------------------
  4 Conclusion
 ------------------------------------------------------------------------------
-[7
+[8
 
 ])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/AppendixA.tex [8]
+Appendices/AppendixA.tex [9]
 Appendix A.
 ------------------------------------------------------------------------------
  A Appendix Title Here
 ------------------------------------------------------------------------------
-) [9
+) [10
 
 ]
 ------------------------------------------------------------------------------
  Bibliography
 ------------------------------------------------------------------------------
 No file main.bbl.
+
+Package natbib Warning: There were undefined citations.
+
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 268.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 268.
 
@@ -888,7 +921,7 @@ _output\main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 268.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 268.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 20A4E14899241CD92E4020509F4C2060;3861.
+(rerunfilecheck)             Checksum: 48472235134B0ED4FD4986ED31EC6F8A;3178.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 268.
  )
 (\end occurred inside a group at level 1)
@@ -896,13 +929,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 268.
 ### simple group (level 1) entered at line 150 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13016 strings out of 493921
- 184327 string characters out of 3147279
- 249100 words of memory out of 3000000
- 16067 multiletter control sequences out of 15000+200000
+ 13007 strings out of 493921
+ 184232 string characters out of 3147279
+ 249101 words of memory out of 3000000
+ 16064 multiletter control sequences out of 15000+200000
  12961 words of font info for 47 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 49i,11n,45p,860b,474s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,11n,45p,858b,459s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
 x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pro
@@ -914,9 +947,9 @@ blic/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
 onts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (18 pages, 170298 bytes).
+tor/dissertation/_output/main.pdf (18 pages, 171800 bytes).
 PDF statistics:
- 281 PDF objects out of 1000 (max. 8388607)
- 54 named destinations out of 1000 (max. 500000)
- 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 250 PDF objects out of 1000 (max. 8388607)
+ 48 named destinations out of 1000 (max. 500000)
+ 177 words of extra memory for PDF output out of 10000 (max. 10000000)
 
