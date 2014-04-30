@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  29 APR 2014 13:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  30 APR 2014 18:37
 entering extended mode
 **main
 
@@ -940,14 +940,20 @@ Chapter 5.
 ------------------------------------------------------------------------------
 [26
 
-] [27])
+] [27] [28] [29] [30] [31] [32]
+Overfull \hbox (57.55362pt too wide) in paragraph at lines 112--113
+[]\OT1/cmr/m/n/10.95 When the UASer-vice wants to up-date its over-all con-fi-d
+ence, it makes a AUTH[]MECH[]GET[]STATUS
+ []
+
+[33])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/AppendixA.tex [28] [29]
+Appendices/AppendixA.tex [34]
 Appendix A.
 ------------------------------------------------------------------------------
  A Appendix Title Here
 ------------------------------------------------------------------------------
-) [30
+) [35
 
 ]
 ------------------------------------------------------------------------------
@@ -965,7 +971,7 @@ _output\main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 268.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 268.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 96BC85F30FADEA4D2B92E353648C7554;5852.
+(rerunfilecheck)             Checksum: 365617DDC8D9BE8EF04B0BAF6DDC96B8;6204.
 
 
 LaTeX Warning: There were undefined references.
@@ -977,13 +983,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 268.
 ### simple group (level 1) entered at line 150 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13089 strings out of 493921
- 185378 string characters out of 3147279
+ 13098 strings out of 493921
+ 185487 string characters out of 3147279
  250160 words of memory out of 3000000
- 16093 multiletter control sequences out of 15000+200000
+ 16095 multiletter control sequences out of 15000+200000
  12961 words of font info for 47 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 49i,12n,45p,815b,494s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,12n,45p,1614b,494s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
 x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pro
@@ -997,9 +1003,9 @@ cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pf
 b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (39 pages, 262648 bytes).
+tor/dissertation/_output/main.pdf (44 pages, 278222 bytes).
 PDF statistics:
- 431 PDF objects out of 1000 (max. 8388607)
- 95 named destinations out of 1000 (max. 500000)
- 265 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 463 PDF objects out of 1000 (max. 8388607)
+ 102 named destinations out of 1000 (max. 500000)
+ 281 words of extra memory for PDF output out of 10000 (max. 10000000)
 

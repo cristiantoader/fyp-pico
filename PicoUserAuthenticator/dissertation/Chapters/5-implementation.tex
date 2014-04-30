@@ -19,9 +19,6 @@ Each authentication mechanism service is started and managed by the UAService. C
 
 Either periodically UAService gets the confidence level and weight from each mechanism. It then calculates the overall result. If the result is above the threshold requested by the Pico client, a ``Message'' is passed back saying that Pico should unlock. Otherwise a negative result is returned, letting the Pico know it should be locked. 
 
-\section{Threat model}
-% TODO:
-
 \section{Implementation details}
 
 \subsection{Main application and services}
@@ -81,23 +78,53 @@ A number of continuous authentication mechanisms may be developed using solely t
   Studies have shown \cite{} that the shape of the human ear contains enough unique features in order to perform biometric authentication. Taking advantage on user behaviour when using a phone, accurate images can be captured in order to perform such analyses. Within a few seconds from answering the phone, given no peripherals are attached, the user is going to move the phone towards his ear. Based solely on timing and/or accelerometer data, accurate pictures could be taken of the user's ear before the camera gets too close. Images captured by such a mechanism could then be used to calculate an accurate confidence whether the owner is the person who is answering the phone.
   
   \item[Service utilisation] \hfill \\
+  This proposed mechanism is not biometric based. It exploits patterns in the Android phone's service and app utilisation. Based on current running applications, services, and the time they were started my create a model where some confidence is given as to whether the owner has changed. This mechanism would only be effective in detecting sudden changes, but may easily be obstructed either by removing the Pico authenticator. Furthermore sudden changes in ownership are not promptly detected which is why the mechanism would have a low weight in the overall scheme. 
   
   \item[Proximity devices] \hfill \\
+  A mechanism may be developed which tries to connect with other devices also running the authenticator. The two owners don't necessarily need to know one another for the acknowledgement to be performed. Based on day to day activities, users tend to interact or at least be around a lot of the same people. Weather regular travel schedules, or as a better scenario, working in an office, constantly being in the presence of other known devices should give a confidence as to whether the device is in the presence of the user. This mechanism could only be circumvented by co-workers or friends unlocking the Pico, which is why it should never have sufficient weight to unlock the Pico on its own. In combination with other mechanisms however, it would provide a good sense regarding the owner of the device. It the device is ``in good company'' there is a good chance the owner is also present. This should be enhanced with time data as to when other trusted device are recognized. Furthermore, based on the ID of the devices the owner comes in proximity to, the mechanism may have different weights for different devices. As an example, even though travelling with your family on holiday and most of the devices there are unknown, given that a number of frequent IDs are in the proximity of the device, the mechanism should still consider to some extent that it is in the possession of its owner. This would work similarly with the Picosiblings idea, but each Picosibling is a device running this authentication mechanism which is frequently in the proximity of the owner.
   
   \item[Location data] \hfill \\
+  This mechanism is also non biometric. It is similar to ``Proximity devices'' and much easier to implement. Based on Android GPS data, the phone may detect whether it is in an usual location or not. Just as ``Proximity devices'' this mechanism should not carry a high weight in the scheme, especially since it would not provide accurate results in scenarios such as holidays.
   
-
+  \item[Picosiblings]
+  The original Picosiblings mechanism may also be used with this scheme. Although not part of the standard set of Android device sensors, if available, a Picosiblings implementation may be included as one of the authentication mechanisms.
 \end{description}
 
-While developing such mechanisms, we had to consider that they need to be able to offer continuous authentication. 
+Some of the continuous authentication mechanisms may also be used for explicit authentication. Based on the non-extensive list mentioned above, the user may be notified to provide accurate information for the following mechanism: face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and ear shape analysis. By notifying the user that he has to provide more accurate authentication data, the mechanisms get a better chance of providing valid results. The decay rate after explicit authentication will be slower in order to maintain the continuous authentication property of the Pico for the duration of the authentication session.
+
+In addition to the mechanisms mentioned above, a number of explicit authentication mechanisms which do not satisfy the continuous authentication property of the Pico may be implemented using the Android SDK. It is important to note that any other mechanisms not included in this list need to satisfy the memory property of the Pico, according to which the user doesn't need to remember any known secret. A non-extensive list of mechanisms includes the following:
+\begin{description}
+  \item[Fingerprint scanner] \hfill \\
+  Devices which may have a fingerprint scanner incorporated, such as the IPhone 5S may use this sensor in order to gather biometric data used for authentication. This mechanism cannot actively be used for continuous authentication due to the fact that the user doesn't come in contact with the sensors on a regular basis. A mechanism can therefore request explicit fingerprint data, which would then be compared with the owner's biometric model, outputting a confidence for the authentication. This confidence will be combined in the calculation of the overall scheme confidence just as any other mechanism, the only difference being in terms of weight and decay rate.
+    
+  \item[Hand writing recognition] \hfill \\
+  The user may be prompted to use the touch screen in order to write a word of his choice. This would guarantee the memoryless property, since the user doesn't need to remember any sort of secret. The handwriting would be analysed with a preconfigured set of handwriting samples in order to determine the confidence level that the owner produced the input.
+  
+  \item[Lip movement analysis] \hfill \\
+  According to the paper \cite{} by TODO, lip movement during speaking may be used to uniquely identify individuals. Lip movement analysis would be performed similarly as described in the paper. The confidence level that the owner produced the input would then be combined in the authentication scheme. This may also be implemented as a continuous authentication mechanism, with with lower success rate expectations due to the way users tend to hold mobile phones, which usually doesn't expose the mouth to the camera.
+\end{description}
 
 \subsubsection{Dummy mechanism}
+In order to perform tests for different confidence levels, a dummy authentication mechanism was implemented using the AuthDummyService class. It extends the AuthMechService abstract class, which makes it an independent service just to maintain the application model consistent. 
+
+The service contains a data access object (DAO) which in this case only produces random confidence levels within a given range. A thread running within the service makes periodic requests to the DAO in order to mimic an authentication mechanism which periodically samples for data. The service is updated based on the produced value. 
+
+When the UAService wants to update its overall confidence, it makes a AUTH\_MECH\_GET\_STATUS request to the AuthDummyService service, which returns the most recent confidence level multiplied by the current decay factor. The result is combined with the result from the remaining authentication mechanism services.
+
 \subsubsection{Voice recognition}
+The voice recognition mechanism is implemented as a VoiceService class extending the AuthMechService abstract class. When the services onCreate() method is called, it starts an authenticator thread which periodically samples data from the device's microphone.
+
+% TODO: carry on from here..
+The library used for voice recognition is called Recognito.
+
 \subsubsection{Face recognition}
 
 \subsection{Owner configuration}
 
-
+\section{Threat model}
+% TODO:
+% - clear cache data from android
+% TODO: not really relevant since this is just a prototype
 
 
 \section{Results}
