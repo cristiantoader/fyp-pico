@@ -1,0 +1,108 @@
+
+\chapter{Assessment framework}
+
+\label{Chapter3}
+
+\lhead{Chapter 3. \emph{Assessment framework}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+
+The purpose of this chapter is to create a framework for assessing token based authentication mechanisms. Using this framework we can then compare existing solutions. Having the framework as a performance compass we can then continue by designing an alternative to the Picosiblings unlocking mechanism.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+\section{Framework for evaluating web authentication schemes}
+% TODO:
+%	- list the framework and description?
+%	- rephrase some paragraphs.. (hopefully today!)
+%		* combinig mechanisms!
+
+In the paper ``The Quest to Replace Passwords: A Framework for Comparative Evaluation of Web Authentication Schemes'' \cite{bonneau2012quest} the authors develop a framework for evaluating web based authentication mechanisms. The purpose of the framework is to identify authentication schemes which outperform passwords. The framework is intended to provide a benchmark for future web authentication proposals.
+
+The framework focuses of three classes of properties which are abbreviated as UDS: usability, deployability, and security. Each class contains a set of properties, totalling a number of 25 benefits. A mechanism may either offer, quasi-offer, or not offer a property. Properties which are not applicable to a mechanism are marked as ``offered'' to simplify the framework.
+
+Using the framework to evaluate 35 password replacement schemes shows that no scheme is dominant over passwords. According to the evaluation, passwords score perfectly in deployability. They score reasonably in terms of usability, excelling in properties such as: nothing-to-carry, efficient-to-use, and easy-recovery-from-loss. In terms of security however, passwords don't perform as well, only receiving points in resilience-to-theft (not applicable), no-trusted-third-party, requiring-explicit-consent, and unlinkable. The full list of properties and their description can be found within the paper itself.
+
+Biometric mechanisms receive mixed scores on usability. None of them have the infrequent-errors property which is a precision problem related to false negatives. More importantly if the biometric data is exposed by malware for instance, the authentication mechanism may not be used by the user any more. They score poorly in deployability due to the additional hardware required. In terms of security they perform worse than passwords. Replay attacks can be used by an attacker using a recording of some sort in order to trick the sensor. They are not resilient to theft, since they require an additional device. The fact that they uniquely link the owner to the recording means that the owner may be linked back to the data, therefore not granting the ``unlinkable'' property. 
+
+The paper notes that the memory-effortless property versus nothing-to-carry is only achieved by biometric schemes. None of the mechanisms manage to fully achieve memory-effortless and be resilient-to-theft. This is due to the fact that most mechanisms replace something you know with something you have.
+
+The authors do not produce aggregate scores or rankings. This is due to the fact that not all properties are equal in importance, but different properties would have different weights depending on the scheme's application domain. 
+
+Combining schemes is mentioned as a two factor arrangement. This would result in a mechanism which in terms of usability and deployability would only have the properties which are granted by both schemes. In security however it would have the properties of both mechanisms. As shown in the paper, according to \cite{wimberly2011using} the presence of a two factor authentication would lead the user to creating weaker passwords.
+
+\section{Token based authentication framework}
+Web based authentication mechanism is initiated locally and performed locally. In contrast, token based authentication is initiated and performed locally, leaving no room for man in the middle attacks or any other 3rd party participation. For this reason, a subset of the properties described in paper \cite{bonneau2012quest} by Bonneau et al should also be present in the framework we have developed.
+
+The following list shows what properties of the framework developed by Bonneau et al are relevant to token based authentication mechanisms:
+\begin{description}
+  \item[Memory-effortless] \hfill \\
+  Different types of tokens would have different results. For instance the RSA SecurID \cite{} token doesn't require any authentication, while the FIDO (Fast IDentity Online) Alliance \cite{} may use a PIN requiring a known secret.
+  
+  \item[Easy-to-learn] \hfill \\
+  Token authentication mechanisms may have different learning curves. As an example a CAP reader is fairly easy to use, while a Pico device may prove more difficult for the inexperienced.
+  
+  \item[Efficient-to-use] \hfill \\
+  Time required by the token user authentication mechanism may differ from one type of authentication to the other. The time required for registering a new user or unlocking the token for its owner should be reasonably short.
+  
+  \item[Infrequent-errors] \hfill \\
+  The token unlocking mechanism may reject true positives. If the number of false negatives is reasonably low, then the mechanism has this property.
+  
+  \item[Easy-recovery-from-loss] \hfill \\
+  The user's ability to get another token which uses the same authentication mechanism. Tokens which unlock using biometrics for instance, if not properly secured may lead to the user's inability to use that mechanism again.
+  
+  \item[Accessible] \hfill \\
+  The ability for all users to use the authentication mechanism. As an example, PINs may be entered by any user regardless of disabilities, on the other hand other biometric mechanisms may not be available.
+  
+  \item[Negligible-cost-per-user] \hfill \\
+  The total cost enquired by the user in order to use the authentication mechanism.
+  
+  \item[Mature] \hfill \\
+  It refers to the number of users that have successfully used the mechanism, open source projects based on the mechanism, and any other usage by a third party which did not participate in the development of the scheme.
+  
+  \item[Non-proprietary] \hfill \\
+  Anyone can implement the token unlocking scheme without having to pay royalties to anyone else.
+  
+  \item[Resilient-to-physical-observation] \hfill \\
+  An attacker should not be able to impersonate the user after observing them authenticate.
+  
+  \item[Resilient-to-targeted-impersonation] \hfill \\
+  An attacker should not be able to impersonate the user using knowledge about the user, or previous recordings of his biometrics.
+  
+  \item[Resilient-to-throttled-guessing] \hfill \\
+  The resilience to an attacker automating a guessing process in order to brute force the unlock of the token.
+  
+  \item[Resilient-to-unthrottled-guessing] \hfill \\
+  An attacker which only physical access to the token cannot guess the required unlocking resource.
+  
+  \item[Resilient-to-internal-observation] \hfill \\
+  An attacker cannot tamper with the token in order to intercept user input. Furthermore it is impossible for the attacker to gather the input from within the token's storage.
+  
+  \item[Requiring-explicit-consent] \hfill \\
+  The authentication mechanism requires explicit consent from the user in order to become unlocked.
+  
+  \item[Unlinkable] \hfill \\
+  The unlocking mechanism does not generate data which if leaked would compromise the identity of the user. \ldots
+  
+\end{description}
+
+The properties described above are derived from the original framework presented by \cite{bonneau2012quest}. Additional details relevant to each property, including when a property is only quasi (partially) satisfied may be found in the original work by Bonneau et al. Some properties from the original work, such as Nothing-to-carry or Server-compatible, do not apply for token unlocking schemes and therefore are not included.
+
+% TODO: add additional properties which are original
+Although the framework by Bonneau et al provides a good base set of properties, a few others are needed in order to fully characterise token unlocking mechanisms. The following list is part of the project's contributions to the overall evaluation framework.
+
+\begin{description}
+  \item[Continuous-authentication] \hfill \\
+  The concept, although mentioned, is omitted from the framework developed by Bonneau et al \cite{bonneau2012quest}. It stressed a bit more as part of the benefits of Pico by Stajano \cite{stajano2011pico}. This is a property belonging to the security category of the original framework. The property is satisfied if, once authenticated, the user remains authenticated to the token for as long as he is in its presence. This is similar to an authentication session with the added property that the session remains active for as long as the user requires it. The property should be satisfied by mechanisms which may re-perform authentication in a non explicit way, leaving the user unaware of the underlying process.
+  
+  \item[Multi-purpose-unlocking] \hfill \\
+  This is a security category property. If satisfied, the unlocking mechanism may allow for multiple types of unlocking based on the user confidence or identity. This is something that may be characteristic for mechanisms which involve biometrics or accounts with multiple security levels.
+  
+  \item[Availability] \hfill \\
+  This is an usability property. If satisfied, the user has the ability to use the unlocking mechanism in any circumstance. As an example gait recognition would only function while moving on foot, or a recognizer that restricts access based on pulse would not satisfy this requirement. A mechanism requiring only a PIN on the other hand would work in any circumstance.
+  
+\end{description}
+
+% TODO: add the framework and comparison
+In order to demonstrate how the framework works we have assessed a number of token based authentication mechanisms, including the original Picosiblings solution. Results are shown in figure \ref{fig:TODO}. 
+
+At the end of this peace of work a new framework for the evaluation of token unlocking mechanisms was developed. Existing properties have been identified from the literature and added to the framework together with original work. An initial evaluation was made for existing token unlocking mechanisms which will serve as a benchmark for the proposed solution.

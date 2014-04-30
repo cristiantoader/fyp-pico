@@ -1,0 +1,103 @@
+% Chapter Template
+
+\chapter{Implementation Prototype} % Main chapter title
+
+\label{Chapter5} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+\lhead{Chapter 5. \emph{Implementation Prototype}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+
+Thus far we have developed a new Pico authentication scheme and assessed it using our own token unlocking framework. We then have performed a threat model from an availability, integrity, and confidentiality perspective and have suggested the safest implementation which would be as feasible as possible for the user to adopt.
+
+In this chapter we will described design and implementation details for the prototype of the proposed scheme. The implementation platform will be the Android OS, which uses a Java based SDK for application development.
+
+\section{Authenticator design}
+The user authenticator for Android is designed to work as a bound service called UAService. Periodically the service outputs to registered Pico clients the status of the authentication process. Any application may be a client as long as it registers with the service. Furthermore, explicit authentication update requests may be performed by the Pico client.
+
+Since different authentication mechanisms require different update periods, we have chosen each mechanism to be represented by an independent service. This allows for more flexibility such as periodic sampling with different intervals. Another feasible use case for example would be performing voice recognition based on the first few seconds of an outgoing or incoming call. This would require a service that is triggered by a PHONE\_STATE intent.
+
+Each authentication mechanism service is started and managed by the UAService. Communication between the UAService and each authentication mechanism is enabled through intents. Using this communication link, requests can be made from each individual authentication mechanism in order to get the current confidence level. This value is equal to the probability that the owner is present, multiplied by the weight carried by the mechanism. Given that each mechanism runs as an independent service, weight decay may easily be performed using an AlarmManager or simply a function which is called periodically within the authentication thread.
+
+Either periodically UAService gets the confidence level and weight from each mechanism. It then calculates the overall result. If the result is above the threshold requested by the Pico client, a ``Message'' is passed back saying that Pico should unlock. Otherwise a negative result is returned, letting the Pico know it should be locked. 
+
+\section{Threat model}
+% TODO:
+
+\section{Implementation details}
+
+\subsection{Main application and services}
+The user authenticator for Android is designed to work as a bound service. According to the Android documentation a bound service exposes functionality to other application components and as well as external applications. It is developed as a regular service which implements the onBind() callback method to return an IBinder. The service lives only as long as a component is bound to it. The service implementation class is called UAService.
+
+The UAService is a central node in the application. It is a bound service for any Pico client which wishes to register for events. Furthermore, it binds any authentication mechanism that is available, enabling it for authentication. 
+
+The UAService periodically broadcasts intents to registered clients saying if the Pico should be locked or unlocked. The following interface is exposed to available Pico applications through the ``what'' parameter of the ``Message'' class:
+\begin{description}
+  \item[MSG\_REGISTER\_CLIENT] \hfill \\
+  Used for registering a client. The ``Message'' should have as the ``arg1'' parameter the level of confidence required for unlocking. This value should range from 0 to 100. Any values outside these limits will be truncated within the range.
+  
+  \item[MSG\_REGISTER\_CLIENT] \hfill \\
+  Used for any application to unregister as a listener for this service. No additional parameters required.
+  
+  \item[MSG\_GET\_STATUS] \hfill \\
+  Used by any application when an authentication request is needed. Although the service periodically broadcasts to its registered clients what is the authentication status, explicit requests may also be performed using this ``Message''.
+\end{description}
+
+UAService interacts with AuthMech objects in order to communicate with an authentication mechanism. Each object is responsible for interfacing the communication with an authentication mechanism. A valid authentication mechanism service needs to extends the AuthMechService abstract class which defines a standard way of communication with the UAService.
+
+Each AuthMechService is programmed as a bound service. UAService binds these services through AuthMech objects. Each AuthMechService exposes the following message passing interface:
+\begin{description}
+  \item[AUTH\_MECH\_REGISTER] \hfill \\
+  Used for registering the UAService service as a client to the AuthMechService.
+  
+  \item[AUTH\_MECH\_UNREGISTER] \hfill \\
+  Used for unregistering the UAService service as a client to the AuthMechService.
+  
+  \item[AUTH\_MECH\_GET\_STATUS] \hfill \\
+  Used by the UAService in order to request the authentication confidence from the AuthMechService. The value will be returned in the arg1 parameter of the Message passed.
+\end{description}
+
+\subsection{Authentication mechanisms}
+In order to create a functional prototype, we implemented a couple of mechanisms. The focus of the project is not the quality of the biometric mechanisms involved in the prototype, their sole purpose being to demonstrate a proof of concept. Android devices offer a wide range of sensor data such as GPS, accelerometer, camera, and microphone.
+
+Based on the sensor data offered by Android devices, a wide range of biometric mechanisms can be developed. A non extensive list may include face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and many others. The scheme however, requires a clear predefined list of mechanisms offering continuous authentication as well as explicit.
+
+A number of continuous authentication mechanisms may be developed using solely the standard sensors offered by Android devices. The following non-extensive list was achieved, with details regarding what each mechanism means and how it should be implemented:
+\begin{description}
+  \item[Face recognition] \hfill \\
+  This mechanism was also implemented for the purpose of the project, and further details are offered in the following sections. The idea is that based on user behaviour, sampling of the user's face can be performed without any explicit requests. For instance when an user is unlocking the phone it is highly likely that he will be looking at the screen. This creates a good opportunity for the authentication mechanism service to capture an image and determine the confidence level that the unlocker is the actual user.
+  
+  \item[Voice recognition] \hfill \\
+  This mechanism was also implemented for the purpose of the project, and further details are offered in the following sections. Note that voice sampling does not necessarily imply a voice password of any kind. Voice can be analysed from a feature's perspective, regardless of the words being spoken. Voice sampling can be performed at any time. With a frequent enough sampling rate, the owner of the device is likely to be present in most voice recordings. For even better confidence the mechanism should be implemented to start recording when a call is either made or received. On Android this can be achieved by implementing a listener for a PHONE\_STATE intent.
+  
+  \item[Iris scanning] \hfill \\
+  Similar to face recognition, this can be implemented by taking advantage of user behaviour while using the phone. When the phone is unlocked, the user is very likely to face the front camera, allowing for a good face capture. The only problem with this mechanism is the quality of pictures offered by most phones. If the sampling quality is not sufficiently good, meaningful features from the iris may not be extracted, making the confidence level of the mechanism relatively low.
+  
+  \item[Keystroke analysis] \hfill \\
+  The principle of keystroke analysis is based on the patterns in which the user types on his mobile phone. Different features can be extracted here, such as: the amount of time the user takes to type letter sequences, words, or individual letters, words per minute, frequent used words, and many others. Based on these features a confidence level can be generated (not carrying a considerable amount of weight). This is harder to implement using solely the Android SDK. A good starting point would be to have a keyboard application developed for the user, which also communicates with the authentication mechanism. Obviously if the keyboard is disabled by an attacker this should still be considered, especially if the authenticator was originally configured to listen for input.
+  
+  \item[Gait recognition] \hfill \\
+  This mechanism is based on the concept of analysing individual walking patterns. Different people walk in different ways, which even though may not be entirely unique for every individual, would still provide some confidence level regarding the user of the device. In the lack of an existing reliable library, efforts have been made to implement this mechanism, unfortunately unsuccessful. The implementation requires accelerometer data from the device, which needs to be normalised from the sensor's perspective. Android offers activity recognition for walking, driving, or standing still. This is achieved by registering a sensor callback for the TYPE\_STEP\_DETECTOR composite sensor.
+  
+  \item[Ear shape analysis] \hfill \\
+  Studies have shown \cite{} that the shape of the human ear contains enough unique features in order to perform biometric authentication. Taking advantage on user behaviour when using a phone, accurate images can be captured in order to perform such analyses. Within a few seconds from answering the phone, given no peripherals are attached, the user is going to move the phone towards his ear. Based solely on timing and/or accelerometer data, accurate pictures could be taken of the user's ear before the camera gets too close. Images captured by such a mechanism could then be used to calculate an accurate confidence whether the owner is the person who is answering the phone.
+  
+  \item[Service utilisation] \hfill \\
+  
+  \item[Proximity devices] \hfill \\
+  
+  \item[Location data] \hfill \\
+  
+
+\end{description}
+
+While developing such mechanisms, we had to consider that they need to be able to offer continuous authentication. 
+
+\subsubsection{Dummy mechanism}
+\subsubsection{Voice recognition}
+\subsubsection{Face recognition}
+
+\subsection{Owner configuration}
+
+
+
+
+\section{Results}
