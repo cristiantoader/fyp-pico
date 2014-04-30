@@ -3,24 +3,35 @@
 \contentsline {chapter}{Acknowledgements}{ii}{dummy.2}
 \vspace {1em}
 \contentsline {chapter}{Contents}{iii}{dummy.3}
-\contentsline {chapter}{List of Figures}{iv}{dummy.5}
-\contentsline {chapter}{List of Tables}{v}{dummy.7}
-\contentsline {chapter}{Abbreviations}{vi}{dummy.9}
-\contentsline {chapter}{Symbols}{vii}{dummy.12}
+\contentsline {chapter}{List of Figures}{v}{dummy.5}
+\contentsline {chapter}{List of Tables}{vi}{dummy.7}
+\contentsline {chapter}{Abbreviations}{vii}{dummy.9}
+\contentsline {chapter}{Symbols}{viii}{dummy.12}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.15}
-\contentsline {chapter}{\numberline {2}Literature Review}{2}{chapter.16}
-\contentsline {section}{\numberline {2.1}Pico: no more passwords!}{2}{section.17}
-\contentsline {section}{\numberline {2.2}Framework for evaluating web authentication schemes}{4}{section.18}
-\contentsline {chapter}{\numberline {3}Main work todo}{6}{chapter.19}
-\contentsline {section}{\numberline {3.1}Main Section 1}{6}{section.20}
-\contentsline {subsection}{\numberline {3.1.1}Subsection 1}{6}{subsection.21}
-\contentsline {subsection}{\numberline {3.1.2}Subsection 2}{6}{subsection.22}
-\contentsline {section}{\numberline {3.2}Main Section 2}{7}{section.23}
-\contentsline {chapter}{\numberline {4}Conclusion}{8}{chapter.24}
-\contentsline {section}{\numberline {4.1}Main Section 1}{8}{section.25}
-\contentsline {subsection}{\numberline {4.1.1}Subsection 1}{8}{subsection.26}
-\contentsline {subsection}{\numberline {4.1.2}Subsection 2}{8}{subsection.27}
-\contentsline {section}{\numberline {4.2}Main Section 2}{9}{section.28}
+\contentsline {section}{\numberline {1.1}Contribution}{2}{section.16}
+\contentsline {section}{\numberline {1.2}Prerequisites}{3}{section.17}
+\contentsline {chapter}{\numberline {2}Pico: no more passwords!}{4}{chapter.18}
+\contentsline {chapter}{\numberline {3}Assessment framework}{7}{chapter.19}
+\contentsline {section}{\numberline {3.1}Framework for evaluating web authentication schemes}{7}{section.20}
+\contentsline {section}{\numberline {3.2}Token based authentication framework}{8}{section.21}
+\contentsline {chapter}{\numberline {4}Design}{13}{chapter.22}
+\contentsline {section}{\numberline {4.1}Proposed design}{13}{section.23}
+\contentsline {section}{\numberline {4.2}Framework evaluation}{16}{section.24}
+\contentsline {section}{\numberline {4.3}Conceptual design threat Model}{19}{section.25}
+\contentsline {subsection}{\numberline {4.3.1}Unified device}{20}{subsection.26}
+\contentsline {subsection}{\numberline {4.3.2}Dedicated device with shared components}{21}{subsection.30}
+\contentsline {subsection}{\numberline {4.3.3}Insecure communication with Pico}{23}{subsection.34}
+\contentsline {subsection}{\numberline {4.3.4}Shared device with shared components}{24}{subsection.38}
+\contentsline {subsection}{\numberline {4.3.5}Proposed secure implementation}{24}{subsection.42}
+\contentsline {chapter}{\numberline {5}Implementation Prototype}{26}{chapter.46}
+\contentsline {section}{\numberline {5.1}Authenticator design}{26}{section.47}
+\contentsline {section}{\numberline {5.2}Threat model}{27}{section.48}
+\contentsline {section}{\numberline {5.3}Implementation details}{27}{section.49}
+\contentsline {subsection}{\numberline {5.3.1}Main application and services}{27}{subsection.50}
+\contentsline {subsection}{\numberline {5.3.2}Owner configuration}{29}{subsection.51}
+\contentsline {subsection}{\numberline {5.3.3}Voice recognition library}{29}{subsection.52}
+\contentsline {subsection}{\numberline {5.3.4}Face recognition library}{29}{subsection.53}
+\contentsline {section}{\numberline {5.4}Results}{29}{section.54}
 \vspace {2em}
-\contentsline {chapter}{\numberline {A}Appendix Title Here}{10}{appendix.29}
+\contentsline {chapter}{\numberline {A}Appendix Title Here}{30}{appendix.55}
 \vspace {2em}

@@ -18,6 +18,9 @@ import android.util.Log;
  * Class used for communication from the UserAuthenticator to an
  * AuthMechService.
  * 
+ * TODO: blurry communication paths when requesting confidence. Make sure
+ * everything is passed upon request, not just broadcast.
+ * 
  * @author cristi
  * 
  */
@@ -63,7 +66,7 @@ public class AuthMech {
 	 * Method used to unBind service.
 	 * 
 	 * @param conn
-	 *          service connection to unbind.
+	 *            service connection to unbind.
 	 */
 	public void doUnbindService(ServiceConnection conn) {
 		if (boundService) {
@@ -85,7 +88,8 @@ public class AuthMech {
 			sender = new Messenger(service);
 
 			try {
-				Message msg = Message.obtain(null, AuthMechService.AUTH_MECH_REGISTER);
+				Message msg = Message.obtain(null,
+						AuthMechService.AUTH_MECH_REGISTER);
 				msg.replyTo = receiver;
 				sender.send(msg);
 
@@ -116,7 +120,8 @@ public class AuthMech {
 				break;
 
 			default:
-				Log.e("AuthMech", "Unknowin AuthMechService status: " + msg.what);
+				Log.e("AuthMech", "Unknowin AuthMechService status: "
+						+ msg.what);
 				super.handleMessage(msg);
 			}
 		}

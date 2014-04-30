@@ -5,3 +5,28 @@
 
 \lhead{Chapter 1. \emph{Introduction}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
+As shown by papers such as \cite{} written by Adams \& Sasse passwords have become increasingly difficult to manage. They are meant to authenticate an user based on a shared known secret. Although in theory as well as in the past this has worked well, in practice they are no longer a viable scalable solution. 
+
+Increasing computation power has made passwords easier to brute force. In order to avoid this, authentication systems started enforcing rules such as a minimum number of characters, having at least 1 numeric character, or at least one special character. Furthermore the number of accounts which require passwords has significantly increased since they first became widely adopted. In order to maintain security and not have the exposure of a password affect multiple accounts, each password should be unique. Furthermore, security experts recommend (and system admins sometimes enforce) that passwords are to be changed regularly with something that is not too similar to the previous one.  
+
+All these security restrictions and recommendations are in place in order to make the mechanism theoretically secure. There is no focus on the user which is meant to memorise numerous unique complex passwords. As shown in paper \cite{} most of the times users ignore recommendations that are not enforced by the authentication system or even worse, they write the passwords down and compromise security for usability.
+
+The Pico project \cite{} by Stajano was designed to make passwords obsolete. It is a hardware token which keeps and generates user authentication credentials. This unburdens the user from the dreaded ``something you know'' transforming it into ``something you have''. This makes the solution scalable with the number of accounts, as well as secure, since the user may no longer choose ``weak'' passwords. 
+
+What differentiates Pico from other token based authentication mechanisms is its locking and unlocking mechanism. Without introducing the need for a PIN or any other known secret, Pico only becomes available in the presence of its owner. This adds security to the threat model when the device is not in the possession of its rightful owner. Currently Pico relies on the concept of Picosiblings \cite{} which are small in the presence of which Pico becomes unlocked.
+
+Although Picosiblings are a sensible solution to unlocking Pico, they purely based on proximity to the device. The purpose of this project is to create a new way of authenticating the user to the Pico device. Pico is defined as a device which unlocks and locks automatically only in the presence of the owner. This is a relatively open concept. How would the device detect presence? The following chapters will reveal the proposed solution.
+
+\section{Contribution}
+The project work is strongly related to the Pico project designed by Stajano \cite{}. The following contributions have been made in order to provide an alternative to the Picosiblings user authentication:
+
+% TODO: list contributions here!
+\begin{itemize}
+	\item We created a framework for assessing token based authentication mechanisms.
+	\item We designed a new way of authenticating the Pico to the user and compare the proposed solution with alternatives.
+	\item We developed an Android prototype which functions as a platform which allows further contributions.
+	\item We analyse the Pico claims according to the framework developed by Bonneau et al \cite{} and determine the impact of the solution on the Pico.
+\end{itemize}	
+
+\section{Prerequisites}
+Although the focus of the project is creating an alternative concept for the Picosiblings solution, the prototype was developed using the Android Java SDK. Additional knowledge regarding biometric authentication mechanisms and signal processing would also be useful but implementation details are outside the scope of this project.

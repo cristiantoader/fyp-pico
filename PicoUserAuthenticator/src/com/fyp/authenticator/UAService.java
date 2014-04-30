@@ -12,6 +12,13 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 
+/**
+ * TODO: need support for registering users WITH confidence levels and return
+ * true or false based on that confidence.
+ * 
+ * @author cristi
+ * 
+ */
 public class UAService extends Service {
 
 	/** Bridge to user authenticator class which provides functionality. */
@@ -32,8 +39,8 @@ public class UAService extends Service {
 	public static final int MSG_GET_STATUS = 2;
 
 	/**
-	 * When creating the service it gets a reference to the UserAuthenticator and
-	 * starts the authenticator thread which is responsible for broadcasting
+	 * When creating the service it gets a reference to the UserAuthenticator
+	 * and starts the authenticator thread which is responsible for broadcasting
 	 * results.
 	 */
 	@Override
@@ -43,7 +50,7 @@ public class UAService extends Service {
 		if (ua == null) {
 			ua = new UserAuthenticator(this);
 		}
-		
+
 		if (serviceThread == null) {
 			serviceThread = new AuthenticatorThread();
 			serviceThread.start();
@@ -82,21 +89,21 @@ public class UAService extends Service {
 		Log.i("UAService", "onBind");
 		return messenger.getBinder();
 	}
-	
-	static class IncomingHandler extends Handler {
-    private final WeakReference<UAService> service; 
 
-    public IncomingHandler(UAService service) {
-    	this.service = new WeakReference<UAService>(service);
-    }
-    
+	static class IncomingHandler extends Handler {
+		private final WeakReference<UAService> service;
+
+		public IncomingHandler(UAService service) {
+			this.service = new WeakReference<UAService>(service);
+		}
+
 		@Override
 		public void handleMessage(Message msg) {
 			UAService uas = service.get();
 			if (uas == null) {
 				return;
 			}
-			
+
 			switch (msg.what) {
 			case MSG_REGISTER_CLIENT:
 				uas.clients.add(msg.replyTo);
