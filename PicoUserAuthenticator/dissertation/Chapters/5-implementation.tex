@@ -114,17 +114,115 @@ When the UAService wants to update its overall confidence, it makes a AUTH\_MECH
 \subsubsection{Voice recognition}
 The voice recognition mechanism is implemented as a VoiceService class extending the AuthMechService abstract class. When the services onCreate() method is called, it starts an authenticator thread which periodically samples data from the device's microphone.
 
-% TODO: carry on from here..
-The library used for voice recognition is called Recognito.
+% TODO: cite https://github.com/amaurycrickx/recognito
+The library used for voice recognition is called Recognito developed by Amaury Crickx. It is a text independent speaker recognition library developed in Java. It is by no means one of the best voice recognition libraries, but it was best suited for the purpose of this prototype. The library required minimal additional changes. It claims very good results in scenarios with minimal background noise, such as TED talks \cite{} which it was originally tested on by its author.
+
+In order for the application to compile properly, a subset of the rt.jar was required. This is due to ``javax.sound.'' packages included with the library which are not available on Android. Unfortunately ``javax'' is a core library also available in Android, but without any of the sound features. For this reason, although the required packages are included with the application this is purely done to trick the compiler that everything is in place. In reality none of the functionality offered by these packages is used by the application. This is avoided by only using the raw features of the library which require direct sound input without any details regarding sound files and formats.
+
+In order to gather samples compatible with the library and manage them properly, we have created the ``VoiceRecord'' class. This class is responsible of gathering microphone input using a predefined compatible configuration listed in the following listing:
+\begin{itemize}
+	\item Sample rate: 44100
+	\item Channel configuration: AudioFormat.CHANNEL\_IN\_MONO
+	\item Audio format: AudioFormat.ENCODING\_PCM\_16BIT
+\end{itemize}
+
+The minimum buffer size required by the class is device dependant and pre-calculated in the constructor. The class wraps an AudioRecord object used for gathering microphone data. Due to the nature of the SDK, the recording is saved as a file which then is loaded into memory whenever needed. Although this is not an efficient approach due explicit loads from disk, it serves the purposes of the prototype.
+
+In order to have a better interface to the Recognito library, a DAO class was created. When initialised, the DAO object loads the owner configuration together with the predefined set of background noises. It instantiates a Recognito object and trains it using the loaded data. This is performed using the ``createVocalPrint'' public function made available by the library.
+
+Using the audio data stored as a ``double[]'' array and the sampling rate stored in the ``VoiceRecord'' class, we can then call the ``recognize'' functionality of the library in order to get the closest match to either the owner, or one of the background noises used for training. The library then returns the closest match given its training data, together with the Euclidean distance to that match.
+
+In order to convert the Euclidean distance to a percentage confidence level, an acceptable Euclidean distance threshold is used. Any result above the threshold is considered too high and is truncated to the threshold level. Using the following formula we then convert the value to a confidence level, which is the equivalent of $P(E|M)$, the probability that the evidence belongs to the model.
+
+$$P(E|H) = 1 - \frac{distance}{THRESHOLD}$$
+
+% TODO: make sure this calculation remains consistent
+Dividing the distance over the threshold yields a confidence value between 0 and 1, where 1 is a very large distance and hence a bad result. By using one minus this value we invert the meaning, yielding values between 0 and 1 where 1 corresponds to 100\% confidence level. 
+
+Having calculated $P(E|H)$ we then proceed by calculating $P(H|E)$ using the formula mentioned in the design section of this dissertation. Whenever calculating the current confidence level, we use the value of $P(H|E)$ multiplied by the current decay rate, a number which is periodically decreased within the service. Due to the message passing mechanism using intents, this value needs to be an integer and is therefore multiplied by 100. The overall result is stored in the service and updated whenever the decaying weight is modified. When a request is made by UAService, the value is returned using the IBinder message passing mechanism offered by Android.
 
 \subsubsection{Face recognition}
+The face recognition mechanism was implemented in the ``FaceService'' class, which extends the AuthMechService abstract class. It is a service running a thread which periodically collects data from the camera. Each sample is analysed using a face recognition library, and a confidence level is outputted for the current sample. Just as the scheme proposes, this confidence level is multiplied by a weight which is a decaying factor.
+
+The library used for face recognition is a port of the Javafaces library \cite{}. This was the closest functional library found that was compatible with the Android API. Javafaces is a library written entirely in Java, but which unfortunately makes use of the ``javax.imageio.'' package which is not available in the standard Android SDK. Since a considerable amount of code needed to be changed, we have created a new library \cite{} based on the original for the Android OS.
+
+I will briefly present the changes made when porting the Javafaces library. The ``BufferedImage'' class had to be replaced by its Android counterpart, Bitmap. All BufferedImage references and initialization had to be changed. The API was modified to support direct Bitmap input in order to add more flexibility and lighten the main code of the authenticator. Original data formats for black and white images were assumed to have a single colour channel representing the grey value. This had to be changed within the code in order to reflect the Bitmap convention where all 3 colour channels are present but have the same value. Additional modification were required such as data type mismatches as well as other smaller issues.
+
+Unfortunately, this library combined with the Android SDK does not provide accurate results. This is due to the fact that the library requires a rectangle bitmap perfectly containing the face of an individual. Unfortunately the Android SDK although offers face detection, it only provides the location of the midway coordinate between the eyes, and the distance between the eyes. Using this data alone, an accurate crop cannot be made. As a solution, yet another library would need to be used in order to detect faces and provide more accurate data regarding their location and boundaries.
+
+Every fixed time interval, a thread running within the ``FaceService'' object samples data from the camera at a fixed time interval. This is performed using an instance of the Camera class. Additional configuration is required based on the orientation of the phone. On the device the prototype was developed \cite{}, when the phone is held normally a 90 degree rotation of the image is required.
+
+By default, the Android API does not easily allow for a Camera picture to be taken without any sort of notification to the user. By default both a shutter sound and a visual preview display should be present. The shutter sound can easily be disabled by simply not implementing any shutter callback function. The preview display however proves to be a bit more difficult. The solution used with this prototype was to exploit Android's option to render the preview image to a ``SurfaceTexture'' object. This satisfies the API's request to have a visual display preview for the camera, while the ``SurfaceTexture'' itself doesn't need to be displayed on screen. Therefore an picture can be taken from a background service without the user being aware of this event.
+
+A DAO class called ``FaceDAO'' was developed in order to interface with the Javafaces library port. The authentication thread running within the ``FaceService'' object periodically captures an image from the camera. The image is then validated using the ``FaceDAO'' object. The value returned from the Javafaces library is the Euclidean distance to the closest registered user, which in our case is the owner of the device. This distance is handled in exactly the same way as the voice recognition mechanism.
+
+Another problem encountered by face recognition mechanism is the size of the data involved in performing the face recognition. With standard pictures, the application runs out of memory and is closed by the Android OS. In order to fix this issue, Bitmaps collected from the camera are scaled to 50% before they are processed by the library.
 
 \subsection{Owner configuration}
+In order to configure the biometric authentication mechanisms in a flexible, controlled manner a couple of Android activities were developed. There are used to set the initial owner biometrics based on which the mechanisms will output their confidence levels. These activities use the same DAO classes in order to store the data once it was collected. Due to the size of the data, which is relatively small, the files can be stored in the application's internal memory, making it inaccessible by other applications.
 
 \section{Threat model}
 % TODO:
 % - clear cache data from android
 % TODO: not really relevant since this is just a prototype
+% TODO: any cryptographic keys and content is not secure as the application may be decompiled
+% TODO: DOS by generating bad sensor data
+% TODO: users installing malware and ignoring the permissions of the app
+% TODO: check William Ench et al year
+% TODO: referenced android website instead of talk about components
 
+Even though the scheme implementation is a proof of concept, we will continue by analysing different threat models. This will reveal any flaws behind the concept, allowing for a more robust future implementation.
+
+The purpose of the Pico token is to provide a robust authentication mechanism, without the use of any secrets for the owner to remember. Where the Pico unlocking scheme fits, is correctly identifying the owner of the Pico. Attacks may be performed in the form of malware installed on the device while still within the possession of its owner. The main threat however comes from an attacker having physical access to the user's Pico. 
+
+It is important to note that since this is a purely software implementation, physical access may mean either that the attacker is in possession of the phone, or that it may replicate the secretes of the victim's Pico on a separate device. Replicating the Pico secretes would clearly create much more damage for the user from a cost perspective. A total reset of authentication credentials would be necessary for all accounts registered with the Pico device.
+
+% Android specific security
+\subsection{Literature review: Android security}
+In order to perform a valid threat modelling of the scheme, we need to have a better understanding of the Android security model, and the ``features'' offered by different mechanisms such as Intents and filters based on these intents.
+
+An interesting paper by William Enck et al \cite{} offers a good description of the Android OS, with a focus on the security aspects of the platform. It is a relatively old paper from 2008 which is the same year of the Android initial release. The initial set of Android open standards was however released sooner, in November 2007, allowing researchers such as William Enck to perform an initial analysis of the system.
+
+Android runs on a port of the Linux kernel. This means that many of the linux security mechanisms such as file permissions, are also part of Android. On top of the kernel lies an App middleware layer which the Java SDK can use in order to extends the functionality of the hand held device.
+
+Each android application is split into multiple components, with no fixed entry point such as a main() routine. Based on its purpose, the SDK defines 4 types of components: activity, service, content provider, and broadcast receivers. More details regarding the purpose of each component can be found on the Android website \cite{}. Another important architectural note is that components, and even applications, may communicate between each other using Intents. This type of communication is abbreviated as Inter Component Communication (ICC).
+
+An important note in the paper is that when a Service becomes bound by another component it cannot be terminated by an explicit stop action. This provides an useful guarantee regarding the lifetime of a service. 
+
+Th two types of security enforcements can be split into two categories: ICC and system level. System level security is mainly defined in terms of the user id (UID) and group id (GID) permissions. According to the Android OS, each is allocated an UID and GID. The security guarantees of this mechanism are the same as those of a linux based system. An interesting example would be a vulnerability of the  T-mobile G1 phone browser, which due to this system level security enforcement did not affect any other applications.
+
+The focus of the paper however is ICC security enforcements. These are based on I/O control command of the ``/dev/binder'' special node. Since the node needs to be world readable and writeable, linux cannot mediate ICC. This is performed using labels using a MAC framework enforced by a reference monitor. This defines how apps are allowed to access different components.
+
+Components may be defined as either public or private. This refinement is configured by the ``exported'' field defined in a manifest file. It defines whether or not another application may launch or interact with a component from another application. At the time the paper was written, the ``exported'' field was defaulted to ``true''. However, as shown in a more recent paper \cite{} written by Steffen and Mathias in 2013, starting with Linux Android (LA) 4.2  the default of this value was changed to ``false'', therefore conforming to the ``principle of least privilege''.
+
+Components listening for Intents need to have a registered filter in the manifest file. This is both convenient and secure for the developers of the system. If however the developer of an application wishes to restrict access to intent objects, the SDK provides user definable Intent permission labels as well as Service hooks. These provide runtime security checks for the application and prevent data leakage through ICC. Using permission labels, the developer may broadcast events to which only components which registered that permission may access. The same principle applies to service hooks, but in this case a component holding some permissions tries to bind on a service which checks these permissions and exposes different APIs based on the permissions held by the binding component.
+
+Another more recent paper was written by Steffen and Mathias \cite{}. The authors focus on deeper issues of the LA, and how they were solved from one update to the other. However, it is shown that OEMs tend not to update the software of their devices once they have shipped, which poses a number of security issues.
+
+The starting point of understanding Android security and how it is bootstrapped is the five step booting process:
+\begin{enumerate}
+	\item Initial bootloader (IBL) is loaded from ROM.
+	\item IBL checks the signature of the bootloader (BL) and loads it into RAM.
+	\item BL checks the signature of the linux kernel (LK) and loads it into RAM.
+	\item LK initialises all existing hardware and starts the linux ``init'' process \cite{SPECIFY WHAT THIS IS FROM PAPER}.
+	\item The init process reads a configuration file and boots the rest of LA.
+\end{enumerate}
+
+\subsection*{Availability}
+Breaking the scheme's availability if the device is in the posession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. In this case the owner is already no longer in possession of their Pico, so basically the Pico is already made unavailable.
+
+Let us continue however and study what can be achieved from a DoS perspective by the attacker from the perspective of the individual user app accounts, which would need to be reset by the owner. In order to gain any sort of access and make credentials reset not possible, or at least have a chance in doing so, the attacker would have to unlock the Pico.
+
+\subsection*{Integrity}
+\subsection*{Confidentiality}
+
+\subsection{Future work}
+The application was implemented as a proof of concept. It is developed in order to show that different data may be obtained without the owner's knowledge. Additional improvements can be made in order to increase the confidence level of the authenticator.  Furthermore, due to time constraints and unavailability of free to use biometric libraries, a number of mechanisms were not implemented. The list can easily be extended by simply creating a class which extends the ``AuthMechService'' abstract class.
+
+One way to improve the voice recognition mechanism would be to start sampling data whenever a call is active. This would increase the chances of capturing an accurate sample of the owner's voice. In this context, a better voice recognition library can be used, which supports multiple speakers and/or ignores background noise. If such a library is not available, we can rely on the fact that most of the times people take turns when speaking. For the duration of the call, with a high enough sampling frequency, the individual sampling voice of both participants should be captured. However, it is important to take into account a situation in which the thief is calling the owner on a different phone in order to unlock his Pico.
+
+Immediate improvements can be made to the face recognition mechanism. Just as recommended in the description of the mechanism's implementation, another library which provides more meaningful face coordinates may be used for face detection. Alternatively, and preferably, a different library which performs both face detection an recognition can be integrated with the mechanism.
+
+Another improvement for the face recognition mechanism would be from the data sampling perspective. Instead of capturing images at a fixed interval, pictures should be taken only when the phone unlock event is triggered. While the phone is unlocked it is highly likely that the user will face its front camera.This would provide better chances of processing meaningful data.
 
 \section{Results}
