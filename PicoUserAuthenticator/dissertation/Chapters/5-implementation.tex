@@ -170,6 +170,7 @@ In order to configure the biometric authentication mechanisms in a flexible, con
 % TODO: users installing malware and ignoring the permissions of the app
 % TODO: check William Ench et al year
 % TODO: referenced android website instead of talk about components
+% TODO: more mmap_min_addr stuff. why does it help?
 
 Even though the scheme implementation is a proof of concept, we will continue by analysing different threat models. This will reveal any flaws behind the concept, allowing for a more robust future implementation.
 
@@ -207,6 +208,36 @@ The starting point of understanding Android security and how it is bootstrapped 
 	\item LK initialises all existing hardware and starts the linux ``init'' process \cite{SPECIFY WHAT THIS IS FROM PAPER}.
 	\item The init process reads a configuration file and boots the rest of LA.
 \end{enumerate}
+
+The android security model described in this paper \cite{} is split in two categories: system security, and application security.
+
+The android base system (libraries, app framework, and app runtime) is located in the ``system'' partition. Although this is writeable only by the root user, a number of exploits which allow root access, such as those shown in \cite{}, have been possible. Android provides a keychain API used for storing sensitive material such as certificates and credentials. These credentials are encrypted using a master key, which is also stored in AES encrypted format. In this case, security needs to begin somewhere, an assumption has to be made about a state being secure which would allow for multiple security extensions. In this case, the master key is considered to be that point of security. However, given a rooted device, where due to an exploitation a process may be granted root privileges, the master key itself may be retrieved from the system therefore compromising all other credentials.
+
+From the application's perspective, an interesting ``feature'' which may affect the flow of information within LA is the fact that applications from the same author may share private resources. When installing an application the user needs to accept its predefined set of permissions. Due to resource sharing, a situation may present itself when an application which has permissions for the owner's contacts may communicate with an application which has permissions for internet in order to leak confidential data. A developer may therefore construct pairs of legitimate applications in order to mask a data flow attack.
+
+The LA system offers a number of memory corruption mitigations in order to avoid buffer overflow attacks, or return oriented programming attacks. The following list includes mechanisms enabled in time based on the LA version:
+\begin{itemize}
+	\item Implements mmap\_min\_addr which restricts mmap memory mapping calls. This prevents NULL pointer related attacks.
+	\item Implements XN (execute never) bit to mark memory as non-executable. The mechanism prevents attackers from executing remote code.
+	\item Address space layout randomisation(ASLR) implemented starting with LA 4.0. This is a first step to preventing return oriented programming attacks. The position of the binary library itself is however static, meaning that after a number of attempts, using trial and error, the attacker may succeed using return oriented programming.
+	\item Position independent and randomised linked (PIE) is implemented starting with LA 4.1 in in support of ASLP. This makes position of binary libraries themselves randomised.
+	\item Read only relocation and immediate binding space(RELro) was implemented starting with LA 4.1. It solves an ASLR issue where an attacker could modify the global offset table (GOT) used when resolving a function from a dynamically linked library. Before this update an attacker may insert his own code to be executed through the GOT table.
+\end{itemize}
+
+A number of security enhancement mechanisms are in place in order to make Android a safer environment for its users. In order to prevent malware within the Android App store (Google Play), a program also known as a ``on device Bouncer''. The purpose of the bouncer is to verify apps prior to installation for any malware signature or patterns. Secure USB debugging was introduced starting with LA 4.4.2, which only allows hosts registered with the device to have USB debugging permissions. This mechanism is circumvented if the user does not have a screen lock.
+
+As pointed out by Steffen and Mathias, the Android OS is responsible for 96\% of mobile phone malware according to a study from 2012 \cite{}. The authors claim that this is the case due to 4 big issues of the Android concept:
+\begin{enumerate}
+	\item Security updates are delayed or never deployed. This is due to a number of approvals that an update needs to get throug in order to be pused to devices. This implies an additional cost to the manufacturer(OEM) which does not generate any revenue. The majority of teams working on LA are focusing on current releases, and in some cases there is simply not enough time and resources to merge Google security updates to the OEM repository. Furthermore, the consequences of a failed system update for the user may cause problems as serious as ``brick''-ing the device which is a huge risk for the manufacturer. All these issues contribute to a severe lack in security updates. Therefore, important updates such as RELro are never pushed to LA 4.0, making the device vulnerable.
+	
+	\item OEMs weakens the security architecture and configuration of LA by introducing custom modifications before they roll out a device.
+	
+	\item The Android permission model is defective. As pointed out by Steffen and Mathias, according to Kelley et al \cite{}, most users do not understand the permission dialogue when installing an application. Furthermore, even if they could understand the dialogue, most of the time it is ignored in order to be able to use a new exciting app. According to the same study, most applications are over-privileged due to the developers not understanding what each privilege does. Furthermore, as previously pointed out, applications from the same owner may share resources, therefore creating a valid data flow attack path. 
+	
+	\item Google Play has a low barrier for malware. A developer distribution agreement (DDA) and a developer program policy (DPP) need to be greed to and signed by the developer before submitting the application to the Android market. However, Google Play does not check upfront if an application adheres to DDA and DDP. The application is only reviewed if suspect of breaking the agreements. According to \cite{} there are ways of circumventing the Bouncer program, and as a proof TODO write in their paper \cite{} a list of applications which are in the Google Play store.
+\end{enumerate}
+
+Let us now continue by studying the threat model of the Pico authenticator application. We will consider the security mechanisms presented above as the predefined assumptions made in this model. In order to reduce the threat space we will consider the application is running on a hand held device running Android 4.4.2 with all recent updates.
 
 \subsection*{Availability}
 Breaking the scheme's availability if the device is in the posession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. In this case the owner is already no longer in possession of their Pico, so basically the Pico is already made unavailable.
