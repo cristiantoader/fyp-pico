@@ -10,11 +10,9 @@ The purpose of this chapter is to create a framework for assessing token based a
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
-\section{Framework for evaluating web authentication schemes}
+\section{Related work}
 % TODO:
 %	- list the framework and description?
-%	- rephrase some paragraphs.. (hopefully today!)
-%		* combinig mechanisms!
 
 In the paper ``The Quest to Replace Passwords: A Framework for Comparative Evaluation of Web Authentication Schemes'' \cite{bonneau2012quest} the authors develop a framework for evaluating web based authentication mechanisms. The purpose of the framework is to identify authentication schemes which outperform passwords. The framework is intended to provide a benchmark for future web authentication proposals.
 
@@ -30,8 +28,10 @@ The authors do not produce aggregate scores or rankings. This is due to the fact
 
 Combining schemes is mentioned as a two factor arrangement. This would result in a mechanism which in terms of usability and deployability would only have the properties which are granted by both schemes. In security however it would have the properties of both mechanisms. As shown in the paper, according to \cite{wimberly2011using} the presence of a two factor authentication would lead the user to creating weaker passwords.
 
-\section{Token based authentication framework}
-Web based authentication mechanism is initiated locally and performed locally. In contrast, token based authentication is initiated and performed locally, leaving no room for man in the middle attacks or any other 3rd party participation. For this reason, a subset of the properties described in paper \cite{bonneau2012quest} by Bonneau et al should also be present in the framework we have developed.
+Further details about the framework itself are not mentioned in this dissertation for the purpose of brevity. The framework and explanations for each property can be found in the original paper \cite{bonneau2012quest} by Bonneau et al.
+
+\section{Token unlocking framework}
+Web based authentication mechanisms are initiated locally and performed remotely. In contrast, token based authentication is initiated and performed locally, leaving no room for man in the middle attacks or any other 3rd party participation. For this reason, a subset of the properties described in paper \cite{bonneau2012quest} by Bonneau et al should also be present in the framework we have developed. Properties from the original framework by Bonneau et al which do not apply, or would be satisfied by any token unlocking mechanism were removed in this work.
 
 The following list shows what properties of the framework developed by Bonneau et al are relevant to token based authentication mechanisms:
 \begin{description}
@@ -85,7 +85,7 @@ The following list shows what properties of the framework developed by Bonneau e
   
 \end{description}
 
-The properties described above are derived from the original framework presented by \cite{bonneau2012quest}. Additional details relevant to each property, including when a property is only quasi (partially) satisfied may be found in the original work by Bonneau et al. Some properties from the original work, such as Nothing-to-carry or Server-compatible, do not apply for token unlocking schemes and therefore are not included.
+The properties described above are derived from the original framework presented by \cite{bonneau2012quest}. Additional details relevant to each property, including when a property is only quasi (partially) satisfied may be found in the original work by Bonneau et al. Some properties, such as Nothing-to-carry or Server-compatible, do not apply for token unlocking schemes and therefore are not included.
 
 % TODO: add additional properties which are original
 Although the framework by Bonneau et al provides a good base set of properties, a few others are needed in order to fully characterise token unlocking mechanisms. The following list is part of the project's contributions to the overall evaluation framework.
@@ -94,11 +94,11 @@ Although the framework by Bonneau et al provides a good base set of properties, 
   \item[Continuous-authentication] \hfill \\
   The concept, although mentioned, is omitted from the framework developed by Bonneau et al \cite{bonneau2012quest}. It stressed a bit more as part of the benefits of Pico by Stajano \cite{stajano2011pico}. This is a property belonging to the security category of the original framework. The property is satisfied if, once authenticated, the user remains authenticated to the token for as long as he is in its presence. This is similar to an authentication session with the added property that the session remains active for as long as the user requires it. The property should be satisfied by mechanisms which may re-perform authentication in a non explicit way, leaving the user unaware of the underlying process.
   
-  \item[Multi-purpose-unlocking] \hfill \\
+  \item[Multi-level-unlocking] \hfill \\
   This is a security category property. If satisfied, the unlocking mechanism may allow for multiple types of unlocking based on the user confidence or identity. This is something that may be characteristic for mechanisms which involve biometrics or accounts with multiple security levels.
   
   \item[Availability] \hfill \\
-  This is an usability property. If satisfied, the user has the ability to use the unlocking mechanism in any circumstance. As an example gait recognition would only function while moving on foot, or a recognizer that restricts access based on pulse would not satisfy this requirement. A mechanism requiring only a PIN on the other hand would work in any circumstance.
+  This is an usability property. If satisfied, the user has the ability to use the unlocking mechanism in any circumstance. This is not related to any disabilities preventing the user from using certain mechanisms. The properly is strictly related to whether the scheme can be used in any circumstances, and may provide feedback regardless of light, noise, or other external factors. As an example gait recognition would only function while moving on foot, or a recognizer that restricts access based on pulse would not satisfy this requirement. A mechanism requiring only a PIN on the other hand would work in any circumstance.
   
 \end{description}
 
@@ -106,3 +106,9 @@ Although the framework by Bonneau et al provides a good base set of properties, 
 In order to demonstrate how the framework works we have assessed a number of token based authentication mechanisms, including the original Picosiblings solution. Results are shown in figure \ref{fig:TODO}. 
 
 At the end of this peace of work a new framework for the evaluation of token unlocking mechanisms was developed. Existing properties have been identified from the literature and added to the framework together with original work. An initial evaluation was made for existing token unlocking mechanisms which will serve as a benchmark for the proposed solution.
+
+\section{Existing schemes}
+TODO: add literature review about existing token unlocking mechanisms (eg: android unlocking mechanisms)
+% Picosiblings, PIN, Android face unlock.
+
+\section{Example evaluation}

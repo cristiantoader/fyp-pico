@@ -1,0 +1,129 @@
+\begin{thebibliography}{18}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Adams and Sasse(1999)]{adams1999users}
+Anne Adams and Martina~Angela Sasse.
+\newblock Users are not the enemy.
+\newblock \emph{Communications of the ACM}, 42\penalty0 (12):\penalty0 40--46,
+  1999.
+
+\bibitem[Stajano(2011)]{stajano2011pico}
+Frank Stajano.
+\newblock Pico: No more passwords!
+\newblock In \emph{Security Protocols XIX}, pages 49--81. Springer, 2011.
+
+\bibitem[Stannard and Stajano(2012)]{stannard2012good}
+Oliver Stannard and Frank Stajano.
+\newblock Am i in good company? a privacy-protecting protocol for cooperating
+  ubiquitous computing devices.
+\newblock In \emph{Security Protocols XX}, pages 223--230. Springer, 2012.
+
+\bibitem[Bonneau et~al.(2012)Bonneau, Herley, Van~Oorschot, and
+  Stajano]{bonneau2012quest}
+Joseph Bonneau, Cormac Herley, Paul~C Van~Oorschot, and Frank Stajano.
+\newblock The quest to replace passwords: A framework for comparative
+  evaluation of web authentication schemes.
+\newblock In \emph{Security and Privacy (SP), 2012 IEEE Symposium on}, pages
+  553--567. IEEE, 2012.
+
+\bibitem[Stajano(2000)]{stajano2000resurrecting}
+Frank Stajano.
+\newblock The resurrecting duckling.
+\newblock In \emph{Security Protocols}, pages 183--194. Springer, 2000.
+
+\bibitem[Wimberly and Liebrock(2011)]{wimberly2011using}
+Hugh Wimberly and Lorie~M Liebrock.
+\newblock Using fingerprint authentication to reduce system security: An
+  empirical study.
+\newblock In \emph{Security and Privacy (SP), 2011 IEEE Symposium on}, pages
+  32--46. IEEE, 2011.
+
+\bibitem[Clarke and Furnell(2005)]{clarke2005authentication}
+Nathan~L Clarke and Steven~M Furnell.
+\newblock Authentication of users on mobile telephones--a survey of attitudes
+  and practices.
+\newblock \emph{Computers \& Security}, 24\penalty0 (7):\penalty0 519--527,
+  2005.
+
+\bibitem[Clarke et~al.(2003)Clarke, Furnell, Lines, and
+  Reynolds]{clarke2003using}
+Nathan~L Clarke, SM~Furnell, Benn~M. Lines, and Paul~L Reynolds.
+\newblock Using keystroke analysis as a mechanism for subscriber authentication
+  on mobile handsets.
+\newblock In \emph{Security and Privacy in the Age of Uncertainty}, pages
+  97--108. Springer, 2003.
+
+\bibitem[Clarke et~al.(2002)Clarke, Furnell, Rodwell, and
+  Reynolds]{clarke2002acceptance}
+Nathan~L Clarke, Steven~M Furnell, Phihp~M Rodwell, and Paul~L. Reynolds.
+\newblock Acceptance of subscriber authentication methods for mobile telephony
+  devices.
+\newblock \emph{Computers \& Security}, 21\penalty0 (3):\penalty0 220--228,
+  2002.
+
+\bibitem[Williamson and Money-America’s(2006)]{williamson2006enhanced}
+Gregory~D Williamson and GE~Money-America’s.
+\newblock \emph{Enhanced authentication in online banking}.
+\newblock PhD thesis, Utica College, 2006.
+
+\bibitem[Vildjiounaite et~al.(2007)Vildjiounaite, Makela, Lindholm, Kyllonen,
+  and Ailisto]{vildjiounaite2007increasing}
+Elena Vildjiounaite, S-M Makela, Mikko Lindholm, Vesa Kyllonen, and Heikki
+  Ailisto.
+\newblock Increasing security of mobile devices by decreasing user effort in
+  verification.
+\newblock In \emph{Systems and Networks Communications, 2007. ICSNC 2007.
+  Second International Conference on}, pages 80--80. IEEE, 2007.
+
+\bibitem[Felt et~al.(2012)Felt, Ha, Egelman, Haney, Chin, and
+  Wagner]{felt2012android}
+Adrienne~Porter Felt, Elizabeth Ha, Serge Egelman, Ariel Haney, Erika Chin, and
+  David Wagner.
+\newblock Android permissions: User attention, comprehension, and behavior.
+\newblock In \emph{Proceedings of the Eighth Symposium on Usable Privacy and
+  Security}, page~3. ACM, 2012.
+
+\bibitem[Cai et~al.(2009)Cai, Machiraju, and Chen]{cai2009defending}
+Liang Cai, Sridhar Machiraju, and Hao Chen.
+\newblock Defending against sensor-sniffing attacks on mobile phones.
+\newblock In \emph{Proceedings of the 1st ACM workshop on Networking, systems,
+  and applications for mobile handhelds}, pages 31--36. ACM, 2009.
+
+\bibitem[Derawi et~al.(2010)Derawi, Nickel, Bours, and
+  Busch]{derawi2010unobtrusive}
+Mohammad~Omar Derawi, Claudia Nickel, Patrick Bours, and Christoph Busch.
+\newblock Unobtrusive user-authentication on mobile phones using biometric gait
+  recognition.
+\newblock In \emph{Intelligent Information Hiding and Multimedia Signal
+  Processing (IIH-MSP), 2010 Sixth International Conference on}, pages
+  306--311. IEEE, 2010.
+
+\bibitem[Ming et~al.(2007)Ming, Hazen, Glass, and Reynolds]{ming2007robust}
+Ji~Ming, Timothy~J Hazen, James~R Glass, and Douglas~A Reynolds.
+\newblock Robust speaker recognition in noisy conditions.
+\newblock \emph{Audio, Speech, and Language Processing, IEEE Transactions on},
+  15\penalty0 (5):\penalty0 1711--1723, 2007.
+
+\bibitem[Kersta(2005)]{kersta2005voiceprint}
+Lawrence~George Kersta.
+\newblock Voiceprint identification.
+\newblock \emph{The Journal of the Acoustical Society of America}, 34\penalty0
+  (5):\penalty0 725--725, 2005.
+
+\bibitem[Turk and Pentland(1991)]{turk1991face}
+Matthew~A Turk and Alex~P Pentland.
+\newblock Face recognition using eigenfaces.
+\newblock In \emph{Computer Vision and Pattern Recognition, 1991. Proceedings
+  CVPR'91., IEEE Computer Society Conference on}, pages 586--591. IEEE, 1991.
+
+\bibitem[Clarke and Furnell(2007)]{clarke2007authenticating}
+Nathan~L Clarke and SM~Furnell.
+\newblock Authenticating mobile phone users using keystroke analysis.
+\newblock \emph{International Journal of Information Security}, 6\penalty0
+  (1):\penalty0 1--14, 2007.
+
+\end{thebibliography}

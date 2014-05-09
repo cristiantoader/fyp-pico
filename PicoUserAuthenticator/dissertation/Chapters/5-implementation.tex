@@ -1,6 +1,8 @@
 % Chapter Template
 
 \chapter{Implementation Prototype} % Main chapter title
+%TODO:
+%	- make sure that I emphasize that it is up to the user to allow malware to read data from sensors!
 
 \label{Chapter5} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
@@ -167,7 +169,6 @@ In order to configure the biometric authentication mechanisms in a flexible, con
 % TODO: not really relevant since this is just a prototype
 % TODO: any cryptographic keys and content is not secure as the application may be decompiled
 % TODO: DOS by generating bad sensor data
-% TODO: users installing malware and ignoring the permissions of the app
 % TODO: check William Ench et al year
 % TODO: referenced android website instead of talk about components
 % TODO: more mmap_min_addr stuff. why does it help?
@@ -237,17 +238,33 @@ As pointed out by Steffen and Mathias, the Android OS is responsible for 96\% of
 	\item Google Play has a low barrier for malware. A developer distribution agreement (DDA) and a developer program policy (DPP) need to be greed to and signed by the developer before submitting the application to the Android market. However, Google Play does not check upfront if an application adheres to DDA and DDP. The application is only reviewed if suspect of breaking the agreements. According to \cite{} there are ways of circumventing the Bouncer program, and as a proof TODO write in their paper \cite{} a list of applications which are in the Google Play store.
 \end{enumerate}
 
+\subsection{Prototype threat model}
 Let us now continue by studying the threat model of the Pico authenticator application. We will consider the security mechanisms presented above as the predefined assumptions made in this model. In order to reduce the threat space we will consider the application is running on a hand held device running Android 4.4.2 with all recent updates.
 
-\subsection*{Availability}
-Breaking the scheme's availability if the device is in the posession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. In this case the owner is already no longer in possession of their Pico, so basically the Pico is already made unavailable.
+\subsubsection*{Availability}
+Breaking the scheme's availability if the device is in the possession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. Furthermore, in this case the owner is already no longer in possession of their Pico, so basically the Pico is already made unavailable..
 
 Let us continue however and study what can be achieved from a DoS perspective by the attacker from the perspective of the individual user app accounts, which would need to be reset by the owner. In order to gain any sort of access and make credentials reset not possible, or at least have a chance in doing so, the attacker would have to unlock the Pico.
 
-\subsection*{Integrity}
-\subsection*{Confidentiality}
+From a malware attack perspective data used by the authentication should not be modifiable. This would guarantee that all mechanisms have their cached biometric data available at all times and may function properly. Due to the Linux permissions mechanism and the fact that each application has its own UID and GID, data stored in internal memory should not be readable or writeable by any other user level application in the system. If however the device is rooted and the owner is mislead into granting root privileges to another application, then the security model would be broken and the data would be exposed. This could lead to deletion which would make the mechanisms not function properly, resulting in a DoS attack.
 
-\subsection{Future work}
+% TODO: can we fake data from sensors?
+
+\subsubsection*{Integrity}
+Just as mentioned in the Availability section, the authenticator should be safe against any data accesses from other applications as long as the application does not have root privileges. This would allow malware to break the integrity property of the data.
+
+From a data flow point of view Intents used for communication within the authenticator as well as with the Pico application are not modifiable. Furthermore Intents are not broadcasted using the implicit Android broadcast mechanism, which makes them impossible to replay or even intercept.
+
+\subsubsection*{Confidentiality}
+Considering a circumstance where a root malware process would have access to the authenticator's data stored on disk, this would not lead to a direct compromise of the owner biometric data. All cached files are stored in internal memory in encrypted format. The mechanism used for encryption is RSA, with the private key stored using the Android KeyChain API.
+
+On a rooted device however, the encryption layer provides only another bi-passable layer of security. With root access, an application could retrieve the master key of the KeyChain and use it to retrieve or private key and decode the owner's biometrics.
+
+From a data flow perspective, internally the Pico authenticator uses an self-developed broadcast system. Client processes need to register with the broadcaster, such as the UAService, in order to receive updates. This ensures data confidentiality throughout the system. Furthermore, the authenticator and Pico should be released under the same author. This would allow locking the application from outside Intents as well as interaction with different components. Sandboxing communication is always a desirable property from a confidentiality perspective.
+
+The paper by Adrienne Porter Felt et al \cite{felt2012android} shows that according to their surveys only 17\% of users pay attention to the Android permissions dialogue, and only 3\% understand what each permission represents. A malware application which has granted full permissions gets pass the Bouncer and is installed as an application. Even so, due to the Linux permission model adopted by Android, the confidentiality of the authenticator's data would not be compromised. Instead however, the malware application may collect all relevant on its own from the user, allowing for a powerful replay attack in the future.
+
+\section{Future work}
 The application was implemented as a proof of concept. It is developed in order to show that different data may be obtained without the owner's knowledge. Additional improvements can be made in order to increase the confidence level of the authenticator.  Furthermore, due to time constraints and unavailability of free to use biometric libraries, a number of mechanisms were not implemented. The list can easily be extended by simply creating a class which extends the ``AuthMechService'' abstract class.
 
 One way to improve the voice recognition mechanism would be to start sampling data whenever a call is active. This would increase the chances of capturing an accurate sample of the owner's voice. In this context, a better voice recognition library can be used, which supports multiple speakers and/or ignores background noise. If such a library is not available, we can rely on the fact that most of the times people take turns when speaking. For the duration of the call, with a high enough sampling frequency, the individual sampling voice of both participants should be captured. However, it is important to take into account a situation in which the thief is calling the owner on a different phone in order to unlock his Pico.
@@ -257,3 +274,24 @@ Immediate improvements can be made to the face recognition mechanism. Just as re
 Another improvement for the face recognition mechanism would be from the data sampling perspective. Instead of capturing images at a fixed interval, pictures should be taken only when the phone unlock event is triggered. While the phone is unlocked it is highly likely that the user will face its front camera.This would provide better chances of processing meaningful data.
 
 \section{Results}
+%TODO:
+Need to figure out how to present meaningful results for different scenarios, and how the mechanism would work. Use dummy authenticator to generate data.
+
+\section{Related work}
+Liang Cai et al makes analyse in their paper \cite{cai2009defending} ways of protecting users from mobile phone sensor sniffing attacks. The authors design a framework used for protecting sensor data from being leaked. From a security perspective it is noted that the user is not to be trusted with granting permissions to different applications. An important point made in this paper is the fact that malware may deny service to legitimate applications such as our authenticator by creating a race condition for acquiring a lock on the sensor. The solution proposed by the authors would be an user notification, allowing for the owner to decide which application acquires the lock. A suggestion to this approach would be to allow for different priority levels, such that malware applications would not acquire the lock in a race condition, or even more, would lose it when a high priority application such as the Pico authenticator would require sensor data.
+
+The paper by Derawi et al \cite{derawi2010unobtrusive} presents the feasibility of implementing gait authentication on Android as an unobtrusive unlocking mechanism. According to the definition offered by the authors ``gait recognition describes a biometric method which allows an automatic verification of the identity of a person by the way he walks''. According to the paper, the Android implementation has an equal error rate (EER) of 20\%. Dedicated devices have an EER of only 12.9\%, and the cause for this is the sampling rate used by the authors. They have used a Google G1 phone with about 40-50 samples per second, which is much inferior to dedicated accelerometers which sample data at 100 samples per second. However, by conducting personal experiments with the Accelerometer of a Google Nexus 5 phone, using the highest sampling setting (SENSOR\_DELAY\_FASTEST) sampling rates go above 100 samples per second. Therefore the performance of devices has increased, making the authentication mechanism more reliable.
+
+Ming et al presents in his paper \cite{ming2007robust} how to improve speaker recognition accuracy on mobile devices in noisy conditions. This approach uses a model training technique based on which missing features may be used to identify noise. The focus of the paper is biometric implementation related and is therefore outside the scope of the project. 
+
+Another technique in performing speaker recognition involves using voiceprints. These are a set of features extracted from the speaker sample data. Kersta explains in their paper \cite{kersta2005voiceprint} the mechanism in more detail. The benefits of having feature extraction based on a voice sample as opposed to a different voice recognition mechanism is the fact that voiceprints do not require knowing any secrets. The speaker doesn't have to reproduce a voice sample. This increases the usability of the mechanism in the scenarios required by the Pico authenticator.
+
+A popular paper on face authentication \cite{turk1991face} was written by Turk and Pentland. The biometric authentication process is based on the concept of eigenfaces. Eigenfaces are a name given for the eigenvectors which are used to characterise the features of a face. These features are projected on to the feature space. Using Euclidean distances in this feature space, a classification can be performed in order to correctly identify individuals. An implementation of this concept was implemented with the prototype of the Pico unlocking scheme.
+
+A more unconventional method for authenticating users was presented by Clarke and Furnell in their paper \cite{clarke2007authenticating} on keystroke analysis. This mechanism is unobtrusive and authenticates users during normal interactions such as typing a text message or a phone number. It is based on a neural network classifier, reporting an EER of 12.8\%. Input data used for classification is composed out of time between successive keystrokes, and hold time of a pressed key. 
+
+
+
+
+
+
