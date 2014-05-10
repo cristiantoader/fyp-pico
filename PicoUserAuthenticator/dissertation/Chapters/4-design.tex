@@ -70,8 +70,11 @@ Combining explicit authentication with the current design can be performed consi
 We will continue by evaluating the new proposed scheme with the token unlocking framework defined in the previous chapter. 
 
 \begin{description}
-  \item[Memory-effortless: Quasi-satisfied] \hfill \\
-  TODO: ask about this!
+  \item[Memory-effortless: Satisfied] \hfill \\
+  None of the authentication mechanisms require any sort of known secret. Authentication is granted based on biometrics and behavioural analysis.
+  
+  \item[Nothing-to-carry: Quasi-satisfied] \hfill \\
+  This property is only quasi-satisfied due to the fact that it relies on the implementation of the design. Ideally all authentication data should be gathered from an unified device containing the Pico. Alternatively however, the scheme can be implemented using individual sensors which the owner would have to carry, which is why the property is not fully granted.
   
   \item[Easy-to-learn: Satisfied] \hfill \\
   In order to satisfy Pico's property of continuous authentication, all mechanisms part of the scheme I developed also need to have this property. Therefore the authentication process is non-transparent to the user, and therefore there is nothing to learn.
@@ -84,6 +87,9 @@ We will continue by evaluating the new proposed scheme with the token unlocking 
   
   \item[Easy-recovery-from-loss: Not-satisfied] \hfill \\
   Token based mechanisms in general do not have this property due to the inconvenience of replacing the token. In our case, the property is also not satisfied. The user would have to re-acquire a new token and reconfigure the owner's biometric data. Furthermore based on the mechanism, such as location settings or gait recognition, the token is likely to require an adaptation period.
+  
+  \item[Availability: Satisfied] \hfill \\
+  Some mechanisms are not always available even though enabled, especially due to the continuous authentication property. As an example gait recognition while sitting in an office. However, the scheme may use a multitude of mechanisms with the unlikeness that all of them are unavailable. For instance location history may predict with a certain confidence that the owner still in possession of the token. This propery is aided by the explicit authentication mechanism which requires explicit input from the user.
   
   \item[Accessible: Satisfied] \hfill \\
   Due to the fact that the scheme is based on multiple biometrics and location settings, I consider this property to be Satisfied or as a very least Quasi-satisfied. The scheme functions based on available biometrics, without having any predefined solutions. It is highly unlikely that the owner cannot generate any of the available biometric inputs, especially for some such as ``face recognition''.
@@ -115,24 +121,18 @@ We will continue by evaluating the new proposed scheme with the token unlocking 
   \item[Resilient-to-internal-observation: Satisfied] \hfill \\
   This property does not apply to this scheme. 
   
-  \item[Requiring-explicit-consent: Quasi-satisfied] \hfill \\
-  The user may opt out from the scheme being active. However, in order for the Pico continuous authentication property to be available, non explicit periodic authentication needs to be performed based on biometric data. This should be viewed as the user consenting for authentication when deciding to use the device. Since there is some uncertainty regarding what explicit consent means in this case, only the property is marked as only Quasi-satisfied.
-  
   \item[Unlinkable: Not-satisfied] \hfill \\
   Just as any of the biometric mechanisms, this property is not satisfied by the mechanism. The authentication data maps uniquely to the owner of the token.
   
   \item[Continuous-authentication: Satisfied] \hfill \\
   The mechanism was designed with continuous authentication in mind. Data is collected periodically with a confidence weight decaying over time. This allows for the token to be used at any time based on current existing data. The only exception breaking the model would be the explicit authentication mechanisms, but these could only be triggered at the beginning of an authentication process using the token.
   
-  \item[Multi-purpose-unlocking: Satisfied] \hfill \\
+  \item[Multi-level-unlocking: Satisfied] \hfill \\
   This property is fully satisfied by the authentication mechanism. It allows the token to grant access to different authentication accounts based on the precomputed level of confidence that the owner is present. 
-  
-  \item[Availability: Satisfied] \hfill \\
-  Some mechanisms are not always available even though enabled, especially due to the continuous authentication property. As an example gait recognition while sitting in an office. However, the scheme may use a multitude of mechanisms with the unlikeness that all of them are unavailable. For instance location history may predict with a certain confidence that the owner still in possession of the token. This propery is aided by the explicit authentication mechanism which requires explicit input from the user.
   
 \end{description}
 
-Comparing this score with the other token unlocking mechanisms... TODO!
+Comparing this score with the other token unlocking mechanisms, use a table or drawn diagram to compare easier... TODO!
 
 % availability (dos)
 %   - communication
@@ -235,7 +235,6 @@ Let us briefly discuss any issues using the availability-integrity-confidentiali
 	\subsubsection*{Availability}
 	Only plausible attacks are denial of service through deleting biometric cache files from disk. This would require constant reconfiguration for the Pico scheme, making the Pico unavailable.
 	
-	
 	\subsubsection*{Integrity}
 	Data integrity may only be altered from cache files on disk.
 	
@@ -250,9 +249,9 @@ The paper \cite{clarke2005authentication} however shows that 83\% of users are w
 A similar paper \cite{clarke2002acceptance} written by Clarke et al studies the need for mobile phone authentication mechanisms alternative to the PIN. The authors conduct a survey with interesting results. A remarkable 11\% of participants were not even aware of the PIN authentication method used for unlocking a mobile phone. An average of 81\% of participants agree that different mechanisms should be used, which provide more security. Subscribes have reported both the need and desire for using alternative authentication mechanisms, but at the same time many of them do not use available alternatives available today. More details regarding the study can be found in the original paper \cite{clarke2002acceptance}.
 
 % TODO: could maybe do more on this paper, check notes.
-Gregory Williamson writes in his PhD dissertation \cite{williamson2006enhanced} about the need for an enhanced security authentication mechanism for on-line banking. He proposes a multi-factor authentication model, and presents two interesting options: the traditional one where both authentications are required in the multi-factor model (blanket authetication), and one where the second authentication mechanism is only requested from the user if the transactions appears to be risky (risk mode authentication). A risky situation is defined as either an important transaction such as withdrawing money, or a transaction made under unusual circumstances such as from an unknown device. 
+Gregory Williamson writes in his PhD dissertation \cite{williamson2006enhanced} about the need for an enhanced security authentication mechanism for on-line banking. He proposes a multi-factor authentication model, and presents two interesting options: the traditional one where both authentications are required in the multi-factor model (blanket authentication), and one where the second authentication mechanism is only requested from the user if the transactions appears to be risky (risk mode authentication). A risky situation is defined as either an important transaction such as withdrawing money, or a transaction made under unusual circumstances such as from an unknown device. 
 
-A similar approach to the risk mode authentication presented by Williamson \cite{williamson2006enhanced} is proposed in this project. Our scheme yields a confidence level which may on may not be sufficient to unlock the Pico based on the current active transactions. Similarly, if the confidence level is not high enough, an explicit authentication mechanism will prompt the user for input. As the dissertation by Williamson shows, 75\% of users questioned in his study agree with having biometric authentication as a secondary mechanism. This shows promising results in adopting our scheme for token unlockng purposes.
+A similar approach to the risk mode authentication presented by Williamson \cite{williamson2006enhanced} is proposed in this project. Our scheme yields a confidence level which may on may not be sufficient to unlock the Pico based on the current active transactions. Similarly, if the confidence level is not high enough, an explicit authentication mechanism will prompt the user for input. As the dissertation by Williamson shows, 75\% of users questioned in his study agree with having biometric authentication as a secondary mechanism. This shows promising results in adopting our scheme for token unlocking purposes.
 
 Elena Vildjiounaite et al describe in their paper \cite{vildjiounaite2007increasing} a similar mechanism of combining biometric authentication data on mobile phone devices. The authors identify the security downside of granting authentication for a long time after a single verification challenge, which is the case for password based systems. They explore an alternative based a two stage risk mode authentication \cite{williamson2006enhanced}. The first stage combines biometric data in order to achieve continuous authentication. This is achieved by training a cascade classifier to a target false acceptance rate (FAR) using as data a weighted sum fusion rule. Mechanism weights are chosen based on total error rates. The second stage is only enabled if the cascade classifier does not identify the owner as being present. In low noise scenarios 80\% of the time continuous authentication is achieved without the need for an explicit challenge. In noisy situations (city and car noise), 40 to 60\% of authentication is obtained in a unobtrusive way. The cascade classifier was trained with a FAR of 1\%, with results showing a false rejection rate (FRR) of only 3 - 7\%.
 

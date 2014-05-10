@@ -38,6 +38,9 @@ The following list shows what properties of the framework developed by Bonneau e
   \item[Memory-effortless] \hfill \\
   Different types of tokens would have different results. For instance the RSA SecurID \cite{} token doesn't require any authentication, while the FIDO (Fast IDentity Online) Alliance \cite{} may use a PIN requiring a known secret.
   
+  \item[Nothing-to-carry] \hfill \\
+  Different token unlocking mechanisms may require additional hardware. Such may be the case for some biometric schemes.
+  
   \item[Easy-to-learn] \hfill \\
   Token authentication mechanisms may have different learning curves. As an example a CAP reader is fairly easy to use, while a Pico device may prove more difficult for the inexperienced.
   
@@ -77,9 +80,6 @@ The following list shows what properties of the framework developed by Bonneau e
   \item[Resilient-to-internal-observation] \hfill \\
   An attacker cannot tamper with the token in order to intercept user input. Furthermore it is impossible for the attacker to gather the input from within the token's storage.
   
-  \item[Requiring-explicit-consent] \hfill \\
-  The authentication mechanism requires explicit consent from the user in order to become unlocked.
-  
   \item[Unlinkable] \hfill \\
   The unlocking mechanism does not generate data which if leaked would compromise the identity of the user. \ldots
   
@@ -102,13 +102,37 @@ Although the framework by Bonneau et al provides a good base set of properties, 
   
 \end{description}
 
-% TODO: add the framework and comparison
-In order to demonstrate how the framework works we have assessed a number of token based authentication mechanisms, including the original Picosiblings solution. Results are shown in figure \ref{fig:TODO}. 
-
-At the end of this peace of work a new framework for the evaluation of token unlocking mechanisms was developed. Existing properties have been identified from the literature and added to the framework together with original work. An initial evaluation was made for existing token unlocking mechanisms which will serve as a benchmark for the proposed solution.
-
-\section{Existing schemes}
-TODO: add literature review about existing token unlocking mechanisms (eg: android unlocking mechanisms)
-% Picosiblings, PIN, Android face unlock.
-
 \section{Example evaluation}
+In order to demonstrate how the framework works we have assessed three token based authentication mechanisms: Picosiblings, PIN, and Face-unlock. Each of the mechanisms represent a different type of authentication method. Picosiblings essentially are a secret the owner has, PINs are a secret the owner knows, and Face-unlock is something the owner is. The following sections will provide as an example of how the framework should be applied. Results in the Picosiblings section will be used in the following chapter as a token authentication benchmark which will be used to compare the proposed unlocking scheme with the existing one.
+
+	\subsection{Picosiblings}
+	The current token unlocking mechanism used by Pico is called Picosiblings. In order to unlock the token, k-out-of-n secrets are required. Each of these secrets are held within a Picosibling carried by the user. If the Picosibling is within range of the Pico, these secrets are communicated to the token which can then be used to unlock its master key and implicitly the token.
+	
+	Since the user doesn't need to remember any secrets, the scheme satisfies the memory-effortless property. The nothing-to-carry property is not satisfied since the Picosiblings are external emitters. As the original paper suggests, the scheme is not easy to learn due to user's unfamiliarity with the mechanism. It is only partially satisfies the efficient-to-use, and infrequent-errors properties. Easy recovery from loss is not offered neither for the Pico or the Picosiblings, since additional hardware would need to be ordered. The scheme relies fundamentally on the presence of the Picosiblings, but may be used in any normal scenarios as long as the devices are present. Therefore it satisfies the availability property.
+	
+	The original paper marks Pico with the Picosiblings scheme as not accessible. We will assume the property transfers to the unlocking mechanism as well. The negligible-cost-per-user property is not satisfied due to presumably expensive embedding of Picosiblings in everyday items. The scheme was not used in any open source projects and is at the stage of a prototype, having very little user testing. For this reason the scheme does not satisfy the mature property. Since this is an academic research project, no royalties need to be paid in order to implement the scheme. Therefore the scheme is non-proprietary.
+	
+	Since it does not rely on any user input it is resilient-to-physical-observations. In disagreement with the original Pico assessment by the authors, since anyone in the possession of the Picosiblings may unlock the Pico it is not resilient-to-targeted-impersonation. It is however resilient-to-throttled-guessing and resilient-to-unthrottled-guessing due to the communication protocol described by Stajano in his paper \cite{stajano2011pico} as well as the resurrecting ducklings protocol \cite{stajano2000resurrecting}. Due to the use of cryptography is is also resilient-to-internal-observations, and if lost the data is unlinkable to its owner. The scheme was designed to provide continuous-authentication. Since the mechanism offers secrets which keep the master key as either locked or unlocked, it does not satisfy the multi-level-unlocking property.
+
+	\subsection{PIN}
+	PIN should be viewed as passwords with a severely limited subset of characters. Additional protection comes from steep security measures when the PIN authentication has failed. As an example, for mobile phones typing 3 wrong PINs would lock your SIM card. A lot of the PIN properties should however be similar with those offered by passwords.
+	
+	Since they scheme relies on knowing a secret, it does not satisfy the memory-effortless property, in exchange for the nothing-to-carry property. Due to its maturity and similarity with passwords users find it easy-to-learn. It is efficient-to-use since it requires no time to compare two small strings. Due to the input method on a small mobile device it does not have the infrequent-errors property. As a divergence from the original paper, we consider PINs not to satisfy the easy-recovery-from-loss property. This is due to the fact that usually it is required to order a new SIM with the same number in order to ``reset'' a forgotten PIN. Due to the fact that it only requires the ability to be typed, it satisfies the availability property in any conditions.
+	
+	Just as passwords PINs score all points in deployability. They can be used by anyone and are therefore accessible. The have virtually no cost, satisfying the negligible-cost-per-user property. Being a subset of passwords, the mechanism is considered to be mature and non-proprietary.
+	
+	From a security perspective however PINs score poorly. They are not resilient-to-physical-observation since anyone can eavesdrop the input of a PIN. The resilient-to-targeted-impersonation property is strongly linked to this, but only works if the attacker inputs the correct PIN. The property is therefore only quasi-satisfied.	Unlike passwords, PINs do have the property of resilient-to-throttled-guessing property due to the security model around them. A brute force attack cannot be performed on a locked device unless some sort of implementation error is present, such as an unprotected file. Furthermore PIN mechanisms are generally designed with different penalties such as locking the SIM or the OS for a time period. Due to poor practices in using PINs, they do not have the resilient-to-unthrottled-guessing property. PINs are not resilient-to-internal-observations. The fact that they are chosen randomly by the user means they are unlinkable. However, they do not offer the continuous authentication property due to the fact that they cannot authenticate the user in a non-evasive way. They only offer a locked/unlocked state, and therefore they do not have the multi-level-unlocking property. 
+	
+	\subsection{Android Face unlock}
+	Android offers a face recognition unlock mechanism for the mobile device. A mobile phone may be viewed as a multi-purpose token, making the face-unlocking mechanism a valid token unlocking scheme. This feature was made available starting with Android 4.0 (Ice Cream Sandwich). This essentially is a biometric unlocking mechanism, which due to the sensor platform offered by Android may be used for token unlocking purposes.
+	
+	As no secrets are required for biometric mechanisms, the scheme is memory-effortless. It satisfies the nothing-to-carry property as well, since in the case of mobile devices with a camera the scheme does not require additional external hardware. The mechanism is efficient-to-learn, since it only needs the user to look at the camera. Time is required to load face models when first loading the mechanism, but not upon further authentication requests. Therefore the scheme quasi-satisfies the efficient-to-use property. Errors are quite frequent for this mechanism, both from personal testing as well as existing literature \cite{stajano2000resurrecting}. The easy-recovery-from-loss does not apply for biometric mechanisms, especially in the case where no external hardware is required. The availability property is not satisfied due to the fact that based on external factors such as light or obstacles between the camera and the face authentication is not possible.
+	
+	
+	To do: please provide some input for cost-per-user, mature, and non-proprietary. Face recognition is accessible for anyone to use. It has a negligible cost-per-user due to the fact that it is non-proprietary and no charges are usually made with each authentication. The mechanism quasi-satisfies the mature property due to the limited user exposure.
+	
+	Purely by observing the owner authenticate using face recognition does not provide any advantage to an attacker. The scheme therefore has the resilient-to-physical observations property. Targeted impersonation is an issue with any authentication mechanism. Nothing would stop an attacker from taking a picture of the owner and use it in a replay attack. Therefore the scheme does not offer the resilient-to-targeted-impersonation property. The resilient-to-throttled-guessing and resilient-to-unthrottled-guessing properties do not apply and therefore are considered as satisfied.  The resilient-to-internal-observations property is not satisfied in the case of mobile devices. This is due to the fact that malware may capture the exact same data when the screen is turned on for example, or immediately after a picture was taken. If data used in authentication is exposed, it is directly linkable to the owner, and therefore the unlinkable property is not satisfied. Continuous-authentication would only possibly be offered based on implementation and conditions such as the user facing the camera of the phone. The property is therefore only quasi-satisfied, although arguably not satisfied. Multi-level-unlocking would be possible based on an Euclidean distance metric, but no efforts have been made in this regard. 
+
+\section{Conclusions}
+At the end of this peace of work a new framework for the evaluation of token unlocking mechanisms was developed. Existing properties have been identified from the literature and added to the framework together with original work. An initial evaluation was made for existing token unlocking mechanisms which will serve as a benchmark for the proposed solution. From the example evaluations, neither of the three token unlocking mechanisms is dominant over the others.
+
