@@ -17,6 +17,7 @@ import android.util.Log;
  * @author cristi
  * 
  */
+@SuppressWarnings("unused")
 public class UserAuthenticator {
 
 	/** UAService service reference used for binding on other services. */

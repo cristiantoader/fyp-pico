@@ -18,8 +18,6 @@ import android.util.Log;
  * Class used for communication from the UserAuthenticator to an
  * AuthMechService.
  * 
- * TODO: blurry communication paths when requesting confidence. Make sure
- * everything is passed upon request, not just broadcast.
  * 
  * @author cristi
  * 
