@@ -7,7 +7,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.bitsinharmony.recognito.Recognito;
-import com.bitsinharmony.recognito.VocalPrint;
 
 public class VoiceDAO {
 	/** Owner voice record manager. */
@@ -41,15 +40,12 @@ public class VoiceDAO {
 			return;
 		}
 		
-		Log.i(TAG, "traing data" + this.ownerRecord.getRecordingData());
-		Log.i(TAG, "traing data len" + this.ownerRecord.getRecordingData().length);
-		Log.i(TAG, "traing sample rate" + this.ownerRecord.getSampleRate());
+		Log.d(TAG, "traing data" + this.ownerRecord.getRecordingData());
+		Log.d(TAG, "traing data len" + this.ownerRecord.getRecordingData().length);
+		Log.d(TAG, "traing sample rate" + this.ownerRecord.getSampleRate());
 
-
-		// TODO: remove after testing is over.
-		@SuppressWarnings("unused")
-		VocalPrint result = recognito.createVocalPrint("owner",
-				this.ownerRecord.getRecordingData(), this.ownerRecord.getSampleRate());
+		recognito.createVocalPrint("owner",this.ownerRecord.getRecordingData(), 
+				this.ownerRecord.getSampleRate());
 	}
 
 
