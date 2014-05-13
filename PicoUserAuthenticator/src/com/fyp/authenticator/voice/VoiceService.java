@@ -61,11 +61,13 @@ public class VoiceService extends AuthMechService {
 
 		public AuthenticatorThread() {
 			this.stop = false;
-			this.voiceDAO = new VoiceDAO(VoiceService.this);
 		}
 
 		@Override
 		public void run() {
+			
+			this.voiceDAO = new VoiceDAO(VoiceService.this);
+			
 			while (stop != true) {
 				try {
 					// TODO: can change this to having a separate method for recording a
