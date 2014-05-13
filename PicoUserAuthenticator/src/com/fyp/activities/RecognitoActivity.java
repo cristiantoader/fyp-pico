@@ -6,8 +6,6 @@ import com.fyp.authenticator.voice.VoiceDAO;
 import com.fyp.authenticator.voice.VoiceRecord;
 
 import android.app.Activity;
-import android.media.AudioRecord;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,19 +15,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class RecognitoActivity extends Activity {
-	private static final String LOG_TAG = "AudioRecordTest";
+	@SuppressWarnings("unused")
+	private static final String TAG = "AudioRecordTest";
 	private static final String FILE_NAME = "owner.3gp";
 
 	private EditText timerDisplay = null;
 
 	private Button mRecordButton = null;
-	private Button mPlayButton = null;
 	private Button mSaveButton = null;
-
-	// TODO: these two need to be removed, the player also is unlikely to work in
-	// the future
-	private AudioRecord mRecorder = null;
-	private MediaPlayer mPlayer = null;
 
 	OnClickListener clickerRecord = new OnClickListener() {
 		private boolean recording = false;
@@ -95,6 +88,7 @@ public class RecognitoActivity extends Activity {
 			if (recordingExists()) {
 				Log.i("RecognitoActivity", "recording exists!");
 
+				@SuppressWarnings("unused")
 				VoiceDAO voiceDAO = new VoiceDAO(RecognitoActivity.this);
 
 			} else {
@@ -125,14 +119,5 @@ public class RecognitoActivity extends Activity {
 	@Override
 	public void onPause() {
 		super.onPause();
-		if (mRecorder != null) {
-			mRecorder.release();
-			mRecorder = null;
-		}
-
-		if (mPlayer != null) {
-			mPlayer.release();
-			mPlayer = null;
-		}
 	}
 }
