@@ -102,7 +102,7 @@ public class AuthDevVoice {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 
-			case UAService.MSG_GET_STATUS:
+			case UAService.MSG_CONFIDENCE_UPDATE:
 				boolean authenticated = (msg.arg1 == 1);
 				Log.i("AuthDevVoice", "Received from service: " + authenticated + "\n");
 				break;

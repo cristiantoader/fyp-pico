@@ -10,8 +10,9 @@ import android.app.Service;
 import android.util.Log;
 
 /**
- * TODO: needs modification to support individual thresholds for each registered
- * PICO
+ * 
+ * This only deals with authentication mechanisms. It communicates with them and
+ * calculates confidence.
  * 
  * @author cristi
  * 

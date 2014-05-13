@@ -139,10 +139,15 @@ public class PicoMainActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 
-			case UAService.MSG_GET_STATUS:
-				boolean authenticated = (msg.arg1 == 1);
-				amwr.get().contentView.append("Received from service: " + authenticated
-						+ "\n");
+			case UAService.MSG_CONFIDENCE_UPDATE:
+//				boolean authenticated = (msg.arg1 == 1);
+//				amwr.get().contentView.append("Received from service: " + authenticated
+//						+ "\n");
+				
+				int confidence = msg.arg1;
+				amwr.get().contentView.append("Confidence level: " + confidence	+ "\n");
+
+				
 				break;
 
 			default:

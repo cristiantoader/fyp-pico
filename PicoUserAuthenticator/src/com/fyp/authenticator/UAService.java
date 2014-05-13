@@ -35,7 +35,7 @@ public class UAService extends Service {
 	/** Constant used to unregister a client for broadcast. */
 	public static final int MSG_UNREGISTER_CLIENT = 1;
 	/** Constant used to request user authentication status. */
-	public static final int MSG_GET_STATUS = 2;
+	public static final int MSG_CONFIDENCE_UPDATE = 2;
 
 	private static final String TAG = "UAService";
 
@@ -114,17 +114,19 @@ public class UAService extends Service {
 				uas.clients.remove(msg.replyTo);
 				break;
 
-			case MSG_GET_STATUS:
+			case MSG_CONFIDENCE_UPDATE:
 				Messenger client = msg.replyTo;
 
 				if (uas.clients.containsKey(client)) {
 					int threshold = uas.clients.get(client);
 					int confidence = ua.getConfidence();
 
+					@SuppressWarnings("unused")
 					int result = confidence >= threshold ? 1 : 0;
 					
 					try {
-						client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
+						client.send(Message.obtain(null, MSG_CONFIDENCE_UPDATE, confidence, 0));
+//						client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
@@ -176,10 +178,13 @@ public class UAService extends Service {
 				int threshold = entry.getValue();
 				int confidence = ua.getConfidence();
 				
+				@SuppressWarnings("unused")
 				int result = confidence >= threshold ? 1 : 0;
 				
 				try {
-					client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
+//					client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
+					client.send(Message.obtain(null, MSG_CONFIDENCE_UPDATE, confidence, 0));
+
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
