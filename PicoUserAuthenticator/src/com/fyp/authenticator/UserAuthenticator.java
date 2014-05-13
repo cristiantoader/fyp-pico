@@ -24,8 +24,6 @@ public class UserAuthenticator {
 	/** List of available device services used for authentication. */
 	private LinkedList<AuthMech> mechanism;
 
-	/** Default authentication threshold. */
-	private static final int authThreshold = 50;
 	/** Overall confidence level. */
 	private int confidence;
 
@@ -47,10 +45,9 @@ public class UserAuthenticator {
 	 * 
 	 * @return true if user is authenticated.
 	 */
-	public boolean isAuthenticated() {
+	public int getConfidence() {
 		this.calculateConfidence();
-
-		return (this.confidence >= UserAuthenticator.authThreshold);
+		return this.confidence;
 	}
 
 	/**

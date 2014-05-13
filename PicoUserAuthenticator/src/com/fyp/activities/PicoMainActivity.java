@@ -159,8 +159,11 @@ public class PicoMainActivity extends Activity {
 			messageService = new Messenger(service);
 
 			try {
+				// TODO: arg1 is the threshold for the client authentication.
 				Message msg = Message.obtain(null, UAService.MSG_REGISTER_CLIENT);
 				msg.replyTo = messageReceiver;
+				msg.arg1 = 50;
+				
 				messageService.send(msg);
 
 			} catch (RemoteException e) {

@@ -1,7 +1,8 @@
 package com.fyp.authenticator;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import android.app.Service;
 import android.content.Intent;
@@ -13,8 +14,6 @@ import android.os.RemoteException;
 import android.util.Log;
 
 /**
- * TODO: need support for registering users WITH confidence levels and return
- * true or false based on that confidence.
  * 
  * @author cristi
  * 
@@ -27,7 +26,7 @@ public class UAService extends Service {
 	/** Authenticator thread responsible of broadcasting messages. */
 	private static AuthenticatorThread serviceThread = null;
 	/** List of binded clients. */
-	private ArrayList<Messenger> clients = new ArrayList<Messenger>();
+	private HashMap<Messenger, Integer> clients = new HashMap<Messenger, Integer>();
 	/** Message receiver from binded clients. */
 	private final Messenger messenger = new Messenger(new IncomingHandler(this));
 
@@ -38,6 +37,8 @@ public class UAService extends Service {
 	/** Constant used to request user authentication status. */
 	public static final int MSG_GET_STATUS = 2;
 
+	private static final String TAG = "UAService";
+
 	/**
 	 * When creating the service it gets a reference to the UserAuthenticator
 	 * and starts the authenticator thread which is responsible for broadcasting
@@ -45,7 +46,7 @@ public class UAService extends Service {
 	 */
 	@Override
 	public void onCreate() {
-		Log.i("UAService", "onCreate");
+		Log.i(TAG, "onCreate");
 
 		if (ua == null) {
 			ua = new UserAuthenticator(this);
@@ -62,7 +63,7 @@ public class UAService extends Service {
 	 */
 	@Override
 	public void onDestroy() {
-		Log.i("UAService", "onDestroy");
+		Log.i(TAG, "onDestroy");
 
 		if (serviceThread != null) {
 			try {
@@ -86,7 +87,7 @@ public class UAService extends Service {
 	 */
 	@Override
 	public IBinder onBind(Intent intent) {
-		Log.i("UAService", "onBind");
+		Log.i(TAG, "onBind");
 		return messenger.getBinder();
 	}
 
@@ -106,7 +107,7 @@ public class UAService extends Service {
 
 			switch (msg.what) {
 			case MSG_REGISTER_CLIENT:
-				uas.clients.add(msg.replyTo);
+				uas.clients.put(msg.replyTo, msg.arg1);
 				break;
 
 			case MSG_UNREGISTER_CLIENT:
@@ -114,16 +115,18 @@ public class UAService extends Service {
 				break;
 
 			case MSG_GET_STATUS:
-				Messenger req = msg.replyTo;
+				Messenger client = msg.replyTo;
 
-				if (uas.clients.contains(req)) {
+				if (uas.clients.containsKey(client)) {
+					int threshold = uas.clients.get(client);
+					int confidence = ua.getConfidence();
+
+					int result = confidence >= threshold ? 1 : 0;
+					
 					try {
-						int value = (ua.isAuthenticated() == true) ? 1 : 0;
-						req.send(Message.obtain(null, MSG_GET_STATUS, value, 0));
-
+						client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
 					} catch (RemoteException e) {
 						e.printStackTrace();
-						uas.clients.remove(req);
 					}
 				}
 
@@ -133,7 +136,9 @@ public class UAService extends Service {
 			}
 		}
 	}
-
+	
+	
+	
 	/**
 	 * Authenticator thread responsible of broadcasting the result to registered
 	 * clients.
@@ -165,14 +170,18 @@ public class UAService extends Service {
 		}
 
 		private void broadcastResult() {
-			for (Messenger client : clients) {
+			for (Entry<Messenger, Integer> entry : clients.entrySet()) {
+				Messenger client = entry.getKey();
+				
+				int threshold = entry.getValue();
+				int confidence = ua.getConfidence();
+				
+				int result = confidence >= threshold ? 1 : 0;
+				
 				try {
-					int value = (ua.isAuthenticated() == true) ? 1 : 0;
-					client.send(Message.obtain(null, MSG_GET_STATUS, value, 0));
-
+					client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
 				} catch (RemoteException e) {
 					e.printStackTrace();
-					clients.remove(client);
 				}
 			}
 		}
