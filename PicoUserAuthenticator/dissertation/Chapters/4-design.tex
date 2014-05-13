@@ -132,8 +132,38 @@ We will continue by evaluating the new proposed scheme with the token unlocking 
   
 \end{description}
 
-Comparing this score with the other token unlocking mechanisms, use a table or drawn diagram to compare easier... TODO!
+Let us continue by comparing the results of our proposed scheme with the original Picosiblings solution. The results are summarised in the following table. In the ``Proposed scheme'' column, properties which are highlighted in order to facilitate the comparison with the Picosiblings solution. The colour green means that the proposed scheme is better, red worse, and no colour means that both properties have the same value.
 
+\begin{table}
+    \begin{tabular}{l|l|l}
+    Property                            & Picosiblings    & Proposed scheme \\ \hline
+    Memory-effortless                   & Satisfied       & Satisfied       \\
+    Nothing-to-carry                    & Not-satisfied   & \cellcolor{green!25} Quasi-satisfied \\
+    Easy-to-learn                       & Satisfied   	  & Satisfied       \\
+    Efficient-to-use                    & Quasi-satisfied & \cellcolor{green!25} Satisfied       \\
+    Infrequent-errors                   & Quasi-satisfied & Quasi-satisfied \\
+    Easy-recovery-from-loss             & Not-satisfied   & Not-satisfied   \\
+    Availability                        & Satisfied       & Satisfied       \\ \hline
+    Accessible                          & Not-satisfied   & \cellcolor{green!25} Satisfied       \\
+    Negligible-cost-per-user            & Not-satisfied   & \cellcolor{green!25} Quasi-satisfied \\
+    Mature                              & Not-satisfied   & Not-satisfied   \\
+    Non-proprietary                     & Satisfied       & Satisfied       \\ \hline
+    Resilient-to-physical-observation   & Satisfied       & Satisfied       \\
+    Resilient-to-targeted-impersonation & Satisfied       & Satisfied       \\
+    Resilient-to-throttled-guessing     & Satisfied       & Satisfied       \\
+    Resilient-to-unthrottled-guessing   & Satisfied       & Satisfied       \\
+    Resilient-to-internal-observation   & Satisfied       & Satisfied       \\
+    Unlinkable                          & Satisfied       & \cellcolor{red!25} Not-satisfied   \\
+    Continuous-authentication           & Satisfied       & Satisfied       \\
+    Multi-level-unlocking               & Not-satisfied   & \cellcolor{green!25} Satisfied       \\
+    \end{tabular}
+\end{table}
+
+As the table shows, the proposed solution does not completely dominate the Picosiblings solution, and this is only because of the ``Unlinkable'' property. Given that our solution is fundamentally based on biometric data, this property could never be achieved. However, our solution performs better than Picosiblings in 5 other properties. Important points of improvement are accessibility, which makes the proposed scheme viable for a larger number of people. The Multi-level-unlocking property is another good improvement, allowing for an enhanced security model.
+
+
+
+\section{Conceptual design threat Model}
 % availability (dos)
 %   - communication
 %   - cpu
@@ -145,7 +175,6 @@ Comparing this score with the other token unlocking mechanisms, use a table or d
 
 % are sensor readings what they say or are they manipulated
 
-\section{Conceptual design threat Model}
 An accurate threat model on the proposed unlock mechanism must start by analysing the set of assumptions made about the mechanism. From there we can identify available threats and how the scheme can be exploited in order to unlock the Pico without owner permission. Throughout the threat model we will explain how relaxing the initial set of assumptions may change the security outcome. Each model is analysed from an Availability, Integrity, and Confidentiality.
 
 It is important to note that confidentiality is an important category in this evaluation. This is because the device will store sensitive biometric data which is directly linkable to the user. Losing this data, especially in plain-text, would disable the user from ever using the biometric device for which the data was leaked. This is due to the fact that the leaked data could always be replayed, successfully tricking the biometric mechanism.
@@ -202,11 +231,16 @@ What we are trying to stress with this scenario is that the sensors are no longe
 	Since the Pico unlocking mechanism is fully compartmentalised, access its storage is secure and therefore any stored credentials are fully protected.
 
 \subsection{Insecure communication with Pico}
-This is a special case model which assumes that Pico and the authenticator we have developed are communicating over an insecure channel. The only thing this case needs to consider is the communication between the two participants.
+This is a special case model which assumes that Pico and the authenticator we have developed are communicating over an insecure channel. The only element we need to consider is the communication between the two participants.
 
 	\subsubsection*{Availability}
+	To do.
+	
 	\subsubsection*{Integrity}
+	To do.
+	
 	\subsubsection*{Confidentiality}
+	To do.
 
 	
 \subsection{Shared device with shared components}
@@ -214,9 +248,13 @@ We will relax the model even more in order to better fit reality constraints whe
 
 	\subsubsection*{Availability}
 	% TODO: consider case where data is deleted from disk
-
+	To do.
+	
 	\subsubsection*{Integrity}
+	To do.
+	
 	\subsubsection*{Confidentiality}
+	To do.
 
 \subsection{Proposed secure implementation}
 % http://www.trustonic.com/technology/trustzone-and-tee
