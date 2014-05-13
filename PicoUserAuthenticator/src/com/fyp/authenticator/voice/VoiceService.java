@@ -20,9 +20,11 @@ public class VoiceService extends AuthMechService {
 	private AuthenticatorThread voiceThread = null;
 
 	private static final double THRESHOLD = 2;
+
+	private static final String TAG = "AuthVoiceService";
 	
 	public void onCreate() {
-		Log.i("AuthVoiceService", "onCreate");
+		Log.i(TAG, "onCreate");
 
 		if (voiceThread == null) {
 			voiceThread = new AuthenticatorThread();
@@ -32,7 +34,7 @@ public class VoiceService extends AuthMechService {
 	}
 
 	public void onDestroy() {
-		Log.i("AuthVoiceService", "onDestroy");
+		Log.i(TAG, "onDestroy");
 
 		if (voiceThread != null) {
 			try {
@@ -55,6 +57,7 @@ public class VoiceService extends AuthMechService {
 	private class AuthenticatorThread extends Thread {
 		private static final int AUTH_PERIOD = 1 * 1000;
 		private static final int RECORD_TIME = 3 * 1000;
+		private static final String TAG = "VoiceServiceThread";
 
 		private volatile boolean stop;
 		private VoiceDAO voiceDAO;
@@ -70,24 +73,15 @@ public class VoiceService extends AuthMechService {
 			
 			while (stop != true) {
 				try {
-					// TODO: can change this to having a separate method for recording a
-					// challenge..
-					VoiceRecord record = new VoiceRecord(
-							VoiceService.this, "challenge.3gp");
-					Log.d(this.getClass().toString(), "Starting loop...");
-
+					Log.d(TAG, "Start loop.");
 					Thread.sleep(AUTH_PERIOD);
+					
+					VoiceRecord record = recordData();
 
-					// gathering a recording sample.
-					Log.d(this.getClass().toString(), "Gathering input...");
-					record.startRecord();
-					Thread.sleep(RECORD_TIME);
-					record.stopRecord();
 
-					// this would be an unexplained error.
-					Log.d(this.getClass().toString(), "Getting score...");
-					if (!record.hasRecording()) {
-						Log.e(this.getClass().toString(), "record not created!");
+					Log.d(TAG, "Getting score.");
+					if (record == null || !record.hasRecording()) {
+						Log.e(TAG, "record not created!");
 						continue;
 					}
 
@@ -99,9 +93,8 @@ public class VoiceService extends AuthMechService {
 					
 					score = (int) Math.floor((1 - dscore / THRESHOLD) * 100);
 
-					Log.d(this.getClass().toString(), "Sending score " + score + "...");
-					clientWriter.send(Message
-							.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
+					Log.d(TAG, "Voice score: " + score);
+					clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
 
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -114,7 +107,24 @@ public class VoiceService extends AuthMechService {
 		public void stopThread() {
 			this.stop = true;
 		}
+		
+		private VoiceRecord recordData() {
+			Log.d(TAG, "recordData+");
 
+			VoiceRecord record = new VoiceRecord(VoiceService.this, "challenge.3gp");
+
+			try {
+				record.startRecord();
+				Thread.sleep(RECORD_TIME);
+				record.stopRecord();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			Log.d(TAG, "recordData- " + record);
+			return record;
+		}
+		
 	}
 
 }
