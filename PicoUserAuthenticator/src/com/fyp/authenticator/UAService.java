@@ -20,10 +20,6 @@ import android.util.Log;
  * explicit status updates. This service uses an UserAuthenticator class in
  * order to interface with the available authentication mechanisms. The class is
  * responsible of calculating the current confidence level by binding and
- * receiving updates from all available authentication mechanisms.
- * 
- * 
- * TODO: add the decay factor formula somewhere.
  * 
  * @author cristi
  * 
