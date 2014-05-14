@@ -1,6 +1,8 @@
 package com.fyp.authenticator;
 
 import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -24,8 +26,23 @@ import android.util.Log;
  */
 public abstract class AuthMechService extends Service {
 
-	/** Latest authentication score. */
+	/**
+	 * Latest authentication score. This needs to be multiplied by decaying
+	 * weight factor.
+	 */
 	protected int score = 0;
+
+	/**
+	 * Decayed score. This score needs to be returned to UAService for
+	 * processing.
+	 */
+	protected int decayedWeight = 0;
+
+	/** Initial weight of the mechanism. */
+	protected int initialWeight = 0;
+
+	/** Timer process used in decaying the weight. */
+	protected DecayTimer decayTimer = null;
 
 	/** Register to the authentication mechanism service. */
 	protected static final int AUTH_MECH_REGISTER = 0;
@@ -33,6 +50,8 @@ public abstract class AuthMechService extends Service {
 	protected static final int AUTH_MECH_UNREGISTER = 1;
 	/** Request status of authentication mechanism service. */
 	protected static final int AUTH_MECH_GET_STATUS = 2;
+
+	private static final String TAG = "AuthMechService";
 
 	/** Messenger used for writing to the client. */
 	protected Messenger clientWriter = null;
@@ -112,4 +131,108 @@ public abstract class AuthMechService extends Service {
 		}
 	}
 
+	/**
+	 * Function used to start the decay of the initial weight.
+	 * 
+	 * This restarts the current weight and starts a timer which periodically
+	 * decays the weight. Upon each successful decay a broadcast is sent back to
+	 * UAService in order to update on the current confidence level.
+	 */
+	public void startDecay() {
+		this.decayedWeight = this.initialWeight;
+
+		if (this.decayTimer == null) {
+			this.decayTimer = new DecayTimer();
+		}
+
+		this.decayTimer.stopTimer();
+		this.decayTimer.startTimer();
+	}
+
+	/**
+	 * Class used to periodically decay the weight of the mechanism.
+	 * 
+	 * @author cristi
+	 * 
+	 */
+	private class DecayTimer extends TimerTask {
+		/** Time interval after which decay occurs. */
+		private static final int INTERVAL = 1000;
+
+		/** Wrapped timer object used for task scheduling. */
+		private Timer timer = null;
+
+		/** Exponential decay rate. */
+		protected int rate = 2;
+
+		/**
+		 * Method called once every INTERVAL in order to update the
+		 * decayedWeight. Once the weight was decayed, the updated confidence is
+		 * sent to UAService.
+		 */
+		@Override
+		public void run() {
+			decay();
+			sendDecayedScore();
+		}
+
+		/**
+		 * Starts the decay process of the initialWeight. The updated result may
+		 * be found in decayedWeight.
+		 * 
+		 * @return
+		 */
+		public boolean startTimer() {
+			if (timer != null) {
+				return false;
+			}
+
+			timer = new Timer();
+			timer.scheduleAtFixedRate(this, 0, INTERVAL);
+
+			return true;
+		}
+
+		/**
+		 * Stops the decaying process of the initialWeight.
+		 * 
+		 * The method does nothing if the Timer was not yet started.
+		 */
+		public void stopTimer() {
+			if (timer == null) {
+				return;
+			}
+
+			timer.cancel();
+			timer = null;
+		}
+
+		/**
+		 * Exponential decay function for the current confidence level.
+		 * 
+		 * This function is called periodically in order to decay the confidence
+		 * level of the mechanism. The decay is exponential is a function of
+		 * time between successful authentications. The term
+		 * "successful authentication" means that data collection was possible
+		 * and the mechanism was able to successfully produce a result,
+		 * regardless of what this result may be.
+		 */
+		private void decay() {
+			decayedWeight = (int) (initialWeight * Math.pow(Math.E, -rate));
+		}
+	}
+
+	public void sendDecayedScore() {
+		int decayedScore = this.decayedWeight * this.score;
+
+		Log.d(TAG, "Service score: " + score);
+		Log.d(TAG, "Decayed score: " + decayedScore);
+
+		try {
+			clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS,
+					decayedScore, 0));
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 }

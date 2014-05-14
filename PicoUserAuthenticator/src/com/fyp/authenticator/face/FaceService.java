@@ -10,8 +10,6 @@ import android.graphics.Matrix;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
-import android.os.Message;
-import android.os.RemoteException;
 import android.util.Log;
 
 import com.fyp.authenticator.AuthMechService;
@@ -134,16 +132,12 @@ public class FaceService extends AuthMechService {
 					}
 
 					score = (int) (Math.floor((1 - dscore / THRESHOLD) * 100));
+					sendDecayedScore();
 
-					Log.d(TAG, "dscore: " + dscore);
-					Log.d(TAG, "Sending score " + score + "...");
-
-					clientWriter.send(Message.obtain(null,
-							AUTH_MECH_GET_STATUS, score, 0));
+					// start decaying process after collecting data
+					FaceService.this.startDecay();
 
 				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
 			}

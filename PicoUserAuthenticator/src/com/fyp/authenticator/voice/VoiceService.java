@@ -2,8 +2,6 @@ package com.fyp.authenticator.voice;
 
 import com.fyp.authenticator.AuthMechService;
 
-import android.os.Message;
-import android.os.RemoteException;
 import android.util.Log;
 
 /**
@@ -103,13 +101,12 @@ public class VoiceService extends AuthMechService {
 					}
 					
 					score = (int) Math.floor((1 - dscore / THRESHOLD) * 100);
-
-					Log.d(TAG, "Voice score: " + score);
-					clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
-
+					sendDecayedScore();
+					
+					// starts the decay process
+					VoiceService.this.startDecay();
+					
 				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
 			}

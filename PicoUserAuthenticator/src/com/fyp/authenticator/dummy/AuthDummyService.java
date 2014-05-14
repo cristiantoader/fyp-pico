@@ -1,7 +1,5 @@
 package com.fyp.authenticator.dummy;
 
-import android.os.Message;
-import android.os.RemoteException;
 import android.util.Log;
 
 import com.fyp.authenticator.AuthMechService;
@@ -70,12 +68,13 @@ public class AuthDummyService extends AuthMechService {
 				try {
 					Thread.sleep(AUTH_PERIOD);
 
-					clientWriter.send(Message.obtain(null,
-							AUTH_MECH_GET_STATUS, dummyDAO.getMatch(), 0));
+					score = dummyDAO.getMatch();
+					sendDecayedScore();
+				
+					// start decaying process after collecting data
+					AuthDummyService.this.startDecay();
 
 				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
 			}
