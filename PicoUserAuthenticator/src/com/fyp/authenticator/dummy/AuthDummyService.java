@@ -12,19 +12,15 @@ public class AuthDummyService extends AuthMechService {
 	private AuthDevDummyDAO dummyDAO = null;
 
 	/** Thread used to periodically authenticate the user and broadcast result. */
-	private AuthenticatorThread voiceThread = null;
+	private AuthenticatorThread authThread = null;
 
 	@Override
 	public void onCreate() {
 		Log.i("AuthDummyService", "onCreate");
 
-		if (dummyDAO == null) {
-			dummyDAO = new AuthDevDummyDAO();
-		}
-
-		if (voiceThread == null) {
-			voiceThread = new AuthenticatorThread();
-			voiceThread.start();
+		if (authThread == null) {
+			authThread = new AuthenticatorThread();
+			authThread.start();
 		}
 
 	}
@@ -33,11 +29,11 @@ public class AuthDummyService extends AuthMechService {
 	public void onDestroy() {
 		Log.i("AuthDummyService", "onDestroy");
 
-		if (voiceThread != null) {
+		if (authThread != null) {
 			try {
-				voiceThread.stopThread();
-				voiceThread.join();
-				voiceThread = null;
+				authThread.stopThread();
+				authThread.join();
+				authThread = null;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -64,12 +60,18 @@ public class AuthDummyService extends AuthMechService {
 
 		@Override
 		public void run() {
+			// instantiating DAO when starting thread.
+			if (dummyDAO == null) {
+				dummyDAO = new AuthDevDummyDAO();
+			}
+			
+			// authentication loop.
 			while (stop != true) {
 				try {
 					Thread.sleep(AUTH_PERIOD);
-					
-					clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS,
-							dummyDAO.getMatch(), 0));
+
+					clientWriter.send(Message.obtain(null,
+							AUTH_MECH_GET_STATUS, dummyDAO.getMatch(), 0));
 
 				} catch (InterruptedException e) {
 					e.printStackTrace();

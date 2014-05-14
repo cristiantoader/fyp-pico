@@ -19,8 +19,7 @@ public class VoiceService extends AuthMechService {
 	/** Thread used to periodically authenticate the user and broadcast result. */
 	private AuthenticatorThread voiceThread = null;
 
-	private static final double THRESHOLD = 2;
-
+	/** Logging tag. */
 	private static final String TAG = "AuthVoiceService";
 	
 	public void onCreate() {
@@ -55,11 +54,22 @@ public class VoiceService extends AuthMechService {
 	 * 
 	 */
 	private class AuthenticatorThread extends Thread {
+		/** Authentication period between consecutive samples. */
 		private static final int AUTH_PERIOD = 1 * 1000;
+		
+		/** Recording time of the data. */
 		private static final int RECORD_TIME = 3 * 1000;
+		
+		/** Threshold used in transforming Euclidean distance into a probability. */
+		private static final double THRESHOLD = 2;
+		
+		/** Logging tag.*/
 		private static final String TAG = "VoiceServiceThread";
 
+		/** Flag used to gently stop the thread. */
 		private volatile boolean stop;
+		
+		/** DAO used to interface with the voice recognition library. */
 		private VoiceDAO voiceDAO;
 
 		public AuthenticatorThread() {
@@ -68,9 +78,10 @@ public class VoiceService extends AuthMechService {
 
 		@Override
 		public void run() {
-			
+			// instantiating voice DAO when thread starts.
 			this.voiceDAO = new VoiceDAO(VoiceService.this);
 			
+			// sampling loop.
 			while (stop != true) {
 				try {
 					Log.d(TAG, "Start loop.");
@@ -108,6 +119,10 @@ public class VoiceService extends AuthMechService {
 			this.stop = true;
 		}
 		
+		/***
+		 * Auxiliary method used to record a data sample.
+		 * @return
+		 */
 		private VoiceRecord recordData() {
 			Log.d(TAG, "recordData+");
 

@@ -14,6 +14,16 @@ import android.os.RemoteException;
 import android.util.Log;
 
 /**
+ * Principal class in the authentication scheme.
+ * 
+ * This class is binded by Pico clients in order to either receive periodic or
+ * explicit status updates. This service uses an UserAuthenticator class in
+ * order to interface with the available authentication mechanisms. The class is
+ * responsible of calculating the current confidence level by binding and
+ * receiving updates from all available authentication mechanisms.
+ * 
+ * 
+ * TODO: add the decay factor formula somewhere.
  * 
  * @author cristi
  * 
@@ -91,6 +101,16 @@ public class UAService extends Service {
 		return messenger.getBinder();
 	}
 
+	/**
+	 * Class used when PicoMainActivity binds on this service.
+	 * 
+	 * There is the possibility for explicit updates using
+	 * MSG_CONFIDENCE_UPDATE, but this use case, although implemented, is never
+	 * used.
+	 * 
+	 * @author cristi
+	 * 
+	 */
 	static class IncomingHandler extends Handler {
 		private final WeakReference<UAService> service;
 
@@ -123,10 +143,12 @@ public class UAService extends Service {
 
 					@SuppressWarnings("unused")
 					int result = confidence >= threshold ? 1 : 0;
-					
+
 					try {
-						client.send(Message.obtain(null, MSG_CONFIDENCE_UPDATE, confidence, 0));
-//						client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
+						client.send(Message.obtain(null, MSG_CONFIDENCE_UPDATE,
+								confidence, 0));
+						// client.send(Message.obtain(null, MSG_GET_STATUS,
+						// result, 0));
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
@@ -138,12 +160,10 @@ public class UAService extends Service {
 			}
 		}
 	}
-	
-	
-	
+
 	/**
 	 * Authenticator thread responsible of broadcasting the result to registered
-	 * clients.
+	 * clients. This is how PicoMainActivity receives its confidence updates.
 	 * 
 	 * @author cristi
 	 * 
@@ -172,18 +192,20 @@ public class UAService extends Service {
 		}
 
 		private void broadcastResult() {
+			int confidence = ua.getConfidence();
+
 			for (Entry<Messenger, Integer> entry : clients.entrySet()) {
 				Messenger client = entry.getKey();
-				
 				int threshold = entry.getValue();
-				int confidence = ua.getConfidence();
-				
+
 				@SuppressWarnings("unused")
 				int result = confidence >= threshold ? 1 : 0;
-				
+
 				try {
-//					client.send(Message.obtain(null, MSG_GET_STATUS, result, 0));
-					client.send(Message.obtain(null, MSG_CONFIDENCE_UPDATE, confidence, 0));
+					// client.send(Message.obtain(null, MSG_GET_STATUS, result,
+					// 0));
+					client.send(Message.obtain(null, MSG_CONFIDENCE_UPDATE,
+							confidence, 0));
 
 				} catch (RemoteException e) {
 					e.printStackTrace();

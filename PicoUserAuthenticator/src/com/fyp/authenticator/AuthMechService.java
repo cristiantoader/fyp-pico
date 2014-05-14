@@ -12,11 +12,21 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
 
+/**
+ * Abstract class used for predefining the communication channel for all
+ * authentication mechanism services.
+ * 
+ * All authentication mechanisms that are or will be implemented need to extend
+ * this class.
+ * 
+ * @author cristi
+ * 
+ */
 public abstract class AuthMechService extends Service {
 
 	/** Latest authentication score. */
 	protected int score = 0;
-	
+
 	/** Register to the authentication mechanism service. */
 	protected static final int AUTH_MECH_REGISTER = 0;
 	/** Unregister to the authentication mechanism service. */
@@ -48,12 +58,19 @@ public abstract class AuthMechService extends Service {
 	}
 
 	/**
-	 * Used for communicating with the UAService UserAuthenticator class.
+	 * Used for receiving requests from the UAService UserAuthenticator class.
+	 * 
+	 * This class is currently used only for registering the UAService as a
+	 * client. Although explicit confidence requests are supported, such
+	 * requests are never made in this implementation.
+	 * 
+	 * The updates are made using the clientWriter object instantiated in this
+	 * class.
 	 * 
 	 * @author cristi
 	 * 
 	 */
-	@SuppressLint("HandlerLeak") 
+	@SuppressLint("HandlerLeak")
 	class IncomingHandler extends Handler {
 
 		private final WeakReference<AuthMechService> service;
@@ -80,8 +97,10 @@ public abstract class AuthMechService extends Service {
 
 			case AUTH_MECH_GET_STATUS:
 				try {
-					Log.d("AuthMechAbstract", "Score requested, sending " + score);
-					msg.replyTo.send(Message.obtain(null, AUTH_MECH_GET_STATUS, score, 0));
+					Log.d("AuthMechAbstract", "Score requested, sending "
+							+ score);
+					msg.replyTo.send(Message.obtain(null, AUTH_MECH_GET_STATUS,
+							score, 0));
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}

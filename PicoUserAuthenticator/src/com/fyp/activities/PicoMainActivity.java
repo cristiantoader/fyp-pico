@@ -35,8 +35,8 @@ public class PicoMainActivity extends Activity {
 	private View controlsView;
 	private TextView contentView;
 
-	private final Messenger messageReceiver = new Messenger(new IncomingHandler(
-			this));
+	private final Messenger messageReceiver = new Messenger(
+			new IncomingHandler(this));
 	private Messenger messageService = null;
 	private boolean boundService = false;;
 
@@ -87,9 +87,9 @@ public class PicoMainActivity extends Activity {
 	}
 
 	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the system
-	 * UI. This is to prevent the jarring behavior of controls going away while
-	 * interacting with activity UI.
+	 * Touch listener to use for in-layout UI controls to delay hiding the
+	 * system UI. This is to prevent the jarring behavior of controls going away
+	 * while interacting with activity UI.
 	 */
 	View.OnClickListener buttonStartListener = new View.OnClickListener() {
 		@Override
@@ -117,10 +117,11 @@ public class PicoMainActivity extends Activity {
 	View.OnClickListener buttonAudioListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(PicoMainActivity.this, RecognitoActivity.class));
+			startActivity(new Intent(PicoMainActivity.this,
+					RecognitoActivity.class));
 		}
 	};
-	
+
 	View.OnClickListener buttonFaceListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -140,14 +141,15 @@ public class PicoMainActivity extends Activity {
 			switch (msg.what) {
 
 			case UAService.MSG_CONFIDENCE_UPDATE:
-//				boolean authenticated = (msg.arg1 == 1);
-//				amwr.get().contentView.append("Received from service: " + authenticated
-//						+ "\n");
-				
-				int confidence = msg.arg1;
-				amwr.get().contentView.append("Confidence level: " + confidence	+ "\n");
+				// boolean authenticated = (msg.arg1 == 1);
+				// amwr.get().contentView.append("Received from service: " +
+				// authenticated
+				// + "\n");
 
-				
+				int confidence = msg.arg1;
+				amwr.get().contentView.append("Confidence level: " + confidence
+						+ "\n");
+
 				break;
 
 			default:
@@ -157,7 +159,12 @@ public class PicoMainActivity extends Activity {
 	}
 
 	/**
-	 * Class for interacting with the main interface of the service.
+	 * Class used for binding to the UAService.
+	 * 
+	 * This only issues a MSG_REGISTER_CLIENT request. All subsequent
+	 * communication is done via software broadcast from UAService. The
+	 * PicoMainActivity may choose to send explicit requests using the
+	 * messageService object instantiated when binding to the UAService.
 	 */
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -165,10 +172,11 @@ public class PicoMainActivity extends Activity {
 
 			try {
 				// arg1 is the threshold for the client authentication.
-				Message msg = Message.obtain(null, UAService.MSG_REGISTER_CLIENT);
+				Message msg = Message.obtain(null,
+						UAService.MSG_REGISTER_CLIENT);
 				msg.replyTo = messageReceiver;
 				msg.arg1 = 50;
-				
+
 				messageService.send(msg);
 
 			} catch (RemoteException e) {

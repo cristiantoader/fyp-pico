@@ -16,7 +16,8 @@ import android.util.Log;
 
 /**
  * Class used for communication from the UserAuthenticator to an
- * AuthMechService.
+ * AuthMechService. It corresponds to one authentication mechanism service. It
+ * is binded by UAService.
  * 
  * 
  * @author cristi
@@ -47,12 +48,24 @@ public class AuthMech {
 		this.doBindService();
 	}
 
+	/**
+	 * Retrieves the current confidence level of the mechanism.
+	 * 
+	 * The current implementation does not request the mechanism service for a
+	 * confidence update. It is giving feedback based on the latest possible
+	 * calculated confidence according to the mechanism's collection rules.
+	 * 
+	 * @return
+	 */
 	public int getConfidence() {
 		return this.mechConfidence;
 	}
 
 	/**
 	 * Method used to bind on corresponding mechanism service.
+	 * 
+	 * This method registers the UAService as a client, and the messenger used
+	 * for receiving data from the mechanism service.
 	 */
 	public void doBindService() {
 		uaservice.bindService(new Intent(uaservice, mechServiceClass),
@@ -74,7 +87,9 @@ public class AuthMech {
 	}
 
 	/**
-	 * Enables communication between this service and observable objects.
+	 * Enables communication between UAService and authentication mechanism
+	 * service. May be used to send requests but that functionality is not
+	 * exploited in this implementation.
 	 */
 	private ServiceConnection uaServiceAuthConn = new ServiceConnection() {
 
@@ -102,7 +117,14 @@ public class AuthMech {
 		}
 	};
 
+	/**
+	 * Message handler in order to receive feedback from the mechanism service.
+	 * 
+	 * @author cristi
+	 * 
+	 */
 	static class IncomingHandler extends Handler {
+		private static final String TAG = "AuthMechInHandler";
 		WeakReference<AuthMech> amwr;
 
 		public IncomingHandler(AuthMech am) {
@@ -114,12 +136,12 @@ public class AuthMech {
 			switch (msg.what) {
 
 			case AuthMechService.AUTH_MECH_GET_STATUS:
+				Log.d(TAG, "Incoming messge from mechanism.");
 				amwr.get().mechConfidence = msg.arg1;
 				break;
 
 			default:
-				Log.e("AuthMech", "Unknowin AuthMechService status: "
-						+ msg.what);
+				Log.e(TAG, "Unknowin AuthMechService status");
 				super.handleMessage(msg);
 			}
 		}
