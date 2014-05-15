@@ -58,12 +58,15 @@ public class UserAuthenticator {
 	 */
 	private void calculateConfidence() {
 		int confidence = 0;
-
+		int weights = 0;
+		
 		for (AuthMech mech : this.mechanism) {
 			confidence += mech.getConfidence();
+			weights += mech.getWeight();
 		}
 
-		confidence /= this.mechanism.size();
+		weights = (weights == 0 ? 1 : weights);
+		confidence /= weights;
 
 		// cap the confidence level at 100
 		if (confidence > 100) {
@@ -78,12 +81,10 @@ public class UserAuthenticator {
 	 * Checks the available devices that may be used for authentication and
 	 * returns a list of devices.
 	 * 
-	 * TODO: may automate this using XML list in resources/
-	 * 
 	 * @return list of authentication devices.
 	 */
 	private void initAvailableDevices() {
-		// this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
+		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
 		this.mechanism.add(new AuthMech(uaservice, VoiceService.class));
 		this.mechanism.add(new AuthMech(uaservice, FaceService.class));
 	}

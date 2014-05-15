@@ -8,7 +8,9 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
@@ -76,6 +78,10 @@ public abstract class AuthMechService extends Service {
 		return clientReader.getBinder();
 	}
 
+	public int getInitialWeight() {
+		return this.initialWeight;
+	}
+	
 	/**
 	 * Used for receiving requests from the UAService UserAuthenticator class.
 	 * 
@@ -139,6 +145,8 @@ public abstract class AuthMechService extends Service {
 	 * UAService in order to update on the current confidence level.
 	 */
 	public void startDecay() {
+		Log.d(TAG, "startDecay+");
+		
 		this.decayedWeight = this.initialWeight;
 
 		if (this.decayTimer == null) {
@@ -147,6 +155,8 @@ public abstract class AuthMechService extends Service {
 
 		this.decayTimer.stopTimer();
 		this.decayTimer.startTimer();
+		
+		Log.d(TAG, "startDecay-");
 	}
 
 	/**
@@ -155,13 +165,15 @@ public abstract class AuthMechService extends Service {
 	 * @author cristi
 	 * 
 	 */
-	private class DecayTimer extends TimerTask {
+	private class DecayTimer implements Runnable {
 		/** Time interval after which decay occurs. */
 		private static final int INTERVAL = 1000;
 
-		/** Wrapped timer object used for task scheduling. */
-		private Timer timer = null;
-
+		/** Wrapped handler object used for task scheduling. */
+		private Handler handler = null;
+		
+		private volatile boolean running = false;
+		
 		/** Exponential decay rate. */
 		protected int rate = 2;
 
@@ -172,8 +184,16 @@ public abstract class AuthMechService extends Service {
 		 */
 		@Override
 		public void run() {
+			Log.d(TAG, "timer run method.");
+			
 			decay();
-			sendDecayedScore();
+			sendDecayedScore(false);
+			
+			// only reschedule if running is true
+			if (this.running == true) {
+				Log.d(TAG, "Reposting timer");
+				this.handler.postDelayed(this, INTERVAL);
+			}
 		}
 
 		/**
@@ -183,13 +203,22 @@ public abstract class AuthMechService extends Service {
 		 * @return
 		 */
 		public boolean startTimer() {
-			if (timer != null) {
+			Log.d(TAG, "startTimer+");
+			
+			if (handler != null || running == true) {
 				return false;
 			}
+			
+			this.running = true;
+			
+			HandlerThread hThread = new HandlerThread("hThread");
+			hThread.start();
+			
+			handler = new Handler(hThread.getLooper());
+			handler.postDelayed(this, INTERVAL);
+			
 
-			timer = new Timer();
-			timer.scheduleAtFixedRate(this, 0, INTERVAL);
-
+			Log.d(TAG, "startTimer-");
 			return true;
 		}
 
@@ -199,12 +228,22 @@ public abstract class AuthMechService extends Service {
 		 * The method does nothing if the Timer was not yet started.
 		 */
 		public void stopTimer() {
-			if (timer == null) {
+			Log.d(TAG, "stopTimer+");
+			
+			// this is how we tell if the handler is stopped
+			if (handler == null) {
+				Log.d(TAG, "stopTimer: hadnler was null");
 				return;
 			}
 
-			timer.cancel();
-			timer = null;
+			// stoping current task from rescheduling
+			this.running = false;
+						
+			// removing pending tasks
+			this.handler.removeCallbacks(this);
+			this.handler = null;
+			
+			Log.d(TAG, "stopTimer-");
 		}
 
 		/**
@@ -218,21 +257,32 @@ public abstract class AuthMechService extends Service {
 		 * regardless of what this result may be.
 		 */
 		private void decay() {
-			decayedWeight = (int) (initialWeight * Math.pow(Math.E, -rate));
+			Log.d(TAG, "decay+");
+//			decayedWeight = (int) (decayedWeight * Math.pow(Math.E, -rate));
+			decayedWeight = (int) (decayedWeight * 0.8);
 		}
 	}
 
-	public void sendDecayedScore() {
+	public void sendDecayedScore(boolean fresh) {
+		Log.d(TAG, "sendDecayedScore+");
+		
+		if (fresh) {
+			this.decayedWeight = this.initialWeight;
+		}
+		
 		int decayedScore = this.decayedWeight * this.score;
 
-		Log.d(TAG, "Service score: " + score);
-		Log.d(TAG, "Decayed score: " + decayedScore);
+		Log.e(TAG, "Service score: " + score);
+		Log.e(TAG, "Decayed weight: " + decayedWeight);
+		Log.e(TAG, "Decayed score: " + decayedScore);
 
 		try {
 			clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS,
-					decayedScore, 0));
+					decayedScore, this.initialWeight));
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		
+		Log.d(TAG, "sendDecayedScore-");
 	}
 }

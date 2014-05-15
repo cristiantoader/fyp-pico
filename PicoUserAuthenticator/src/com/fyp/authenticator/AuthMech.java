@@ -41,6 +41,9 @@ public class AuthMech {
 	/** Current confidence level registered by the authentication mechanism. */
 	private int mechConfidence = 0;
 
+	/** Current decaying weight of the mechanism computed with the confidence. */
+	private int mechWeight = 0;
+
 	public AuthMech(Service uaservice, Class<?> serviceClass) {
 		this.uaservice = uaservice;
 		this.mechServiceClass = serviceClass;
@@ -59,6 +62,16 @@ public class AuthMech {
 	 */
 	public int getConfidence() {
 		return this.mechConfidence;
+	}
+
+	/**
+	 * Retrieves the current decaying weight used for calculating the
+	 * confidence.
+	 * 
+	 * @return
+	 */
+	public int getWeight() {
+		return this.mechWeight;
 	}
 
 	/**
@@ -138,6 +151,7 @@ public class AuthMech {
 			case AuthMechService.AUTH_MECH_GET_STATUS:
 				Log.d(TAG, "Incoming messge from mechanism.");
 				amwr.get().mechConfidence = msg.arg1;
+				amwr.get().mechWeight = msg.arg2;
 				break;
 
 			default:

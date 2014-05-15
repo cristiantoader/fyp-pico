@@ -16,6 +16,8 @@ public class AuthDummyService extends AuthMechService {
 	public void onCreate() {
 		Log.i("AuthDummyService", "onCreate");
 
+		this.initialWeight = 10000;
+		
 		if (authThread == null) {
 			authThread = new AuthenticatorThread();
 			authThread.start();
@@ -49,7 +51,7 @@ public class AuthDummyService extends AuthMechService {
 	 * 
 	 */
 	private class AuthenticatorThread extends Thread {
-		private static final int AUTH_PERIOD = 1000;
+		private static final int AUTH_PERIOD = 5000;
 		private volatile boolean stop;
 
 		public AuthenticatorThread() {
@@ -69,7 +71,7 @@ public class AuthDummyService extends AuthMechService {
 					Thread.sleep(AUTH_PERIOD);
 
 					score = dummyDAO.getMatch();
-					sendDecayedScore();
+					sendDecayedScore(true);
 				
 					// start decaying process after collecting data
 					AuthDummyService.this.startDecay();

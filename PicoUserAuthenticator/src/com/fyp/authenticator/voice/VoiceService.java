@@ -23,6 +23,8 @@ public class VoiceService extends AuthMechService {
 	public void onCreate() {
 		Log.i(TAG, "onCreate");
 
+		this.initialWeight = 10000;
+		
 		if (voiceThread == null) {
 			voiceThread = new AuthenticatorThread();
 			voiceThread.start();
@@ -53,7 +55,7 @@ public class VoiceService extends AuthMechService {
 	 */
 	private class AuthenticatorThread extends Thread {
 		/** Authentication period between consecutive samples. */
-		private static final int AUTH_PERIOD = 1 * 1000;
+		private static final int AUTH_PERIOD = 7 * 1000;
 		
 		/** Recording time of the data. */
 		private static final int RECORD_TIME = 3 * 1000;
@@ -101,7 +103,7 @@ public class VoiceService extends AuthMechService {
 					}
 					
 					score = (int) Math.floor((1 - dscore / THRESHOLD) * 100);
-					sendDecayedScore();
+					sendDecayedScore(true);
 					
 					// starts the decay process
 					VoiceService.this.startDecay();

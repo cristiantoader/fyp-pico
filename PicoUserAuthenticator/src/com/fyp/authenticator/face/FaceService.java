@@ -32,6 +32,8 @@ public class FaceService extends AuthMechService {
 	public void onCreate() {
 		Log.d(TAG, "onCreate+");
 
+		this.initialWeight = 8000;
+		
 		if (!isSupported()) {
 			throw new RuntimeException("Camera not supported!");
 		}
@@ -132,7 +134,7 @@ public class FaceService extends AuthMechService {
 					}
 
 					score = (int) (Math.floor((1 - dscore / THRESHOLD) * 100));
-					sendDecayedScore();
+					sendDecayedScore(true);
 
 					// start decaying process after collecting data
 					FaceService.this.startDecay();
