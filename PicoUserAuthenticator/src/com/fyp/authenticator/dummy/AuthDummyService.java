@@ -17,7 +17,7 @@ public class AuthDummyService extends AuthMechService {
 		Log.i("AuthDummyService", "onCreate");
 
 		this.initialWeight = 10000;
-		
+
 		if (authThread == null) {
 			authThread = new AuthenticatorThread();
 			authThread.start();
@@ -30,19 +30,14 @@ public class AuthDummyService extends AuthMechService {
 		Log.i("AuthDummyService", "onDestroy");
 
 		if (authThread != null) {
-			try {
-				authThread.stopThread();
-				authThread.join();
-				authThread = null;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			authThread.stopThread();
+			authThread = null;
 		}
 
 		if (dummyDAO != null) {
 			dummyDAO = null;
 		}
-		
+
 		this.decayTimer.stopTimer();
 	}
 
@@ -66,7 +61,7 @@ public class AuthDummyService extends AuthMechService {
 			if (dummyDAO == null) {
 				dummyDAO = new AuthDevDummyDAO();
 			}
-			
+
 			// authentication loop.
 			while (stop != true) {
 				try {
@@ -74,7 +69,7 @@ public class AuthDummyService extends AuthMechService {
 
 					score = dummyDAO.getMatch();
 					sendDecayedScore(true);
-				
+
 					// start decaying process after collecting data
 					AuthDummyService.this.startDecay();
 
@@ -85,7 +80,12 @@ public class AuthDummyService extends AuthMechService {
 		}
 
 		public void stopThread() {
-			this.stop = true;
+			try {
+				this.stop = true;
+				this.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}

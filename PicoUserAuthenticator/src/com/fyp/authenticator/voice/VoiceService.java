@@ -19,12 +19,12 @@ public class VoiceService extends AuthMechService {
 
 	/** Logging tag. */
 	private static final String TAG = "AuthVoiceService";
-	
+
 	public void onCreate() {
 		Log.i(TAG, "onCreate");
 
 		this.initialWeight = 10000;
-		
+
 		if (voiceThread == null) {
 			voiceThread = new AuthenticatorThread();
 			voiceThread.start();
@@ -36,13 +36,8 @@ public class VoiceService extends AuthMechService {
 		Log.i(TAG, "onDestroy");
 
 		if (voiceThread != null) {
-			try {
-				voiceThread.stopThread();
-				voiceThread.join();
-				voiceThread = null;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			voiceThread.stopThread();
+			voiceThread = null;
 		}
 
 		this.decayTimer.stopTimer();
@@ -57,19 +52,21 @@ public class VoiceService extends AuthMechService {
 	private class AuthenticatorThread extends Thread {
 		/** Authentication period between consecutive samples. */
 		private static final int AUTH_PERIOD = 7 * 1000;
-		
+
 		/** Recording time of the data. */
 		private static final int RECORD_TIME = 3 * 1000;
-		
-		/** Threshold used in transforming Euclidean distance into a probability. */
+
+		/**
+		 * Threshold used in transforming Euclidean distance into a probability.
+		 */
 		private static final double THRESHOLD = 2;
-		
-		/** Logging tag.*/
+
+		/** Logging tag. */
 		private static final String TAG = "VoiceServiceThread";
 
 		/** Flag used to gently stop the thread. */
 		private volatile boolean stop;
-		
+
 		/** DAO used to interface with the voice recognition library. */
 		private VoiceDAO voiceDAO;
 
@@ -81,15 +78,14 @@ public class VoiceService extends AuthMechService {
 		public void run() {
 			// instantiating voice DAO when thread starts.
 			this.voiceDAO = new VoiceDAO(VoiceService.this);
-			
+
 			// sampling loop.
 			while (stop != true) {
 				try {
 					Log.d(TAG, "Start loop.");
 					Thread.sleep(AUTH_PERIOD);
-					
-					VoiceRecord record = recordData();
 
+					VoiceRecord record = recordData();
 
 					Log.d(TAG, "Getting score.");
 					if (record == null || !record.hasRecording()) {
@@ -102,13 +98,13 @@ public class VoiceService extends AuthMechService {
 					if (dscore > THRESHOLD) {
 						dscore = THRESHOLD;
 					}
-					
+
 					score = (int) Math.floor((1 - dscore / THRESHOLD) * 100);
 					sendDecayedScore(true);
-					
+
 					// starts the decay process
 					VoiceService.this.startDecay();
-					
+
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -116,17 +112,24 @@ public class VoiceService extends AuthMechService {
 		}
 
 		public void stopThread() {
-			this.stop = true;
+			try {
+				this.stop = true;
+				this.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 		/***
 		 * Auxiliary method used to record a data sample.
+		 * 
 		 * @return
 		 */
 		private VoiceRecord recordData() {
 			Log.d(TAG, "recordData+");
 
-			VoiceRecord record = new VoiceRecord(VoiceService.this, "challenge.3gp");
+			VoiceRecord record = new VoiceRecord(VoiceService.this,
+					"challenge.3gp");
 
 			try {
 				record.startRecord();
@@ -135,11 +138,11 @@ public class VoiceService extends AuthMechService {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			Log.d(TAG, "recordData- " + record);
 			return record;
 		}
-		
+
 	}
 
 }
