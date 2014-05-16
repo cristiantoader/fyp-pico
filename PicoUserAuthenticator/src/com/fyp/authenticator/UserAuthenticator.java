@@ -14,10 +14,11 @@ import android.util.Log;
  * This only deals with authentication mechanisms. It communicates with them and
  * calculates confidence.
  * 
+ * TODO: mechanisms seem to power off when not in focus.
+ * 
  * @author cristi
  * 
  */
-@SuppressWarnings("unused")
 public class UserAuthenticator {
 
 	/** UAService service reference used for binding on other services. */
@@ -84,8 +85,8 @@ public class UserAuthenticator {
 	 * @return list of authentication devices.
 	 */
 	private void initAvailableDevices() {
-		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
-		this.mechanism.add(new AuthMech(uaservice, VoiceService.class));
+//		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
+//		this.mechanism.add(new AuthMech(uaservice, VoiceService.class));
 		this.mechanism.add(new AuthMech(uaservice, FaceService.class));
 	}
 

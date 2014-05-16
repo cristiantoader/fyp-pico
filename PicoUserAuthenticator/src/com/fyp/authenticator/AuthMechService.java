@@ -175,7 +175,7 @@ public abstract class AuthMechService extends Service {
 		private volatile boolean running = false;
 		
 		/** Exponential decay rate. */
-		protected int rate = 2;
+		protected double rate = 0.8;
 
 		/**
 		 * Method called once every INTERVAL in order to update the
@@ -259,7 +259,7 @@ public abstract class AuthMechService extends Service {
 		private void decay() {
 			Log.d(TAG, "decay+");
 //			decayedWeight = (int) (decayedWeight * Math.pow(Math.E, -rate));
-			decayedWeight = (int) (decayedWeight * 0.8);
+			decayedWeight = (int) (decayedWeight * rate);
 		}
 	}
 

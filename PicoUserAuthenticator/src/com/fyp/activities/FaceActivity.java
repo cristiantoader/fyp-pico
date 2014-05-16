@@ -1,10 +1,10 @@
 package com.fyp.activities;
 
 import com.fyp.activities.util.face.CameraPreview;
+import com.fyp.activities.util.face.CameraUtil;
 import com.fyp.activities.util.face.OwnerPictureCallback;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.View;
@@ -30,9 +30,9 @@ public class FaceActivity extends Activity {
 
 		setContentView(R.layout.activity_face);
 
-		mCamera = getCameraInstance();
+		mCamera = new CameraUtil(this).getCameraInstance();
 		mPreview = new CameraPreview(this, mCamera);
-
+		
 		FrameLayout previewLayout = (FrameLayout) findViewById(R.id.camera_preview);
 		previewLayout.addView(mPreview);
 
@@ -50,21 +50,5 @@ public class FaceActivity extends Activity {
 		super.onPause();
 	}
 
-	/** A safe way to get an instance of the Camera object. */
-	private Camera getCameraInstance() {
-		Camera camera = null;
-		try {
-			camera = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
-
-			if (this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
-				camera.setDisplayOrientation(90);
-			} else {
-				camera.setDisplayOrientation(0);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return camera;
-	}
 
 }

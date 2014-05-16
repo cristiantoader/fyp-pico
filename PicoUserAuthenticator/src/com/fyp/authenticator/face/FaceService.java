@@ -1,17 +1,11 @@
 package com.fyp.authenticator.face;
 
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.SurfaceTexture;
-import android.hardware.Camera;
-import android.hardware.Camera.PictureCallback;
 import android.util.Log;
 
+import com.fyp.activities.util.face.CameraUtil;
 import com.fyp.authenticator.AuthMechService;
 
 /**
@@ -33,7 +27,7 @@ public class FaceService extends AuthMechService {
 		Log.d(TAG, "onCreate+");
 
 		this.initialWeight = 8000;
-		
+
 		if (!isSupported()) {
 			throw new RuntimeException("Camera not supported!");
 		}
@@ -77,33 +71,24 @@ public class FaceService extends AuthMechService {
 	private class AuthenticatorThread extends Thread {
 		/** Flag used for a gentle stop of the thread. */
 		private volatile boolean running = false;
-		
+
 		/** DAO used to interface with the face recognition library. */
 		private FaceDAO dao = null;
 
 		/** Authentication period used between successful camera sampling. */
 		private static final int AUTH_PERIOD = 3 * 1000;
-		
-		// TODO: maybe move this in DAO?	
+
+		// TODO: maybe move this in DAO?
 		/** Euclidean distance threshold used in calculating confidence. */
 		private static final double THRESHOLD = 1;
 
-		// TODO: maybe all camera related stuff should be in a camera DAO.
-		/** Camera objed used to capture images.*/
-		private Camera camera = null;
-		
-		/** Bitmap data collected by the camera. */
-		private volatile Bitmap picture = null;
-
-		/** Flag used to mark that face image data is ready for processing. */
-		private volatile AtomicBoolean faceReady = new AtomicBoolean(false);
-		
-		/** Object used to trick the camera into providing input without displaying it. */
-		private final SurfaceTexture dummyTexture = new SurfaceTexture(1);
+		private CameraUtil cameraUtil = null;
 
 		public void run() {
 			// instantiate face DAO when thread starts
 			this.dao = new FaceDAO(FaceService.this);
+
+			this.cameraUtil = new CameraUtil(FaceService.this);
 
 			// data sampling loop
 			while (this.running) {
@@ -114,21 +99,14 @@ public class FaceService extends AuthMechService {
 					Thread.sleep(AUTH_PERIOD);
 
 					Log.d(TAG, "initialise camera...");
-					while (this.initialiseCamera() != true) {
+					while (this.cameraUtil.initialiseCamera() != true) {
 						Thread.sleep(50);
 					}
 
 					Log.d(TAG, "taking picture...");
-					this.camera.takePicture(null, null, jpgCallpack);
+					Bitmap picture = this.cameraUtil.takePicture();
 
-					// get match based on image
-					while (this.faceReady.compareAndSet(true, false)
-							|| this.picture == null) {
-						Log.d(TAG, "waiting for picture...");
-						Thread.sleep(50);
-					}
-
-					dscore = this.dao.getMatch(this.picture);
+					dscore = this.dao.getMatch(picture);
 					if (dscore > THRESHOLD) {
 						dscore = THRESHOLD;
 					}
@@ -159,85 +137,6 @@ public class FaceService extends AuthMechService {
 				e.printStackTrace();
 			}
 		}
-
-		private boolean initialiseCamera() {
-			boolean success = false;
-
-			Log.d(TAG, "initialiseCamera+");
-
-			try {
-				Log.d(TAG, "initialiseCamera: open");
-
-				this.camera = Camera
-						.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
-
-				if (FaceService.this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
-					Log.d(TAG, "initialiseCamera: orientation 90");
-					camera.setDisplayOrientation(90);
-
-				} else {
-					Log.d(TAG, "initialiseCamera: orientation 0");
-					camera.setDisplayOrientation(0);
-				}
-
-				this.camera.setPreviewTexture(dummyTexture);
-				this.camera.startPreview();
-
-				success = true;
-
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.camera.stopPreview();
-				this.camera.release();
-			}
-
-			Log.d(TAG, "initialiseCamera- " + success);
-			return success;
-		}
-
-		// TODO: this code repeats in OwnerPictureCallback
-		PictureCallback jpgCallpack = new PictureCallback() {
-			public void onPictureTaken(byte[] data, Camera camera) {
-				Log.d("CAMERA", "onPictureTaken - raw");
-
-				camera.stopPreview();
-				camera.unlock();
-				camera.release();
-
-				Bitmap bmp = null;
-				BitmapFactory.Options options = new BitmapFactory.Options();
-				options.inPreferredConfig = Bitmap.Config.RGB_565;
-
-				if (data == null) {
-					Log.e("FaceService", "null data");
-					return;
-				}
-
-				bmp = BitmapFactory.decodeByteArray(data, 0, data.length,
-						options);
-				if (bmp == null) {
-					Log.e("FaceService", "Decoded bmp is null!");
-					return;
-				} else {
-					Log.d("FaceService", "Decoded bmp is ok!");
-				}
-
-				Matrix rotMatrix = new Matrix();
-				rotMatrix.postRotate(270);
-
-				bmp = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(),
-						bmp.getHeight(), rotMatrix, true);
-				bmp = Bitmap.createScaledBitmap(bmp,
-						(int) (0.5 * bmp.getWidth()),
-						(int) (0.5 * bmp.getHeight()), true);
-
-				AuthenticatorThread.this.picture = bmp;
-				AuthenticatorThread.this.faceReady.set(true);
-
-				Log.d("FaceService", "normal exit-");
-			}
-
-		};
 
 	}
 
