@@ -7,6 +7,7 @@ import com.fyp.authenticator.face.FaceService;
 import com.fyp.authenticator.voice.VoiceService;
 
 import android.app.Service;
+import android.content.Intent;
 import android.util.Log;
 
 /**
@@ -14,18 +15,17 @@ import android.util.Log;
  * This only deals with authentication mechanisms. It communicates with them and
  * calculates confidence.
  * 
- * TODO: mechanisms seem to power off when not in focus.
- * 
  * @author cristi
  * 
  */
+@SuppressWarnings("unused")
 public class UserAuthenticator {
 
 	/** UAService service reference used for binding on other services. */
 	private Service uaservice = null;
 
 	/** List of available device services used for authentication. */
-	private LinkedList<AuthMech> mechanism;
+	private LinkedList<AuthMech> mechanisms;
 
 	/** Overall confidence level. */
 	private int confidence;
@@ -38,7 +38,7 @@ public class UserAuthenticator {
 	 */
 	public UserAuthenticator(Service service) {
 		this.uaservice = service;
-		this.mechanism = new LinkedList<AuthMech>();
+		this.mechanisms = new LinkedList<AuthMech>();
 
 		this.initAvailableDevices();
 	}
@@ -49,6 +49,8 @@ public class UserAuthenticator {
 	 * @return true if user is authenticated.
 	 */
 	public int getConfidence() {
+		Log.d(TAG, "getConfidence()");
+		
 		this.calculateConfidence();
 		return this.confidence;
 	}
@@ -61,7 +63,9 @@ public class UserAuthenticator {
 		int confidence = 0;
 		int weights = 0;
 		
-		for (AuthMech mech : this.mechanism) {
+		Log.d(TAG, "calculateConfidence");
+		
+		for (AuthMech mech : this.mechanisms) {
 			confidence += mech.getConfidence();
 			weights += mech.getWeight();
 		}
@@ -86,8 +90,19 @@ public class UserAuthenticator {
 	 */
 	private void initAvailableDevices() {
 //		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
-//		this.mechanism.add(new AuthMech(uaservice, VoiceService.class));
-		this.mechanism.add(new AuthMech(uaservice, FaceService.class));
+		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));
+		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));
+	}
+	
+	public void stopMechanisms() {
+		Log.d(TAG, "stopMechanisms+");
+		
+		for (AuthMech mech : this.mechanisms) {
+			Log.d(TAG, "stopping " + mech.getClass());
+			
+			Intent i = new Intent(this.uaservice, mech.getClass());
+			this.uaservice.stopService(i);
+		}
 	}
 
 }

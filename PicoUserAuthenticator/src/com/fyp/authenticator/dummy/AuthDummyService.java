@@ -42,6 +42,8 @@ public class AuthDummyService extends AuthMechService {
 		if (dummyDAO != null) {
 			dummyDAO = null;
 		}
+		
+		this.decayTimer.stopTimer();
 	}
 
 	/**

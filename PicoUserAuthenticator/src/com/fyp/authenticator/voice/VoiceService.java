@@ -45,6 +45,7 @@ public class VoiceService extends AuthMechService {
 			}
 		}
 
+		this.decayTimer.stopTimer();
 	}
 
 	/**

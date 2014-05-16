@@ -49,6 +49,7 @@ public class FaceService extends AuthMechService {
 			this.faceThread = null;
 		}
 
+		this.decayTimer.stopTimer();
 		Log.d(TAG, "onDestroy-");
 	}
 

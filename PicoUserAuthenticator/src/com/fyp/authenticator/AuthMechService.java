@@ -1,8 +1,6 @@
 package com.fyp.authenticator;
 
 import java.lang.ref.WeakReference;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
@@ -10,7 +8,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
@@ -165,7 +162,7 @@ public abstract class AuthMechService extends Service {
 	 * @author cristi
 	 * 
 	 */
-	private class DecayTimer implements Runnable {
+	public class DecayTimer implements Runnable {
 		/** Time interval after which decay occurs. */
 		private static final int INTERVAL = 1000;
 

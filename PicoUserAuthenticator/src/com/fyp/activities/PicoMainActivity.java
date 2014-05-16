@@ -74,8 +74,11 @@ public class PicoMainActivity extends Activity {
 	}
 
 	private void doBindService() {
-		bindService(new Intent(this, UAService.class), serviceConnection,
-				Context.BIND_AUTO_CREATE);
+		Intent i = new Intent(this, UAService.class);
+
+		startService(i);
+		bindService(i, serviceConnection, Context.BIND_AUTO_CREATE);
+
 		boundService = true;
 	}
 
@@ -84,6 +87,14 @@ public class PicoMainActivity extends Activity {
 			unbindService(serviceConnection);
 			boundService = false;
 		}
+	}
+
+	/**
+	 * Only works if no other clients are connected to the service.
+	 */
+	private void doStopService() {
+		Intent i = new Intent(this, UAService.class);
+		stopService(i);
 	}
 
 	/**
@@ -107,8 +118,9 @@ public class PicoMainActivity extends Activity {
 		public void onClick(View v) {
 			if (boundService) {
 				doUnbindService();
-			} else {
-				contentView.append("Pico service already not bound. \n");
+				doStopService();
+				
+				contentView.append("Pico service stopped. \n");
 			}
 
 		}

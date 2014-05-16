@@ -82,6 +82,7 @@ public class UAService extends Service {
 			}
 		}
 
+		ua.stopMechanisms();
 		if (ua != null) {
 			ua = null;
 		}
@@ -175,6 +176,7 @@ public class UAService extends Service {
 		public void run() {
 			while (stop != true) {
 				try {
+					Log.d(TAG, "Authenticator thread running.");
 					Thread.sleep(1000);
 					broadcastResult();
 				} catch (InterruptedException e) {
