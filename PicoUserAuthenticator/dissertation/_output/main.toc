@@ -8,43 +8,42 @@
 \contentsline {chapter}{Abbreviations}{vii}{dummy.9}
 \contentsline {chapter}{Symbols}{viii}{dummy.12}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.15}
-\contentsline {section}{\numberline {1.1}Contribution}{2}{section.16}
-\contentsline {section}{\numberline {1.2}Prerequisites}{3}{section.17}
-\contentsline {chapter}{\numberline {2}Pico: no more passwords!}{4}{chapter.18}
-\contentsline {chapter}{\numberline {3}Assessment framework}{7}{chapter.19}
-\contentsline {section}{\numberline {3.1}Related work}{7}{section.20}
-\contentsline {section}{\numberline {3.2}Token unlocking framework}{9}{section.21}
-\contentsline {section}{\numberline {3.3}Example evaluation}{12}{section.22}
-\contentsline {subsection}{\numberline {3.3.1}Picosiblings}{12}{subsection.23}
-\contentsline {subsection}{\numberline {3.3.2}PIN}{13}{subsection.24}
-\contentsline {subsection}{\numberline {3.3.3}Android Face unlock}{14}{subsection.25}
-\contentsline {section}{\numberline {3.4}Conclusions}{16}{section.26}
-\contentsline {chapter}{\numberline {4}Design}{17}{chapter.27}
-\contentsline {section}{\numberline {4.1}Proposed design}{17}{section.28}
-\contentsline {section}{\numberline {4.2}Framework evaluation}{20}{section.29}
-\contentsline {section}{\numberline {4.3}Conceptual design threat Model}{24}{section.31}
-\contentsline {subsection}{\numberline {4.3.1}Dedicated device with dedicated sensors}{25}{subsection.32}
-\contentsline {subsection}{\numberline {4.3.2}Dedicated device with shared sensors}{26}{subsection.36}
-\contentsline {subsection}{\numberline {4.3.3}Insecure communication with Pico}{28}{subsection.40}
-\contentsline {subsection}{\numberline {4.3.4}Shared device with shared components}{29}{subsection.44}
-\contentsline {subsection}{\numberline {4.3.5}Proposed secure implementation}{29}{subsection.48}
-\contentsline {section}{\numberline {4.4}Related work}{30}{section.52}
-\contentsline {chapter}{\numberline {5}Implementation Prototype}{33}{chapter.53}
-\contentsline {section}{\numberline {5.1}Authenticator design}{33}{section.54}
-\contentsline {section}{\numberline {5.2}Implementation details}{34}{section.55}
-\contentsline {subsection}{\numberline {5.2.1}Main application and services}{34}{subsection.56}
-\contentsline {subsection}{\numberline {5.2.2}Authentication mechanisms}{35}{subsection.57}
-\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{40}{subsubsection.58}
-\contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{41}{subsubsection.59}
-\contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{43}{subsubsection.60}
-\contentsline {subsection}{\numberline {5.2.3}Owner configuration}{44}{subsection.61}
-\contentsline {section}{\numberline {5.3}Threat model}{45}{section.62}
-\contentsline {subsection}{\numberline {5.3.1}Literature review: Android security}{45}{subsection.63}
-\contentsline {subsection}{\numberline {5.3.2}Prototype threat model}{50}{subsection.73}
-\contentsline {section}{\numberline {5.4}Future work}{52}{section.77}
-\contentsline {section}{\numberline {5.5}Results}{53}{section.78}
-\contentsline {section}{\numberline {5.6}Related work}{53}{section.79}
+\contentsline {section}{\numberline {1.1}Contribution}{3}{section.16}
+\contentsline {chapter}{\numberline {2}Pico: no more passwords!}{5}{chapter.17}
+\contentsline {chapter}{\numberline {3}Assessment framework}{8}{chapter.18}
+\contentsline {section}{\numberline {3.1}Related work}{8}{section.19}
+\contentsline {section}{\numberline {3.2}Token unlocking framework}{10}{section.20}
+\contentsline {section}{\numberline {3.3}Example evaluation}{13}{section.21}
+\contentsline {subsection}{\numberline {3.3.1}Picosiblings}{13}{subsection.22}
+\contentsline {subsection}{\numberline {3.3.2}PIN}{14}{subsection.23}
+\contentsline {subsection}{\numberline {3.3.3}Android Face unlock}{15}{subsection.24}
+\contentsline {section}{\numberline {3.4}Conclusions}{17}{section.25}
+\contentsline {chapter}{\numberline {4}Design}{18}{chapter.26}
+\contentsline {section}{\numberline {4.1}Proposed design}{18}{section.27}
+\contentsline {section}{\numberline {4.2}Framework evaluation}{21}{section.28}
+\contentsline {section}{\numberline {4.3}Conceptual design threat Model}{25}{section.30}
+\contentsline {subsection}{\numberline {4.3.1}Dedicated device with dedicated sensors}{26}{subsection.31}
+\contentsline {subsection}{\numberline {4.3.2}Dedicated device with shared sensors}{27}{subsection.35}
+\contentsline {subsection}{\numberline {4.3.3}Insecure communication with Pico}{29}{subsection.39}
+\contentsline {subsection}{\numberline {4.3.4}Shared device with shared components}{30}{subsection.43}
+\contentsline {subsection}{\numberline {4.3.5}Proposed secure implementation}{30}{subsection.47}
+\contentsline {section}{\numberline {4.4}Related work}{31}{section.51}
+\contentsline {chapter}{\numberline {5}Implementation Prototype}{34}{chapter.52}
+\contentsline {section}{\numberline {5.1}Authenticator design}{34}{section.53}
+\contentsline {section}{\numberline {5.2}Implementation details}{35}{section.54}
+\contentsline {subsection}{\numberline {5.2.1}Main application and services}{35}{subsection.55}
+\contentsline {subsection}{\numberline {5.2.2}Authentication mechanisms}{36}{subsection.56}
+\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{41}{subsubsection.57}
+\contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{42}{subsubsection.58}
+\contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{44}{subsubsection.59}
+\contentsline {subsection}{\numberline {5.2.3}Owner configuration}{45}{subsection.60}
+\contentsline {section}{\numberline {5.3}Threat model}{46}{section.61}
+\contentsline {subsection}{\numberline {5.3.1}Literature review: Android security}{46}{subsection.62}
+\contentsline {subsection}{\numberline {5.3.2}Prototype threat model}{51}{subsection.72}
+\contentsline {section}{\numberline {5.4}Future work}{53}{section.76}
+\contentsline {section}{\numberline {5.5}Results}{54}{section.77}
+\contentsline {section}{\numberline {5.6}Related work}{54}{section.78}
 \vspace {2em}
-\contentsline {chapter}{\numberline {A}Appendix Title Here}{55}{appendix.80}
+\contentsline {chapter}{\numberline {A}Appendix Title Here}{56}{appendix.79}
 \vspace {2em}
-\contentsline {chapter}{Bibliography}{56}{dummy.81}
+\contentsline {chapter}{Bibliography}{57}{dummy.80}
