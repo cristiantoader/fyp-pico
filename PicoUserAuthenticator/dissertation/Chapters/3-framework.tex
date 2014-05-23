@@ -1,110 +1,135 @@
 
 \chapter{Assessment framework}
 
-\label{Chapter3}
+\label{Chapter5}
 
-\lhead{Chapter 3. \emph{Assessment framework}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+\lhead{Chapter 5. \emph{Assessment framework}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
-The purpose of this chapter is to create a framework for assessing token based authentication mechanisms. Using this framework we can then compare existing solutions. Having the framework as a performance compass we can then continue by designing an alternative to the Picosiblings unlocking mechanism.
+The purpose of this chapter is to create an assessment framework for token unlocking mechanisms. This framework will be used to evaluate existing solutions, including the Picosiblings scheme used by Pico. The analysis of the results can then be used to create an alternative solution to Picosiblings. The project aims to achieve better results in some categories, without necessarily completely outperforming it.
+
 
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
-\section{Related work}
+
 % TODO:
 %	- list the framework and description?
 %   - (IMPORTANT) can the user disclose it by mistake? FOR FRAMEWORK!
+\section{UDS assessment framework}
 
+% Introduction on the existing paper and why it cannot be used as it is
+Similar work to what we are trying to achieve in this chapter was performed by Bonneau et al \cite{bonneau2012quest}. The authors create a framework for evaluating web based authentication mechanisms. However, the assessment scheme is not entirely compatible for token unlocking mechanisms. For example, properties such as ``Browser-compatible'' do not apply, while others need to be redefined to fit our context.  The paper however presents a good starting point for our token unlocking evaluation framework. The remainder of this section will present a brief summary of the paper.
 
-In the paper ``The Quest to Replace Passwords: A Framework for Comparative Evaluation of Web Authentication Schemes'' \cite{bonneau2012quest} the authors develop a framework for evaluating web based authentication mechanisms. The purpose of the framework is to identify authentication schemes which outperform passwords. The framework is intended to provide a benchmark for future web authentication proposals.
+% Why did they do the paper.
+The motivation behind this paper is to gain insight about the difficulty of replacing passwords. An assessment framework is created, and a number of web authentication mechanisms are evaluated. It is an useful tool in identifying key properties of web based authentication schemes. The framework is intended to provide a benchmark for future proposals.
 
-The framework focuses of three classes of properties which are abbreviated as UDS: usability, deployability, and security. Each class contains a set of properties, totalling a number of 25 benefits. A mechanism may either offer, quasi-offer, or not offer a property. Properties which are not applicable to a mechanism are marked as ``offered'' to simplify the framework.
+% How framework is structured.
+The framework consists of 25 properties divided into three categories: usability, deployability, and security. For this reason, it is abbreviated by the authors as the ``UDS framework''. An authentication scheme is assessed by evaluating whether it offers or does not offer each property. In the case where a scheme almost offers a property, the authors mark it as quasi-offered. To simplify the framework, properties which are not applicable are marked as offered.
 
-Using the framework to evaluate 35 password replacement schemes shows that no scheme is dominant over passwords. According to the evaluation, passwords score perfectly in deployability. They score reasonably in terms of usability, excelling in properties such as: nothing-to-carry, efficient-to-use, and easy-recovery-from-loss. In terms of security however, passwords don't perform as well, only receiving points in resilience-to-theft (not applicable), no-trusted-third-party, requiring-explicit-consent, and unlinkable. The full list of properties and their description can be found within the paper itself.
+% Results of assessment: passwords.
+Since passwords are currently the most widely used authentication mechanism, the results are predictable. Evaluating 35 replacement schemes shows that no scheme completely dominates them. Passwords satisfy all the properties in the deployability category. They score reasonably well in terms of usability, excelling in properties such as: ``nothing-to-carry'', ``efficient-to-use'', ``and easy-recovery-from-loss''. However, from a security perspective passwords don't perform as well. They only offer the ``resilience-to-theft\footnote{Not applicable to passwords}'', ``no-trusted-third-party'', ``requiring-explicit-consent'', and ``unlinkable'' properties. The full evaluation can be found within the paper itself.
 
-Biometric mechanisms receive mixed scores on usability. None of them have the infrequent-errors property which is a precision problem related to false negatives. More importantly if the biometric data is exposed by malware for instance, the authentication mechanism may not be used by the user any more. They score poorly in deployability due to the additional hardware required. In terms of security they perform worse than passwords. Replay attacks can be used by an attacker using a recording of some sort in order to trick the sensor. They are not resilient to theft, since they require an additional device. The fact that they uniquely link the owner to the recording means that the owner may be linked back to the data, therefore not granting the ``unlinkable'' property. 
+% Results of assessment: biometrics.
+Biometric mechanisms receive mixed scores on usability. None of them offer the ``infrequent-errors'' property, due to false negative precision. More importantly if biometric data becomes compromised, the possibility of replay attacks makes the authentication mechanism unreliable. They score poorly in deployability partially because they require additional hardware. In terms of security they perform worse than passwords. Replay attacks can be used by an attacker using a pre-recording of the user. Due to the ease with which valid sample data may be gathered by an attacker, they are also not resilient to theft. There is a one to one correlation between the owner and their biometric recording, therefore the ``unlinkable'' property is not offered by these mechanisms. 
 
-The paper notes that the memory-effortless property versus nothing-to-carry is only achieved by biometric schemes. None of the mechanisms manage to fully achieve memory-effortless and be resilient-to-theft. This is due to the fact that most mechanisms replace something you know with something you have.
+% Memory-effortless vs Nothing-to-carry
+By analysing the framework results, we see that some authentication schemes, such as security tokens, offer ``memory-effortless'' in exchange for the ``nothing-to-carry'' property.  The only schemes that offer both are biometric mechanisms. This is a consequence of repacing ``something you know'' with ``something you are'' instead of have. For different reasons no mechanism offers both ``memory-effortless'' and be ``resilient-to-theft''.
 
-The authors do not produce aggregate scores or rankings. This is due to the fact that not all properties are equal in importance, but different properties would have different weights depending on the scheme's application domain. 
+% Scores and no ranking
+When trying to compute an aggregate score using the framework, not all properties should be equal in importance. Different properties should have different weights depending on the purpose of the assessment. For example, if we would try to find the most secure authentication mechanisms, security properties would have a larger weight in the overall evaluation. For this reason, the authors only provide the means for others to make an evaluation based on their needs. No aggregate scores or rankings are provided in the paper. 
 
-Combining schemes is mentioned as a two factor arrangement. This would result in a mechanism which in terms of usability and deployability would only have the properties which are granted by both schemes. In security however it would have the properties of both mechanisms. As shown in the paper, according to \cite{wimberly2011using} the presence of a two factor authentication would lead the user to creating weaker passwords.
+% Combining schemes
+The authors mention the possibility of combining schemes as part of a two factor authentication. In terms of deployability and usability, the overall scheme offers a property if it is offered by both authentication mechanisms. In terms of security, only one of the two mechanisms needs to offer the property in order for the two factor combination to offer it as well. However, Wimberly \& Liebrock \cite{wimberly2011using} observe that combining passwords with a second authentication mechanism scheme leads to weaker credentials.
 
-Further details about the framework itself are not mentioned in this dissertation for the purpose of brevity. The framework and explanations for each property can be found in the original paper \cite{bonneau2012quest} by Bonneau et al.
+% Further details can be found in the paper.
+The following section will offer more details on the UDS framework properties which also apply to token unlocking. Further information about the framework are not mentioned in this dissertation for the purpose of brevity.  The full list of properties and the evaluation of a number of mechanisms are described in the original paper by Bonneau et al. 
 
 \section{Token unlocking framework}
-Web based authentication mechanisms are initiated locally and performed remotely. In contrast, token based authentication is initiated and performed locally, leaving no room for man in the middle attacks or any other 3rd party participation. For this reason, a subset of the properties described in paper \cite{bonneau2012quest} by Bonneau et al should also be present in the framework we have developed. Properties from the original framework by Bonneau et al which do not apply, or would be satisfied by any token unlocking mechanism were removed in this work.
+% Introduction as to why we use properties from the UDS framework
+Unlike web based authentication mechanisms, token unlocking records and processes data locally. For this reason, a subset of the UDS framework properties are also be present in the framework we have developed. Those which do not apply, or would apply to every token unlocking mechanism were removed. Some properties needed to be adapted to the new context of a token, and therefore will have a slightly different meaning.
 
-The following list shows what properties of the framework developed by Bonneau et al are relevant to token based authentication mechanisms:
+% List each property, a description, and an example
+The following list contains all properties of the UDS framework developed by Bonneau et al \cite{bonneau2012quest} which we adapted and included in the token unlocking framework. A short description is included for the cases when the property is offered or quasi-offered, as well as a small example.
 \begin{description}
-  \item[Memory-effortless] \hfill \\
-  Different types of tokens would have different results. For instance the RSA SecurID \cite{} token doesn't require any authentication, while the FIDO (Fast IDentity Online) Alliance \cite{} may use a PIN requiring a known secret.
+  
+  %
+  %	 Accessibility
+  %
+  \item[Memorywise-effortless] \hfill \\
+  Users do not need to remember any type of secret, whether it is a password, physical signature, or drawing. The property was originally quasi-offered in the cases where one secret would be used with multiple accounts, but in the case of tokens this does not apply. As an example the RSA SecurID \footnote{http://www.emc.com/domains/rsa/index.htm?id=1156} is used in conjunction with a password in order to authenticate the user, and therefore does not offer this property.
   
   \item[Nothing-to-carry] \hfill \\
-  Different token unlocking mechanisms may require additional hardware. Such may be the case for some biometric schemes.
+  The unlocking mechanism does not require any additional hardware except for the token. The property is quasi-satisfied in the case of hardware the user would have carried on a normal basis such as a mobile phone. An example of such a mechanism would be the Picosiblings scheme which uses small devices embedded in everyday items. Biometric mechanisms that require additional sensors such as a fingerprint reader do not satisfy this property. 
   
   \item[Easy-to-learn] \hfill \\
-  Token authentication mechanisms may have different learning curves. As an example a CAP reader is fairly easy to use, while a Pico device may prove more difficult for the inexperienced.
+  Users who use the unlocking mechanism would be able to learn with ease. The original paper by Bonneau et al \cite{bonneau2012quest}, assess Pico as not easy to learn due to the complexity of the Picosiblings management\footnote{As discussed in the previous chapter \ref{Chapter2}, each Picosibling contains a k-out-of-n secret used to reconstruct the ``Pico Master Key''. The user therefore needs to choose the right combination of Picosiblings in order to unlock the Pico, which may prove difficult}. PINs or passwords however satisfy this property due to the users' familiarity with this type of authentication.
   
   \item[Efficient-to-use] \hfill \\
-  Time required by the token user authentication mechanism may differ from one type of authentication to the other. The time required for registering a new user or unlocking the token for its owner should be reasonably short.
+  The amount of time the user needs to wait for the token to be unlocked is reasonably short. It is important to note that this includes the time required to provide the input for the mechanism. The same applies for setting up the token unlocking mechanism, but with a larger time scale. In the case of PINs for example the input and processing time are very low, and therefore the scheme offers the property. Mechanisms based on biometrics however may not, depending on the implementation.
   
   \item[Infrequent-errors] \hfill \\
-  The token unlocking mechanism may reject true positives. If the number of false negatives is reasonably low, then the mechanism has this property.
+  The rightful owner should generally be able to successfully authenticate to the token. Any sort of delays resulted from the unlocking mechanism such as typos during typing or biometric false negatives may contribute to the mechanism's inability to provide this property. As an example, PINs have a limited input length and character set size which makes infrequent errors unlikely and therefore offer the property. Biometric mechanisms, based on the type and implementation may quasi-offer the property, although they generally do not.
+    
+  \item[Easy-recovery-from-loss] \hfill \\ 
+  The meaning of this property was modified to reflect the context of token unlocking. It is offered if the user may easily recover from either the loss of auxiliary devices, or forgotten credentials used in the authentication process. As an example, forgotten PINs do not offer the property as they generally require ordering a new SIM.
   
-  \item[Easy-recovery-from-loss] \hfill \\
-  The user's ability to get another token which uses the same authentication mechanism. Tokens which unlock using biometrics for instance, if not properly secured may lead to the user's inability to use that mechanism again.
-  
+  %
+  %	 Deployability
+  %
   \item[Accessible] \hfill \\
-  The ability for all users to use the authentication mechanism. As an example, PINs may be entered by any user regardless of disabilities, on the other hand other biometric mechanisms may not be available.
+  The mechanism is usable by any user regardless of any disabilities or physical conditions. In the original paper, passwords are offered as an example of a scheme which offers this property. A gait recognition unlocking scheme would not offer this property. 
   
   \item[Negligible-cost-per-user] \hfill \\
-  The total cost enquired by the user in order to use the authentication mechanism.
+  The total cost per user of using the scheme, enquired by both the user and the verifier, is negligible.
   
   \item[Mature] \hfill \\
-  It refers to the number of users that have successfully used the mechanism, open source projects based on the mechanism, and any other usage by a third party which did not participate in the development of the scheme.
+  A large number of users have successfully used the scheme. Any open source projects involving the mechanism, as well as any participation not involving its creators contribute to this property. For example, passwords are widely used and implemented and therefore offer this property.
   
   \item[Non-proprietary] \hfill \\
-  Anyone can implement the token unlocking scheme without having to pay royalties to anyone else.
+  Anyone can implement the token unlocking scheme without having to make any sort of payment such as royalties. The technologies involved in the scheme are publicly known and do not rely on any sort of secret.
   
+  %
+  %	 Security
+  %
   \item[Resilient-to-physical-observation] \hfill \\
-  An attacker should not be able to impersonate the user after observing them authenticate.
+  An attacker would not be able to impersonate the owner of the token after observing him authenticate. Based on the number of observations required for the attacker to unlock the token, the scheme may quasi-offer the property. The original paper suggests 10-20 times to be sufficient, although it is just an approximation. Physical observation attacks are not restricted to shoulder surfing, and may include video cameras, keystroke sounds, or thermal imaging of the PIN pad.
   
   \item[Resilient-to-targeted-impersonation] \hfill \\
-  An attacker should not be able to impersonate the user using knowledge about the user, or previous recordings of his biometrics.
+  An attacker should not be able to impersonate the owner of the token by exploiting knowledge of personal details. This may include birthday, full name, family details, and other sensitive information. The scheme should also be resilient to pre-recordings of biometric information which may then be replayed to the authenticator.
   
   \item[Resilient-to-throttled-guessing] \hfill \\
-  The resilience to an attacker automating a guessing process in order to brute force the unlock of the token.
+  The scheme is resilient to attacks with a guessing rate restricted by the mechanism. The process cannot be automated due to the lack of physical access to authentication data. This may be achieved using tamper resistant memory. As an example, PINs offer this property because SIM cards become locked after only three unsuccessful attempts.
   
   \item[Resilient-to-unthrottled-guessing] \hfill \\
-  An attacker which only physical access to the token cannot guess the required unlocking resource.
+  The scheme is resilient to attacks with a guessing rate unrestricted by the mechanism. Even though the guessing process is only restricted by the attacker's computational power, the scheme would still not be bypassed within reasonable time. The original paper claims that if the attacker may process $2^40$ to $2^64$ guesses per account, would only be able to compromise less than $1\%$ of accounts. Since are generally designed to have one owner, the original description will be adapted to a single account. Therefore the property is granted only if an attacker requires more than $2^40$ attempts.
   
-  \item[Resilient-to-internal-observation] \hfill \\
-  An attacker cannot tamper with the token in order to intercept user input. Furthermore it is impossible for the attacker to gather the input from within the token's storage.
+  \item[Resilient-to-theft] \hfill \\
+  The property applies to schemes which use additional hardware other than the token. If the additional hardware becomes in the possession of an attacker, it is not sufficient to unlock the token. For example, auxiliary biometric devices used in the conjunction with the token offer this property. In this case the token would still not be unlocked using the hardware alone. An additional replay attack would be necessary. Picosiblings however only quasi-offers the property. They do not validate the user, relying only on proximity to the Pico. One of the special shares however allows the owner to lock the Pico remotely.
   
+
   \item[Unlinkable] \hfill \\
-  The unlocking mechanism does not generate data which if leaked would compromise the identity of the user. \ldots
+  Using the authentication input with any verifier using the same authentication mechanism\footnote{The authentication mechanism is not necessarily used for token unlocking. Any sort of mechanism which requires user authentication is a valid option.} does not compromise the identity of the token owner. As an example the link between a PIN and its owner is not strong enough to make a clear link between the two. However, biometrics are a prime example of schemes which do not offer this property. \ldots
   
 \end{description}
 
-The properties described above are derived from the original framework presented by \cite{bonneau2012quest}. Additional details relevant to each property, including when a property is only quasi (partially) satisfied may be found in the original work by Bonneau et al. Some properties, such as Nothing-to-carry or Server-compatible, do not apply for token unlocking schemes and therefore are not included.
-
-% TODO: add additional properties which are original
-Although the framework by Bonneau et al provides a good base set of properties, a few others are needed in order to fully characterise token unlocking mechanisms. The following list is part of the project's contributions to the overall evaluation framework.
+% Introduction for added properties
+% 	TODO: this sounds a bit bad.. rephrase?
+We have augmented the subset from the original UDS framework with a number of properties relevant which are relevant to Picosiblings, PINs, as well as other token unlocking mechanisms. The following list is part of the project's contributions to the overall evaluation framework.
 
 \begin{description}
   \item[Continuous-authentication] \hfill \\
-  The concept, although mentioned, is omitted from the framework developed by Bonneau et al \cite{bonneau2012quest}. It stressed a bit more as part of the benefits of Pico by Stajano \cite{stajano2011pico}. This is a property belonging to the security category of the original framework. The property is satisfied if, once authenticated, the user remains authenticated to the token for as long as he is in its presence. This is similar to an authentication session with the added property that the session remains active for as long as the user requires it. The property should be satisfied by mechanisms which may re-perform authentication in a non explicit way, leaving the user unaware of the underlying process.
+  The token unlocking scheme re-authenticates the user periodically. The process doesn't need to be hidden from the owner, but it is required to be effortless. The token should remain unlocked and usable in the presence of its owner. The scheme needs to detect when the owner is no longer in possession of the token, and lock the device accordingly. When locked, any open authentication session managed by the security token will be closed. The concept is mentioned by Bonneau et al \cite{bonneau2012quest}, but not included in the UDS framework. It is discussed in more detail by Stajano \cite{stajano2011pico} as one of the benefits of the Pico project. Using the UDS classification of the original framework, the property belongs to the Security category.
   
   \item[Multi-level-unlocking] \hfill \\
-  This is a security category property. If satisfied, the unlocking mechanism may allow for multiple types of unlocking based on the user confidence or identity. This is something that may be characteristic for mechanisms which involve biometrics or accounts with multiple security levels.
+  The unlocking scheme provides quantifiable feedback, more than a locked or unlocked state. The mechanism offers the possibility of supporting multiple token security permissions. These would be granted based on the confidence level that the user trying to unlock the token is its owner. For example, a $70\%$ confidence level that the owner is present may allow the user to access an email account, but not make any sort of payments or banking transactions. Passwords only provide a ``yes'' or ``no'' answer and therefore do not offer this property. Biometric mechanisms do offer this property. Their output is either a probability or some sort of distance metric that data was collected from the owner. Different confidence levels could therefore enable different security permissions. Using the UDS classification of the original framework, the property belongs to the Security category.
   
   \item[Availability] \hfill \\
-  This is an usability property. If satisfied, the user has the ability to use the unlocking mechanism in any circumstance. This is not related to any disabilities preventing the user from using certain mechanisms. The properly is strictly related to whether the scheme can be used in any circumstances, and may provide feedback regardless of light, noise, or other external factors. As an example gait recognition would only function while moving on foot, or a recognizer that restricts access based on pulse would not satisfy this requirement. A mechanism requiring only a PIN on the other hand would work in any circumstance.
+  The owner has the ability of using the scheme regardless of external factors. The ability to authenticate should not be impaired by the authentication context such as traffic noise, different light intensities, or restricted movement space. The property is not related to physical disabilities preventing the user from using the scheme but only on contextual influences on data collection. As an example gait recognition would only function while moving on foot and therefore does not offer the property. A mechanism requiring a PIN on the other hand would work in any circumstance. Using the UDS classification of the original framework, the property belongs to the Usability category.
   
 \end{description}
 
 \section{Example evaluation}
+% Introduction to why we offer some examples
 In order to demonstrate how the framework works we have assessed three token based authentication mechanisms: Picosiblings, PIN, and Face-unlock. Each of the mechanisms represent a different type of authentication method. Picosiblings essentially are a secret the owner has, PINs are a secret the owner knows, and Face-unlock is something the owner is. The following sections will provide as an example of how the framework should be applied. Results in the Picosiblings section will be used in the following chapter as a token authentication benchmark which will be used to compare the proposed unlocking scheme with the existing one.
 
 	\subsection{Picosiblings}
