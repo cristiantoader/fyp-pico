@@ -3,18 +3,11 @@
 
 \label{Chapter5}
 
-\lhead{Chapter 5. \emph{Assessment framework}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+\lhead{Chapter 5. \emph{Assessment framework}}
 
 The purpose of this chapter is to create an assessment framework for token unlocking mechanisms. This framework will be used to evaluate existing solutions, including the Picosiblings scheme used by Pico. The analysis of the results can then be used to create an alternative solution to Picosiblings. The project aims to achieve better results in some categories, without necessarily completely outperforming it.
 
 
-%----------------------------------------------------------------------------------------
-%	SECTION 1
-%----------------------------------------------------------------------------------------
-
-% TODO:
-%	- list the framework and description?
-%   - (IMPORTANT) can the user disclose it by mistake? FOR FRAMEWORK!
 \section{UDS assessment framework}
 
 % Introduction on the existing paper and why it cannot be used as it is
@@ -106,7 +99,6 @@ The following list contains all properties of the UDS framework developed by Bon
   \item[Resilient-to-theft] \hfill \\
   The property applies to schemes which use additional hardware other than the token. If the additional hardware becomes in the possession of an attacker, it is not sufficient to unlock the token. For example, auxiliary biometric devices used in the conjunction with the token offer this property. In this case the token would still not be unlocked using the hardware alone. An additional replay attack would be necessary. Picosiblings however only quasi-offers the property. They do not validate the user, relying only on proximity to the Pico. One of the special shares however allows the owner to lock the Pico remotely.
   
-
   \item[Unlinkable] \hfill \\
   Using the authentication input with any verifier using the same authentication mechanism\footnote{The authentication mechanism is not necessarily used for token unlocking. Any sort of mechanism which requires user authentication is a valid option.} does not compromise the identity of the token owner. As an example the link between a PIN and its owner is not strong enough to make a clear link between the two. However, biometrics are a prime example of schemes which do not offer this property. \ldots
   
@@ -123,6 +115,10 @@ We have augmented the subset from the original UDS framework with a number of pr
   \item[Multi-level-unlocking] \hfill \\
   The unlocking scheme provides quantifiable feedback, more than a locked or unlocked state. The mechanism offers the possibility of supporting multiple token security permissions. These would be granted based on the confidence level that the user trying to unlock the token is its owner. For example, a $70\%$ confidence level that the owner is present may allow the user to access an email account, but not make any sort of payments or banking transactions. Passwords only provide a ``yes'' or ``no'' answer and therefore do not offer this property. Biometric mechanisms do offer this property. Their output is either a probability or some sort of distance metric that data was collected from the owner. Different confidence levels could therefore enable different security permissions. Using the UDS classification of the original framework, the property belongs to the Security category.
   
+  % TODO: maybe offer a different name
+  \item[Non-disclosability] \hfill \\
+  The owner may not disclose authentication details neither intentionally or unintentionally. This is a broader version of the ``resilient-to-phishing'' and ``Resilient-to-physical-observation'' properties from the original UDS framework. However, the focus here is that the token may only be used by its owner. This is an important property in enterprise situations where the security token should not be shared. Passwords and other schemes based on secrets do not offer this property as the owner could share it with another user without any difficulty. Biometric mechanisms however cannot be easily disclosed. Based on the UDS classification the property belongs to the Security category.
+  
   \item[Availability] \hfill \\
   The owner has the ability of using the scheme regardless of external factors. The ability to authenticate should not be impaired by the authentication context such as traffic noise, different light intensities, or restricted movement space. The property is not related to physical disabilities preventing the user from using the scheme but only on contextual influences on data collection. As an example gait recognition would only function while moving on foot and therefore does not offer the property. A mechanism requiring a PIN on the other hand would work in any circumstance. Using the UDS classification of the original framework, the property belongs to the Usability category.
   
@@ -130,17 +126,35 @@ We have augmented the subset from the original UDS framework with a number of pr
 
 \section{Example evaluation}
 % Introduction to why we offer some examples
-In order to demonstrate how the framework works we have assessed three token based authentication mechanisms: Picosiblings, PIN, and Face-unlock. Each of the mechanisms represent a different type of authentication method. Picosiblings essentially are a secret the owner has, PINs are a secret the owner knows, and Face-unlock is something the owner is. The following sections will provide as an example of how the framework should be applied. Results in the Picosiblings section will be used in the following chapter as a token authentication benchmark which will be used to compare the proposed unlocking scheme with the existing one.
+We will demonstrate how the framework should be used by assessing three token based authentication mechanisms: Picosiblings, PIN, and Face-unlock. Each scheme represents a different type of authentication method. Picosiblings essentially are a secret the owner has, PINs are a secret the owner knows, and Face-unlock reflects who the owner is. This will provide as an example of how the framework should be applied. Results in the Picosiblings section will be used in the following chapter as a benchmark for comparing with our proposed token unlocking scheme.
 
+	%	
+	% Picosiblings evaluation
+	%=======================================================
+	%
 	\subsection{Picosiblings}
-	The current token unlocking mechanism used by Pico is called Picosiblings. In order to unlock the token, k-out-of-n secrets are required. Each of these secrets are held within a Picosibling carried by the user. If the Picosibling is within range of the Pico, these secrets are communicated to the token which can then be used to unlock its master key and implicitly the token.
+	% What are Picosiblings in a few words
+	Unlocking the Pico token requires k-out-of-n secrets used to reconstruct the Pico Master Key. Each Picosibling contains a secret that is transmitted to Pico using a secure connection via a radio channel. Given enough secrets the master key is reconstructed, and Pico becomes unlocked.
 	
-	Since the user doesn't need to remember any secrets, the scheme satisfies the memory-effortless property. The nothing-to-carry property is not satisfied since the Picosiblings are external emitters. The easy-to-learn property doesn't quite apply to the authentication mechanism, given that the user only has to carry the Picosiblings. In the original paper this was marked as not satisfied due to the unfamiliarity of the user with the Pico device, not the authentication mechanism. It only partially satisfies the efficient-to-use, and infrequent-errors properties. Easy recovery from loss is not offered neither for the Pico or the Picosiblings, since additional hardware would need to be ordered. The scheme relies fundamentally on the presence of the Picosiblings, but may be used in any normal scenarios as long as the devices are present. Therefore it satisfies the availability property.
+	% Picosiblings: Usability
+	% TODO: 
+	% 	- why doesn't it offer recovery-from-loss? expand!
+	%
+	The scheme doesn't require from its owner any known secret and therefore is ``memorywise-effortless''. Since it relies on other devices other than the token it does not offer the ``nothing-to-carry'' property. The original paper by Bonneau marks Pico as not ``easy-to-learn'' due to Picosiblings management, which is a characteristic of the unlocking mechanism. It is quasi-``efficient-to-use'' and has quasi-``infrequent-errors'' until proven otherwise. It does not offer the ``easy-recovery-from-loss'' property. The unlocking mechanism relies only on radio communication with the token. This makes it invariable to external factors therefore offering the ``availability'' property.
 	
-	The original paper marks Pico with the Picosiblings scheme as not accessible. We will assume the property transfers to the unlocking mechanism as well. The negligible-cost-per-user property is not satisfied due to presumably expensive embedding of Picosiblings in everyday items. The scheme was not used in any open source projects and is at the stage of a prototype, having very little user testing. For this reason the scheme does not satisfy the mature property. Since this is an academic research project, no royalties need to be paid in order to implement the scheme. Therefore the scheme is non-proprietary.
+	% Picosiblings: Deployability
+	The original paper marks Pico as not ``accessible'' due to the coordinated use of camera, display, and buttons. However, the Picosiblings are ``accessible'' because they are embedded in everyday accessories that any user can wear. Pico doesn't aim to satisfy the ``negligible-cost-per-user'' property, and since no realistic Picosiblings cost estimate exists we will consider the property is not offered. The scheme is at the stage of a prototype, with no external open source contributions, and little user testing. For these reasons it is not considered to be ``mature''. Frank Stajano states in his paper \cite{stajano2011pico} that the design of Pico and Picosiblings are not patented, and no royalties are due. The only requirement for implementing the design is to cite the paper, which makes the unlocking mechanism ``non-proprietary''.
 	
-	Since it does not rely on any user input it is resilient-to-physical-observations. In disagreement with the original Pico assessment by the authors, since anyone in the possession of the Picosiblings may unlock the Pico it is not resilient-to-targeted-impersonation. It is however resilient-to-throttled-guessing and resilient-to-unthrottled-guessing due to the communication protocol described by Stajano in his paper \cite{stajano2011pico} as well as the resurrecting ducklings protocol \cite{stajano2000resurrecting}. Due to the use of cryptography is is also resilient-to-internal-observations, and if lost the data is unlinkable to its owner. The scheme was designed to provide continuous-authentication. Since the mechanism offers secrets which keep the master key as either locked or unlocked, it does not satisfy the multi-level-unlocking property.
-
+	% Picosiblings: Security
+	% TODO:
+	%	- ask about Picosiblings protocol and fill in the reason for resilient-to-targeted-impersonation
+	%
+	Since the scheme does not rely on any user input it is ``resilient-to-physical-observations''. Based on the description of Picosiblings given by Stajano \cite{stajano2011pico} the scheme offers the ``resilient-to-targeted-impersonation'', ``resilience-to-throttled-guessing'', and ``resilient-to-unthrottled-guessing'' properties. Any attacker which comes in possession of the Picosiblings may unlock the Pico. Therefore the scheme is not ``resilient-to-theft''. Each Picosibling only works with one verifier (its master Pico), and therefore offers the ``unlinkable'' property. The scheme was designed to provide continuous-authentication''. Because of the k-out-of-n master key reconstruction mechanism, Picosiblings only provide the locked or unlocked states and therefore do not offer ``multi-level-unlocking''. The scheme does not satisfy the ``non-disclosability'' property. The owner is free to disclose authentication credentials simply by giving their Picosiblings.
+	
+	%
+	%	PIN
+	%=======================================================
+	%
 	\subsection{PIN}
 	PIN should be viewed as passwords with a severely limited subset of characters. Additional protection comes from steep security measures when the PIN authentication has failed. As an example, for mobile phones typing 3 wrong PINs would lock your SIM card. A lot of the PIN properties should however be similar with those offered by passwords.
 	
