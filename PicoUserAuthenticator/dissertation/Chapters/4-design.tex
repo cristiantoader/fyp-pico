@@ -6,62 +6,88 @@
 
 \lhead{Chapter 3. \emph{Design}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
-%----------------------------------------------------------------------------------------
-%	SECTION 1
-%----------------------------------------------------------------------------------------
-
 \section{Proposed design}
-%introduction with needs
-The design proposed by Stajano \cite{stajano2011pico} requires Pico's  locking and unlocking mechanism to be performed without the use of any password mechanisms. Furthermore support needs to be added for continuous authentication. What this means is that Pico needs to detect the presence of the user in a non obtrusive way.
+% Motivation for design
+The framework evaluation of Picosiblings provides insight as to how the scheme can be improved. We identify as a key downside that it does not guarantee the identity of the owner. This information is mainly inferred from the number of Picosibling shares the user has. However, anyone may be in the possession of the shares, therefore being granted full temporary authentication privileges. This is reflected in the evaluation by failing to fully offer the `resilient-to-theft'' and ``non-disclosability'' properties. A further improvement can be made by introducing ``multi-level-unlocking'', allowing for multiple levels of authentication depending on the confidence in the owner's presence.
 
-% combine multiple auth mechanisms
-Given these properties, my idea is to combine multiple continuous authentication mechanisms in order to compute a confidence level. If the confidence level is satisfactory then the Pico is notified that the owner is present and becomes unlocked. This would provide a non-obtrusive continuous authentication mechanism that would suit the Pico requirements for satisfying its claims.
+% Pico properties that need to be maintained
+The Pico design proposed by Stajano \cite{stajano2011pico} claims two properties that also need to be supported by the token unlocking mechanism: the authentication process is memory effortless; and the unlocking scheme needs to support continuous authentication\footnote{Continuous authentication is defined by the ability to re-authenticate the user without the need for any physical effort.}. These features need to be satisfied when designing the new token unlocking mechanism.
+
+% combine multiple authentication mechanisms
+The idea explored in this dissertation project is to simultaneously use multiple continuous authentication mechanisms. Each mechanism needs to provide a quantifiable confidence level which will be used in calculating a combined score. This satisfies the memoryless and continuous authentication properties required by Pico. By combining mechanisms we achieve a higher confidence of correctly identifying the owner. Furthermore, given that each individual mechanism supports continuous authentication, using them simultaneously does not create any inconvenience for the owner.
+
+% multi-level unlocking model
+The Pico token should no longer enter a general locked or unlocked state. Its most important secret, the ``Pico Master Key'' should be kept in tamper resistant memory, and be accessible at all times. Using the overall score computed by the proposed mechanism, Pico should offer granular user authentication. Each user account needs to be associated with a confidence level defined by the app during the registration process. If the overall confidence level of the unlocking mechanism exceeds the app's confidence level, then the token becomes ``unlocked'' for that specific app. All authentication sessions between Pico and apps need to be managed independently based on this model.
 
 % examples  of authentication mechanisms
-Since the process needs to be continuous and non-obtrusive, most of the mechanisms rely on biometric data such as iris recognition, face recognition, voice recognition, gait recognition, and others. Another source of data would be the user's location compared with previous history, and other patterns that give with a certain confidence whether the owner is in the presence of the Pico.
+The scheme should achieve continuous authentication, while correctly identifying the owner of the token. For this reason we have decided that authentication mechanisms combined in the scheme need to be based either on biometrics or behavioural analysis. Biometric features that can be used with this scheme include iris, face, voice, and gait. Behavioural sources of data can be obtained from frequent GPS location, travel paths, wireless network connections, and others.
 
 % how it is different than simple biometrics
-The approach offered by this project is different from simply stating that Pico is using biometric data as an unlock mechanism. The novelty in this design is based on how the data is combined in order to compute the owner confidence level. Each is assigned a different weight based on the level of trust it offers in identifying the user. This doesn't necessarily need to be the precision of the mechanism but it would be a good indicator for choosing a value.
+The solution offered in this project is different from simply stating that Pico is using biometric data as an unlocking mechanism. The novelty in the design is based on how data is combined in order to compute the overall confidence level. All mechanisms are assigned a different initial weight based on the level of trust it offers in identifying the owner. This doesn't necessarily need to be related to the precision of the mechanism, but it would be a good indicator for choosing a value.
 
-% decaying confidence
-Just as the Picosiblings solution, the Pico may have a wide range of supported biometric inputs. However, not all data is always available or relevant. As an example gait recognition would only work while the user is travelling on foot. Other biometrics such as iris recognition may not always be available based on how the sensors are integrated and carried by the user. For this reason all mechanisms will have a decaying confidence level which decreases in time from the last successful recording.
+% decaying weight
+Data samples captured for the owner authentication process are not always meaningful. For example, accelerometer values for gait recognition are only usable when the user is travelling on foot. Depending on how the sensors are integrated with the Pico, camera input for face recognition may not always capture a valid image. The confidence of each mechanism should therefore decrease in time from the last valid authentication sample. This introduces another original feature of this scheme, which is having a decaying weight. Each mechanism starts with a predefined initial value, reflecting the weight of the mechanism in the overall unlocking process. This value is decreases in time until a valid user data sample is provided to the mechanism for authentication. 
 
 % example of decaying confidence
-Let us take for example voice recognition which would be sampled every minute. The current weight of the mechanism is 0 so its output is completely ignored. The next sample is recorded showing a confidence of 70\% that the owner is present. Upon this recording, the mechanism weight is updated to it's original value. For the next 10 minutes the owner will be silently reading. Since the mechanism does not manage to identify any voice present, the weight of the mechanism decays. The overall result will be impacted less by the voice recognition mechanism up to the point that the recording will be so old, it will no longer be taken into account, or a new successful identification will be performed.
+Let us take for example a voice recognition mechanism which samples data every minute. The current weight of the mechanism is 0 so its output is completely ignored. The next sample is recorded, and the voice recognition mechanisms outputs a confidence of $70\%$ that the owner is present. After the successful recording, the mechanism weight is updated to its predefined starting value of 30. For the next 10 minutes the owner will be silently reading a book. Since the mechanism only identifies background noise, the weight value of 30 decreases in time. This will induce a smaller impact of the voice recognition mechanism on the overall score. The confidence of each mechanism can decrease up to 0, at which point the mechanism is ignored. Computing the overall score will be explained in more detail later in the chapter.
 
 % Bayesian update
-Each mechanism outputs a probability that the recorded data represents the owner of the token. Upon each recording, this probability is updated using Bayes' Law. This process is also known as a Bayesian update. The equation is described below:
+Each mechanism outputs a value, which is the probability that the sample data belongs to the owner of the token. Upon each recording, this probability is updated using Bayes' Law. This process is also known as a Bayesian update. The equation is described below:
 
-$$P(H|E) = \frac{P(H) * P(E|H)}{P(E)}$$
+\begin{equation} 
+\label{eq:bayes1}
+P(H|E) = \frac{P(H) * P(E|H)}{P(E)}
+\end{equation}
 
 In the equation above:
 \begin{itemize} 
-	\item $P(H|E)$ represents the probability of hypothesis $H$ after observing evidence $E$; this is also known as the posterior probability. 
-	\item $P(H)$ represents the probability of hypothesis $H$ before observing evidence $E$; this is also known as the prior probability.
-	\item $P(E|H)$ represents the probability that the current evidence belongs to hypothesis $H$.
-	\item $P(E)$ is the model evidence, and has a constant value for all hypothesis.
+	\item E: Stands for evidence and in this case represents the data sample.
+	\item H: Stands for hypothesis. In this case we refer to the hypothesis that the owner is present.
+	\item $P(H|E)$: Represents the probability of hypothesis $H$ after observing evidence $E$. This is the final probability we are trying to compute after each sample. It is also known as the posterior probability. 
+	\item $P(H)$: Represents the probability of hypothesis $H$ before observing evidence $E$. This is also known as the prior probability and is the probability computed at the previous step.
+	\item $P(E|H)$: Represents the probability that the current evidence belongs to hypothesis $H$. It is the probability outputted by the biometric mechanism given the sample data.
+	\item $P(E)$: This is the model evidence, and has a constant value for all hypothesis.
 \end{itemize}
 
-We will use the ``Law of total probability'' in order to compute the value of $P(E)$ in order to accurately compute the posterior probability. The formula is the following:
+Although $P(E)$ is constant we need its value in order to calculate $P(H|E)$. We can compute it using the ``Law of total probability'', which is the following:
 
-$$P(E) = \sum_{n}^{}P(E|H_n) * P(H_n)$$
+\begin{equation} 
+\label{eq:lotp}
+P(E) = \sum_{n}^{}P(E|H_n) * P(H_n)
+\end{equation}
 
-Using this the Bayes' Law equation becomes:
-$$P(H|E) = \frac{P(H) * P(E|H)}{\sum_{n}^{}P(E|H_n) * P(H_n)}$$
+Using equation \ref{eq:lotp} the Bayes' Law equation \ref{eq:bayes1} becomes:
+\begin{equation} 
+\label{eq:bayes2}
+P(H|E) = \frac{P(H) * P(E|H)}{\sum_{n}^{}P(E|H_n) * P(H_n)}
+\end{equation}
 
-Our model however, contains only two hypothesis: the recording of the data either belongs to the user, or not. We can therefore consider $P(H)$ to be the hypothesis that the data belongs to the owner and $P(~H)$ that the data belongs to someone else. Obviously the value of $P(~H)$ is $1 - P(H)$ and $P(E|~H) = 1 - P(E|H)$ Using this information, the rule for updating mechanism probability that the recording belongs to the user becomes:
+Our model however, contains only two hypothesis\footnote{Arguably there is a third case where the data sample is not a valid recording of an user. This is ignored and no probability is computed. The only result in this case would be a decay in the weight of the mechanism.}: the recording of the data either belongs to the owner, or not. We can therefore consider $P(H)$ to be the hypothesis that the data belongs to the owner and $P(~H)$ that the data belongs to someone else. Obviously the value of $P(\neg H)$ is $1 - P(H)$ and $P(E|\neg H) = 1 - P(E|H)$ Introducing these values in equation \ref{eq:bayes2}, the rule for updating the mechanism's probability becomes:
 
-$$P(H|E) = \frac{P(H) * P(E|H)}{P(H) * P(E|H) + P(~H) * P(E|~H)}$$
+\begin{equation} 
+\label{eq:final}
+P(H|E) = \frac{P(H) * P(E|H)}{P(H) * P(E|H) + P(\neg H) * P(E|\neg H)}
+\end{equation}
+
+Equation \ref{eq:final} represents the final probability that the owner is present given the sampled data. All the variables in this equation are known, for reasons explained above.
 
 % Overall confidence
-Now that we have shown how mechanism probability is calculated, and know that each mechanism has a decaying weight based on the last recording time we can continue to calculate the overall confidence of the Pico. This is performed quite trivially using a weighted sum. The following equation shows the process:
+% 	TODO: update this to have wii and wid (decayed and initial), as well as above when describing the decay rate
+Thus far we have defined how individual scores are calculated, and that each mechanism has a decaying weight. Using this data we can calculate the overall score of the scheme. This is performed quite trivially by using a weighted sum. Equation \ref{eq:overall} describes the process. 
 
-$$P_{Total} = \frac{\sum_{i=1}^{n}(w_i * P_i(H|E_i))}{\sum_{i=1}^{n}w_i}$$
+\begin{equation} 
+\label{eq:overall}
+P_{Total} = \frac{\sum_{i=1}^{n}(w_ii * P_i(H|E_i))}{\sum_{i=1}^{n}w_id}
+\end{equation}
 
-The result is then compared with the minimum threshold required by Pico. If the requirement is satisfied, the user is granted access for the current app authentication. Due to the continuous authentication property, the Pico token will continue to ask its authenticator whether the confidence level is still satisfied. Based on the decay rate of the weights and the input data available of the authenticator's mechanisms this will constantly be recalculated.
+
+
+
+% TODO: CONTINUE HERE
+The result is sent to Pico in order to adjust the state of current authentication sessions. If score required by the app is lower than the overall score provided by the scheme, the user is granted authentication access. Given the continuous authentication property, the Pico token will continue to ask its authenticator whether the confidence level is still satisfied. Based on the decay rate of the weights and the input data available of the authenticator's mechanisms this will constantly be recalculated.
 
 % Explicit authentication mechanisms
-At some point the confidence level required by Pico might be too high for the authenticator to grant access. As an example the owner will want to access it's bank account after being silent in a dark room for the past hour. Let us say this would require a confidence level of 95\%, while the authenticator may only output a 20\% confidence that the user is still present. Given the circumstances, an explicit authentication mechanism may be required from the user in order to increase the current confidence level. 
+At some point the confidence level required by Pico might be too high for the authenticator to grant access. As an example the owner will want to access it's bank account after being silent in a dark room for the past hour. Let us say this would require a confidence level of $95\%$, while the authenticator may only output a $20\%$ confidence that the user is still present. Given the circumstances, an explicit authentication mechanism may be required from the user in order to increase the current confidence level. 
 
 % Combining explicit authentication mechanisms
 Combining explicit authentication with the current design can be performed consistently with the continuous authentication mechanisms. Whenever an explicit authentication is required, the only difference will be the fact that the user becomes aware of the authentication process. They are prompted to pass an authentication challenge (i.e. facial recognition, voice recognition). This would guarantee valid input for the authenticator which may then proceed to compute an accurate score.
@@ -280,16 +306,16 @@ Let us briefly discuss any issues using the availability-integrity-confidentiali
 	No known attacks on data confidentiality other than capturing sensor data just as the authenticator would. However this would be possible with or without the Pico being present.
 
 \section{Related work}
-Clarke et al write in their paper \cite{clarke2005authentication} a few interesting concepts strongly related to the design proposed in this dissertation. They conduct a couple of surveys trying to assess the reliability of a PIN as an authentication mechanism for a mobile phone. In a study involving 297 participants, they assess the use of mobile phone devices in day to day life, existing authentication mechanisms, and the users' attitude towards further security options. The paper reveals a number of bad practices with PIN authentication such as 45\% never changing the default factory code, 42\% only changing it once after buying the device, weakness due to reusing the PIN in other authentications, forgetting the pin, and sharing the PIN with someone else.
+Clarke et al write in their paper \cite{clarke2005authentication} a few interesting concepts strongly related to the design proposed in this dissertation. They conduct a couple of surveys trying to assess the reliability of a PIN as an authentication mechanism for a mobile phone. In a study involving 297 participants, they assess the use of mobile phone devices in day to day life, existing authentication mechanisms, and the users' attitude towards further security options. The paper reveals a number of bad practices with PIN authentication such as $45\%$ never changing the default factory code, $42\%$ only changing it once after buying the device, weakness due to reusing the PIN in other authentications, forgetting the pin, and sharing the PIN with someone else.
 
-The paper \cite{clarke2005authentication} however shows that 83\% of users are willing to accept some sort of biometric authentication mechanism in order to unlock their devices. The mechanisms included in the study ranked by popularity by an IBG study \cite{} are: fingerprint analysis, voice recognition, iris recognition, hand recognition, keystroke analysis \cite{clarke2003using}, and face recognition. The paper also talks about continuous authentication, showing that 61\% of users would accept a non intrusive biometric continuous authentication mechanism. Combining multiple biometric for continuous authentication is mentioned briefly, but from the perspective of having each active sequentially based on the current user task, which is a divergence point from what we are trying to achieve in this dissertation.
+The paper \cite{clarke2005authentication} however shows that $83\%$ of users are willing to accept some sort of biometric authentication mechanism in order to unlock their devices. The mechanisms included in the study ranked by popularity by an IBG study \cite{} are: fingerprint analysis, voice recognition, iris recognition, hand recognition, keystroke analysis \cite{clarke2003using}, and face recognition. The paper also talks about continuous authentication, showing that $61\%$ of users would accept a non intrusive biometric continuous authentication mechanism. Combining multiple biometric for continuous authentication is mentioned briefly, but from the perspective of having each active sequentially based on the current user task, which is a divergence point from what we are trying to achieve in this dissertation.
 
-A similar paper \cite{clarke2002acceptance} written by Clarke et al studies the need for mobile phone authentication mechanisms alternative to the PIN. The authors conduct a survey with interesting results. A remarkable 11\% of participants were not even aware of the PIN authentication method used for unlocking a mobile phone. An average of 81\% of participants agree that different mechanisms should be used, which provide more security. Subscribes have reported both the need and desire for using alternative authentication mechanisms, but at the same time many of them do not use available alternatives available today. More details regarding the study can be found in the original paper \cite{clarke2002acceptance}.
+A similar paper \cite{clarke2002acceptance} written by Clarke et al studies the need for mobile phone authentication mechanisms alternative to the PIN. The authors conduct a survey with interesting results. A remarkable $11\%$ of participants were not even aware of the PIN authentication method used for unlocking a mobile phone. An average of $81\%$ of participants agree that different mechanisms should be used, which provide more security. Subscribes have reported both the need and desire for using alternative authentication mechanisms, but at the same time many of them do not use available alternatives available today. More details regarding the study can be found in the original paper \cite{clarke2002acceptance}.
 
 % TODO: could maybe do more on this paper, check notes.
 Gregory Williamson writes in his PhD dissertation \cite{williamson2006enhanced} about the need for an enhanced security authentication mechanism for on-line banking. He proposes a multi-factor authentication model, and presents two interesting options: the traditional one where both authentications are required in the multi-factor model (blanket authentication), and one where the second authentication mechanism is only requested from the user if the transactions appears to be risky (risk mode authentication). A risky situation is defined as either an important transaction such as withdrawing money, or a transaction made under unusual circumstances such as from an unknown device. 
 
-A similar approach to the risk mode authentication presented by Williamson \cite{williamson2006enhanced} is proposed in this project. Our scheme yields a confidence level which may on may not be sufficient to unlock the Pico based on the current active transactions. Similarly, if the confidence level is not high enough, an explicit authentication mechanism will prompt the user for input. As the dissertation by Williamson shows, 75\% of users questioned in his study agree with having biometric authentication as a secondary mechanism. This shows promising results in adopting our scheme for token unlocking purposes.
+A similar approach to the risk mode authentication presented by Williamson \cite{williamson2006enhanced} is proposed in this project. Our scheme yields a confidence level which may or may not be sufficient to unlock the Pico based on the current active transactions. Similarly, if the confidence level is not high enough, an explicit authentication mechanism will prompt the user for input. As the dissertation by Williamson shows, $75\%$ of users questioned in his study agree with having biometric authentication as a secondary mechanism. This shows promising results in adopting our scheme for token unlocking purposes.
 
 Elena Vildjiounaite et al describe in their paper \cite{vildjiounaite2007increasing} a similar mechanism of combining biometric authentication data on mobile phone devices. The authors identify the security downside of granting authentication for a long time after a single verification challenge, which is the case for password based systems. They explore an alternative based a two stage risk mode authentication \cite{williamson2006enhanced}. The first stage combines biometric data in order to achieve continuous authentication. This is achieved by training a cascade classifier to a target false acceptance rate (FAR) using as data a weighted sum fusion rule. Mechanism weights are chosen based on total error rates. The second stage is only enabled if the cascade classifier does not identify the owner as being present. In low noise scenarios 80\% of the time continuous authentication is achieved without the need for an explicit challenge. In noisy situations (city and car noise), 40 to 60\% of authentication is obtained in a unobtrusive way. The cascade classifier was trained with a FAR of 1\%, with results showing a false rejection rate (FRR) of only 3 - 7\%.
 
