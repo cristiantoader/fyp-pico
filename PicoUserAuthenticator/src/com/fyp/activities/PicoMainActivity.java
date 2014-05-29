@@ -54,6 +54,7 @@ public class PicoMainActivity extends Activity {
 
 		findViewById(R.id.ButtonVoice).setOnClickListener(buttonAudioListener);
 		findViewById(R.id.ButtonFace).setOnClickListener(buttonFaceListener);
+		findViewById(R.id.ButtonLocation).setOnClickListener(buttonLocationListener);
 	}
 
 	@Override
@@ -64,13 +65,13 @@ public class PicoMainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		doBindService();
+//		doBindService();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		doUnbindService();
+//		doUnbindService();
 	}
 
 	private void doBindService() {
@@ -138,6 +139,13 @@ public class PicoMainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			startActivity(new Intent(PicoMainActivity.this, FaceActivity.class));
+		}
+	};
+	
+	View.OnClickListener buttonLocationListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			startActivity(new Intent(PicoMainActivity.this, LocationActivity.class));
 		}
 	};
 

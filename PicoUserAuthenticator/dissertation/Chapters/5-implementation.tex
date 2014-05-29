@@ -98,12 +98,10 @@ We have briefly presented the Android development model, existing mechanisms, an
 The Android user authenticator prototype is designed to work as a bound service called UAService\footnote{The name of the class stands for User Authentication Service}. The service collects data from each mechanism and computes the final authentication confidence level. The result is provided to clients either by an explicit request or through periodic broadcasts.
 
 % Mention independent services for each mechanism and why
-Each authentication mechanism may have a different requirement for sampling and processing data. As an example, voice recognition may gather optimal data during a call\footnote{Call events can be intercepted by registering a listener for the PHONE\_STATE event}, while face recognition when the phone screen is unlocked. Therefore, to enable more flexibility in the individual mechanisms' implementation, we have chosen each to be developed as an independent service. 
+Each authentication mechanism may have a different requirement for sampling and processing data. As an example, voice recognition may gather optimal data during a call\footnote{Call events can be intercepted by registering a listener for the PHONE\_STATE event}, while face recognition when the phone screen is unlocked. Therefore, to enable more flexibility in the individual mechanisms' implementation, we have chosen each to be developed as an independent service.
 
-% TODO: Management of authentication mechanisms
-Each authentication mechanism service is started and managed by UAService. Communication between UAService and each authentication mechanism is enabled through intents. Requests can be made from each individual authentication mechanism in order to get the current confidence level. This value is equal to the probability that the owner is present, multiplied by the weight carried by the mechanism. Given that each mechanism runs as an independent service, weight decay may easily be performed using an AlarmManager or simply a function which is called periodically within the authentication thread.
-
-On predefined time intervals UAService acquires the confidence level and weight from each mechanism. Using this data it then calculates the overall result according to the design in section \ref{authfeedback}. If the result is above the threshold requested by the Pico client, a ``Message'' is passed back saying that Pico should unlock. Otherwise a negative result is returned, letting the Pico know it should be locked. 
+% Management of authentication mechanisms
+UAService communicates with the authentication mechanisms by binding on each service. This allows message passing using a ServiceConnection object. On predefined time intervals UAService acquires the confidence level and weight of each mechanism. Using this data it then calculates the overall result according to the design in section \ref{authfeedback}. Feedback is sent back to each registered client for interpretation.
 
 \section{Implementation details}
 

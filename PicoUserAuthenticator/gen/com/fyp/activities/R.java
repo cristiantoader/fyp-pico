@@ -25,33 +25,38 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int Button01=0x7f070006;
-        public static final int Button03=0x7f070007;
-        public static final int ButtonFace=0x7f07000a;
+        public static final int Button01=0x7f070009;
+        public static final int Button03=0x7f07000a;
+        public static final int ButtonFace=0x7f07000d;
         public static final int ButtonFaceCapture=0x7f070002;
-        public static final int ButtonRecognitoRecord=0x7f07000c;
-        public static final int ButtonRecognitoTest=0x7f07000d;
-        public static final int ButtonVoice=0x7f070009;
-        public static final int LinearLayout1=0x7f070003;
+        public static final int ButtonLocation=0x7f07000e;
+        public static final int ButtonLocationStart=0x7f070005;
+        public static final int ButtonLocationStop=0x7f070006;
+        public static final int ButtonRecognitoRecord=0x7f07000f;
+        public static final int ButtonRecognitoTest=0x7f070010;
+        public static final int ButtonVoice=0x7f07000c;
+        public static final int LinearLayout1=0x7f070004;
         public static final int LinearLayoutRecognito=0x7f070000;
         public static final int camera_preview=0x7f070001;
-        public static final int fullscreen_content_controls=0x7f070005;
-        public static final int fullscreen_content_controls2=0x7f070008;
-        public static final int text=0x7f070004;
-        public static final int timer1=0x7f07000b;
+        public static final int fullscreen_content_controls=0x7f070008;
+        public static final int fullscreen_content_controls2=0x7f07000b;
+        public static final int text=0x7f070007;
+        public static final int timer1=0x7f070003;
     }
     public static final class layout {
         public static final int activity_face=0x7f030000;
-        public static final int activity_pico_main=0x7f030001;
-        public static final int activity_recognito=0x7f030002;
+        public static final int activity_location=0x7f030001;
+        public static final int activity_pico_main=0x7f030002;
+        public static final int activity_recognito=0x7f030003;
     }
     public static final class string {
-        public static final int Capture=0x7f04000a;
+        public static final int Capture=0x7f04000b;
         public static final int Face=0x7f040006;
-        public static final int Play=0x7f040008;
+        public static final int Location=0x7f040007;
+        public static final int Play=0x7f040009;
         public static final int Recognito=0x7f040005;
-        public static final int Record=0x7f040007;
-        public static final int Test=0x7f040009;
+        public static final int Record=0x7f040008;
+        public static final int Test=0x7f04000a;
         public static final int app_name=0x7f040000;
         public static final int dummy_button=0x7f040001;
         public static final int pause=0x7f040003;
