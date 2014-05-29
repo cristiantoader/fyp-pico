@@ -6,20 +6,104 @@
 
 \label{Chapter4} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-\lhead{Chapter 4. \emph{Implementation Prototype}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
+\lhead{Chapter 4. \emph{Implementation Prototype}} 
+% Introduction for implementation
+In this chapter we will develop a prototype for the scheme proposed in section \ref{propopsedsol}. Just as presented by Stajano \cite{stajano2011pico}, smart phones offer a cheap alternative to prototype and test. Therefore, we have chosen as an implementation platform the Android Nexus 5 hand held device. It offers enough sensors to perform biometric and behavioural analysis\footnote{The full range of sensors supported by the Android platform can be found here: http://developer.android.com/guide/topics/sensors/sensors\_overview.html (accessed on 28.05.2014)}. These resources will be used to demonstrate that the scheme can be implemented using similar dedicated hardware that may offer more security features.
 
-Thus far we have developed a new Pico authentication scheme and assessed it using our own token unlocking framework. We then have performed a threat model from an availability, integrity, and confidentiality perspective and have suggested the safest implementation which would be as feasible as possible for the user to adopt.
+% Android
+\subsection{Android development and security}
+% Introduction to android security and dev model
+%	TODO: could rephrase a bit...
+To gain a better understanding of different design decisions and limitations of our implementation, we will present a brief literature review of the Android development platform. Mechanisms and components will be described with an emphasis on security. The prototype developed for this dissertation is a proof of concept. However, we still aim to make proper use of available security mechanisms. 
 
-In this chapter we will described design and implementation details for the prototype of the proposed scheme. The implementation platform will be the Android OS, which uses a Java based SDK for application development.
+% First paper: introduction
+William Enck et al \cite{enck2009understanding} offer a good introduction to Android application development. They focus on the security aspects of the platform. It is a relatively old paper (2008), from the same year of the Android initial release. However, the fundamental design principles and security concepts that are discussed did not change significantly. The platform's open standards were made public in November 2007. This allowed researchers such as the authors of this paper to perform a pre-release analysis of the system.
+
+% First paper: OS short description
+Android uses as a core operating system a port of the Linux kernel. This introduces to the platform some of the Linux security mechanisms (i.e. file permissions, access control policies). On top of the kernel there is an application middleware layer composed out of the Java Dalvik virtual machine, core Java application libraries, as well as libraries which offer support for storage, sensors, display, and other device features. Applications are supported by the middleware and developed using the Android Java SDK.
+
+% First paper: Android components
+The Android development model is based on building an application from multiple components. Based on their purpose, the SDK defines four types of components: activity, service, content provider, and broadcast receiver. For the purpose of brevity we will not discuss each individual component\footnote{More details on the role of each component can be found on the Android website: http://developer.android.com/guide/components/fundamentals.html}.}. To allow meaningful interaction, Inter Component Communication (ICC) is enabled using special objects called Intents.
+
+% First paper: binding services
+The application we are developing needs to perform most of its processing in the background. It does not require any explicit user interaction. According to the Android model, this should be achieved using Services. To enable convenient component interaction, services may become bound for message passing. An important note made in the paper is that while a Service is bound, it cannot be terminated by an explicit stop action. This provides an useful guarantee regarding its lifetime that we will use in the prototype.
+
+% First paper: security enforcements, system level
+The paper discusses two types of Android security enforcements: ICC and system level. System level security is based on the Linux permission model. Each app is associated with an UID and GID. This allows internal storage access control restrictions, keeping application data sandboxed from other applications.
+
+% First paper: security enforcements, ICC
+% 	TODO: too vague, can expand and cite something
+ICC security is the main focus of the paper. Intent communication is based on commands sent to the ``/dev/binder'' device node. The node needs to be world readable and writeable by any application. Therefore, Android cannot mediate ICC using the Linux permissions model. Security relies on a Mandatory Access Control (MAC) framework enforced by a reference monitor. This mechanism validates requests sent to the ``/dev/binder'' node. 
+
+% Manifest file
+During development, each application needs to define a manifest file\footnote{Full details regarding the manifest file can be found on the Android website: http://developer.android.com/guide/topics/manifest/manifest-intro.html}. Some of the security configurations defined in this file are: declared components and their capabilities, permissions required the app, and permissions other apps need to have in order to interact with app components. These entries are used as labels for the MAC framework. 
+
+% First paper, types of components: public/private.
+Using the app manifest file, each component can be defined as either public or private. This refinement is configured by the ``exported'' field. It defines whether or not another application may launch or interact with one of its components. When this paper was written, the ``exported'' field was defaulted to ``true''. However, as shown by Steffen and Mathias \cite{liebergeld2013android}  in 2013, starting with Android 4.2  the default of this value was changed to ``false'', and now conforms to the ``principle of least privilege''.
+
+% First paper, Intent filters
+Components listening for Intents need to have an intent-filter registered in the application manifest file. This allows them to export only a limited set of intents to other applications. Further restrictions to Intent objects are offered by the SDK using permission labels. This mechanism provides runtime security checks for the application. It is an additional prevention mechanism for data leaks through ICC. An application may broadcast an event throughout the system. By using permission labels, only applications that have the respective permission may have access to the event. Furthermore, Services may check for permissions when they are bound by another component. This allows them to expose different APIs depending on the binder.
+
+% Paper two!
+Steffen and Mathias \cite{liebergeld2013android} focus on deeper issues of the Android platform. They show and how problems are solved from one Android version to the other. However, OEMs tend not to update the software of their devices once they have shipped, which poses a number of security issues.
+
+The starting point of understanding Android security and how it is bootstrapped is the five step booting process:
+\begin{enumerate}
+	\item Initial bootloader (IBL) is loaded from ROM.
+	\item IBL checks the signature of the bootloader (BL) and loads it into RAM.
+	\item BL checks the signature of the linux kernel (LK) and loads it into RAM.
+	\item LK initialises all existing hardware and starts the linux ``init'' process.
+	\item The init process reads a configuration file and boots the rest of LA.
+\end{enumerate}
+
+The android security model is split by the paper in two categories: system security, and application security.
+
+% keychain encryption and security
+Android provides a keychain API used for storing sensitive material such as certificates and other credentials. These are encrypted using a master key, which is stored using AES encryption. Security needs to begin somewhere. An assumption has to be made about a state being secure from which multiple security extensions can be made. In this case, the master key is considered to be that point of security. However, given a rooted device, the master key itself may be retrieved from the system therefore compromising all other credentials. The Android base system (libraries, app framework, and app runtime) is located in the ``system'' partition. Although it is writeable only by the root user, exploits which grant this privilege exist. 
+
+% Same author, shared privileges
+From the user's perspective, an interesting ``feature'' which may affect the flow of information within Android is the fact that applications from the same author may share private resources. When installing an application the user needs to accept its predefined set of permissions. Due to resource sharing, a situation may present itself when an application that has permissions for the owner's contacts may communicate with an application that has permissions for internet in order to leak confidential data. A developer may therefore construct pairs of legitimate applications in order to mask a data flow attack.
+
+% Android low level security
+The Android OS offers a number of memory corruption mitigations in order to avoid buffer overflow attacks, or return oriented programming. The following list 
+presents these low level security mechanisms:
+\begin{itemize}
+	\item Implements mmap\_min\_addr which restricts mmap memory mapping calls. This prevents NULL pointer related attacks.
+	\item Implements XN (execute never) bit to mark memory as non-executable. The mechanism prevents attackers from executing remote code.
+	\item Address space layout randomisation(ASLR) implemented starting with Android 4.0. This is a first step to preventing return oriented programming attacks. The memory location of the binary library itself is however static. After a number of attempts using trial and error, the attacker may succeed using return oriented programming.
+	\item Position independent and randomised linker(PIE) is implemented starting with Android 4.1 to support ASLP. This makes the memory location of binary libraries to be randomised.
+	\item Read only relocation and immediate binding space(RELro) was implemented starting with Android 4.1. It solves an ASLR issue where an attacker could modify the global offset table (GOT) used when resolving a function from a dynamically linked library. Before this update an attacker may insert his own code to be executed using the GOT table.
+\end{itemize}
+
+% On device bouncer
+A number of application security mechanisms are in place to make Android a safer environment for its users. A program also known as a ``on device Bouncer'' prevents malware to be distributed from within the Android App store (Google Play). The purpose of the bouncer is to verify apps prior to installation by checking for malware signatures and patterns. Secure USB debugging was introduced starting with Android 4.4.2. This only allows hosts registered with the device to have USB debugging permissions. The mechanism is circumvented if the user does not have a screen lock.
+
+% The 4 big issues with android and malware
+The paper presents that the Android OS is responsible for $96\%$ of mobile phone malware. The authors claim that this is the case due to 4 big issues of the Android platform:
+\begin{enumerate}
+	\item Security updates are delayed or never deployed. This is due to a number of approvals that an update needs to receive. This introduces an additional cost to the manufacturer (OEM), that does not generate any revenue. The majority of teams working on the Android platform are focusing on current releases. In most cases there are simply not enough resources to merge Google security updates to the OEM repository. Furthermore, the consequences of a failed OS update may cause``bricking'' of the device, which is a huge risk for the manufacturer. All these issues lead to very few security updates. Therefore, important features such as RELro are never deployed, making older Android releases vulnerable.
+	
+	\item OEMs weaken the security architecture and configuration of Android by introducing custom modifications before they roll out a device.
+	
+	\item The Android permission model is defective. According to Kelley et al \cite{kelley2012conundrum}, most users do not understand the permission dialogue when installing an application. Furthermore, even if they could understand the dialogue, most of the time it is ignored in order to use the new exciting app. According to the same study, most applications are over-privileged. This is due to developers not understanding what each privilege grants. Furthermore, as previously pointed out, applications from the same owner may share resources and implicitly privileges. This creates a valid information flow attack path. 
+	
+	\item Google Play has a low barrier for malware. A developer distribution agreement (DDA) and a developer program policy (DPP) need to be agreed to and signed by the developer before submitting the application to the Android market. However, Google Play does not check upfront if an application adheres to DDA and DDP. The application is only reviewed if it becomes suspect of breaking the agreements. Furthermore, according to \cite{percoco2012adventures} there are ways of circumventing the Bouncer program\footnote{An example of such an application is presented in an article written in Tech Republic: http://www.techrepublic.com/blog/google-in-the-enterprise/malware-in-the-google-play-store-enemy-inside-the-gates/# (visited on 29.05.2014).}. 
+\end{enumerate}
+
+% Conclusion of the section, just a summary of what we presented
+We have briefly presented the Android development model, existing mechanisms, and the security of the platform. Given this information we may proceed to present the prototype implementation of the token unlocking scheme. 
 
 \section{Authenticator design}
-The user authenticator for Android is designed to work as a bound service called UAService. Periodically the service outputs to registered Pico clients the status of the authentication process. Any application may be a client as long as it registers with the service. Furthermore, explicit authentication update requests may be performed by the Pico client.
+% Introduction with UAService
+The Android user authenticator prototype is designed to work as a bound service called UAService\footnote{The name of the class stands for User Authentication Service}. The service collects data from each mechanism and computes the final authentication confidence level. The result is provided to clients either by an explicit request or through periodic broadcasts.
 
-Since different authentication mechanisms require different update periods, we have chosen each mechanism to be represented by an independent service. This allows for more flexibility such as periodic sampling with different intervals. Another feasible use case for example would be performing voice recognition based on the first few seconds of an outgoing or incoming call. This would require a service that is triggered by a PHONE\_STATE intent.
+% Mention independent services for each mechanism and why
+Each authentication mechanism may have a different requirement for sampling and processing data. As an example, voice recognition may gather optimal data during a call\footnote{Call events can be intercepted by registering a listener for the PHONE\_STATE event}, while face recognition when the phone screen is unlocked. Therefore, to enable more flexibility in the individual mechanisms' implementation, we have chosen each to be developed as an independent service. 
 
-Each authentication mechanism service is started and managed by the UAService. Communication between the UAService and each authentication mechanism is enabled through intents. Using this communication link, requests can be made from each individual authentication mechanism in order to get the current confidence level. This value is equal to the probability that the owner is present, multiplied by the weight carried by the mechanism. Given that each mechanism runs as an independent service, weight decay may easily be performed using an AlarmManager or simply a function which is called periodically within the authentication thread.
+% TODO: Management of authentication mechanisms
+Each authentication mechanism service is started and managed by UAService. Communication between UAService and each authentication mechanism is enabled through intents. Requests can be made from each individual authentication mechanism in order to get the current confidence level. This value is equal to the probability that the owner is present, multiplied by the weight carried by the mechanism. Given that each mechanism runs as an independent service, weight decay may easily be performed using an AlarmManager or simply a function which is called periodically within the authentication thread.
 
-Either periodically UAService gets the confidence level and weight from each mechanism. It then calculates the overall result. If the result is above the threshold requested by the Pico client, a ``Message'' is passed back saying that Pico should unlock. Otherwise a negative result is returned, letting the Pico know it should be locked. 
+On predefined time intervals UAService acquires the confidence level and weight from each mechanism. Using this data it then calculates the overall result according to the design in section \ref{authfeedback}. If the result is above the threshold requested by the Pico client, a ``Message'' is passed back saying that Pico should unlock. Otherwise a negative result is returned, letting the Pico know it should be locked. 
 
 \section{Implementation details}
 
@@ -179,66 +263,7 @@ The purpose of the Pico token is to provide a robust authentication mechanism, w
 
 It is important to note that since this is a purely software implementation, physical access may mean either that the attacker is in possession of the phone, or that it may replicate the secretes of the victim's Pico on a separate device. Replicating the Pico secretes would clearly create much more damage for the user from a cost perspective. A total reset of authentication credentials would be necessary for all accounts registered with the Pico device.
 
-% Android specific security
-\subsection{Literature review: Android security}
-In order to perform a valid threat modelling of the scheme, we need to have a better understanding of the Android security model, and the ``features'' offered by different mechanisms such as Intents and filters based on these intents.
 
-An interesting paper by William Enck et al \cite{enck2009understanding} offers a good description of the Android OS, with a focus on the security aspects of the platform. It is a relatively old paper from 2008 which is the same year of the Android initial release. The initial set of Android open standards was however released sooner, in November 2007, allowing researchers such as William Enck to perform an initial analysis of the system.
-
-Android runs on a port of the Linux kernel. This means that many of the linux security mechanisms such as file permissions, are also part of Android. On top of the kernel lies an App middleware layer which the Java SDK can use in order to extends the functionality of the hand held device.
-
-Each android application is split into multiple components, with no fixed entry point such as a main() routine. Based on its purpose, the SDK defines 4 types of components: activity, service, content provider, and broadcast receivers. More details regarding the purpose of each component can be found on the Android website \cite{liebergeld2013android}. Another important architectural note is that components, and even applications, may communicate between each other using Intents. This type of communication is abbreviated as Inter Component Communication (ICC).
-
-An important note in the paper is that when a Service becomes bound by another component it cannot be terminated by an explicit stop action. This provides an useful guarantee regarding the lifetime of a service. 
-
-Th two types of security enforcements can be split into two categories: ICC and system level. System level security is mainly defined in terms of the user id (UID) and group id (GID) permissions. According to the Android OS, each is allocated an UID and GID. The security guarantees of this mechanism are the same as those of a linux based system. An interesting example would be a vulnerability of the  T-mobile G1 phone browser, which due to this system level security enforcement did not affect any other applications.
-
-The focus of the paper however is ICC security enforcements. These are based on I/O control command of the ``/dev/binder'' special node. Since the node needs to be world readable and writeable, linux cannot mediate ICC. This is performed using labels using a MAC framework enforced by a reference monitor. This defines how apps are allowed to access different components.
-
-Components may be defined as either public or private. This refinement is configured by the ``exported'' field defined in a manifest file. It defines whether or not another application may launch or interact with a component from another application. At the time the paper was written, the ``exported'' field was defaulted to ``true''. However, as shown in a more recent paper \cite{liebergeld2013android} written by Steffen and Mathias in 2013, starting with Linux Android (LA) 4.2  the default of this value was changed to ``false'', therefore conforming to the ``principle of least privilege''.
-
-Components listening for Intents need to have a registered filter in the manifest file. This is both convenient and secure for the developers of the system. If however the developer of an application wishes to restrict access to intent objects, the SDK provides user definable Intent permission labels as well as Service hooks. These provide runtime security checks for the application and prevent data leakage through ICC. Using permission labels, the developer may broadcast events to which only components which registered that permission may access. The same principle applies to service hooks, but in this case a component holding some permissions tries to bind on a service which checks these permissions and exposes different APIs based on the permissions held by the binding component.
-
-Another more recent paper was written by Steffen and Mathias \cite{liebergeld2013android}. The authors focus on deeper issues of the LA, and how they were solved from one update to the other. However, it is shown that OEMs tend not to update the software of their devices once they have shipped, which poses a number of security issues.
-
-The starting point of understanding Android security and how it is bootstrapped is the five step booting process:
-\begin{enumerate}
-	\item Initial bootloader (IBL) is loaded from ROM.
-	\item IBL checks the signature of the bootloader (BL) and loads it into RAM.
-	\item BL checks the signature of the linux kernel (LK) and loads it into RAM.
-	\item LK initialises all existing hardware and starts the linux ``init'' process \cite{SPECIFY WHAT THIS IS FROM PAPER}.
-	\item The init process reads a configuration file and boots the rest of LA.
-\end{enumerate}
-
-The android security model described in this paper \cite{liebergeld2013android} is split in two categories: system security, and application security.
-
-The android base system (libraries, app framework, and app runtime) is located in the ``system'' partition. Although this is writeable only by the root user, a number of exploits which allow root access, such as those shown in \cite{liebergeld2013android}, have been possible. Android provides a keychain API used for storing sensitive material such as certificates and credentials. These credentials are encrypted using a master key, which is also stored in AES encrypted format. In this case, security needs to begin somewhere, an assumption has to be made about a state being secure which would allow for multiple security extensions. In this case, the master key is considered to be that point of security. However, given a rooted device, where due to an exploitation a process may be granted root privileges, the master key itself may be retrieved from the system therefore compromising all other credentials.
-
-From the application's perspective, an interesting ``feature'' which may affect the flow of information within LA is the fact that applications from the same author may share private resources. When installing an application the user needs to accept its predefined set of permissions. Due to resource sharing, a situation may present itself when an application which has permissions for the owner's contacts may communicate with an application which has permissions for internet in order to leak confidential data. A developer may therefore construct pairs of legitimate applications in order to mask a data flow attack.
-
-The LA system offers a number of memory corruption mitigations in order to avoid buffer overflow attacks, or return oriented programming attacks. The following list includes mechanisms enabled in time based on the LA version:
-\begin{itemize}
-	\item Implements mmap\_min\_addr which restricts mmap memory mapping calls. This prevents NULL pointer related attacks.
-	\item Implements XN (execute never) bit to mark memory as non-executable. The mechanism prevents attackers from executing remote code.
-	\item Address space layout randomisation(ASLR) implemented starting with LA 4.0. This is a first step to preventing return oriented programming attacks. The position of the binary library itself is however static, meaning that after a number of attempts, using trial and error, the attacker may succeed using return oriented programming.
-	\item Position independent and randomised linked (PIE) is implemented starting with LA 4.1 in in support of ASLP. This makes position of binary libraries themselves randomised.
-	\item Read only relocation and immediate binding space(RELro) was implemented starting with LA 4.1. It solves an ASLR issue where an attacker could modify the global offset table (GOT) used when resolving a function from a dynamically linked library. Before this update an attacker may insert his own code to be executed through the GOT table.
-\end{itemize}
-
-A number of security enhancement mechanisms are in place in order to make Android a safer environment for its users. In order to prevent malware within the Android App store (Google Play), a program also known as a ``on device Bouncer''. The purpose of the bouncer is to verify apps prior to installation for any malware signature or patterns. Secure USB debugging was introduced starting with LA 4.4.2, which only allows hosts registered with the device to have USB debugging permissions. This mechanism is circumvented if the user does not have a screen lock.
-
-%TODO: cannot cite F-Secure Mobile Threat Report 2012
-As pointed out by Steffen and Mathias, the Android OS is responsible for 96\% of mobile phone malware according to a study from 2012 \cite{}. The authors claim that this is the case due to 4 big issues of the Android concept:
-\begin{enumerate}
-	\item Security updates are delayed or never deployed. This is due to a number of approvals that an update needs to get throug in order to be pused to devices. This implies an additional cost to the manufacturer(OEM) which does not generate any revenue. The majority of teams working on LA are focusing on current releases, and in some cases there is simply not enough time and resources to merge Google security updates to the OEM repository. Furthermore, the consequences of a failed system update for the user may cause problems as serious as ``brick''-ing the device which is a huge risk for the manufacturer. All these issues contribute to a severe lack in security updates. Therefore, important updates such as RELro are never pushed to LA 4.0, making the device vulnerable.
-	
-	\item OEMs weakens the security architecture and configuration of LA by introducing custom modifications before they roll out a device.
-	
-	\item The Android permission model is defective. As pointed out by Steffen and Mathias, according to Kelley et al \cite{kelley2012conundrum}, most users do not understand the permission dialogue when installing an application. Furthermore, even if they could understand the dialogue, most of the time it is ignored in order to be able to use a new exciting app. According to the same study, most applications are over-privileged due to the developers not understanding what each privilege does. Furthermore, as previously pointed out, applications from the same owner may share resources, therefore creating a valid data flow attack path. 
-	
-	% TODO: cite http://www.techrepublic.com/blog/google-in-the-enterprise/malware-in-the-google-play-store-enemy-inside-the-gates/#.
-	\item Google Play has a low barrier for malware. A developer distribution agreement (DDA) and a developer program policy (DPP) need to be greed to and signed by the developer before submitting the application to the Android market. However, Google Play does not check upfront if an application adheres to DDA and DDP. The application is only reviewed if suspect of breaking the agreements. According to \cite{percoco2012adventures} there are ways of circumventing the Bouncer program. An example is treated in an article \cite{} written in Tech Republic.
-\end{enumerate}
 
 \subsection{Prototype threat model}
 Let us now continue by studying the threat model of the Pico authenticator application. We will consider the security mechanisms presented above as the predefined assumptions made in this model. In order to reduce the threat space we will consider the application is running on a hand held device running Android 4.4.2 with all recent updates.

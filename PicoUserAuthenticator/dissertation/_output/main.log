@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  26 MAY 2014 20:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  28 MAY 2014 15:27
 entering extended mode
 **main
 
@@ -864,12 +864,12 @@ Chapter 1.
 
 
 ] [2]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 45.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 46.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 45.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 46.
  [3])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 Chapters/2-pico.tex [4]
@@ -914,47 +914,65 @@ Chapter 4.
 ------------------------------------------------------------------------------
 [22
 
-] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]
-[37])
+] [23] [24] [25] [26] [27] [28])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/5-implementation.tex [38]
+Chapters/5-implementation.tex [29]
 Chapter 5.
 ------------------------------------------------------------------------------
  5 Implementation Prototype
 ------------------------------------------------------------------------------
-[39
 
-] [40] [41] [42] [43] [44] [45]
-Overfull \hbox (57.55362pt too wide) in paragraph at lines 114--115
+Underfull \hbox (badness 10000) in paragraph at lines 11--11
+[][][]\OT1/cmr/m/n/9 The full range of sen-sors sup-ported by an-droid de-vices
+ can be found here:
+ []
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 14.
+
+[30
+
+] [31]
+
+Package natbib Warning: Citation `SPECIFY WHAT THIS IS FROM PAPER' on page 32 u
+ndefined on input line 40.
+
+[32] [33] [34] [35] [36] [37] [38] [39] [40] [41]
+Overfull \hbox (57.55362pt too wide) in paragraph at lines 173--174
 []\OT1/cmr/m/n/10.95 When the UASer-vice wants to up-date its over-all con-fi-d
 ence, it makes a AUTH[]MECH[]GET[]STATUS
  []
 
-[46] [47] [48]
-Overfull \hbox (4.46753pt too wide) in paragraph at lines 149--150
+[42] [43]
+Overfull \hbox (4.46753pt too wide) in paragraph at lines 208--209
 \OT1/cmr/m/n/10.95 li-brary writ-ten en-tirely in Java, but which un-for-tu-nat
 ely makes use of the ``javax.imageio.''
  []
 
-
-Overfull \hbox (1.32315pt too wide) in paragraph at lines 151--152
+[44]
+Overfull \hbox (1.32315pt too wide) in paragraph at lines 210--211
 []\OT1/cmr/m/n/10.95 I will briefly present the changes made when port-ing the 
 Javafaces li-brary. The ``Buffered-
  []
 
-[49] [50] [51] [52]
-
-Package natbib Warning: Citation `SPECIFY WHAT THIS IS FROM PAPER' on page 53 u
-ndefined on input line 209.
-
-[53] [54] [55] [56] [57] [58] [59])
+[45] [46] [47] [48] [49] [50])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/AppendixA.tex [60]
+Chapters/6-evaluation.tex [51]
+Chapter 6.
+------------------------------------------------------------------------------
+ 6 Evaluation
+------------------------------------------------------------------------------
+[52
+
+] [53] [54] [55] [56] [57] [58] [59] [60] [61])
+(C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
+Appendices/AppendixA.tex [62]
 Appendix A.
 ------------------------------------------------------------------------------
  A Appendix Title Here
 ------------------------------------------------------------------------------
-) [61
+) [63
 
 ]
 ------------------------------------------------------------------------------
@@ -962,15 +980,15 @@ Appendix A.
 ------------------------------------------------------------------------------
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-_output\main.bbl [62
+_output\main.bbl [64
 
 
-] [63])
+] [65])
 
 Package natbib Warning: There were undefined citations.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
-[64]
+[66]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
@@ -978,7 +996,7 @@ _output\main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 269.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 269.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 49899A4EC3E5B00430060B1BE3D53A59;7562.
+(rerunfilecheck)             Checksum: 30EE61EF5DADF10912D5CD5487C593A0;8190.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
  )
 (\end occurred inside a group at level 1)
@@ -986,13 +1004,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
 ### simple group (level 1) entered at line 151 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13793 strings out of 493921
- 194857 string characters out of 3147279
- 268226 words of memory out of 3000000
- 16678 multiletter control sequences out of 15000+200000
+ 13816 strings out of 493921
+ 195311 string characters out of 3147279
+ 268390 words of memory out of 3000000
+ 16685 multiletter control sequences out of 15000+200000
  15452 words of font info for 57 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 49i,12n,45p,1614b,565s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,12n,45p,1614b,564s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
 x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pro
@@ -1008,9 +1026,9 @@ am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (73 pages, 436173 bytes).
+tor/dissertation/_output/main.pdf (75 pages, 444827 bytes).
 PDF statistics:
- 788 PDF objects out of 1000 (max. 8388607)
- 198 named destinations out of 1000 (max. 500000)
- 353 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 829 PDF objects out of 1000 (max. 8388607)
+ 211 named destinations out of 1000 (max. 500000)
+ 385 words of extra memory for PDF output out of 10000 (max. 10000000)
 
