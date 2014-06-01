@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  28 MAY 2014 15:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  1 JUN 2014 18:09
 entering extended mode
 **main
 
@@ -718,26 +718,26 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count134
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 34.
+Package hyperref Info: Option `colorlinks' set `true' on input line 35.
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
@@ -763,7 +763,7 @@ Package caption Info: End \AtBeginDocument code.
 )
 \c@lstlisting=\count141
 \AtBeginShipoutBox=\box36
-Package hyperref Info: Link coloring ON on input line 37.
+Package hyperref Info: Link coloring ON on input line 38.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -772,20 +772,20 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count142
 )
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
-LaTeX Info: Redefining \nameref on input line 37.
+LaTeX Info: Redefining \ref on input line 38.
+LaTeX Info: Redefining \pageref on input line 38.
+LaTeX Info: Redefining \nameref on input line 38.
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.out)
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.out)
 \@outlinefile=\write3
-LaTeX Font Info:    Try loading font information for U+msa on input line 77.
+LaTeX Font Info:    Try loading font information for U+msa on input line 78.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 77.
+LaTeX Font Info:    Try loading font information for U+msb on input line 78.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -895,13 +895,13 @@ y. None of them of-fer the ``infrequent-
  []
 
 [10] [11] [12] [13] [14] [15] [16]
-Overfull \hbox (7.44823pt too wide) in paragraph at lines 146--147
+Overfull \hbox (7.44823pt too wide) in paragraph at lines 147--148
 []\OT1/cmr/m/n/10.95 The scheme doesn't re-quire from its owner any known se-cr
 et and there-fore is ``memorywise-
  []
 
 [17] [18] [19]
-Overfull \hbox (5.33527pt too wide) in paragraph at lines 201--224
+Overfull \hbox (5.33527pt too wide) in paragraph at lines 202--225
 [][] 
  []
 
@@ -922,9 +922,9 @@ Chapter 5.
  5 Implementation Prototype
 ------------------------------------------------------------------------------
 
-Underfull \hbox (badness 10000) in paragraph at lines 11--11
-[][][]\OT1/cmr/m/n/9 The full range of sen-sors sup-ported by an-droid de-vices
- can be found here:
+Underfull \hbox (badness 5652) in paragraph at lines 11--11
+[][][]\OT1/cmr/m/n/9 The full range of sen-sors sup-ported by the An-droid plat
+-form can be found here:
  []
 
 
@@ -933,44 +933,69 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 
 [30
 
-] [31]
-
-Package natbib Warning: Citation `SPECIFY WHAT THIS IS FROM PAPER' on page 32 u
-ndefined on input line 40.
-
-[32] [33] [34] [35] [36] [37] [38] [39] [40] [41]
-Overfull \hbox (57.55362pt too wide) in paragraph at lines 173--174
-[]\OT1/cmr/m/n/10.95 When the UASer-vice wants to up-date its over-all con-fi-d
-ence, it makes a AUTH[]MECH[]GET[]STATUS
+]
+Underfull \hbox (badness 3323) in paragraph at lines 26--26
+[][][]\OT1/cmr/m/n/9 More de-tails on the role of each com-po-nent can be found
+ on the An-droid web-site:
  []
 
-[42] [43]
-Overfull \hbox (4.46753pt too wide) in paragraph at lines 208--209
-\OT1/cmr/m/n/10.95 li-brary writ-ten en-tirely in Java, but which un-for-tu-nat
-ely makes use of the ``javax.imageio.''
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
+[][][]\OT1/cmr/m/n/9 Full de-tails re-gard-ing the man-i-fest file can be found
+ on the An-droid web-site:
  []
 
-[44]
-Overfull \hbox (1.32315pt too wide) in paragraph at lines 210--211
-[]\OT1/cmr/m/n/10.95 I will briefly present the changes made when port-ing the 
-Javafaces li-brary. The ``Buffered-
+[31] [32] [33]
+Underfull \hbox (badness 4254) in paragraph at lines 90--90
+[][][]\OT1/cmr/m/n/9 An ex-am-ple of such an ap-pli-ca-tion is pre-sented in an
+ ar-ti-cle writ-ten in Tech Re-
  []
 
-[45] [46] [47] [48] [49] [50])
+[34] [35] [36] [37] [38] [39] [40] [41] [42]
+Overfull \hbox (55.72864pt too wide) in paragraph at lines 250--251
+[]\OT1/cmr/m/n/10.95 When ``UASer-vice'' needs to up-date its over-all con-fi-d
+ence, it makes an AUTH[]MECH[]GET[]STATUS
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 260--260
+[][][]\OT1/cmr/m/n/9 The li-brary can be down-loaded us-ing github from the fol
+-low-ing link:
+ []
+
+[43] [44]
+
+Package natbib Warning: Citation `The ``JavaFaces'' library is maintained at th
+e following address: https://code.google.com/p/javafaces/' on page 45 undefined
+ on input line 299.
+
+
+Package natbib Warning: Citation `https://github.com/cristiantoader/JavafacesLi
+b' on page 45 undefined on input line 299.
+
+
+Overfull \hbox (5.34581pt too wide) in paragraph at lines 313--314
+[]\OT1/cmr/m/n/10.95 A DAO class called ``FaceDAO'' was de-vel-oped to me-di-at
+e calls to the An-droid ``Javafaces''
+ []
+
+[45] [46]
+
+LaTeX Warning: Reference `TODO' on page 47 undefined on input line 354.
+
+[47] [48])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/6-evaluation.tex [51]
-Chapter 6.
+Chapters/6-evaluation.tex [49]
 ------------------------------------------------------------------------------
- 6 Evaluation
+ 5 Evaluation
 ------------------------------------------------------------------------------
-[52
+[50
 
-] [53] [54] [55] [56] [57] [58] [59] [60] [61])
+] [51] [52] [53] [54] [55] [56] [57] [58] [59] [60] [61])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 Appendices/AppendixA.tex [62]
-Appendix A.
 ------------------------------------------------------------------------------
- A Appendix Title Here
+  Appendix Title Here
 ------------------------------------------------------------------------------
 ) [63
 
@@ -987,48 +1012,48 @@ _output\main.bbl [64
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
 [66]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 269.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 269.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 30EE61EF5DADF10912D5CD5487C593A0;8190.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 269.
- )
-(\end occurred inside a group at level 1)
+(rerunfilecheck)             Checksum: A6C952A2EEDA933CCAF4F7EA592717B0;8388.
 
-### simple group (level 1) entered at line 151 ({)
-### bottom level 
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
+ ) 
 Here is how much of TeX's memory you used:
- 13816 strings out of 493921
- 195311 string characters out of 3147279
- 268390 words of memory out of 3000000
- 16685 multiletter control sequences out of 15000+200000
+ 13851 strings out of 493921
+ 195944 string characters out of 3147279
+ 268735 words of memory out of 3000000
+ 16701 multiletter control sequences out of 15000+200000
  15452 words of font info for 57 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 49i,12n,45p,1614b,564s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
-x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><
-C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+ 49i,12n,45p,1549b,502s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6
+.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (75 pages, 444827 bytes).
+tor/dissertation/_output/main.pdf (75 pages, 462295 bytes).
 PDF statistics:
- 829 PDF objects out of 1000 (max. 8388607)
- 211 named destinations out of 1000 (max. 500000)
- 385 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 878 PDF objects out of 1000 (max. 8388607)
+ 230 named destinations out of 1000 (max. 500000)
+ 393 words of extra memory for PDF output out of 10000 (max. 10000000)
 

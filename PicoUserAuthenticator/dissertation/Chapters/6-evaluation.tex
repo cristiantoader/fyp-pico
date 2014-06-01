@@ -220,3 +220,58 @@ Let us briefly discuss any issues using the availability-integrity-confidentiali
 	\subsubsection*{Confidentiality}
 	No known attacks on data confidentiality other than capturing sensor data just as the authenticator would. However this would be possible with or without the Pico being present.
 
+% IMPLEMENATION==============================================================
+
+
+\section{Threat model}
+% TODO:
+% - clear cache data from android
+% TODO: not really relevant since this is just a prototype
+% TODO: any cryptographic keys and content is not secure as the application may be decompiled
+% TODO: DOS by generating bad sensor data
+% TODO: check William Ench et al year
+% TODO: referenced android website instead of talk about components
+% TODO: more mmap_min_addr stuff. why does it help?
+
+Even though the scheme implementation is a proof of concept, we will continue by analysing different threat models. This will reveal any flaws behind the concept, allowing for a more robust future implementation.
+
+The purpose of the Pico token is to provide a robust authentication mechanism, without the use of any secrets for the owner to remember. Where the Pico unlocking scheme fits, is correctly identifying the owner of the Pico. Attacks may be performed in the form of malware installed on the device while still within the possession of its owner. The main threat however comes from an attacker having physical access to the user's Pico. 
+
+It is important to note that since this is a purely software implementation, physical access may mean either that the attacker is in possession of the phone, or that it may replicate the secretes of the victim's Pico on a separate device. Replicating the Pico secretes would clearly create much more damage for the user from a cost perspective. A total reset of authentication credentials would be necessary for all accounts registered with the Pico device.
+
+
+
+\subsection{Prototype threat model}
+Let us now continue by studying the threat model of the Pico authenticator application. We will consider the security mechanisms presented above as the predefined assumptions made in this model. In order to reduce the threat space we will consider the application is running on a hand held device running Android 4.4.2 with all recent updates.
+
+\subsubsection*{Availability}
+Breaking the scheme's availability if the device is in the possession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. Furthermore, in this case the owner is already no longer in possession of their Pico, so basically the Pico is already made unavailable..
+
+Let us continue however and study what can be achieved from a DoS perspective by the attacker from the perspective of the individual user app accounts, which would need to be reset by the owner. In order to gain any sort of access and make credentials reset not possible, or at least have a chance in doing so, the attacker would have to unlock the Pico.
+
+From a malware attack perspective data used by the authentication should not be modifiable. This would guarantee that all mechanisms have their cached biometric data available at all times and may function properly. Due to the Linux permissions mechanism and the fact that each application has its own UID and GID, data stored in internal memory should not be readable or writeable by any other user level application in the system. If however the device is rooted and the owner is mislead into granting root privileges to another application, then the security model would be broken and the data would be exposed. This could lead to deletion which would make the mechanisms not function properly, resulting in a DoS attack.
+
+% TODO: can we fake data from sensors?
+
+\subsubsection*{Integrity}
+Just as mentioned in the Availability section, the authenticator should be safe against any data accesses from other applications as long as the application does not have root privileges. This would allow malware to break the integrity property of the data.
+
+From a data flow point of view Intents used for communication within the authenticator as well as with the Pico application are not modifiable. Furthermore Intents are not broadcasted using the implicit Android broadcast mechanism, which makes them impossible to replay or even intercept.
+
+\subsubsection*{Confidentiality}
+Considering a circumstance where a root malware process would have access to the authenticator's data stored on disk, this would not lead to a direct compromise of the owner biometric data. All cached files are stored in internal memory in encrypted format. The mechanism used for encryption is RSA, with the private key stored using the Android KeyChain API.
+
+On a rooted device however, the encryption layer provides only another bi-passable layer of security. With root access, an application could retrieve the master key of the KeyChain and use it to retrieve or private key and decode the owner's biometrics.
+
+From a data flow perspective, internally the Pico authenticator uses an self-developed broadcast system. Client processes need to register with the broadcaster, such as the UAService, in order to receive updates. This ensures data confidentiality throughout the system. Furthermore, the authenticator and Pico should be released under the same author. This would allow locking the application from outside Intents as well as interaction with different components. Sandboxing communication is always a desirable property from a confidentiality perspective.
+
+The paper by Adrienne Porter Felt et al \cite{felt2012android} shows that according to their surveys only 17\% of users pay attention to the Android permissions dialogue, and only 3\% understand what each permission represents. A malware application which has granted full permissions gets pass the Bouncer and is installed as an application. Even so, due to the Linux permission model adopted by Android, the confidentiality of the authenticator's data would not be compromised. Instead however, the malware application may collect all relevant on its own from the user, allowing for a powerful replay attack in the future.
+
+\section{Future work}
+The application was implemented as a proof of concept. It is developed in order to show that different data may be obtained without the owner's knowledge. Additional improvements can be made in order to increase the confidence level of the authenticator.  Furthermore, due to time constraints and unavailability of free to use biometric libraries, a number of mechanisms were not implemented. The list can easily be extended by simply creating a class which extends the ``AuthMechService'' abstract class.
+
+One way to improve the voice recognition mechanism would be to start sampling data whenever a call is active. This would increase the chances of capturing an accurate sample of the owner's voice. In this context, a better voice recognition library can be used, which supports multiple speakers and/or ignores background noise. If such a library is not available, we can rely on the fact that most of the times people take turns when speaking. For the duration of the call, with a high enough sampling frequency, the individual sampling voice of both participants should be captured. However, it is important to take into account a situation in which the thief is calling the owner on a different phone in order to unlock his Pico.
+
+Immediate improvements can be made to the face recognition mechanism. Just as recommended in the description of the mechanism's implementation, another library which provides more meaningful face coordinates may be used for face detection. Alternatively, and preferably, a different library which performs both face detection an recognition can be integrated with the mechanism.
+
+Another improvement for the face recognition mechanism would be from the data sampling perspective. Instead of capturing images at a fixed interval, pictures should be taken only when the phone unlock event is triggered. While the phone is unlocked it is highly likely that the user will face its front camera.This would provide better chances of processing meaningful data.

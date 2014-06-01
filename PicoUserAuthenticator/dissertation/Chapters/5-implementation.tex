@@ -13,41 +13,40 @@ In this chapter we will develop a prototype for the scheme proposed in section \
 % Android
 \subsection{Android development and security}
 % Introduction to android security and dev model
-%	TODO: could rephrase a bit...
-To gain a better understanding of different design decisions and limitations of our implementation, we will present a brief literature review of the Android development platform. Mechanisms and components will be described with an emphasis on security. The prototype developed for this dissertation is a proof of concept. However, we still aim to make proper use of available security mechanisms. 
+To gain a better understanding of different design decisions and limitations of our implementation, we will present a brief literature review of the Android development platform. Mechanisms and components will be described with an emphasis on security. The prototype developed for this dissertation is a proof of concept. However, we still aim to understand and make proper use of available security mechanisms. 
 
 % First paper: introduction
-William Enck et al \cite{enck2009understanding} offer a good introduction to Android application development. They focus on the security aspects of the platform. It is a relatively old paper (2008), from the same year of the Android initial release. However, the fundamental design principles and security concepts that are discussed did not change significantly. The platform's open standards were made public in November 2007. This allowed researchers such as the authors of this paper to perform a pre-release analysis of the system.
+William Enck et al \cite{enck2009understanding} offer a good introduction to Android application development. They focus on the security aspects of the development platform. It is a relatively old paper (2008), from the same year of the Android initial release. However, the fundamental design principles and security concepts that are discussed did not change considerably. The platform's open standards were made public in November 2007. This allowed researchers such as the authors of this paper to perform a pre-release analysis of the system.
 
 % First paper: OS short description
 Android uses as a core operating system a port of the Linux kernel. This introduces to the platform some of the Linux security mechanisms (i.e. file permissions, access control policies). On top of the kernel there is an application middleware layer composed out of the Java Dalvik virtual machine, core Java application libraries, as well as libraries which offer support for storage, sensors, display, and other device features. Applications are supported by the middleware and developed using the Android Java SDK.
 
 % First paper: Android components
-The Android development model is based on building an application from multiple components. Based on their purpose, the SDK defines four types of components: activity, service, content provider, and broadcast receiver. For the purpose of brevity we will not discuss each individual component\footnote{More details on the role of each component can be found on the Android website: http://developer.android.com/guide/components/fundamentals.html}.}. To allow meaningful interaction, Inter Component Communication (ICC) is enabled using special objects called Intents.
+The Android development model is based on building an application from multiple components. Based on their purpose, the SDK defines four types: activity, service, content provider, and broadcast receiver. For the purpose of brevity we will not discuss each individual component\footnote{More details on the role of each component can be found on the Android website: http://developer.android.com/guide/components/fundamentals.html}. To allow meaningful interaction, Inter Component Communication (ICC) is enabled using special objects called Intents.
 
 % First paper: binding services
-The application we are developing needs to perform most of its processing in the background. It does not require any explicit user interaction. According to the Android model, this should be achieved using Services. To enable convenient component interaction, services may become bound for message passing. An important note made in the paper is that while a Service is bound, it cannot be terminated by an explicit stop action. This provides an useful guarantee regarding its lifetime that we will use in the prototype.
+The application we are developing needs to perform most of its processing in the background. It does not require any explicit user interaction. According to the Android model, this should be achieved using Services. To enable convenient component interaction, services may become bound engaging in a client-server communication. An important note made in the paper is that while a Service is bound, it cannot be terminated by an explicit stop action. This provides an useful guarantee regarding its lifetime, which we will use in the prototype.
 
 % First paper: security enforcements, system level
-The paper discusses two types of Android security enforcements: ICC and system level. System level security is based on the Linux permission model. Each app is associated with an UID and GID. This allows internal storage access control restrictions, keeping application data sandboxed from other applications.
+The paper discusses two types of Android security enforcements: ICC, and system level. System level security is based on the Linux permission model. When installed, each app is allocated an UID and GID. This allows internal storage access control restrictions, keeping application data sandboxed from other apps.
 
 % First paper: security enforcements, ICC
 % 	TODO: too vague, can expand and cite something
 ICC security is the main focus of the paper. Intent communication is based on commands sent to the ``/dev/binder'' device node. The node needs to be world readable and writeable by any application. Therefore, Android cannot mediate ICC using the Linux permissions model. Security relies on a Mandatory Access Control (MAC) framework enforced by a reference monitor. This mechanism validates requests sent to the ``/dev/binder'' node. 
 
 % Manifest file
-During development, each application needs to define a manifest file\footnote{Full details regarding the manifest file can be found on the Android website: http://developer.android.com/guide/topics/manifest/manifest-intro.html}. Some of the security configurations defined in this file are: declared components and their capabilities, permissions required the app, and permissions other apps need to have in order to interact with app components. These entries are used as labels for the MAC framework. 
+During development, each application needs to define a manifest file\footnote{Full details regarding the manifest file can be found on the Android website: http://developer.android.com/guide/topics/manifest/manifest-intro.html}. Some of the security configurations defined in this file are: declared components and their capabilities, permissions required by the app, and permissions other apps need to have in order to interact with app components. These entries are used as labels for the MAC framework. 
 
 % First paper, types of components: public/private.
 Using the app manifest file, each component can be defined as either public or private. This refinement is configured by the ``exported'' field. It defines whether or not another application may launch or interact with one of its components. When this paper was written, the ``exported'' field was defaulted to ``true''. However, as shown by Steffen and Mathias \cite{liebergeld2013android}  in 2013, starting with Android 4.2  the default of this value was changed to ``false'', and now conforms to the ``principle of least privilege''.
 
 % First paper, Intent filters
-Components listening for Intents need to have an intent-filter registered in the application manifest file. This allows them to export only a limited set of intents to other applications. Further restrictions to Intent objects are offered by the SDK using permission labels. This mechanism provides runtime security checks for the application. It is an additional prevention mechanism for data leaks through ICC. An application may broadcast an event throughout the system. By using permission labels, only applications that have the respective permission may have access to the event. Furthermore, Services may check for permissions when they are bound by another component. This allows them to expose different APIs depending on the binder.
+Components listening for Intents need to have an intent-filter registered in the application manifest file. This allows them to export only a limited set of intents to other applications. Further restrictions to Intent objects are offered by the SDK using permission labels. This mechanism provides runtime security checks for the application. It is an additional prevention mechanism for data leaks through ICC. An application may broadcast an event throughout the system. By using permission labels, only apps that have the respective permission may process the event. Furthermore, Services may check for permissions when they are bound by another component. This allows them to expose different APIs depending on the binder.
 
 % Paper two!
-Steffen and Mathias \cite{liebergeld2013android} focus on deeper issues of the Android platform. They show and how problems are solved from one Android version to the other. However, OEMs tend not to update the software of their devices once they have shipped, which poses a number of security issues.
+Steffen and Mathias \cite{liebergeld2013android} focus on deeper issues of the Android platform. They show how problems are solved from one Android version to the other. Unfortunately, OEMs tend not to update the software of their devices once they have shipped, which creates a high security risk.
 
-The starting point of understanding Android security and how it is bootstrapped is the five step booting process:
+The starting point of understanding Android security is learning how it is bootstrapped during the five step booting process:
 \begin{enumerate}
 	\item Initial bootloader (IBL) is loaded from ROM.
 	\item IBL checks the signature of the bootloader (BL) and loads it into RAM.
@@ -59,35 +58,38 @@ The starting point of understanding Android security and how it is bootstrapped 
 The android security model is split by the paper in two categories: system security, and application security.
 
 % keychain encryption and security
-Android provides a keychain API used for storing sensitive material such as certificates and other credentials. These are encrypted using a master key, which is stored using AES encryption. Security needs to begin somewhere. An assumption has to be made about a state being secure from which multiple security extensions can be made. In this case, the master key is considered to be that point of security. However, given a rooted device, the master key itself may be retrieved from the system therefore compromising all other credentials. The Android base system (libraries, app framework, and app runtime) is located in the ``system'' partition. Although it is writeable only by the root user, exploits which grant this privilege exist. 
+Android provides a keychain API used for storing sensitive material such as certificates and other credentials. These are encrypted using a master key, which is stored using AES encryption. Security needs to begin somewhere. An assumption has to be made about a state being secure from which multiple security extensions can be made. In this case, the master key is considered to be that point of security. However, given a rooted device, the master key itself can be retrieved from the system and therefore compromising all other credentials. The Android base system (libraries, app framework, and app runtime) is located in the ``system'' partition. Although it is writeable only by the root user, as mentioned before, exploits which grant this privilege exist. 
 
 % Same author, shared privileges
-From the user's perspective, an interesting ``feature'' which may affect the flow of information within Android is the fact that applications from the same author may share private resources. When installing an application the user needs to accept its predefined set of permissions. Due to resource sharing, a situation may present itself when an application that has permissions for the owner's contacts may communicate with an application that has permissions for internet in order to leak confidential data. A developer may therefore construct pairs of legitimate applications in order to mask a data flow attack.
+From the user's perspective, an interesting ``feature'' which may affect the flow of information within Android is the fact that applications from the same author may share private resources. When installing an app the user needs to accept its predefined set of permissions. Due to resource sharing, a situation may present itself where an application that has permissions for the owner's contacts may communicate with an application that has permissions for internet in order to leak confidential data. A developer may therefore construct pairs of legitimate applications in order to mask a data flow attack.
 
 % Android low level security
 The Android OS offers a number of memory corruption mitigations in order to avoid buffer overflow attacks, or return oriented programming. The following list 
 presents these low level security mechanisms:
 \begin{itemize}
 	\item Implements mmap\_min\_addr which restricts mmap memory mapping calls. This prevents NULL pointer related attacks.
-	\item Implements XN (execute never) bit to mark memory as non-executable. The mechanism prevents attackers from executing remote code.
-	\item Address space layout randomisation(ASLR) implemented starting with Android 4.0. This is a first step to preventing return oriented programming attacks. The memory location of the binary library itself is however static. After a number of attempts using trial and error, the attacker may succeed using return oriented programming.
-	\item Position independent and randomised linker(PIE) is implemented starting with Android 4.1 to support ASLP. This makes the memory location of binary libraries to be randomised.
-	\item Read only relocation and immediate binding space(RELro) was implemented starting with Android 4.1. It solves an ASLR issue where an attacker could modify the global offset table (GOT) used when resolving a function from a dynamically linked library. Before this update an attacker may insert his own code to be executed using the GOT table.
+	\item Implements XN (execute never) bit to mark memory as non-executable. The mechanism prevents attackers from executing remote code passed as data.
+	\item Address space layout randomisation(ASLR) was implemented starting with Android 4.0. This is a first step to preventing return oriented programming attacks. The memory location of the binary library itself is however static. After a number of attempts using trial and error, the attacker may succeed using return oriented programming.
+	\item Position independent and randomised linker (PIE) is implemented starting with Android 4.1 to support ASLP. This makes the memory location of binary libraries to be randomised.
+	\item Read only relocation and immediate binding space (RELro) was implemented starting with Android 4.1. It solves an ASLR issue where an attacker could modify the global offset table (GOT) used when resolving a function from a dynamically linked library. Before this update an attacker may insert his own code to be executed using the GOT table.
 \end{itemize}
 
 % On device bouncer
-A number of application security mechanisms are in place to make Android a safer environment for its users. A program also known as a ``on device Bouncer'' prevents malware to be distributed from within the Android App store (Google Play). The purpose of the bouncer is to verify apps prior to installation by checking for malware signatures and patterns. Secure USB debugging was introduced starting with Android 4.4.2. This only allows hosts registered with the device to have USB debugging permissions. The mechanism is circumvented if the user does not have a screen lock.
+A number of application security mechanisms are in place to make Android a safer environment for its users. A device program also known as the ``Bouncer'' prevents malware to be distributed from the Android App store (Google Play). The purpose of the bouncer is to verify apps prior to installation by checking for malware signatures and patterns. 
+
+% Secure USB debugging
+Secure USB debugging was introduced starting with Android 4.4.2. This only allows hosts registered with the device to have USB debugging permissions. The mechanism is circumvented if the user does not have a screen lock.
 
 % The 4 big issues with android and malware
-The paper presents that the Android OS is responsible for $96\%$ of mobile phone malware. The authors claim that this is the case due to 4 big issues of the Android platform:
+According to the paper, the Android OS is responsible for $96\%$ of mobile phone malware. The authors claim that this is the case due to 4 big issues of the Android platform:
 \begin{enumerate}
-	\item Security updates are delayed or never deployed. This is due to a number of approvals that an update needs to receive. This introduces an additional cost to the manufacturer (OEM), that does not generate any revenue. The majority of teams working on the Android platform are focusing on current releases. In most cases there are simply not enough resources to merge Google security updates to the OEM repository. Furthermore, the consequences of a failed OS update may cause``bricking'' of the device, which is a huge risk for the manufacturer. All these issues lead to very few security updates. Therefore, important features such as RELro are never deployed, making older Android releases vulnerable.
+	\item Security updates are delayed or never deployed. This is due to a number of approvals that an update needs to receive prior to deployment. This introduces an additional cost to the manufacturer (OEM), that does not generate any revenue. The majority of teams working on the Android platform are focusing on current releases. In most cases there are simply not enough resources to merge Google security updates to the OEM repository. Furthermore, the consequences of a failed OS update may cause ``bricking'' of the device, which is a huge risk for the manufacturer. All these issues lead to very few security updates. Therefore, important features such as RELro are never deployed, making older Android releases vulnerable.
 	
-	\item OEMs weaken the security architecture and configuration of Android by introducing custom modifications before they roll out a device.
+	\item OEMs weaken the security of Android by introducing custom modifications before they roll out a device.
 	
-	\item The Android permission model is defective. According to Kelley et al \cite{kelley2012conundrum}, most users do not understand the permission dialogue when installing an application. Furthermore, even if they could understand the dialogue, most of the time it is ignored in order to use the new exciting app. According to the same study, most applications are over-privileged. This is due to developers not understanding what each privilege grants. Furthermore, as previously pointed out, applications from the same owner may share resources and implicitly privileges. This creates a valid information flow attack path. 
+	\item The Android permission model is defective. According to Kelley et al \cite{kelley2012conundrum}, most users do not understand the permission dialogue when installing an application. Furthermore, even if they could understand the dialogue, most of the time it is ignored in order to use the exciting new app. According to the same study, most applications are over-privileged. This is due to developers not understanding what each privilege grants. Furthermore, as previously pointed out, apps developed by the same owner may share resources and implicitly privileges.
 	
-	\item Google Play has a low barrier for malware. A developer distribution agreement (DDA) and a developer program policy (DPP) need to be agreed to and signed by the developer before submitting the application to the Android market. However, Google Play does not check upfront if an application adheres to DDA and DDP. The application is only reviewed if it becomes suspect of breaking the agreements. Furthermore, according to \cite{percoco2012adventures} there are ways of circumventing the Bouncer program\footnote{An example of such an application is presented in an article written in Tech Republic: http://www.techrepublic.com/blog/google-in-the-enterprise/malware-in-the-google-play-store-enemy-inside-the-gates/# (visited on 29.05.2014).}. 
+	\item Google Play has a low barrier for malware. A developer distribution agreement (DDA) and a developer program policy (DPP) need to be agreed to and signed by the developer before submitting the application to the Android market. However, Google Play does not check upfront if an application adheres to DDA and DDP. The application is only reviewed if it becomes suspect of breaking the agreements. Furthermore, according to \cite{percoco2012adventures} there are ways of circumventing the Bouncer program\footnote{An example of such an application is presented in an article written in Tech Republic: http://www.techrepublic.com/blog/google-in-the-enterprise/malware-in-the-google-play-store-enemy-inside-the-gates/\# (visited on 29.05.2014).}. 
 \end{enumerate}
 
 % Conclusion of the section, just a summary of what we presented
@@ -95,225 +97,299 @@ We have briefly presented the Android development model, existing mechanisms, an
 
 \section{Authenticator design}
 % Introduction with UAService
-The Android user authenticator prototype is designed to work as a bound service called UAService\footnote{The name of the class stands for User Authentication Service}. The service collects data from each mechanism and computes the final authentication confidence level. The result is provided to clients either by an explicit request or through periodic broadcasts.
+The Android user authenticator prototype is designed to work as a bound service implemented in the UAService\footnote{The name of the class stands for User Authentication Service} class. The service collects data from each mechanism and computes the final authentication confidence level. The result is provided to clients either after an explicit request or through periodic broadcasts.
 
 % Mention independent services for each mechanism and why
-Each authentication mechanism may have a different requirement for sampling and processing data. As an example, voice recognition may gather optimal data during a call\footnote{Call events can be intercepted by registering a listener for the PHONE\_STATE event}, while face recognition when the phone screen is unlocked. Therefore, to enable more flexibility in the individual mechanisms' implementation, we have chosen each to be developed as an independent service.
+Each authentication mechanism may have a different requirement for sampling and processing data. As an example, voice recognition may gather optimal data during a phone call\footnote{Call events can be intercepted by registering a listener for the PHONE\_STATE event}, while face recognition when the phone screen is unlocked. Therefore, to enable more flexibility in the individual mechanisms' implementation, we have chosen each to be developed as an independent service.
 
 % Management of authentication mechanisms
-UAService communicates with the authentication mechanisms by binding on each service. This allows message passing using a ServiceConnection object. On predefined time intervals UAService acquires the confidence level and weight of each mechanism. Using this data it then calculates the overall result according to the design in section \ref{authfeedback}. Feedback is sent back to each registered client for interpretation.
+UAService communicates with the authentication mechanisms by binding their service. This allows message passing using a ServiceConnection object. On predefined time intervals UAService acquires the confidence level and weight of each mechanism. Using this data it then calculates the overall result according to the design in section \ref{authfeedback}. Feedback is sent back to each registered client for interpretation.
 
 \section{Implementation details}
+% Introduction (can expand)
+This section presents the implementation of the scheme proposed in section \ref{propopsedsol}. The full source code of the prototype can be downloaded from from github: 
 
+``https://github.com/cristiantoader/fyp-pico''.
+
+% TODO: rename section (something with activity and services, or idk)
 \subsection{Main application and services}
-The user authenticator for Android is designed to work as a bound service. According to the Android documentation a bound service exposes functionality to other application components and as well as external applications. It is developed as a regular service which implements the onBind() callback method to return an IBinder. The service lives only as long as a component is bound to it. The service implementation class is called UAService.
+% UAService
+The Android token unlocking scheme is implemented as a bound service in the UAService class. According to the Android documentation a bound service is the server in the client-server interface. It enables other components to send requests and receive responses by binding to it. It is developed as a regular service that implements the ``onBind()'' callback method to return an IBinder. 
 
-The UAService is a central node in the application. It is a bound service for any Pico client which wishes to register for events. Furthermore, it binds any authentication mechanism that is available, enabling it for authentication. 
+% Keep UAService alive via startService().
+According to the Android development API guide\footnote{http://developer.android.com/guide/components/bound-services.html} there are two independent scenarios describing the lifetime of a bound service, depending on how the service was started:
+\begin{enumerate}
+	\item If the service was not previously running, and a ``bindService()'' command is issued by a component, the service is kept alive for as long as clients are still bound. A client becomes unbound by calling ``unbindService()''.
+	
+	\item If the service is started using ``onStartCommand()'' it can only be stopped if it has no bound clients and an explicit request is made either via ``stopSelf()'' or ``stopService''. Unlike the previous case, its lifetime persists even with no bound components.
+\end{enumerate}
 
-The UAService periodically broadcasts intents to registered clients saying if the Pico should be locked or unlocked. The following interface is exposed to available Pico applications through the ``what'' parameter of the ``Message'' class:
+% UAService and lifetime
+The prototype we have developed takes into account the lifetime of bound services. The ``PicoMainActivity'' class calls ``startService()'' and ``bindService()'' to the ``UAService'' component. When ``PicoMainActivity'' gets sent to background and loses control of the screen, the service is not explicitly unbound. This should prevent other components from killing ``UAService''. 
+
+% UAService, a safer yet riskier implementation
+% 	TODO: rephrase the ending a bit
+A safer alternative would be to create a root service. This requires modifications to the system partition. The process does not resume to simply gaining root privileges and making the modifications. The root directory is mounted as ramdisk, and therefore any direct changes will be reverted once the device is rebooted. In order to make persistent modifications, the user needs to alter the boot image and re-flash it on the device. The service needs to be compiled using the Android NDK C compiler. The binary has to be included in the system partition of the boot image in order to be accessible by the ``init'' process during start up. The ``init.rc'' configuration file used by ``init'' also needs to be configured to start the service.
+
+% UAService, central node.
+% 	TODO: I think I can drop this paragraph if the word count is exceeded
+``UAService'' is a central node in the application. It gathers data from the authentication mechanisms, computes the overall confidence data, and sends feedback to the clients. 
+
+In order to receive authentication updates, clients need to bind ``UAService''. Communication is enabled using the ``Messenger'' interface, which is the simplest way to perform Inter Process Communication (IPC). The ``Messenger'' queues all requests on a single thread, and therefore the application does not require to be thread safe. The following commands are exposed to clients such as Pico through the ``what'' parameter of the ``Message'' class:
 \begin{description}
   \item[MSG\_REGISTER\_CLIENT] \hfill \\
-  Used for registering a client. The ``Message'' should have as the ``arg1'' parameter the level of confidence required for unlocking. This value should range from 0 to 100. Any values outside these limits will be truncated within the range.
-  
-  \item[MSG\_REGISTER\_CLIENT] \hfill \\
-  Used for any application to unregister as a listener for this service. No additional parameters required.
+  Used for registering a client for periodic broadcasts\footnote{An alternative implementation explored in the project was to have each client also register a confidence level using the ``arg1'' parameter of a ``Message''. In this case, the authenticator would only provide each client with a locked/unlocked result. However, this would shift the meaning of client to that of an authentication session, with state managed by the unlocking scheme. A client would therefore have multiple connections, requiring more IPC. Since all ``Messenger'' requests made to ``UAService'' are queued to a single thread, this would slow down the feedback process and possibly even lead to a denial of service attack. Therefore we have chosen to reduce the communication overhead, and have each client manage the status of its authentication sessions based on the confidence level provided by the unlocking scheme.} of the current unlocking confidence level. Feedback is provided at a fixed time interval of 1000ms.
+
+  \item[MSG\_UNREGISTER\_CLIENT] \hfill \\
+  Used for any application to unregister as a listener of this service. No additional parameters required.
   
   \item[MSG\_GET\_STATUS] \hfill \\
-  Used by any application when an authentication request is needed. Although the service periodically broadcasts to its registered clients what is the authentication status, explicit requests may also be performed using this ``Message''.
+  Used by any application when an authentication request is needed. Although the service periodically broadcasts the authentication status to its clients, explicit requests may also be performed using this type of ``Message''.
 \end{description}
 
-UAService interacts with AuthMech objects in order to communicate with an authentication mechanism. Each object is responsible for interfacing the communication with an authentication mechanism. A valid authentication mechanism service needs to extends the AuthMechService abstract class which defines a standard way of communication with the UAService.
+% Introduction tu authentication mechanism services, UAService side
+The communication between ``UAService'' and an authentication mechanism service is intermediated by an ``AuthMech'' object. Each ``AuthMech'' is responsible for interfacing the communication with its corresponding service. 
 
-Each AuthMechService is programmed as a bound service. UAService binds these services through AuthMech objects. Each AuthMechService exposes the following message passing interface:
+% Authentication mechanism side
+From the authentication mechanism's perspective, each service needs to extend the ``AuthMechService'' abstract class. This standardises the communication with the ``AuthMech'' objects, and implicitly ``UAService''. This software engineering approach facilitates adding additional mechanisms with minimal changes to the original code.
+
+Each ``AuthMechService'' is implemented as a bound service. When binded by ``UAService'' through ``AuthMech'' they expose the following message passing interface:
 \begin{description}
   \item[AUTH\_MECH\_REGISTER] \hfill \\
-  Used for registering the UAService service as a client to the AuthMechService.
+  Used for registering the ``UAService'' client to the ``AuthMechService''.
   
   \item[AUTH\_MECH\_UNREGISTER] \hfill \\
-  Used for unregistering the UAService service as a client to the AuthMechService.
+  Used for unregistering the ``UAService'' client from the ``AuthMechService''.
   
+  % TODO: might want to change this design!
   \item[AUTH\_MECH\_GET\_STATUS] \hfill \\
-  Used by the UAService in order to request the authentication confidence from the AuthMechService. The value will be returned in the arg1 parameter of the Message passed.
-\end{description}
+  Used by the ``UAService'' to request the authentication feedback from the ``AuthMechService''. The Message response has in ``arg1'' the authentication confidence multiplied by the decayed weight, and in ``arg2'' the original weight of the mechanism.
+  \end{description}
 
 \subsection{Authentication mechanisms}
-In order to create a functional prototype, we implemented a couple of mechanisms. The focus of the project is not the quality of the biometric mechanisms involved in the prototype, their sole purpose being to demonstrate a proof of concept. Android devices offer a wide range of sensor data such as GPS, accelerometer, camera, and microphone.
+\label{implauthmech}
+% Introduction for authentication mechanisms
+In order to create a functional prototype of the scheme, we have implemented a number user authentication mechanisms. We will not focus on the result quality of the biometric and behavioural mechanisms. Their sole purpose is to demonstrate that the design of the scheme is functional, and can be implemented using only a smart phone.
 
-Based on the sensor data offered by Android devices, a wide range of biometric mechanisms can be developed. A non extensive list may include face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and many others. The scheme however, requires a clear predefined list of mechanisms offering continuous authentication as well as explicit.
+% Mechanism requirements (they are a bit logical rather than engineering)
+When developing an authentication mechanism for the scheme, the following design requirements need to be satisfied: 
+\begin{enumerate}
+	\item The result needs to be quantifiable in the form of a percentage ranging from 0 to 100, where 100 means that the mechanism has $100\%$ confidence that the user is the owner of the token.
+	\item The mechanism needs to support continuous authentication of the user.
+	\item The authentication process needs to be effortless and preferably unobtrusive for the user.
+\end{enumerate}
 
-A number of continuous authentication mechanisms may be developed using solely the standard sensors offered by Android devices. The following non-extensive list was achieved, with details regarding what each mechanism means and how it should be implemented:
+% Presenting examples of what we can port on android
+% 	TODO: rephrase, make larger a bit
+Android provides an extensive sensor API that can support the scheme. This can be used to develop a number of continuous authentication mechanisms.  We have listed the following non-exhaustive set of examples:
 \begin{description}
   \item[Face recognition] \hfill \\
-  This mechanism was also implemented for the purpose of the project, and further details are offered in the following sections. The idea is that based on user behaviour, sampling of the user's face can be performed without any explicit requests. For instance when an user is unlocking the phone it is highly likely that he will be looking at the screen. This creates a good opportunity for the authentication mechanism service to capture an image and determine the confidence level that the unlocker is the actual user.
+  The mechanism is based on capturing an image of the user's face and performing face recognition. Sampling valid face images can be performed without explicit requests by predicting user behaviour. We will use as an example an user that owns a phone with a front-facing camera. When the owner is unlocking the phone, there is a high probability that they will be looking towards the screen. This provides a good opportunity for the face recognition service to capture a valid sample. Using the Android API, this can be achieved by registering a ``BroadcastReceiver'' to listen for the one of the following events: ACTION\_SCREEN\_ON, ACTION\_SCREEN\_OFF, or ACTION\_USER\_PRESENT. The mechanism may continue to perform face recognition based on collected data and a previously recorded sample of the owner. A simple face recognition mechanism was also implemented as part of the prototype.
   
+  % TODO: replay attacks are easy if using only features
   \item[Voice recognition] \hfill \\
-  This mechanism was also implemented for the purpose of the project, and further details are offered in the following sections. Note that voice sampling does not necessarily imply a voice password of any kind. Voice can be analysed from a feature's perspective, regardless of the words being spoken. Voice sampling can be performed at any time. With a frequent enough sampling rate, the owner of the device is likely to be present in most voice recordings. For even better confidence the mechanism should be implemented to start recording when a call is either made or received. On Android this can be achieved by implementing a listener for a PHONE\_STATE intent.
+  A voice recognition mechanism can record data either periodically, or based on Android events. It may then perform voice recognition and provide a confidence level of the owner being present. Voice sampling does not necessarily imply a voice password. An analysis can be performed using feature extraction. This facilitates the sampling process, which may be performed at any time. With a frequent sampling period, the owner of the device is likely to be recorded while speaking, which would provide a valid data sample. For even better confidence the mechanism can be implemented to start recording when a call is either made or received. On Android this can be achieved by listening for a PHONE\_STATE event. A simple voice recognition mechanism was implemented as part of the prototype.
   
   \item[Iris scanning] \hfill \\
-  Similar to face recognition, this can be implemented by taking advantage of user behaviour while using the phone. When the phone is unlocked, the user is very likely to face the front camera, allowing for a good face capture. The only problem with this mechanism is the quality of pictures offered by most phones. If the sampling quality is not sufficiently good, meaningful features from the iris may not be extracted, making the confidence level of the mechanism relatively low.
+  Similar to face recognition, this can be implemented by taking advantage of user behaviour while using the phone. When the phone is unlocked, the user is very likely to face the front camera, allowing for a good capture. The only problem with this mechanism is the quality of pictures offered by most phones. If the sampling quality is not sufficiently good, meaningful features from the iris may not be extracted. This would make the confidence level of the mechanism relatively low, but may change in the future as devices become increasingly performant.
   
   \item[Keystroke analysis] \hfill \\
-  The principle of keystroke analysis is based on the patterns in which the user types on his mobile phone. Different features can be extracted here, such as: the amount of time the user takes to type letter sequences, words, or individual letters, words per minute, frequent used words, and many others. Based on these features a confidence level can be generated (not carrying a considerable amount of weight). This is harder to implement using solely the Android SDK. A good starting point would be to have a keyboard application developed for the user, which also communicates with the authentication mechanism. Obviously if the keyboard is disabled by an attacker this should still be considered, especially if the authenticator was originally configured to listen for input.
+  This mechanism was inspired from a paper by Clarke et al \cite{clarke2007authenticating}. The principle of keystroke analysis is based on the patterns in which the user types on his mobile phone. Different features can be extracted here, such as: letter sequence timings, words per minute, letters per minute, frequent used words, and others. Using this data a confidence level can be generated. 
+  
+  This mechanism is harder to implement using solely the Android SDK. A good starting point would be to have a keyboard app developed for the user that also communicates with the authentication mechanism. If the keyboard is disabled by an attacker this should be considered, especially if the authenticator was originally configured to listen for input.
   
   \item[Gait recognition] \hfill \\
-  This mechanism is based on the concept of analysing individual walking patterns. Different people walk in different ways, which even though may not be entirely unique for every individual, would still provide some confidence level regarding the user of the device. In the lack of an existing reliable library, efforts have been made to implement this mechanism, unfortunately unsuccessful. The implementation requires accelerometer data from the device, which needs to be normalised from the sensor's perspective. Android offers activity recognition for walking, driving, or standing still. This is achieved by registering a sensor callback for the TYPE\_STEP\_DETECTOR composite sensor.
+  This mechanism is based on analysing individual walking patterns. According to data presented by Derawi et al \cite{derawi2010unobtrusive}, error rates\footnote{The performance indicator used in biometric analysis is the Equal Error Rate (EER).} may vary between $5\%$ to $20\%$.  Android offers native recognition support for walking, driving, or standing still. Applications can register a sensor callback for the TYPE\_STEP\_DETECTOR composite sensor. Whenever such an event is detected, data can be recorded from the accelerometer and validated using an algorithm similar to the one described by Derawi et al \cite{derawi2010unobtrusive}.
   
   \item[Ear shape analysis] \hfill \\
-  Studies have shown \cite{} that the shape of the human ear contains enough unique features in order to perform biometric authentication. Taking advantage on user behaviour when using a phone, accurate images can be captured in order to perform such analyses. Within a few seconds from answering the phone, given no peripherals are attached, the user is going to move the phone towards his ear. Based solely on timing and/or accelerometer data, accurate pictures could be taken of the user's ear before the camera gets too close. Images captured by such a mechanism could then be used to calculate an accurate confidence whether the owner is the person who is answering the phone.
-  
-  \item[Service utilisation] \hfill \\
-  This proposed mechanism is not biometric based. It exploits patterns in the Android phone's service and app utilisation. Based on current running applications, services, and the time they were started my create a model where some confidence is given as to whether the owner has changed. This mechanism would only be effective in detecting sudden changes, but may easily be obstructed either by removing the Pico authenticator. Furthermore sudden changes in ownership are not promptly detected which is why the mechanism would have a low weight in the overall scheme. 
+  Research shows (i.e. Burge et al \cite{burge1996ear}, Mu et al \cite{mu2005shape}) that the shape of the human ear contains enough unique features to perform biometric authentication. Taking advantage of user behaviour, valid data can be captured and analysed using a smart phone. We suggest that a picture is taken a few seconds after a phone call event is detected. If no peripherals are attached, the user is likely to move the device towards the ear. Images captured by such a mechanism could then be used to calculate an accurate confidence level of the user's identity. This method was not tested, so therefore we cannot ensure whether the auto-focus of the camera is sufficiently fast to obtain a valid image.
   
   \item[Proximity devices] \hfill \\
-  A mechanism may be developed which tries to connect with other devices also running the authenticator. The two owners don't necessarily need to know one another for the acknowledgement to be performed. Based on day to day activities, users tend to interact or at least be around a lot of the same people. Weather regular travel schedules, or as a better scenario, working in an office, constantly being in the presence of other known devices should give a confidence as to whether the device is in the presence of the user. This mechanism could only be circumvented by co-workers or friends unlocking the Pico, which is why it should never have sufficient weight to unlock the Pico on its own. In combination with other mechanisms however, it would provide a good sense regarding the owner of the device. It the device is ``in good company'' there is a good chance the owner is also present. This should be enhanced with time data as to when other trusted device are recognized. Furthermore, based on the ID of the devices the owner comes in proximity to, the mechanism may have different weights for different devices. As an example, even though travelling with your family on holiday and most of the devices there are unknown, given that a number of frequent IDs are in the proximity of the device, the mechanism should still consider to some extent that it is in the possession of its owner. This would work similarly with the Picosiblings idea, but each Picosibling is a device running this authentication mechanism which is frequently in the proximity of the owner.
+  This is an original idea based on providing a confidence level depending on the presence of known devices. The mechanism should connect with other devices that are also running the authenticator. The two owners don't necessarily need to know one another for the acknowledgement to be performed. Whether regular travel schedules, or working in an office, users are constantly being in the presence of other known devices. This should provide a confidence as to whether the device is in the presence of its owner. 
+  
+  The authentication works by seeking connections with other devices. Whenever a device is identified, its ID is recorded. The mechanism needs to keep track of the number of times it has connected with another device. Some connections may be established for the first time, and should not bring any confidence. Other connections, such as the Pico of a co-worker, would probably have a high number of connections, and therefore the mechanism should output a higher confidence level in its presence. This mechanism is similar to the Picosiblings solution, but with no k-out-of-n secrets. Each Pico is essentially a Picosibling for another Pico, with each device having a different weight based on familiarity.
+
+  As an example, when travelling with your family on holiday most of the devices there are unknown. However, given that a number of frequent IDs are in the proximity of the authenticator, the mechanism should still consider to some extent that it is in the possession of its owner. 
+  
+  The mechanism can be circumvented in the scenario where co-workers or friends try to unlock the Pico. Due to this downside, it should never have sufficient weight to unlock the token on its own. However, in combination with other mechanisms it would provide a good approximation of whether it is in the possession of its owner. If the device is in good company there is a good chance the owner is also present. 
   
   \item[Location data] \hfill \\
-  This mechanism is also non biometric. It is similar to ``Proximity devices'' and much easier to implement. Based on Android GPS data, the phone may detect whether it is in an usual location or not. Just as ``Proximity devices'' this mechanism should not carry a high weight in the scheme, especially since it would not provide accurate results in scenarios such as holidays.
+  This mechanism is similar to ``Proximity devices'' and much easier to implement. Based on Android GPS and network location data, the phone may detect whether it is in an usual location or not. Just as ``Proximity devices'' this should not carry a high weight in the scheme, especially since it would not provide accurate results in scenarios such as holidays.
+  
+   \item[Service utilisation] \hfill \\
+  This mechanism exploits patterns in the Android phone's service and app utilisation. Based on current running applications, services, and the time they were started we may create a model where some confidence is given regarding the ownership of the device. This mechanism would only be effective in detecting sudden changes. It would have a low weight in the overall scheme due to its lack in precision. 
   
   \item[Picosiblings]
   The original Picosiblings mechanism may also be used with this scheme. Although not part of the standard set of Android device sensors, if available, a Picosiblings implementation may be included as one of the authentication mechanisms.
 \end{description}
 
-Some of the continuous authentication mechanisms may also be used for explicit authentication. Based on the non-extensive list mentioned above, the user may be notified to provide accurate information for the following mechanism: face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and ear shape analysis. By notifying the user that he has to provide more accurate authentication data, the mechanisms get a better chance of providing valid results. The decay rate after explicit authentication will be slower in order to maintain the continuous authentication property of the Pico for the duration of the authentication session.
+% continuous mechanisms for explicit authentication
+A number of continuous authentication mechanisms may also be used for explicit authentication. The user can be notified to provide accurate information for the following mechanism: face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and ear shape analysis. This creates the opportunity for a valid data sample to be collected.
 
-In addition to the mechanisms mentioned above, a number of explicit authentication mechanisms which do not satisfy the continuous authentication property of the Pico may be implemented using the Android SDK. It is important to note that any other mechanisms not included in this list need to satisfy the memory property of the Pico, according to which the user doesn't need to remember any known secret. A non-extensive list of mechanisms includes the following:
+% explicit authentication mechanisms
+A number of explicit authentication mechanisms which do not satisfy the continuous authentication property of Pico may be implemented for the Android platform. It is important to note that additional mechanisms not included in this list need to satisfy the memorywise-effortless property of the token unlocking framework (\ref{tokenframework}). We suggest the following mechanisms for implementation:
 \begin{description}
   \item[Fingerprint scanner] \hfill \\
-  Devices which may have a fingerprint scanner incorporated, such as the IPhone 5S may use this sensor in order to gather biometric data used for authentication. This mechanism cannot actively be used for continuous authentication due to the fact that the user doesn't come in contact with the sensors on a regular basis. A mechanism can therefore request explicit fingerprint data, which would then be compared with the owner's biometric model, outputting a confidence for the authentication. This confidence will be combined in the calculation of the overall scheme confidence just as any other mechanism, the only difference being in terms of weight and decay rate.
+  Devices that incorporate a fingerprint scanner (such as the IPhone 5S) can use the sensor as an explicit authentication mechanism. It cannot be used for continuous authentication because the user doesn't come in contact with the sensors on a regular basis. A mechanism can therefore request explicit fingerprint data, which would then be compared with the owner's biometric model, outputting a confidence for the authentication. The result will be combined in the overall scheme just as any other mechanism. The the only difference will be in terms of weight and decay rate.
     
   \item[Hand writing recognition] \hfill \\
-  The user may be prompted to use the touch screen in order to write a word of his choice. This would guarantee the memoryless property, since the user doesn't need to remember any sort of secret. The handwriting would be analysed with a preconfigured set of handwriting samples in order to determine the confidence level that the owner produced the input.
+  The user may be prompted to use the touch screen in order to write a word of his choice. This would guarantee the memorywise-effortless property because the user doesn't need to remember any secret. The handwriting would be analysed with a preconfigured set of handwriting samples in order to compute the confidence level that the owner produced the input.
   
   \item[Lip movement analysis] \hfill \\
-  According to the paper \cite{} by TODO, lip movement during speaking may be used to uniquely identify individuals. Lip movement analysis would be performed similarly as described in the paper. The confidence level that the owner produced the input would then be combined in the authentication scheme. This may also be implemented as a continuous authentication mechanism, with with lower success rate expectations due to the way users tend to hold mobile phones, which usually doesn't expose the mouth to the camera.
+  According to Faraj and Bigun \cite{faraj2006motion}, analysing lip movement while speaking can be used for authentication. The user would be prompted to provide a data sample such as reading a word provided by the authenticator. Using lip movement authentication, a quantifiable confidence level would be produced. This mechanism can also be implemented as a continuous authentication mechanism. However, data sampling would likely have a low success rate as users tend not to have their mouth within the camera's field of view.
 \end{description}
 
+% Introduction for developed mechanisms
+In order to have a functional prototype of the scheme, we have developed a number of authentication mechanisms. The following sections will confirm that the Android platform offers sufficient functionality for supporting the scheme. Furthermore, this should stand as proof that the design can be implemented on a dedicated Pico device with a similar set of sensors.
+
+% Listing mechanisms with promises of future details
+The following mechanisms have been implemented as part of the prototype: voice recognition, face recognition, location analysis, and a dummy mechanism used for testing. The following sections will provide details regarding their functionality and implementation process.
+
 \subsubsection{Dummy mechanism}
-In order to perform tests for different confidence levels, a dummy authentication mechanism was implemented using the AuthDummyService class. It extends the AuthMechService abstract class, which makes it an independent service just to maintain the application model consistent. 
+%
+% TODO: weight decay!
+%============================
+% Introduction: what it does, why it was developed
+A dummy authentication mechanism was developed for testing the overall scheme. It produces random confidence levels within a predefined range, which provides a good controlled environment for testing purposes.
 
-The service contains a data access object (DAO) which in this case only produces random confidence levels within a given range. A thread running within the service makes periodic requests to the DAO in order to mimic an authentication mechanism which periodically samples for data. The service is updated based on the produced value. 
+% General implementation detail
+The mechanism was developed consistently with the application model. It is implemented in the ``AuthDummyService'' class, extending the ``AuthMechService'' abstract class. This makes it an independent bound service with a predefined communication interface.
 
-When the UAService wants to update its overall confidence, it makes a AUTH\_MECH\_GET\_STATUS request to the AuthDummyService service, which returns the most recent confidence level multiplied by the current decay factor. The result is combined with the result from the remaining authentication mechanism services.
+% DAO
+All authentication mechanism services have a data access object (DAO) responsible for interfacing with imported libraries and managing authentication data. In this case the DAO only produces random confidence levels within a given range. A thread belonging to the service makes periodic requests to the DAO. This mimics an authentication mechanism that periodically samples for data. The service confidence is updated based on the produced value. 
+
+% sending data back to UAService
+When ``UAService'' needs to update its overall confidence, it makes an AUTH\_MECH\_GET\_STATUS request to the service. The reply contains the most recent confidence level multiplied by the current decay factor, and the original weight of the mechanism. 
 
 \subsubsection{Voice recognition}
-The voice recognition mechanism is implemented as a VoiceService class extending the AuthMechService abstract class. When the services onCreate() method is called, it starts an authenticator thread which periodically samples data from the device's microphone.
+% Introduction to mechanism
+The voice recognition mechanism is implemented in the ``VoiceService'' class. It extends the ``AuthMechService'' abstract class that defines its communication interface. When the service is created, the ``onCreate()'' method is called automatically by the Android platform. The method was developed to start a thread that periodically gathers data from the microphone, performs biometric authentication, and produces a confidence level.
 
-% TODO: cite https://github.com/amaurycrickx/recognito
-The library used for voice recognition is called Recognito developed by Amaury Crickx. It is a text independent speaker recognition library developed in Java. It is by no means one of the best voice recognition libraries, but it was best suited for the purpose of this prototype. The library required minimal additional changes. It claims very good results in scenarios with minimal background noise, such as TED talks \cite{} which it was originally tested on by its author.
+% TODO: decay weight
 
-In order for the application to compile properly, a subset of the rt.jar was required. This is due to ``javax.sound.'' packages included with the library which are not available on Android. Unfortunately ``javax'' is a core library also available in Android, but without any of the sound features. For this reason, although the required packages are included with the application this is purely done to trick the compiler that everything is in place. In reality none of the functionality offered by these packages is used by the application. This is avoided by only using the raw features of the library which require direct sound input without any details regarding sound files and formats.
+% Library used for implementation
+% 	TODO: library repeats a bit
+The library used for voice recognition is called Recognito\footnote{The library can be downloaded using github from the following link: https://github.com/amaurycrickx/recognito} and was developed by Amaury Crickx. It is a text independent speaker recognition library developed in Java. We do not claim that it is the best voice recognition library, but it was best suited for the purpose of this prototype. Porting the library for Android required minimal changes. It claims very good results in scenarios with minimal background noise\footnote{It was tested by the author on TED talks, such as:  https://www.ted.com/talks/browse (visited on 06.01.2014)}.
 
-In order to gather samples compatible with the library and manage them properly, we have created the ``VoiceRecord'' class. This class is responsible of gathering microphone input using a predefined compatible configuration listed in the following listing:
+% Hack to compile with the library
+In order for the application to compile the Recognito library, a subset of the rt.jar Java (SE) library was required. This is due to ``javax.sound.'' packages included in Recognito that are not available on Android. Trying to import and use the ``javax.sound.'' package is not possible due to the name collision with the ``javax.'' system library available on Android. Therefore, we had to include ``rt.jar'' as part of the application, but without actually using it. This was purely done to trick the Android Java compiler to package the application. Using ``javax.sound'' features would generate a runtime error. This was avoided by only using Recognito functions which require direct sound input, without any knowledge of sound file formats.
+
+% Recording configuration
+In order to gather and manage samples compatible with the Recognito library we have created the ``VoiceRecord'' class. This is responsible of gathering microphone input using the following predefined configuration:
 \begin{itemize}
 	\item Sample rate: 44100
 	\item Channel configuration: AudioFormat.CHANNEL\_IN\_MONO
 	\item Audio format: AudioFormat.ENCODING\_PCM\_16BIT
 \end{itemize}
 
-The minimum buffer size required by the class is device dependant and pre-calculated in the constructor. The class wraps an AudioRecord object used for gathering microphone data. Due to the nature of the SDK, the recording is saved as a file which then is loaded into memory whenever needed. Although this is not an efficient approach due explicit loads from disk, it serves the purposes of the prototype.
+% More random recording stuff..
+The minimum buffer size required by the ``VoiceRecord'' class is device dependant and pre-calculated in the constructor. The class wraps an ``AudioRecord'' object used for gathering microphone data. Due limitations of the SDK, the recording is saved as a file and loaded into memory when needed. This makes the implementation not efficient, but it does serve the purpose of the prototype.
 
-In order to have a better interface to the Recognito library, a DAO class was created. When initialised, the DAO object loads the owner configuration together with the predefined set of background noises. It instantiates a Recognito object and trains it using the loaded data. This is performed using the ``createVocalPrint'' public function made available by the library.
+% DAO
+A DAO class is created to facilitate the interface to the Recognito library. When initialised, it loads the owner configuration, and a predefined set of background noises. It then creates a Recognito object and trains it using the data. This is done using the library's ``createVocalPrint'' public method.
 
-Using the audio data stored as a ``double[]'' array and the sampling rate stored in the ``VoiceRecord'' class, we can then call the ``recognize'' functionality of the library in order to get the closest match to either the owner, or one of the background noises used for training. The library then returns the closest match given its training data, together with the Euclidean distance to that match.
+% Getting confidence level
+Every predefined time interval, the ``VoiceService'' authentication thread records data in ``double[]'' format using the ``VoiceRecord'' class. It then calls the ``recognize'' public method of the Recognito object. This returns the Euclidean distance to the closest match, which is either the owner, or one of the background noises used for training. 
 
-In order to convert the Euclidean distance to a percentage confidence level, an acceptable Euclidean distance threshold is used. Any result above the threshold is considered too high and is truncated to the threshold level. Using the following formula we then convert the value to a confidence level, which is the equivalent of $P(E|M)$, the probability that the evidence belongs to the model.
+% Getting closest match
+To convert the Euclidean distance to a percentage confidence level, we define an acceptable threshold. Any result above the threshold is considered too high and is truncated to its value. Using the following formula we convert the Euclidean distance to a confidence level. The final result is $P(E|H)$ (the probability that the evidence belongs to the hypothesis) used in equation \ref{eq:final}.
 
 $$P(E|H) = 1 - \frac{distance}{THRESHOLD}$$
 
-% TODO: make sure this calculation remains consistent
-Dividing the distance over the threshold yields a confidence value between 0 and 1, where 1 is a very large distance and hence a bad result. By using one minus this value we invert the meaning, yielding values between 0 and 1 where 1 corresponds to 100\% confidence level. 
+% Probability computation estimate
+Dividing the distance over the threshold yields a confidence value between 0 and 1, where 1 is a very large distance and hence a bad result. By using one minus this value we invert the meaning. Values will range between 0 and 1, and 1 corresponds to a confidence level of $100\%$. 
 
-Having calculated $P(E|H)$ we then proceed by calculating $P(H|E)$ using the formula mentioned in the design section of this dissertation. Whenever calculating the current confidence level, we use the value of $P(H|E)$ multiplied by the current decay rate, a number which is periodically decreased within the service. Due to the message passing mechanism using intents, this value needs to be an integer and is therefore multiplied by 100. The overall result is stored in the service and updated whenever the decaying weight is modified. When a request is made by UAService, the value is returned using the IBinder message passing mechanism offered by Android.
+% Do Bayesian update
+Having known $P(E|H)$ we continue to calculate $P(H|E)$ by using the Bayesian update formula defined in equation \ref{eq:final}. When calculating the final confidence level of the mechanism, we multiply $P(H|E)$ with the current decay rate. Due to the message passing API, this value needs to be an integer and is therefore multiplied by 100. The overall result is stored in the service and updated whenever the decaying weight is modified. When a request is made by UAService, the value is returned using the IBinder message passing mechanism.
 
 \subsubsection{Face recognition}
-The face recognition mechanism was implemented in the ``FaceService'' class, which extends the AuthMechService abstract class. It is a service running a thread which periodically collects data from the camera. Each sample is analysed using a face recognition library, and a confidence level is outputted for the current sample. Just as the scheme proposes, this confidence level is multiplied by a weight which is a decaying factor.
+\label{implface}
+% Introduction: brief description of the implementation
+The face recognition mechanism was implemented in the ``FaceService'' class, which extends the ``AuthMechService'' abstract class. When created, the service starts a thread that periodically collects data from the camera. Each sample is analysed using a face recognition library, and a confidence level is outputted for the current sample. The result is multiplied by the mechanism's weight which is a decaying factor.
 
-The library used for face recognition is a port of the Javafaces library \cite{}. This was the closest functional library found that was compatible with the Android API. Javafaces is a library written entirely in Java, but which unfortunately makes use of the ``javax.imageio.'' package which is not available in the standard Android SDK. Since a considerable amount of code needed to be changed, we have created a new library \cite{} based on the original for the Android OS.
+% Javafaces library
+For biometric face recognition we use a port of the ``Javafaces'' library \footnote{The ``JavaFaces'' library is maintained at the following address: https://code.google.com/p/javafaces/}. This was the closest functional library found that was compatible with the Android API. Javafaces is written entirely using Java (SE). Unfortunately, it makes use of the ``javax.imageio.'' package which is not available in the standard Android SDK. Therefore, a considerable amount of code needed to be ported for the Android platform. The new library is publicly available at the following link:https://github.com/cristiantoader/JavafacesLib. It is currently not optimised for public use.
 
-I will briefly present the changes made when porting the Javafaces library. The ``BufferedImage'' class had to be replaced by its Android counterpart, Bitmap. All BufferedImage references and initialization had to be changed. The API was modified to support direct Bitmap input in order to add more flexibility and lighten the main code of the authenticator. Original data formats for black and white images were assumed to have a single colour channel representing the grey value. This had to be changed within the code in order to reflect the Bitmap convention where all 3 colour channels are present but have the same value. Additional modification were required such as data type mismatches as well as other smaller issues.
+% Javafaces changes for porting to Android
+We will briefly present the changes made when porting the ``Javafaces'' library. The ``BufferedImage'' class had to be replaced by its closest Android equivalent, which is ``Bitmap''. All ``BufferedImage'' references in the original project had to be adapted. Furthermore, The API was modified to support direct ``Bitmap'' input in order to add more flexibility and lighten the main code of the authenticator. 
 
-Unfortunately, this library combined with the Android SDK does not provide accurate results. This is due to the fact that the library requires a rectangle bitmap perfectly containing the face of an individual. Unfortunately the Android SDK although offers face detection, it only provides the location of the midway coordinate between the eyes, and the distance between the eyes. Using this data alone, an accurate crop cannot be made. As a solution, yet another library would need to be used in order to detect faces and provide more accurate data regarding their location and boundaries.
+In the original ``Javafaces'' library, data formats for black and white images were assumed to have a single colour channel representing the grey value. This had to be changed to reflect the Bitmap convention, where all 3 colour channels are present but have the same value. Additional modifications were required due to data type mismatches, as well as other related issues.
 
-Every fixed time interval, a thread running within the ``FaceService'' object samples data from the camera at a fixed time interval. This is performed using an instance of the Camera class. Additional configuration is required based on the orientation of the phone. On the device the prototype was developed \cite{}, when the phone is held normally a 90 degree rotation of the image is required.
+% Authentication process
+%	TODO: include that if no faces are found, the process is not performed
+Every predefined time interval, the authentication thread running within the ``FaceService'' object samples data from the camera. This is performed by using a ``CameraUtil'' object. The ``CameraUtil'' class was developed as a mediator to simplify the interface to the Android ``Camera''. For example, it performs additional checks such as the orientation of the phone. 
 
-By default, the Android API does not easily allow for a Camera picture to be taken without any sort of notification to the user. By default both a shutter sound and a visual preview display should be present. The shutter sound can easily be disabled by simply not implementing any shutter callback function. The preview display however proves to be a bit more difficult. The solution used with this prototype was to exploit Android's option to render the preview image to a ``SurfaceTexture'' object. This satisfies the API's request to have a visual display preview for the camera, while the ``SurfaceTexture'' itself doesn't need to be displayed on screen. Therefore an picture can be taken from a background service without the user being aware of this event.
+A DAO class called ``FaceDAO'' was developed to mediate calls to the Android ``Javafaces'' library. Images captured using ``CameraUtil'' are validated using the DAO. The value returned from the ``Javafaces'' library is the Euclidean distance between collected data and the registered owner. This distance is handled in the exact same way as the voice recognition mechanism \ref{implface}.
 
-A DAO class called ``FaceDAO'' was developed in order to interface with the Javafaces library port. The authentication thread running within the ``FaceService'' object periodically captures an image from the camera. The image is then validated using the ``FaceDAO'' object. The value returned from the Javafaces library is the Euclidean distance to the closest registered user, which in our case is the owner of the device. This distance is handled in exactly the same way as the voice recognition mechanism.
+% Gather picture with no notification: shutter sound
+By default, the Android API does not easily allow for a Camera picture to be taken without any sort of notification to the user. Both a shutter sound and a visual preview display should be present. The shutter sound can be disabled easily by not providing a shutter callback function when calling the Camera.takePicture() method. 
 
-Another problem encountered by face recognition mechanism is the size of the data involved in performing the face recognition. With standard pictures, the application runs out of memory and is closed by the Android OS. In order to fix this issue, Bitmaps collected from the camera are scaled to 50% before they are processed by the library.
+% Gather picture with no notification: shutter sound
+Disabling the user preview of the camera was more difficult to achieve. The solution used with this prototype was to exploit an Android feature that allows to render the preview in a ``SurfaceTexture'' object. This satisfies the API's requirement to have a visual display preview for the camera, while the ``SurfaceTexture'' itself does not need to be displayed on screen. Therefore a picture can be taken from a background service without any interruption to the user.
+
+% Issue of image too large
+Another problem encountered by the face recognition service is data sizes. When the ``Javafaces'' library performed its algorithm, the device was running out of memory. This caused the app to be closed by the Android OS. To fix this issue, Bitmaps collected from the camera are scaled to $50\%$ before they are processed by the library.
+
+% Results
+Unfortunately, the library combined with the Android SDK does not provide accurate results. The reason is that it requires as input a bitmap perfectly containing the face of an individual. Unfortunately, although the Android SDK offers face detection, it only provides the location of the midway coordinate between the eyes, and the distance between the eyes. Using this data alone, an accurate crop cannot be made. As a solution, yet another library would need to be used in order to properly detect face regions. This would provide better input data and would increase the precision of the mechanism.
+
+\subsubsection{Location analysis}
+% Introduction: short description of the mechanism
+The mechanism is based on gathering location data and using it to generate a probability that the owner is present. This is implemented in the ``LocationService'' class that extends the ``AuthMechService'' abstract class. Data is collected periodically by using the ``LocationManager'' provided by the Android API.
+
+% DAO object used for collecting data
+A DAO object is used to mediate calls to the Android API and manage the existing owner configuration. It is implemented in the ``LocationDAO'' class. It offers functionality for gathering and saving location updates. It is developed to use the most accurate data provider. The Android API offers the following sources of collecting ``Location'' data:
+\begin{itemize}
+	\item GPS\_PROVIDER: Collects data from the GPS.
+	\item NETWORK\_PROVIDER: Collects data from cell tower and WiFi access points.
+	\item PASSIVE\_PROVIDER: Passively collects data from other applications which receive ``Location'' updates.
+\end{itemize}
+
+% Describe the algorithm class
+External libraries were not used for the authentication process. We have developed a primitive location analysis algorithm in the ``LocationAnalyser'' class. During the configuration stage, which is a process managed by ``LocationActivity'', location data is sampled every 5 minutes and saved in internal storage. After the process has ended, each time a ``Location'' is sent for authentication it is compared with all the locations saved during the configuration process. The final result is the minimum Euclidean distance between the current ``Location'' and any other saved ``Location''. 
+
+% Describe how authenticator thread works
+When the service is started by ``UAService'', its ``onCreate()'' method spawns an authentication thread. This thread periodically requests the current location using the DAO. Data is returned in a ``Location'' object and is provided as input to the ``LocationAnalyser''. The result of this operation is an Euclidean distance which gets converted to a percentage using a threshold, just as in the previous mechanisms. The value is stored by the service for future requests from ``UAService''.
+
+% Conclusion
+Just as mentioned in section \ref{implauthmech}, the mechanism has a lower confidence level. Although being in a known location provides some confidence that the token was not stolen, it does not offer any guarantees that the device is still with its owner.
 
 \subsection{Owner configuration}
-In order to configure the biometric authentication mechanisms in a flexible, controlled manner a couple of Android activities were developed. There are used to set the initial owner biometrics based on which the mechanisms will output their confidence levels. These activities use the same DAO classes in order to store the data once it was collected. Due to the size of the data, which is relatively small, the files can be stored in the application's internal memory, making it inaccessible by other applications.
+% Owner configuration activities exist
+There are a number of Activity components that are used in the configuration of the prototype. Each authentication mechanism has a corresponding Activity that can be started from the main Activity called ``PicoUserAuthenticator''. These are used to register owner biometrics needed by the mechanisms.
 
-\section{Threat model}
-% TODO:
-% - clear cache data from android
-% TODO: not really relevant since this is just a prototype
-% TODO: any cryptographic keys and content is not secure as the application may be decompiled
-% TODO: DOS by generating bad sensor data
-% TODO: check William Ench et al year
-% TODO: referenced android website instead of talk about components
-% TODO: more mmap_min_addr stuff. why does it help?
+% They use DAO objects to store data in internal storage
+Each configuration Activity uses the same DAO class as the mechanism Service. The DAO is used for storing the owner data once it was collected. Given that the overall size of the data is relatively small, the files are kept in internal storage. The Linux Android permissions mechanism guarantees its confidentiality and integrity, and therefore further encryption is not necessary.
 
-Even though the scheme implementation is a proof of concept, we will continue by analysing different threat models. This will reveal any flaws behind the concept, allowing for a more robust future implementation.
+\section{Conclusion}
+% Small overall
+We have described the Activity and Service components developed for the prototype, as well as their communication flow. We have ported two biometric libraries and developed a location analysis mechanism. DAO objects facilitate accessing owner configuration files and the interface with auxiliary mechanisms. An overview of the app design can be seen in figure \ref{TODO}.
 
-The purpose of the Pico token is to provide a robust authentication mechanism, without the use of any secrets for the owner to remember. Where the Pico unlocking scheme fits, is correctly identifying the owner of the Pico. Attacks may be performed in the form of malware installed on the device while still within the possession of its owner. The main threat however comes from an attacker having physical access to the user's Pico. 
+% TODO: insertgraphics() overall design of the app.
 
-It is important to note that since this is a purely software implementation, physical access may mean either that the attacker is in possession of the phone, or that it may replicate the secretes of the victim's Pico on a separate device. Replicating the Pico secretes would clearly create much more damage for the user from a cost perspective. A total reset of authentication credentials would be necessary for all accounts registered with the Pico device.
+% Limitations and solutions
+One of the limitations of the prototype is the lack of explicit authentication mechanisms. Another issue is the precision of the biometric mechanisms, in the lack of better libraries. However, due to the modular design of the application, existing mechanisms can be improved simply by importing a new library and modifying its DAO. The existing set of mechanisms can easily be increased by creating a new class that extends ``AuthMechService'', and implementing the algorithm logic. In order to be managed by ``UAService'', the new mechanism needs to be included in the ``UserAuthenticator.initAvailableDevices()'' method.
 
-
-
-\subsection{Prototype threat model}
-Let us now continue by studying the threat model of the Pico authenticator application. We will consider the security mechanisms presented above as the predefined assumptions made in this model. In order to reduce the threat space we will consider the application is running on a hand held device running Android 4.4.2 with all recent updates.
-
-\subsubsection*{Availability}
-Breaking the scheme's availability if the device is in the possession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. Furthermore, in this case the owner is already no longer in possession of their Pico, so basically the Pico is already made unavailable..
-
-Let us continue however and study what can be achieved from a DoS perspective by the attacker from the perspective of the individual user app accounts, which would need to be reset by the owner. In order to gain any sort of access and make credentials reset not possible, or at least have a chance in doing so, the attacker would have to unlock the Pico.
-
-From a malware attack perspective data used by the authentication should not be modifiable. This would guarantee that all mechanisms have their cached biometric data available at all times and may function properly. Due to the Linux permissions mechanism and the fact that each application has its own UID and GID, data stored in internal memory should not be readable or writeable by any other user level application in the system. If however the device is rooted and the owner is mislead into granting root privileges to another application, then the security model would be broken and the data would be exposed. This could lead to deletion which would make the mechanisms not function properly, resulting in a DoS attack.
-
-% TODO: can we fake data from sensors?
-
-\subsubsection*{Integrity}
-Just as mentioned in the Availability section, the authenticator should be safe against any data accesses from other applications as long as the application does not have root privileges. This would allow malware to break the integrity property of the data.
-
-From a data flow point of view Intents used for communication within the authenticator as well as with the Pico application are not modifiable. Furthermore Intents are not broadcasted using the implicit Android broadcast mechanism, which makes them impossible to replay or even intercept.
-
-\subsubsection*{Confidentiality}
-Considering a circumstance where a root malware process would have access to the authenticator's data stored on disk, this would not lead to a direct compromise of the owner biometric data. All cached files are stored in internal memory in encrypted format. The mechanism used for encryption is RSA, with the private key stored using the Android KeyChain API.
-
-On a rooted device however, the encryption layer provides only another bi-passable layer of security. With root access, an application could retrieve the master key of the KeyChain and use it to retrieve or private key and decode the owner's biometrics.
-
-From a data flow perspective, internally the Pico authenticator uses an self-developed broadcast system. Client processes need to register with the broadcaster, such as the UAService, in order to receive updates. This ensures data confidentiality throughout the system. Furthermore, the authenticator and Pico should be released under the same author. This would allow locking the application from outside Intents as well as interaction with different components. Sandboxing communication is always a desirable property from a confidentiality perspective.
-
-The paper by Adrienne Porter Felt et al \cite{felt2012android} shows that according to their surveys only 17\% of users pay attention to the Android permissions dialogue, and only 3\% understand what each permission represents. A malware application which has granted full permissions gets pass the Bouncer and is installed as an application. Even so, due to the Linux permission model adopted by Android, the confidentiality of the authenticator's data would not be compromised. Instead however, the malware application may collect all relevant on its own from the user, allowing for a powerful replay attack in the future.
-
-\section{Future work}
-The application was implemented as a proof of concept. It is developed in order to show that different data may be obtained without the owner's knowledge. Additional improvements can be made in order to increase the confidence level of the authenticator.  Furthermore, due to time constraints and unavailability of free to use biometric libraries, a number of mechanisms were not implemented. The list can easily be extended by simply creating a class which extends the ``AuthMechService'' abstract class.
-
-One way to improve the voice recognition mechanism would be to start sampling data whenever a call is active. This would increase the chances of capturing an accurate sample of the owner's voice. In this context, a better voice recognition library can be used, which supports multiple speakers and/or ignores background noise. If such a library is not available, we can rely on the fact that most of the times people take turns when speaking. For the duration of the call, with a high enough sampling frequency, the individual sampling voice of both participants should be captured. However, it is important to take into account a situation in which the thief is calling the owner on a different phone in order to unlock his Pico.
-
-Immediate improvements can be made to the face recognition mechanism. Just as recommended in the description of the mechanism's implementation, another library which provides more meaningful face coordinates may be used for face detection. Alternatively, and preferably, a different library which performs both face detection an recognition can be integrated with the mechanism.
-
-Another improvement for the face recognition mechanism would be from the data sampling perspective. Instead of capturing images at a fixed interval, pictures should be taken only when the phone unlock event is triggered. While the phone is unlocked it is highly likely that the user will face its front camera.This would provide better chances of processing meaningful data.
-
-\section{Results}
-%TODO:
-Need to figure out how to present meaningful results for different scenarios, and how the mechanism would work. Use dummy authenticator to generate data.
-
+% TODO: continue from here
 \section{Related work}
-Liang Cai et al makes analyse in their paper \cite{cai2009defending} ways of protecting users from mobile phone sensor sniffing attacks. The authors design a framework used for protecting sensor data from being leaked. From a security perspective it is noted that the user is not to be trusted with granting permissions to different applications. An important point made in this paper is the fact that malware may deny service to legitimate applications such as our authenticator by creating a race condition for acquiring a lock on the sensor. The solution proposed by the authors would be an user notification, allowing for the owner to decide which application acquires the lock. A suggestion to this approach would be to allow for different priority levels, such that malware applications would not acquire the lock in a race condition, or even more, would lose it when a high priority application such as the Pico authenticator would require sensor data.
+% Sensor sniffing
+Liang Cai et al \cite{cai2009defending} analyse ways of protecting users from mobile phone sensor sniffing attacks. The authors design a framework used for protecting sensor data from being leaked. From a security perspective the user should not to be trusted with granting permissions to different applications. An important point made in this paper is that malware may deny service to legitimate applications (such as our prototype) by creating a race condition for acquiring a sensor lock. The solution proposed by the authors would be an user notification, allowing for the owner to decide which application acquires the lock. A suggestion to this approach would be to allow for different priority levels, such that malware applications would not acquire the lock in a race condition, or even more, would lose it when a high priority application such as the Pico authenticator would require sensor data.
 
-The paper by Derawi et al \cite{derawi2010unobtrusive} presents the feasibility of implementing gait authentication on Android as an unobtrusive unlocking mechanism. According to the definition offered by the authors ``gait recognition describes a biometric method which allows an automatic verification of the identity of a person by the way he walks''. According to the paper, the Android implementation has an equal error rate (EER) of 20\%. Dedicated devices have an EER of only 12.9\%, and the cause for this is the sampling rate used by the authors. They have used a Google G1 phone with about 40-50 samples per second, which is much inferior to dedicated accelerometers which sample data at 100 samples per second. However, by conducting personal experiments with the Accelerometer of a Google Nexus 5 phone, using the highest sampling setting (SENSOR\_DELAY\_FASTEST) sampling rates go above 100 samples per second. Therefore the performance of devices has increased, making the authentication mechanism more reliable.
+% Gait recognition
+The paper by Derawi et al \cite{derawi2010unobtrusive} presents the feasibility of implementing gait authentication on Android as an unobtrusive unlocking mechanism. According to the definition offered by the authors ``gait recognition describes a biometric method which allows an automatic verification of the identity of a person by the way he walks''. The Android implementation developed by the authors has an equal error rate (EER) of $20\%$. Dedicated devices have an EER of only $12.9\%$, and the main cause for this is the sampling rate available at that time (2010). They have used a Google G1 phone with approximately 40-50 samples per second. This is much inferior to dedicated accelerometers that sample data at 100 samples per second. However, by conducting personal experiments with the accelerometer of a Google Nexus 5 phone, using the highest sampling setting (SENSOR\_DELAY\_FASTEST) the rates go above 100 samples per second. Therefore the current performance of the algorithm paper should be closer to $12.9\%$.
 
-Ming et al presents in his paper \cite{ming2007robust} how to improve speaker recognition accuracy on mobile devices in noisy conditions. This approach uses a model training technique based on which missing features may be used to identify noise. The focus of the paper is biometric implementation related and is therefore outside the scope of the project. 
+% Improve speaker recognition in noisy conditions
+Ming et al \cite{ming2007robust} present in their paper how to improve speaker recognition accuracy on mobile devices in noisy conditions. This approach uses a model training technique based on which missing features may be used to identify noise. The focus of the paper is designing and implementing a biometric mechanism, and is therefore outside the scope of this dissertation project. 
 
-Another technique in performing speaker recognition involves using voiceprints. These are a set of features extracted from the speaker sample data. Kersta explains in their paper \cite{kersta2005voiceprint} the mechanism in more detail. The benefits of having feature extraction based on a voice sample as opposed to a different voice recognition mechanism is the fact that voiceprints do not require knowing any secrets. The speaker doesn't have to reproduce a voice sample. This increases the usability of the mechanism in the scenarios required by the Pico authenticator.
+% Voiceprints voice recognition
+Another technique in performing speaker recognition involves using voiceprints. These are a set of features extracted from the speaker sample data. Kersta \cite{kersta2005voiceprint} explains the mechanism in more detail. The benefit of having feature extraction based on a voice sample, as opposed to a different voice recognition mechanism, is that voiceprints do not require any secrets. The speaker doesn't have to reproduce a voice sample. This increases the usability of the mechanism in scenarios required by the Pico authenticator. However, a downside to this approach is that it makes replay attacks easier to perform. Any recording of the user is sufficient for an attacker to trick the biometric mechanism.
 
-A popular paper on face authentication \cite{turk1991face} was written by Turk and Pentland. The biometric authentication process is based on the concept of eigenfaces. Eigenfaces are a name given for the eigenvectors which are used to characterise the features of a face. These features are projected on to the feature space. Using Euclidean distances in this feature space, a classification can be performed in order to correctly identify individuals. An implementation of this concept was implemented with the prototype of the Pico unlocking scheme.
+% Face recognition
+%	TODO: need to review the phrasing
+A popular paper on face authentication was written by Turk and Pentland \cite{turk1991face}. The biometric authentication process is based on the concept of eigenfaces. Eigenfaces are a name given for the eigenvectors which are used to characterise the features of a face. These features are projected onto the feature space. Using Euclidean distances in the feature space, classification can be performed to correctly identify individuals. An implementation of this mechanism was developed for the Pico unlocking scheme prototype.
 
-A more unconventional method for authenticating users was presented by Clarke and Furnell in their paper \cite{clarke2007authenticating} on keystroke analysis. This mechanism is unobtrusive and authenticates users during normal interactions such as typing a text message or a phone number. It is based on a neural network classifier, reporting an EER of 12.8\%. Input data used for classification is composed out of time between successive keystrokes, and hold time of a pressed key. 
+% Keystroke analysis
+An unconventional authenticating mechanism is presented by Clarke and Furnell \cite{clarke2007authenticating}. They use keystroke analysis in order to make predictions regarding the user of the phone. This mechanism is unobtrusive and authenticates users during normal interactions such as typing a text message or a phone number. It is based on a neural network classifier, reporting an EER of $12.8\%$. Input data used for classification is composed out of timings between successive keystrokes, and the hold time of a pressed key. 
 
 
 
