@@ -7,6 +7,99 @@
 
 \lhead{Chapter 6. \emph{Evaluation}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
+% Brief summary of this chapter
+The chapter evaluates different aspects of the proposed token unlocking mechanism. We start by performing a threat model on the Android prototype. This should reveal any security limitations of the implementation and the overall scheme. We continue by analysing the performance of the prototype and discuss how it can be improved.
+
+Given a well defined implementation, we can assess the scheme using the token unlocking framework, and compare the results with the Picosiblings solution. In order to check for overall improvements, we use the UDS framework to evaluate a Pico token that uses the proposed token unlocking scheme, and compare the results with the original work by Bonneau et al \cite{bonneau2012quest}.
+
+\section{Threat model}
+% TODO:
+% - clear cache data from android
+% - not really relevant since this is just a prototype
+% - any cryptographic keys and content is not secure as the application may be decompiled
+% - DOS by generating bad sensor data
+% - check William Ench et al year
+% - referenced android website instead of talk about components
+%  - more mmap_min_addr stuff. why does it help?
+
+% Introduction on what we want to achieve
+The purpose of the prototype was to provide a proof of concept that the scheme can be developed using existing hardware. However, we will perform a threat analysis in order to ensure that the implementation is secure. The main reason for this is the possibility of gaining additional insight to the scheme's design limitations. Wherever possible, we will try to overcome shortcomings by making additional amendments to our proposed solution. Furthermore, the assessment should reveal attack paths that need to be considered in future implementations this mechanism.
+
+% Types of attacks we will be analysing
+The threat analysis will be performed from an availability, integrity, and confidentiality perspective. Attack paths will be analysed in different scenarios based on whether an attacker has physical access to the token or not. Although we will be making a security assessment for a prototype developed on the commercial Android platform, similar issues may arise for an implementation that uses dedicated hardware.
+
+Let us now continue by studying the threat model of the authenticator Android app. We will consider the security mechanisms presented in section \ref{androidsecurity} as predefined assumptions used in this model.
+
+\subsubsection*{Availability}
+% Availability: attacker has token
+Breaking the scheme's availability while the device is in the possession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. Furthermore, in this case the owner is already no longer in possession of their Pico, so basically the Pico is already unavailable.
+
+% Availability: attacker does not have token
+Let us continue and study what denial of service (DoS) attacks can be achieved by a remote attacker. Removing the owner configuration data from internal storage would make the authenticator unusable. This can only be achieved if the attacker (or a malware application designed by the attacker) manages to get root access on the device. Given the Linux permissions model, there would be no way to protect this data from deletion. If the attacker does not have root access, the app data cannot be accessed or modified.
+
+% Availability: dos via sensor locking
+	% TODO: amendment - notify the user that sensors are locked.
+Based on each device platform, multiple apps recording data from a sensor may not be possible. This can enable a DoS attack on the prototype by having malware locking sensors before the authenticator. This would make data collection impossible, and therefore the mechanisms' weights would gradually decrease to 0. The overall confidence level would be lowered, preventing the used from authenticating. After performing experiments, we can confirm this problem for the Google Nexus 5 smart phone when two applications try to record microphone data using different sampling rates \footnote{The apps were trying to record microphone data using the AudioRecord class; application one was using a sampling rate of 44100 and application two 22050.}.
+
+% Availability: starting multiple connections
+The current prototype is susceptible to a DoS attack caused by too many clients registered with the authenticator. Given that no permission is required to register to the ``UAService'' component, an unlimited number of connections can be made. Therefore, broadcasting the authentication status to each client may cause considerable delays. Furthermore, in order to unburden the developer from developing thread-safe code, ICC is performed on a single thread. This means that by spamming ``UAService'' with requests, the attacker can achieve a DoS attack for legitimate Pico applications.
+
+\subsubsection*{Integrity}
+% Integrity: root data modifications
+The prototype stores data in internal storage, and cannot be accessed by other applications due to the Linux permissions mechanism. However, just as mentioned in the previous section, if the attacker gains root privileges it may modify any data on the device. The attack can be performed regardless of physical access.
+
+% Integrity: Binder communication ok
+From a data flow point of view, ICC is performed using the ``/dev/binder'' node driver. According to the official Android source code \footnote{For convenience, a link to the binder driver is found here: https://android.googlesource.com/kernel/common.git/+/android-3.0/drivers/staging/android/binder.c (visited on 06.02.2014).}, although the node is readable and writeable by any application, communication is performed using IOCTL calls. Data is transferred from one component to the other without the possibility to intercept or modify. 
+
+% Integrity: data broadcasts not a problem
+Given that Android ICC is secure, data either from the sensors or from app components cannot be modified. Communication between ``UAService'' and other apps is performed by binding the service, and not through broadcasts. Therefore no confusion can be made when an app tries to listen for authentication feedback.
+
+\subsubsection*{Confidentiality}
+% Confidentiality: same owner
+Android apps may share private resources only if developed by the same author. This is determined by verifying the signature of the app, which is performed using a private key specific to each developer. Therefore, an attack where owner configuration data is leaked due to private resource sharing would only be possible if the attacker manages to acquire the private key that was used for signing the authenticator app. We will consider this to be a scenario outside the scope of the project.
+
+% Confidentiality
+%	TODO: develop keychain data ecryption.
+Another scenario where owner authentication data can be leaked is having malware run with root access. This would grant the application rights to read any application data. However, this would not compromise the owner configuration files, as they are kept encrypted using the Android Keychain API. Although the data can be read from disk, it cannot be interpreted in a meaningful way. However, even using encrypted user data, attack paths are still possible.
+
+% Keychain exposure
+ Given root access, the attacker may retrieve the AES master key used by the keychain manager to store credentials. Using this key they can then retrieve the authenticator's application key used for encrypting owner configuration files. By retrieving this final key, the attacker may decode sensitive data (i.e. biometric data) and leak it outside of the system, therefore compromising confidentiality.
+
+% Solution to encrypted data problem
+A solution to this problem is not to keep the key used for decryption on the device. It should be generated on the app's first run, and communicated securely back to a credentials server. Whenever the authenticator app starts up, it would request the key remotely via a secure connection, use it to decrypt owner authentication files, and discard it without saving on disk.
+
+% Data flow confidentiality
+From a data flow perspective, ICC should offer full confidentiality. As previously mentioned, the ``/dev/binder'' device node used for ICC is managed by a driver which listens for ``ioctl'' requests. Data cannot be compromised as it is transferred from one component to the other. Only ``UAService is an ``exported'' component that may be accessed by other apps. It only provides final authentication feedback from the mechanisms, and only exposes a limited API through the IBinder interface object used for message passing.
+
+% Sensor data collection
+From a data flow perspective, internally the Pico authenticator uses an self-developed broadcast system. Client processes need to register with the broadcaster, such as the UAService, in order to receive updates. This ensures data confidentiality throughout the system. Furthermore, the authenticator and Pico should be released under the same author. This would allow locking the application from outside Intents as well as interaction with different components. Sandboxing communication is always a desirable property from a confidentiality perspective.
+
+% Sensor sniffing
+Liang Cai et al \cite{cai2009defending} presents the problem of sensor sniffing, which is something the prototype is vulnerable to. A malware application may collect all relevant data on its own from the user, using the same functionality as the prototype. This would allow for a powerful replay attack in the future. Adrienne Porter Felt et al \cite{felt2012android} show that when installing an app only $17\%$ of users pay attention to the Android permissions dialogue, and only $3\%$ understand what each permission represents.
+
+% TODO: change this title
+\subsubsection*{Other attacks}
+Pico needs to be unlocked only in the presence of its owner. Therefore, let us consider a few scenarios and assess any issues with the scheme.
+
+\section{Functional evaluation}
+TODO: timings, and power consumption..
+
+\section{Token unlocking framework evaluation}
+It's mostly down we need to port it here.
+
+\section{UDS framework evaluation}
+Look over the original paper and re-evaluate and compare
+
+\section{Future work}
+It's down
+
+\section{Conclusions}
+TODO:
+
+%=========================================================================================================================
+% END OF PAPER
+%=========================================================================================================================
+
 \section{Framework evaluation}
 We will continue by evaluating the new proposed scheme with the token unlocking framework defined in the previous chapter. 
 
@@ -224,48 +317,12 @@ Let us briefly discuss any issues using the availability-integrity-confidentiali
 
 
 \section{Threat model}
-% TODO:
-% - clear cache data from android
-% TODO: not really relevant since this is just a prototype
-% TODO: any cryptographic keys and content is not secure as the application may be decompiled
-% TODO: DOS by generating bad sensor data
-% TODO: check William Ench et al year
-% TODO: referenced android website instead of talk about components
-% TODO: more mmap_min_addr stuff. why does it help?
-
-Even though the scheme implementation is a proof of concept, we will continue by analysing different threat models. This will reveal any flaws behind the concept, allowing for a more robust future implementation.
-
-The purpose of the Pico token is to provide a robust authentication mechanism, without the use of any secrets for the owner to remember. Where the Pico unlocking scheme fits, is correctly identifying the owner of the Pico. Attacks may be performed in the form of malware installed on the device while still within the possession of its owner. The main threat however comes from an attacker having physical access to the user's Pico. 
-
-It is important to note that since this is a purely software implementation, physical access may mean either that the attacker is in possession of the phone, or that it may replicate the secretes of the victim's Pico on a separate device. Replicating the Pico secretes would clearly create much more damage for the user from a cost perspective. A total reset of authentication credentials would be necessary for all accounts registered with the Pico device.
 
 
 
 \subsection{Prototype threat model}
-Let us now continue by studying the threat model of the Pico authenticator application. We will consider the security mechanisms presented above as the predefined assumptions made in this model. In order to reduce the threat space we will consider the application is running on a hand held device running Android 4.4.2 with all recent updates.
 
-\subsubsection*{Availability}
-Breaking the scheme's availability if the device is in the possession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. Furthermore, in this case the owner is already no longer in possession of their Pico, so basically the Pico is already made unavailable..
 
-Let us continue however and study what can be achieved from a DoS perspective by the attacker from the perspective of the individual user app accounts, which would need to be reset by the owner. In order to gain any sort of access and make credentials reset not possible, or at least have a chance in doing so, the attacker would have to unlock the Pico.
-
-From a malware attack perspective data used by the authentication should not be modifiable. This would guarantee that all mechanisms have their cached biometric data available at all times and may function properly. Due to the Linux permissions mechanism and the fact that each application has its own UID and GID, data stored in internal memory should not be readable or writeable by any other user level application in the system. If however the device is rooted and the owner is mislead into granting root privileges to another application, then the security model would be broken and the data would be exposed. This could lead to deletion which would make the mechanisms not function properly, resulting in a DoS attack.
-
-% TODO: can we fake data from sensors?
-
-\subsubsection*{Integrity}
-Just as mentioned in the Availability section, the authenticator should be safe against any data accesses from other applications as long as the application does not have root privileges. This would allow malware to break the integrity property of the data.
-
-From a data flow point of view Intents used for communication within the authenticator as well as with the Pico application are not modifiable. Furthermore Intents are not broadcasted using the implicit Android broadcast mechanism, which makes them impossible to replay or even intercept.
-
-\subsubsection*{Confidentiality}
-Considering a circumstance where a root malware process would have access to the authenticator's data stored on disk, this would not lead to a direct compromise of the owner biometric data. All cached files are stored in internal memory in encrypted format. The mechanism used for encryption is RSA, with the private key stored using the Android KeyChain API.
-
-On a rooted device however, the encryption layer provides only another bi-passable layer of security. With root access, an application could retrieve the master key of the KeyChain and use it to retrieve or private key and decode the owner's biometrics.
-
-From a data flow perspective, internally the Pico authenticator uses an self-developed broadcast system. Client processes need to register with the broadcaster, such as the UAService, in order to receive updates. This ensures data confidentiality throughout the system. Furthermore, the authenticator and Pico should be released under the same author. This would allow locking the application from outside Intents as well as interaction with different components. Sandboxing communication is always a desirable property from a confidentiality perspective.
-
-The paper by Adrienne Porter Felt et al \cite{felt2012android} shows that according to their surveys only 17\% of users pay attention to the Android permissions dialogue, and only 3\% understand what each permission represents. A malware application which has granted full permissions gets pass the Bouncer and is installed as an application. Even so, due to the Linux permission model adopted by Android, the confidentiality of the authenticator's data would not be compromised. Instead however, the malware application may collect all relevant on its own from the user, allowing for a powerful replay attack in the future.
 
 \section{Future work}
 The application was implemented as a proof of concept. It is developed in order to show that different data may be obtained without the owner's knowledge. Additional improvements can be made in order to increase the confidence level of the authenticator.  Furthermore, due to time constraints and unavailability of free to use biometric libraries, a number of mechanisms were not implemented. The list can easily be extended by simply creating a class which extends the ``AuthMechService'' abstract class.
