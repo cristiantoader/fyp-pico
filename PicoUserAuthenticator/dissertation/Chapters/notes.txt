@@ -1,0 +1,132 @@
+
+
+
+
+\section{Conceptual design threat Model}
+% availability (dos)
+%   - communication
+%   - cpu
+%   - battery
+%   - practicality of cryptography on small devices
+
+% integrity
+% confidentiality
+
+% are sensor readings what they say or are they manipulated
+
+An accurate threat model on the proposed unlock mechanism must start by analysing the set of assumptions made about the mechanism. From there we can identify available threats and how the scheme can be exploited in order to unlock the Pico without owner permission. Throughout the threat model we will explain how relaxing the initial set of assumptions may change the security outcome. Each model is analysed from an Availability, Integrity, and Confidentiality.
+
+It is important to note that confidentiality is an important category in this evaluation. This is because the device will store sensitive biometric data which is directly linkable to the user. Losing this data, especially in plain-text, would disable the user from ever using the biometric device for which the data was leaked. This is due to the fact that the leaked data could always be replayed, successfully tricking the biometric mechanism.
+
+In each subsection, the model will obviously only introduce issues with the mechanism. Therefore when reading a subsection, the issues are not only those currently presented, but also those from previous subsections that lead up to that point.
+
+\subsection{Dedicated device with dedicated sensors}
+We will start from the assumption that the unlock mechanism is integrated on the same device with the Pico. The device is assumed to be dedicated and runs no other software. Furthermore, the set of available sensors will also be integrated within the device. Alternatively there may also be peripheral sensors, with no way for an attacker to tamper with the communication to the authenticator. 
+
+	\subsubsection*{Availability}
+	From an availability point of view, an outside attacker cannot create a denial of service scenario. Interactions with the device are performed physically, so therefore the device cannot be made unavailable while in the possession of its owner. If the Pico would temporarily lose ownership, from a software perspective it would lock up due to mismatching biometric and location data, but would become available again in the presence of the owner. 
+	
+	Only hardware modification would affect data availability. Simply disconnecting the sensor would not affect the scheme's ability to generate viable results due to the fact that multiple biometrics are used. However an attacker could modify a sensor to output wrong data, tricking it into saying the user is never the owner. This would create a successful denial of service attack path where a few sensors output that the owner is never present. 
+	
+	\subsubsection*{Integrity}
+	Communication paths are not accessible from the outside and therefore cannot be tampered with in order to modify data. Furthermore the device is not running any other software and is therefore safe from any malware attacks. 
+	
+	Only physical tampering with the device would change data integrity. Modifying one of the sensor's and changing its output to some random data would be undetectable by the mechanism. 
+	
+	% TODO: resurected ducklings how to?
+	\subsection*{Confidentiality}
+	No software access as well as no communication with the outside (i.e. wired communication) means that data is safe as long as the device is with its owner.
+	
+	If the device were to be lost, 
+	Storage data should be kept encrypted, similar to the way Ironkey \cite{} protects its data. Unfortunately an attack path may already be identified which is due to the fact that using this model the decryption key needs to be stored on the device. An attacker which has hardware access could therefore extract the key and decode the data. The original Picosiblings solution circumvented this approach by keeping 
+
+\subsection{Dedicated device with shared sensors}
+We will relax the original set of assumptions by saying that the communication path with the sensors is no longer secure. Furthermore the sensors may be shared with other owners, via a wireless communication link for example. Another feasible scenario is that although sensors are located on the same device as the Pico, the Pico application is fully compartmentalised from the outside world. 
+
+What we are trying to stress with this scenario is that the sensors are no longer part of a trusted secure box, but are outside and communication with them, as well as their input may no longer be secure.
+
+	\subsubsection*{Availability}
+	% keep all sensors locked
+	Since the sensors are no longer dedicated, other users may access sensor data. Depending on the hardware and software platform supporting the sensors, this may lead to a denial of service attack on the scheme. For example, if the sensors may only have one owner at a time, an attacker may request data from all sensors keeping them locked from the biometric authentication mechanisms. If the system is built in such a way, then there is nothing the scheme could do to prevent this other than keep the sensors constantly locked for itself. However since the model is built on the concept of shared sensors, this might not be a feasible solution.
+	
+	% intercept communication and replace sensor data
+	Furthermore, communication paths are no longer dedicated. Weather the communication channel is radio or pure software, this introduces a new attack path. A ``man in the middle'' type of attack may be performed where information data from the sensors is dropped and replaced with bad data. This would create a scenario similar to the one in the previous section, but without the need for physically modifying the sensors.
+	
+	\subsubsection*{Integrity}
+	% no software compromise
+	Having shared communication paths with the sensors means that data integrity may be compromised from outside. This goal would be achieved in the previous model only by physically modifying the sensors. Furthermore if the sensors are on the same device as the Pico, malware may modify output data leading to unsuccessful mechanism authentication.
+	
+	Since Pico and the authenticating mechanism are fully compartmentalised from the outside, their communication is still secure. This compartmentalisation however needs to include all types of storage and communication.
+
+	\subsubsection*{Confidentiality}
+	Unfortunately having shared sensors introduces quite a big confidentiality issue. Given that the sensor data required for authentication is shared, nothing would stop an attacker from collecting just as the Pico unlocking mechanism would. This data could then be replayed to the authenticator in order to unlock the Pico. 
+	
+	This is quite a critical issue. An example of feasible attack pattern would be. A peace of malware analyses when the sensors are locked, and makes assumptions as to when the Pico authenticator is locking them. Based on these assumptions the malware then captures sensor data immediately after the lock was released therefore capturing a possibly valid sample of data. 
+	
+	A more elaborate peace of malware could detect patterns such as time intervals or events that trigger sensor locking. Knowing these patterns it could therefore lock the sensors and gather data just before the Pico authenticator would, and then trick the authenticator by sending it a replay or possibly modified data.
+	
+	Yet another scenario in these circumstances would be to send the Pico authenticator constant bad data and anticipate the trigger of an explicit authentication request to the user. By locking the sensors at that key time the peace of malware could acquire a high quality data sample. Since most of the mechanisms used by the scheme are biometrics, that data sample would represent permanent damage to the user, as an authentication mechanism using that type of biometric could be replayed in any circumstance. 
+	
+	Since the Pico unlocking mechanism is fully compartmentalised, access its storage is secure and therefore any stored credentials are fully protected.
+
+\subsection{Insecure communication with Pico}
+This is a special case model which assumes that Pico and the authenticator we have developed are communicating over an insecure channel. The only element we need to consider is the communication between the two participants.
+
+	\subsubsection*{Availability}
+	To do.
+	
+	\subsubsection*{Integrity}
+	To do.
+	
+	\subsubsection*{Confidentiality}
+	To do.
+
+	
+\subsection{Shared device with shared components}
+We will relax the model even more in order to better fit reality constraints when implementing the mechanism. In this model, Pico and its authentication mechanism reside in a computing model with shared storage resources. The security of Pico and its authenticator may only be as good as the underlying OS. In order to have a meaningful use-case scenario.
+
+	\subsubsection*{Availability}
+	% TODO: consider case where data is deleted from disk
+	To do.
+	
+	\subsubsection*{Integrity}
+	To do.
+	
+	\subsubsection*{Confidentiality}
+	To do.
+
+\subsection{Proposed secure implementation}
+% http://www.trustonic.com/technology/trustzone-and-tee
+% TODO: this is based on having both pico and its authenticator running in trustzone, sensor locking when capturing data, releasing when data is no longer meaningful. Secure objects for biometric data
+% TODO: consider peripherals in TZ
+
+A secure proposed implementation is viable using an Android telephone running a TrustZone enabled ARM processor available in ARMv6KZ \cite{} and later models. This device would essentially be divided into two ``worlds'': the normal world running the untrusted Android OS, and the trusted world running a small operating system written for TrustZone. Both operating systems are booted at power up. In addition the TrustZone OS loads a public/private key pair which is inaccessible from Android.  
+
+Ideally Pico would be implemented with its authenticator within TrustZone. This would essentially guarantee complete separation from a memory perspective leaving any sort of malware attack impossible via memory. 
+
+Persistent memory is however required in order to store data for each individual biometric mechanism used in the authentication scheme. Unfortunately this type of memory is not protected by the TrustZone OS and constitutes a way for a third party to attack the scheme. However, we could use the TrustZone OS key pair in order to encrypt biometric data on disk. Even though this data is available from Android it would be fully confidential. If properly stored within Android, the OS may even protect its integrity from outside attacks.
+
+Let us consider however that the Android OS has been completely compromised by the attacker and is therefore ``hostile''. Under these circumstances data confidentiality can still be fully guaranteed. The TrustZone public key could still be used in order to encrypt the biometric data before writing it to disk. Attacks from a memory perspective may only be performed by modifying data stored on disk. This may only lead to a denial of service for the owner, but not a confidentiality breach.
+
+Let us briefly discuss any issues using the availability-integrity-confidentiality framework.
+	\subsubsection*{Availability}
+	Only plausible attacks are denial of service through deleting biometric cache files from disk. This would require constant reconfiguration for the Pico scheme, making the Pico unavailable.
+	
+	\subsubsection*{Integrity}
+	Data integrity may only be altered from cache files on disk.
+	
+	\subsubsection*{Confidentiality}
+	No known attacks on data confidentiality other than capturing sensor data just as the authenticator would. However this would be possible with or without the Pico being present.
+
+% IMPLEMENATION==============================================================
+
+
+\section{Threat model}
+
+
+
+\subsection{Prototype threat model}
+
+
+
+\section{Future work}
