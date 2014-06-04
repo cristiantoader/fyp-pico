@@ -211,11 +211,7 @@ With the current prototype, the voice and face recognition mechanisms sample at 
 %Ideally, we would recommend a different implementation of the scheme for Android smart phones. The prototype should be developed as an application running in TrustZone. This would allow for a secret device key to be used for keeping  \footnote{TrustZone is a feature of the ARM processor. Device memory has a bit (TZ) which marks it as either normal or secure. Normal code executed by the ARM processor cannot access TZ memory, while TZ code can access all device memory. This separation technique is discussed in further detail on the ARM official website: http://www.arm.com/products/processors/technologies/trustzone/index.php (visited on 06.04.2014).
 
 \section{Conclusions}
-The purpose of the dissertation was to create a token unlocking alternative for the Pico token. 
-
-We have created a token version of the UDS framework by Bonneau et al \cite{} which was used in assessing both the original Picosiblings solution. 
-
-We continued by developing a design that aimed to support all of Pico's properties. The original target for the design was to perform better than Picosiblings in at least one property of the token unlocking framework. 
+The purpose of this dissertation was to create a new scheme for unlocking the Pico token. We have adapted the UDS framework developed by Bonneau et al \cite{bonneau2012quest} to create a token unlocking framework. Both frameworks were used in evaluating the solution proposed in this dissertation. Results have shown that although the new scheme does not completely outperform Picosiblings, they offer a larger number of benefits. The new token unlocking mechanism was prototyped on an Android smart phone, proving that the design can be implemented using current hardware.
 
 
 %=========================================================================================================================
