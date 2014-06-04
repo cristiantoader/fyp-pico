@@ -79,6 +79,10 @@
             android:name="com.fyp.authenticator.face.FaceService"
             android:process=":AuthFaceService" >
         </service>
+         <service
+            android:name="com.fyp.authenticator.location.LocationService"
+            android:process=":AuthLocationService" >
+        </service>
     </application>
 
 </manifest>

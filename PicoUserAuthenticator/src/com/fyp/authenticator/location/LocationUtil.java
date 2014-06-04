@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.util.Log;
 
 public class LocationUtil {
@@ -32,16 +33,19 @@ public class LocationUtil {
 
 	public Location getCurrentLocation() {
 		Location location = null;
+		Log.d(TAG, "getCurrentLocation()+");
 		
 		initialiseLocationUpdates(500);
 		
 		// acquire location
 		Criteria criteria = new Criteria();
-		String provider = lm.getBestProvider(criteria, false);
+		String provider = lm.getBestProvider(criteria, true);
 		location = lm.getLastKnownLocation(provider);
 		
 		this.lm.removeUpdates(locationListener);
 
+		Log.d(TAG, "getCurrentLocation- " + location.getLatitude() + " "
+				+ location.getLongitude() + " " + location.getProvider());
 		return location;
 	}
 

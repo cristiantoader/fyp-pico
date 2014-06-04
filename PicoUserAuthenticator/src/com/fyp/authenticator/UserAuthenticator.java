@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import com.fyp.authenticator.dummy.AuthDummyService;
 import com.fyp.authenticator.face.FaceService;
+import com.fyp.authenticator.location.LocationService;
 import com.fyp.authenticator.voice.VoiceService;
 
 import android.app.Service;
@@ -90,8 +91,10 @@ public class UserAuthenticator {
 	 */
 	private void initAvailableDevices() {
 //		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
-		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));
-		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));
+//		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));
+//		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));
+		
+		this.mechanisms.add(new AuthMech(uaservice, LocationService.class));
 	}
 	
 	public void stopMechanisms() {

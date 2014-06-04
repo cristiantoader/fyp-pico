@@ -1,5 +1,6 @@
 package com.fyp.activities;
 
+import com.fyp.authenticator.location.LocationDAO;
 import com.fyp.authenticator.location.LocationUtil;
 
 import android.app.Activity;
