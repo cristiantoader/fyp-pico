@@ -76,7 +76,7 @@ public class LocationService extends AuthMechService {
 
 			// instantiating voice DAO when thread starts.
 			LocationDAO dao = new LocationDAO(ctx, "owner-locations.dat");
-			dao.loadLocationData();
+			dao.loadOwnerData();
 			
 			LocationUtil locationUtil = new LocationUtil(ctx);
 			

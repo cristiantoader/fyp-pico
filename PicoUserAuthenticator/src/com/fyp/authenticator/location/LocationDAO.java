@@ -1,11 +1,18 @@
 package com.fyp.authenticator.location;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+
+import com.fyp.ctypto.KeyManager;
 
 import android.content.Context;
 import android.location.Location;
@@ -30,9 +37,15 @@ public class LocationDAO {
 		this.filePath = this.ctx.getFilesDir().toString();
 	}
 
-	public void loadLocationData() {
-		Log.d(TAG, "loadLocationData+");
+	public void loadOwnerData() {
+		KeyManager km = null;
+		
+		CipherInputStream cis = null;
+		FileInputStream fis = null;
+		
 		Scanner scanner = null;
+		
+		Log.d(TAG, "loadLocationData+");
 
 		try {
 			// check for owner files
@@ -41,10 +54,27 @@ public class LocationDAO {
 				return;
 			}
 			
+			km = KeyManager.getInstance(ctx);
+			
 			// initialising read
 			Log.d(TAG, "loadLocationData: initialising read.");
-			scanner = new Scanner(new File(getAbsoluteFilePath()));
-
+			fis = new FileInputStream(getAbsoluteFilePath());
+			cis = new CipherInputStream(fis, km.getDecryptionCipher());
+			
+			int b;
+			ArrayList<Byte> decByteList = new ArrayList<Byte>();
+			while((b = cis.read()) != -1) {
+				decByteList.add((byte) b);
+			}
+			
+			byte[] byteArray = new byte[decByteList.size()];
+			for (int i = 0; i < byteArray.length; i++) {
+				byteArray[i] = decByteList.get(i);
+			}
+			
+			String decRes = new String(byteArray);
+			scanner = new Scanner(decRes);
+			
 			// read location data
 			Log.d(TAG, "loadLocationData: reading locations.");
 			locations = new LinkedList<Location>();
@@ -66,36 +96,45 @@ public class LocationDAO {
 		} catch (FileNotFoundException e) {
 			Log.d(TAG, "Owner file not found.");
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}
 
-	public void saveLocationData(LinkedList<Location> locations) {
+	public void saveOwnerData(LinkedList<Location> locations) {
+		KeyManager km = null;
+		
+		FileOutputStream fos = null;
+		CipherOutputStream cos = null;
+		
 		String path = getAbsoluteFilePath();
-		FileWriter fwrite = null;
+		StringBuffer sb = new StringBuffer();
 
 		Log.d(TAG, "saveLocationData+");
 
 		try {
+			Log.d(TAG, "saveLocationData: initialising key manager.");
+			km = KeyManager.getInstance(ctx);
+			
 			Log.d(TAG, "saveLocationData: initialising output stream.");
-			fwrite = new FileWriter(path);
+			fos = new FileOutputStream(path);
+			cos = new CipherOutputStream(fos, km.getEncryptionCipher());
 
-			Log.d(TAG, "saveLocationData: saving locations.");
+			Log.d(TAG, "saveLocationData: building locations.");
 			for (Location location : locations) {
-
 				String line = location.getProvider() + " "
 						+ location.getLatitude() + " "
-						+ location.getLongitude();
-
-				Log.d(TAG, "saveLocationData: " + line);
-
-				fwrite.append(line + "\n");
+						+ location.getLongitude() + "\n";
+				
+				sb.append(line);
 			}
 
-			fwrite.flush();
-			fwrite.close();
-
-			Log.d(TAG, "saveLocationData: save ok.");
+			Log.d(TAG, "saveLocationData: saving locations.");
+			Log.d(TAG, sb.toString());
+			cos.write(sb.toString().getBytes());
+			cos.flush();
+			cos.close();
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

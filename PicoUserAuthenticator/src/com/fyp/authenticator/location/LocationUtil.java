@@ -73,7 +73,7 @@ public class LocationUtil {
 
 	public void saveCollectedLocations(String name) {
 		LocationDAO dao = new LocationDAO(this.ctx, name);
-		dao.saveLocationData(locations);
+		dao.saveOwnerData(locations);
 		dao = null;
 
 		this.locations.clear();

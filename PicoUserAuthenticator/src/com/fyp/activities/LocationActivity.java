@@ -1,5 +1,6 @@
 package com.fyp.activities;
 
+import com.fyp.authenticator.location.LocationDAO;
 import com.fyp.authenticator.location.LocationUtil;
 
 import android.app.Activity;
@@ -43,6 +44,9 @@ public class LocationActivity extends Activity {
 			if (locUtil != null) {
 				locUtil.stopCollectingLocations();
 				locUtil.saveCollectedLocations("owner-locations.dat");
+				
+				new LocationDAO(LocationActivity.this, "owner-locations.dat").loadOwnerData();
+				
 				locUtil = null;
 			}
 			
