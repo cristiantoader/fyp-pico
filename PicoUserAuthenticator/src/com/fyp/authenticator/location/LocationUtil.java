@@ -103,7 +103,7 @@ public class LocationUtil {
 
 			// acquire location
 			Criteria criteria = new Criteria();
-			String provider = lm.getBestProvider(criteria, false);
+			String provider = lm.getBestProvider(criteria, true);
 
 			addLocation(lm.getLastKnownLocation(provider));
 
@@ -153,6 +153,12 @@ public class LocationUtil {
 		}
 
 		public void addLocation(Location location) {
+			
+			if (location == null) {
+				Log.w(TAG, "addLocation: location is null.");
+				return;
+			}
+			
 			Log.d(TAG,
 					"addLocation: latitude=" + location.getLatitude()
 							+ " longitude=" + location.getLongitude()

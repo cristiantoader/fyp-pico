@@ -3,12 +3,10 @@ package com.fyp.authenticator.location;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
-import java.io.OutputStreamWriter;
 import java.io.StreamCorruptedException;
 import java.util.LinkedList;
 
@@ -72,29 +70,30 @@ public class LocationDAO {
 
 	}
 
-	// TODO: this is the problem. location not serializable
 	public void saveLocationData(LinkedList<Location> locations) {
 		String path = getAbsoluteFilePath();
-
-		FileOutputStream fos = null;
-		OutputStreamWriter os = null;
+		FileWriter fwrite = null;
 
 		Log.d(TAG, "saveLocationData+");
 		
 		try {
 			Log.d(TAG, "saveLocationData: initialising output stream.");
-			fos = new FileOutputStream(path);
-			os = new OutputStreamWriter(fos);
-
+			fwrite = new FileWriter(path);
+			
 			Log.d(TAG, "saveLocationData: saving locations.");
 			for (Location location : locations) {
-				Log.d(TAG, "saveLocationData: latitude=" + location.getLatitude() + 
-						" longitude=" + location.getLongitude() + 
-						" provider=" + location.getProvider() +
-						" accuracy=" + location.getAccuracy());
+				String line = "" + location.getLatitude() + "," + location.getLongitude();
+				Log.d(TAG, "saveLocationData: " + line);
+				
+				fwrite.append(line + "\n");
 			}
+			
+			fwrite.flush();
+			fwrite.close();
+			
 
-			os.close();
+			Log.d(TAG, "saveLocationData: save ok.");
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -43,6 +43,7 @@ public class LocationActivity extends Activity {
 			if (locUtil != null) {
 				locUtil.stopCollectingLocations();
 				locUtil.saveCollectedLocations("owner-locations.dat");
+				locUtil = null;
 			}
 			
 			Log.d(TAG, "StopListener-");
