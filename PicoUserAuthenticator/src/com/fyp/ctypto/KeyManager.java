@@ -140,6 +140,8 @@ public class KeyManager {
 			return;
 		}
 		
+//		generateMasterKey();
+		
 		// load RSA Private Key
 		privKey = getPrivateKey();
 		if (privKey == null) {
