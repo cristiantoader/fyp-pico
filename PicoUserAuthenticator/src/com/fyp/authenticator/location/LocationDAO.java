@@ -66,6 +66,7 @@ public class LocationDAO {
 			while((b = cis.read()) != -1) {
 				decByteList.add((byte) b);
 			}
+			cis.close();
 			
 			byte[] byteArray = new byte[decByteList.size()];
 			for (int i = 0; i < byteArray.length; i++) {

@@ -2,8 +2,8 @@ package com.fyp.activities;
 
 import java.io.File;
 
+import com.fyp.authenticator.voice.VoiceMediator;
 import com.fyp.authenticator.voice.VoiceDAO;
-import com.fyp.authenticator.voice.VoiceRecord;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ public class RecognitoActivity extends Activity {
 	OnClickListener clickerRecord = new OnClickListener() {
 		private boolean recording = false;
 		private long mStartTime = 0;
-		private VoiceRecord record = null;
+		private VoiceDAO record = null;
 
 		private Handler timerHandler = new Handler();
 		private Runnable timerRunable = new Runnable() {
@@ -71,13 +71,13 @@ public class RecognitoActivity extends Activity {
 
 		private void startRecording() {
 			this.recording = true;
-			this.record = new VoiceRecord(RecognitoActivity.this, FILE_NAME);
-			this.record.startRecord();
+			this.record = new VoiceDAO(RecognitoActivity.this, FILE_NAME);
+			this.record.startOwnerRecord();
 		}
 
 		private void stopRecording() {
 			this.recording = false;
-			this.record.stopRecord();
+			this.record.stopOwnerRecord();
 		}
 
 	};
@@ -89,7 +89,7 @@ public class RecognitoActivity extends Activity {
 				Log.i("RecognitoActivity", "recording exists!");
 
 				@SuppressWarnings("unused")
-				VoiceDAO voiceDAO = new VoiceDAO(RecognitoActivity.this);
+				VoiceMediator voiceDAO = new VoiceMediator(RecognitoActivity.this);
 
 			} else {
 				Log.i("RecognitoActivity", "recording not present!");

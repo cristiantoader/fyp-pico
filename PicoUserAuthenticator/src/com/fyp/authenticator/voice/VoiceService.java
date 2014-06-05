@@ -68,7 +68,7 @@ public class VoiceService extends AuthMechService {
 		private volatile boolean stop;
 
 		/** DAO used to interface with the voice recognition library. */
-		private VoiceDAO voiceDAO;
+		private VoiceMediator voiceDAO;
 
 		public AuthenticatorThread() {
 			this.stop = false;
@@ -77,7 +77,7 @@ public class VoiceService extends AuthMechService {
 		@Override
 		public void run() {
 			// instantiating voice DAO when thread starts.
-			this.voiceDAO = new VoiceDAO(VoiceService.this);
+			this.voiceDAO = new VoiceMediator(VoiceService.this);
 
 			// sampling loop.
 			while (stop != true) {
@@ -85,7 +85,7 @@ public class VoiceService extends AuthMechService {
 					Log.d(TAG, "Start loop.");
 					Thread.sleep(AUTH_PERIOD);
 
-					VoiceRecord record = recordData();
+					VoiceDAO record = recordData();
 
 					Log.d(TAG, "Getting score.");
 					if (record == null || !record.hasRecording()) {
@@ -125,16 +125,16 @@ public class VoiceService extends AuthMechService {
 		 * 
 		 * @return
 		 */
-		private VoiceRecord recordData() {
+		private VoiceDAO recordData() {
 			Log.d(TAG, "recordData+");
 
-			VoiceRecord record = new VoiceRecord(VoiceService.this,
+			VoiceDAO record = new VoiceDAO(VoiceService.this,
 					"challenge.3gp");
 
 			try {
-				record.startRecord();
+				record.startOwnerRecord();
 				Thread.sleep(RECORD_TIME);
-				record.stopRecord();
+				record.stopOwnerRecord();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -1,81 +1,192 @@
 package com.fyp.authenticator.voice;
 
-import java.util.Map;
-import java.util.Map.Entry;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+
+import com.fyp.ctypto.KeyManager;
 
 import android.content.Context;
-import android.util.Log;
-
-import com.bitsinharmony.recognito.Recognito;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 
 public class VoiceDAO {
-	/** Owner voice record manager. */
-	private VoiceRecord ownerRecord = null;
 
-	/** Reference to recognito library object */
-	private Recognito<String> recognito = new Recognito<String>();
+	/** Audio recorder object. */
+	private AudioRecord mRecorder = null;
 
-	private static final String TAG = "VoiceDAO";
+	/** Recording thread. */
+	private RecordingThread rt = new RecordingThread();
+
+	/** Variable stating if recording was saved. */
+	private boolean recordingSaved = false;
+
+	/** Audio record data. */
+	private static final int SAMPLE_RATE = 44100;
+	private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
+	private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
+	private int minBufferSize = 0;
+
+	/** Audio file data. */
+	private String fileName = null;
+	private String filePath = null;
 	
-	/**
-	 * Constructor
-	 * 
-	 * @param ctx
-	 *          android context for application path.
-	 */
-	public VoiceDAO(Context ctx) {
-		this.ownerRecord = new VoiceRecord(ctx, "owner.3gp");
-		trainRecognito();
-	}
+	private Context ctx = null;
 
-	/**
-	 * Trains recognito library for the owner's voice. Searches through internal
-	 * data in order to train the recognito library.
-	 */
-	public void trainRecognito() {
-		Log.i("trainRecognito", "entering");
-
-		if (!this.ownerRecord.hasRecording()) {
-			Log.e(TAG, "Null owner recording data..");
-			return;
-		}
+	public VoiceDAO(Context context, String fileName) {
+		this.ctx = context.getApplicationContext();
 		
-		Log.d(TAG, "traing data" + this.ownerRecord.getRecordingData());
-		Log.d(TAG, "traing data len" + this.ownerRecord.getRecordingData().length);
-		Log.d(TAG, "traing sample rate" + this.ownerRecord.getSampleRate());
+		this.fileName = fileName;
+		this.filePath = context.getFilesDir().toString();
 
-		recognito.createVocalPrint("owner",this.ownerRecord.getRecordingData(), 
-				this.ownerRecord.getSampleRate());
+		this.minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE,
+				CHANNEL_CONFIG, AUDIO_FORMAT);
+
+		this.mRecorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
+				SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, this.minBufferSize);
 	}
 
+	public void startOwnerRecord() {
+		this.mRecorder.startRecording();
+		this.rt.startThread();
+	}
+
+	public void stopOwnerRecord() {
+		this.mRecorder.stop();
+		this.mRecorder.release();
+
+		this.rt.stopThread();
+		this.rt = null;
+
+		this.recordingSaved = true;
+	}
+
+	public static int getSampleRate() {
+		return SAMPLE_RATE;
+	}
 
 	/**
-	 * Return's the match distance between the current recording and the owner.
+	 * Retrieves the recording data from the record saved in internal memory.
 	 * 
-	 * @param filename
-	 * @return recording match indicator.
+	 * @return recording data from the record saved in internal memory.
 	 */
-	public double getMatch(VoiceRecord record) {
-		double result = 0;
-		Map<Double, String> matches = null;
+	public double[] getOwnerData() {
+		KeyManager km = null;
+		
+		FileInputStream fis = null;
+		CipherInputStream cis = null;
 
-		if (record == null || !record.hasRecording()) {
-			return 0;
+		double[] result = null;
+		int fileSize = 0;
+
+		if (doneRecoring() == false && !hasRecording()) {
+			return null;
 		}
 
-		matches = recognito.recognize(record.getRecordingData(),
-				record.getSampleRate());
+		try {
+			km = KeyManager.getInstance(ctx);
+			
+			fis = new FileInputStream(getAbsoluteFilePath());
+			cis = new CipherInputStream(fis, km.getDecryptionCipher());
 
-		for (Entry<Double, String> entry : matches.entrySet()) {
+			fileSize = (int) fis.getChannel().size();
+			result = new double[fileSize];
 
-			if (entry.getValue().equals("owner")) {
-				Log.i("recognito", "found owner at distance: " + entry.getKey());
-				result = entry.getKey();
-				break;
+			for (int i = 0; i < fileSize; i++) {
+				int val = cis.read();
+				if (val == -1)
+					break;
+
+				result[i] = ((double) val / 128) - 1;
 			}
+
+			cis.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		return result;
 	}
 
+	/**
+	 * Checks if the recording process is over and the recording was marked as
+	 * saved.
+	 * 
+	 * @return true if the recording is done, false otherwise.
+	 */
+	private boolean doneRecoring() {
+		return this.recordingSaved;
+	}
+
+	/**
+	 * Checks if the recording file exists in the file system.
+	 * 
+	 * @return true if the file exists, false otherwise.
+	 */
+	public boolean hasRecording() {
+		return new File(getAbsoluteFilePath()).exists();
+	}
+
+	private String getAbsoluteFilePath() {
+		return this.filePath + "/" + this.fileName;
+	}
+
+	private class RecordingThread extends Thread {
+		private volatile boolean recording = false;
+
+		public void startThread() {
+			this.recording = true;
+			this.start();
+		}
+
+		public void stopThread() {
+			try {
+				this.recording = false;
+				this.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public void run() {
+			KeyManager km = null;
+
+			FileOutputStream fos = null;
+			CipherOutputStream cos = null;
+
+			byte data[] = new byte[minBufferSize];
+
+			try {
+				km = KeyManager.getInstance(ctx);
+				
+				fos = new FileOutputStream(getAbsoluteFilePath());
+				cos = new CipherOutputStream(fos, km.getEncryptionCipher());
+
+				int read = 0;
+				while (recording == true) {
+					read = mRecorder.read(data, 0, data.length);
+
+					if (read != AudioRecord.ERROR_INVALID_OPERATION) {
+						cos.write(data);
+					}
+				}
+
+				cos.flush();
+				cos.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
 }
