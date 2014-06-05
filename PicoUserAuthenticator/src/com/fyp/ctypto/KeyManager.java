@@ -41,7 +41,7 @@ public class KeyManager {
 	
 	private String filePath = null;
 	
-	private static final String ALIAS = "PicoAuthenticatorKeyPair";
+	private static final String ALIAS = "PicoAuthenticatorKP1";
 	private static final String ALGORITHM = "RSA";
 	private static final String AES_FILENAME = "master-key.dat";
 	
@@ -52,7 +52,10 @@ public class KeyManager {
 	private static KeyManager singleton = null;
 	
 	public static KeyManager getInstance(Context ctx) {
+		Log.d(TAG, "getInstance+");
+		
 		if (singleton == null) {
+			Log.d(TAG, "getInstance: generating singleton.");
 			singleton = new KeyManager(ctx.getApplicationContext());
 		}
 		
@@ -152,7 +155,6 @@ public class KeyManager {
 			cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 			cipher.init(Cipher.DECRYPT_MODE, privKey);
 
-			
 			fis = new FileInputStream(getMasterKeyPath());
 			cis = new CipherInputStream(fis, cipher);
 
@@ -161,8 +163,10 @@ public class KeyManager {
 			if (readAesBytes != AES_KEYSIZE) {
 				Log.e(TAG, "Cipher input does not match keysize! ("
 						+ readAesBytes + ")");
-				cis.close();
 			}
+			
+			cis.close();
+			fis.close();
 
 			Log.d(TAG, "Reconstructing AES secret key.");
 			this.aesKey = new SecretKeySpec(aesBytes, 0, AES_KEYSIZE, "AES");

@@ -93,7 +93,6 @@ public class UserAuthenticator {
 //		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));
 //		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));
 //		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));
-		
 		this.mechanisms.add(new AuthMech(uaservice, LocationService.class));
 	}
 	
