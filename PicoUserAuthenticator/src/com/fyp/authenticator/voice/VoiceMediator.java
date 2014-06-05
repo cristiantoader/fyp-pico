@@ -16,12 +16,12 @@ public class VoiceMediator {
 	private Recognito<String> recognito = new Recognito<String>();
 
 	private static final String TAG = "VoiceDAO";
-	
+
 	/**
 	 * Constructor
 	 * 
 	 * @param ctx
-	 *          android context for application path.
+	 *            android context for application path.
 	 */
 	public VoiceMediator(Context ctx) {
 		this.ownerRecord = new VoiceDAO(ctx, "owner.3gp");
@@ -39,15 +39,14 @@ public class VoiceMediator {
 			Log.e(TAG, "Null owner recording data..");
 			return;
 		}
-		
+
 		Log.d(TAG, "traing data" + this.ownerRecord.getOwnerData());
 		Log.d(TAG, "traing data len" + this.ownerRecord.getOwnerData().length);
-		Log.d(TAG, "traing sample rate" + this.ownerRecord.getSampleRate());
+		Log.d(TAG, "traing sample rate" + VoiceDAO.getSampleRate());
 
-		recognito.createVocalPrint("owner",this.ownerRecord.getOwnerData(), 
-				this.ownerRecord.getSampleRate());
+		recognito.createVocalPrint("owner", this.ownerRecord.getOwnerData(),
+				VoiceDAO.getSampleRate());
 	}
-
 
 	/**
 	 * Return's the match distance between the current recording and the owner.
@@ -64,7 +63,7 @@ public class VoiceMediator {
 		}
 
 		matches = recognito.recognize(record.getOwnerData(),
-				record.getSampleRate());
+				VoiceDAO.getSampleRate());
 
 		for (Entry<Double, String> entry : matches.entrySet()) {
 

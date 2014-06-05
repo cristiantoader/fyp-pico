@@ -15,6 +15,7 @@ import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.util.Log;
 
 public class VoiceDAO {
 
@@ -31,6 +32,8 @@ public class VoiceDAO {
 	private static final int SAMPLE_RATE = 44100;
 	private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
 	private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
+
+	private static final String TAG = "VoideDAO";
 	private int minBufferSize = 0;
 
 	/** Audio file data. */
@@ -77,13 +80,15 @@ public class VoiceDAO {
 	 * @return recording data from the record saved in internal memory.
 	 */
 	public double[] getOwnerData() {
-		KeyManager km = null;
+		KeyManager km = null;;
 		
 		FileInputStream fis = null;
 		CipherInputStream cis = null;
 
 		double[] result = null;
 		int fileSize = 0;
+		
+		Log.d(TAG, "getOwnerData+");
 
 		if (doneRecoring() == false && !hasRecording()) {
 			return null;
@@ -98,14 +103,11 @@ public class VoiceDAO {
 			fileSize = (int) fis.getChannel().size();
 			result = new double[fileSize];
 
-			for (int i = 0; i < fileSize; i++) {
-				int val = cis.read();
-				if (val == -1)
-					break;
-
-				result[i] = ((double) val / 128) - 1;
+			int i = 0, val = 0;
+			while((val = cis.read()) != -1) {
+				result[i++] = (((double) val) / 128) - 1;
 			}
-
+			
 			cis.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
