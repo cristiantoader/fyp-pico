@@ -5,12 +5,6 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Adams and Sasse(1999)]{adams1999users}
-Anne Adams and Martina~Angela Sasse.
-\newblock Users are not the enemy.
-\newblock \emph{Communications of the ACM}, 42\penalty0 (12):\penalty0 40--46,
-  1999.
-
 \bibitem[Morris and Thompson(1979)]{morris1979password}
 Robert Morris and Ken Thompson.
 \newblock Password security: A case history.
@@ -28,6 +22,12 @@ Jeff~Jianxin Yan, Alan~F Blackwell, Ross~J Anderson, and Alasdair Grant.
 \newblock Password memorability and security: Empirical results.
 \newblock \emph{IEEE Security \& privacy}, 2\penalty0 (5):\penalty0 25--31,
   2004.
+
+\bibitem[Adams and Sasse(1999)]{adams1999users}
+Anne Adams and Martina~Angela Sasse.
+\newblock Users are not the enemy.
+\newblock \emph{Communications of the ACM}, 42\penalty0 (12):\penalty0 40--46,
+  1999.
 
 \bibitem[Bonneau et~al.(2012)Bonneau, Herley, Van~Oorschot, and
   Stajano]{bonneau2012quest}
@@ -109,34 +109,6 @@ Elena Vildjiounaite, S-M Makela, Mikko Lindholm, Vesa Kyllonen, and Heikki
 \newblock In \emph{Systems and Networks Communications, 2007. ICSNC 2007.
   Second International Conference on}, pages 80--80. IEEE, 2007.
 
-\bibitem[Enck et~al.(2009)Enck, Ongtang, McDaniel,
-  et~al.]{enck2009understanding}
-William Enck, Machigar Ongtang, Patrick~Drew McDaniel, et~al.
-\newblock Understanding android security.
-\newblock \emph{IEEE Security \& Privacy}, 7\penalty0 (1):\penalty0 50--57,
-  2009.
-
-\bibitem[Liebergeld and Lange(2013)]{liebergeld2013android}
-Steffen Liebergeld and Matthias Lange.
-\newblock Android security, pitfalls and lessons learned.
-\newblock In \emph{Information Sciences and Systems 2013}, pages 409--417.
-  Springer, 2013.
-
-\bibitem[Kelley et~al.(2012)Kelley, Consolvo, Cranor, Jung, Sadeh, and
-  Wetherall]{kelley2012conundrum}
-Patrick~Gage Kelley, Sunny Consolvo, Lorrie~Faith Cranor, Jaeyeon Jung, Norman
-  Sadeh, and David Wetherall.
-\newblock A conundrum of permissions: Installing applications on an android
-  smartphone.
-\newblock In \emph{Financial Cryptography and Data Security}, pages 68--79.
-  Springer, 2012.
-
-\bibitem[Percoco and Schulte(2012)]{percoco2012adventures}
-NJ~Percoco and S~Schulte.
-\newblock Adventures in bouncerland: Failures of automated malware detection
-  within mobile application markets.
-\newblock \emph{Black Hat USA 2012}, 2012.
-
 \bibitem[Clarke and Furnell(2007)]{clarke2007authenticating}
 Nathan~L Clarke and SM~Furnell.
 \newblock Authenticating mobile phone users using keystroke analysis.
@@ -200,5 +172,33 @@ Adrienne~Porter Felt, Elizabeth Ha, Serge Egelman, Ariel Haney, Erika Chin, and
 \newblock Android permissions: User attention, comprehension, and behavior.
 \newblock In \emph{Proceedings of the Eighth Symposium on Usable Privacy and
   Security}, page~3. ACM, 2012.
+
+\bibitem[Enck et~al.(2009)Enck, Ongtang, McDaniel,
+  et~al.]{enck2009understanding}
+William Enck, Machigar Ongtang, Patrick~Drew McDaniel, et~al.
+\newblock Understanding android security.
+\newblock \emph{IEEE Security \& Privacy}, 7\penalty0 (1):\penalty0 50--57,
+  2009.
+
+\bibitem[Liebergeld and Lange(2013)]{liebergeld2013android}
+Steffen Liebergeld and Matthias Lange.
+\newblock Android security, pitfalls and lessons learned.
+\newblock In \emph{Information Sciences and Systems 2013}, pages 409--417.
+  Springer, 2013.
+
+\bibitem[Kelley et~al.(2012)Kelley, Consolvo, Cranor, Jung, Sadeh, and
+  Wetherall]{kelley2012conundrum}
+Patrick~Gage Kelley, Sunny Consolvo, Lorrie~Faith Cranor, Jaeyeon Jung, Norman
+  Sadeh, and David Wetherall.
+\newblock A conundrum of permissions: Installing applications on an android
+  smartphone.
+\newblock In \emph{Financial Cryptography and Data Security}, pages 68--79.
+  Springer, 2012.
+
+\bibitem[Percoco and Schulte(2012)]{percoco2012adventures}
+NJ~Percoco and S~Schulte.
+\newblock Adventures in bouncerland: Failures of automated malware detection
+  within mobile application markets.
+\newblock \emph{Black Hat USA 2012}, 2012.
 
 \end{thebibliography}

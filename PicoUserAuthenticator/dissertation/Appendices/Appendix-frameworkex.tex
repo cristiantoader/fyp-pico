@@ -1,0 +1,48 @@
+% Appendix Template
+
+\chapter{Token Unlocking Framework evaluation examples} % Main appendix title
+
+\label{AppendixB} % Change X to a consecutive letter; for referencing this appendix elsewhere, use \ref{AppendixX}
+
+\lhead{Appendix B. \emph{Token evaluation examples}} % Change X to a consecutive letter; this is for the header on each page - perhaps a shortened title
+
+The following sections serve as examples of how the token unlocking framework should be used. We will be assessing PINs, and biometric face unlock. Together with the Picosiblings evaluation in section \ref{picosiblingseval}, each scheme represents a different type of authentication method. Picosiblings essentially are a secret the owner has, PINs are a secret the owner knows, and Face-unlock reflects who the owner is. 
+
+%
+%	PIN
+%=======================================================
+%
+\section*{PIN}
+% Introduction to PINs and resemblance to passwords
+PINs are token authentication mechanisms similar to passwords. The difference between the two is that they use a smaller set of input characters. Additional protection comes from steep security measures when the authentication challenge has failed. As an example, typing 3 wrong PINs on a mobile phone would lock the owner's SIM card. A lot of the PIN properties should however be similar with those offered by passwords.
+	
+% Usability: PINs
+The scheme relies on knowing a secret, which is not ``memorywise-effortless''. It does however offer the ``nothing-to-carry'' property. Because of its similarity with passwords users find it ``easy-to-learn''. The small character set allows for fast user input and validation making PINs ``efficient-to-use''. Mistakes however may still occasionally occur, and due to the lack of visual feedback \footnote{If existent, visual feedback for PINs generally consists of `*' characters.} the scheme only quasi-offers ``infrequent-errors''. PINs are generally easily reset by the manufacturer using online services, granting them ``easy-recovery-from-loss'' \footnote{An example of this is the RSA SecurID. An example reset procedure is described at the following link: http://uk.emc.com/collateral/15-min-guide/h12278-am8-help-desk-administrator-guide.pdf}. The scheme offers the ``availability'' property, as the authentication process cannot be impaired by external factors.
+	
+% Deployability: PINs
+Just as passwords PINs score all points in deployability. They can be used regardless of disabilities, making them ``accessible''. They have virtually no cost, satisfying the ``negligible-cost-per-user'' property. Being a subset of passwords, we consider the mechanism to be ``mature'' and ``non-proprietary''.
+	
+% Security: PINs
+% 	TODO: maybe rephrase a bit..
+From a security perspective PINs score poorly. They are not ``resilient-to-physical-observation''. Anyone can eavesdrop the input of a PIN either by shoulder surfing or recording with a camera. Just as passwords, PINs are often written down in plain sight. However, in the lack of relevant studies\footnote{Just as Bonneau et al suggest \cite{bonneau2012quest}, a relevant study would assess acquaintances' ability to guess the PIN of a subject.} we will mark the scheme to quasi-offer ``resilient-to-targeted-impersonation''. The restricted character set makes PINs adopt harsher security policies when provided invalid input. They are generally locked after three bad attempts, making them ``resilient-to-throttled-guessing''. The ``resilient-to-unthrottled-guessing'' property is implementation dependent. However, security tokens are dedicated devices that generally have tamper resistant memory, making unthrottled guessing not possible. Any hardware PINs may require does not compromise the mechanism, therefore offering ``resilient-to-theft''. Users have the freedom of choosing any PIN. Even in situations when reused with multiple tokens, credentials are generally salted and therefore ``unlinkable''. The scheme does not offer ``continuous-authentication'' due to explicit requests. They can only provide locked or unlocked feedback, and therefore do not offer ``multi-level-unlocking''. The owner may disclose their PIN at any time, making the ``non-disclosability'' property unsatisfied. 
+	
+%
+%	Android face unlock
+%=======================================================
+%
+\subsection{Face unlock}
+Although not currently used as a security token unlocking mechanism, face recognition is a viable biometric authentication scheme. It can be ported for a token such as Pico, which is designed to have a camera. With a variety of possible implementations, for accessibility reasons we will analyse the Android face unlocking mechanism.
+	
+% Face unlock: usability
+Face unlock is ``memorywise-effortless'', as any other biometric scheme. It offers the ``nothing-to-carry property'', the camera being embedded as part of the token. The mechanism is ``easy-to-learn'', since it only needs the user to look at the camera. The authentication process is performed almost instantly, making the scheme ``efficient-to-use''. The scheme is dependent on camera positioning, obstructing objects (e.g. glasses, earrings), and face mimic. In conjunction with the UDS framework assessment of biometrics in general, the scheme does not offer ``infrequent-errors''. If the scheme no longer functions as a result of change in facial traits, Android has a backup unlocking mechanism. This may also be used to disable or recalibrate the scheme, therefore offering ``easy-recovery-from-loss''. The ``availability'' property is not satisfied due to the dependence on external factors such as light or obstacles.
+	
+% Face unlock: deployability
+Android face recognition is ``accessible'' for anyone regardless of disabilities. It offers the ``negligible-cost-per-user'' property, given that the hardware was already present in devices without face recognition features. Due to limited user exposure it is only quasi-``mature''. On Android, the scheme is implemented as not ``non-proprietary''.
+	
+% Face unlock: security
+Observing the owner authenticate does not provide any advantage to an attacker. It therefore offers the ``resilient-to-physical-observations'' property. Targeted impersonation is an issue with any biometric mechanism. The scheme is vulnerable to replay attacks (i.e. a picture of the owner's face) and therefore does not offer ``resilient-to-targeted-impersonation''. The ''resilient-to-throttled-guessing`` and ``resilient-to-unthrottled-guessing'' properties do not apply. Given the Android implementation, neither does ``resilient-to-theft''. The same authentication data is used with any verifier, and therefore the ``unlinkable'' property is not offered. The scheme is implemented without ``continuous-authentication'' or ``multi-level-unlocking'' although both can be supported by biometric mechanisms. Given the possibility of deliberately providing data for a replay attack, the scheme only quasi-offers the ``non-disclosability'' property.
+
+%
+%	TODO: can add fingerprint unlock - IPhone
+%=======================================================
+%

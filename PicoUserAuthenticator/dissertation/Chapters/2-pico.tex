@@ -5,28 +5,29 @@
 
 \lhead{Chapter 2. \emph{Pico}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
-The scope of this dissertation project is to design and implement a new unlocking mechanism for the Pico token, as designed by Frank Stajano \cite{stajano2011pico}. A better understanding of the Pico design is therefore necessary. This chapter aims to go into brief detail as to what Pico is, how it works, and what its properties are.
+% Introduction: why we do this
+This dissertation project aims to design and implement a new Pico unlocking mechanism. A better understanding of the Pico design \cite{stajano2011pico} is therefore necessary. This chapter aims to go into brief detail as to what Pico is, how it works, and what are its properties.
 
 % introduction
-Pico is an user authentication hardware token, designed with the purpose of fully replacing passwords. Although other replacement mechanisms exist, they are generally focused on web based authentication. The scope of the solution described by Stajano addresses all instances of password authentication, both web based as well as offline.
+Pico is an user authentication hardware token, designed with the purpose of fully replacing passwords. Although other alternative mechanisms exist, they are generally focused on web based authentication. The solution described by Stajano addresses all instances of password authentication, both web based as well as local.
 
 % motivation to replace passwords: increased computational power
-The motivation behind this project is the fact that passwords are no longer viable in the current technological context. Computing power has grown, making simple passwords easy to break. Longer and more complex passwords are now required. As shown by Adams \& Sasse \cite{adams1999users}, this has a negative impact on the users, which have limited memorising capability.
+The motivation behind Pico is the fact that passwords are no longer viable in the current technological context. Computing power has grown, making simple passwords easy to break. Longer and more complex passwords are now required. However, as shown by Adams \& Sasse \cite{adams1999users}, this has a negative effect on the users, which have a limited memorising capability.
 
 % motivation to replace passwords: increased number of password accounts
-Another reason why passwords are no longer viable is the fact that they are not a scalable solution. Security experts recommend that passwords should be reused for multiple accounts. However, a large number of computer based services require password authentication. In order to respect security recommendations, users would be forced to remember dozens of unique, complex passwords. A study by Florencio et al \cite{florencio2007large} performed over half a million users confirms the negative impact of scalability on password quality. Furthermore, passwords are often forgotten or reused across accounts. 
+Another reason why passwords are no longer viable is that they are not a scalable solution. Security experts recommend that passwords should not be reused for multiple accounts. However, a large number of computer based services require this type of authentication. In order to respect security recommendations, users would be forced to remember dozens of unique, complex passwords. A study by Florencio et al \cite{florencio2007large} confirms the negative impact of scalability on password quality.
 
 % fundamental design to improve on passwords
-When designing the Pico password replacement mechanism, Stajano decides to have a fresh start. He describes that an alternative for passwords needs to be at least memoryless and scalable, without reducing security. In the case of token based authentication, the solution also needs to be loss and theft resistant. The Pico token was therefore designed to satisfy these fundamental properties, as well as other benefits emphasised in a paper by Bonneau et al \cite{bonneau2012quest} as well as the the original work by Stajano.
+When designing Pico, Stajano decides to have a fresh start. He describes that an alternative for passwords needs to be at least memoryless and scalable, without compromising security. In the case of token based authentication, the solution also needs to be loss and theft resistant. Pico was therefore designed to satisfy these fundamental properties. It provides a number of additional benefits also described in the work by Bonneau et al \cite{bonneau2012quest}.
 
 % keeping credentials safe
-As a token authentication mechanism, Pico transforms ``something you know'' into ``something you have''. It offers support for thousands of credentials which are kept encrypted on the Pico device. The encryption key is also known as the ``Pico Master Key''. If the Pico is not in the possession of its owner it becomes locked. In this state, the ``Pico Master Key'' is unavailable and the user cannot authenticate to any app\footnote{For the purpose of brevity, any mechanism requiring user authentication will be called an ``app'' just as in the original paper by Stajano.}.
+As a token authentication mechanism, Pico transforms ``something you know'' into ``something you have''. It offers support for thousands of credentials that are kept encrypted on the Pico device. The encryption key is also known as the ``Pico Master Key''. If the Pico is not in the possession of its owner it becomes locked. In this state, the ``Pico Master Key'' is unavailable and the user cannot authenticate to any app\footnote{For the purpose of brevity, any mechanism requiring user authentication will be called an ``app''. This naming convention was used in the original paper by Stajano.}.
 
 % creates and manages credentials
-Credentials are generated and managed automatically whenever the owner interacts with an app. Therefore, the responsibility of generating a strong and unique credential, as well as memorising it, is shifted from the user to the Pico. No additional effort such as searching or typing credentials is required.
+Credentials are generated and managed automatically whenever the owner interacts with an app. Therefore, the responsibility of generating a strong and unique credential, as well as memorising it, is shifted from the user to the Pico. No additional effort such as searching or typing is required.
 
 % continuous authentication
-Another important feature offered by Pico is continuous authentication. Traditional password mechanisms provide authentication for an entire session. The user is responsible of managing and closing the session when it is no longer needed. Instead, Pico offers the possibility of periodic re-authentication of its owner using short range radio. If either the Pico or the owner are no longer present, the authentication session is closed. 
+Another important feature offered by Pico is continuous authentication. Traditional password mechanisms provide authentication for an entire session. The user is responsible of managing and closing the session when it is no longer needed. Instead, Pico offers the possibility of periodic re-authentication of its owner using short range radio communication. If either the Pico or the owner are no longer present, the authentication session is closed. 
 
 % physical design
 From a physical perspective, Pico is a small portable dedicated device. Its owner should be carrying it at all times, just as they would with a car key. It contains the following hardware components:
@@ -39,31 +40,32 @@ From a physical perspective, Pico is a small portable dedicated device. Its owne
 \end{itemize}
 
 % physical design: what is stored and how
-As mentioned before, the Pico main memory is encrypted using the Pico Master Key. It contains thousands of slots used for storing unique credentials used in the authentication process. Each credential consists of public-private key information generated during account creation in a key exchange protocol. The public key belongs to the corresponding app, while the private key was generated when creating the account. 
+As mentioned before, the Pico main memory is encrypted using the ``Pico Master Key''. The token contains thousands of slots used for storing unique credentials used in during authentication. Each credential consists of public-private key information generated during account creation in a key exchange protocol. The public key belongs to the corresponding app, while the private key was generated when registering the account. 
 
 % account creation
-During account creation Pico scans a 2D visual code generated by an app. The image encodes a hash of the apps certificate including the app name and public key. Pico starts the protocol with the app using the radio channel, and the app provides a public key used for communication. The key is validated using the hash from the visual code, and the protocol continues. Pico then initiates a challenge for the app to prove that it is in possession of the corresponding private key, and provides a temporary public key. This protects the identity of the owner, by only showing their public key after the app is authenticated. Only then Pico generates a key pair, sends the public key to the app and stores the key pair.
+During account creation Pico scans a 2D visual code generated by the app. The image encodes a hash of the app's certificate that includes its name and public key. Pico starts the registration protocol through the radio channel, and the app responds with a public key used for communication. The key is validated using the hash from the visual code, and the protocol continues. Pico then initiates a challenge for the app to prove that it is in possession of the corresponding private key. It also provides to the app a temporary public key used for communication. Once the app is authenticated, Pico generates a key pair and sends the account public key to the app. To complete the registration it stores the generated private key and the app's public key.
 
 % account authentication
 The account authentication process starts when the user presses the main button and scans the app 2D code. The hash of the app's name and public key are extracted from the 2D image. This information is used to find the corresponding credentials. An ephemeral public key encrypted with the app's public key is sent via the radio channel. The app is authenticated by using this key to require the corresponding (user id, credential) pair. Only after the app is authenticated Pico uses the public key generated during the registration process and authenticates itself to the app.
 
 % Unlocking pico
-The locking process is an important aspect of Pico which we have not yet fully described. The token should become unlocked only in the presence of its owner. Currently this is achieved using bidirectional radio communication with small devices called Picosiblings \cite{stannard2012good}. These are meant to be embedded in everyday items that the owner carries around, such as earrings, rings, keys, chains, etc.
+The locking process is an important aspect of Pico which that was not yet fully described. Currently this is achieved by using bidirectional radio communication with small devices called Picosiblings \cite{stannard2012good}. These are meant to be embedded in everyday items that the owner carries around, such as earrings, keys, chains, and rings.
 
 % Reconstructing master key.
-The Pico authentication credentials are encrypted using the Pico Master Key. The key is not available on the Pico and can only be reconstructed using k-out-of-n secret sharing, as described by Shamir \cite{shamir1979share}. Except for two shares which will be discussed later, each k-out-of-n share is held by a Picosibling. 
+The Pico authentication credentials are encrypted using the ``Pico Master Key''. The key is not available on the token and can only be reconstructed using k-out-of-n secret sharing, as described by Shamir \cite{shamir1979share}. Except for two shares which will be discussed later, each k-out-of-n secret is held by a Picosibling. 
 
-Using an initialisation protocol based on the resurrecting duckling \cite{stajano2000resurrecting}, each Picosibling is securely paired with Pico. After the initialisation process, Pico sends periodic ping requests to which all registered Picosibling are expected to respond. During each successful ping, the Picosibling sends its k-out-of-n share back to Pico. If enough secrets are provided the ``Pico Master Key'' is reconstructed and Pico becomes unlocked.
+Using an initialisation process based on the ``resurrecting duckling'' \cite{stajano2000resurrecting}, each Picosibling is securely paired with Pico. The token sends periodic ping requests to which all initialised Picosiblings are expected to respond. During a successful ping, each Picosibling sends its k-out-of-n share to Pico. Given enough secrets, the ``Pico Master Key'' is reconstructed and Pico becomes unlocked.
 
-Internally, Pico keeps a slot array for each paired Picosibling. Each slot contains a countdown value, and the key share provided by the Picosibling. The countdown value is decreased periodically. When it expires, the share becomes deleted. Similarly, if k shares are not acquired before a predefined time-out period, all shares are removed.
+Internally, Pico keeps a slot array for each paired Picosibling. Each slot contains a countdown value, and the key share provided by the Picosibling. When the countdown value expires, the share becomes deleted. Similarly, if k shares are not acquired before a predefined time-out period, all shares are removed.
 
 Except for the Picosiblings, two additional special shares with a larger time-out period are described by the paper:
 \begin{itemize}
-	\item Biometric measurement used for authenticating the owner to the Pico.
-	\item Remote server network connection used for locking the Pico remotely.
+	\item Biometric measurement used for authenticating the owner to Pico.
+	\item A server network connection used for locking Pico remotely.
 \end{itemize}
 
-The possibility of using a smart phone as a Pico is briefly considered in the paper. This would have the advantage of not requiring any additional devices from the user. Modern smart phones provide all the necessary hardware required by Pico. However, this would be a security trade-off in exchange for usability. Mobile phones are an ecosystem for malware, and they present uncertainty regarding the privacy of encrypted data. This option may still be used as a cheaper alternative to prototype and test, which is something we will make use of in this project.
+% Smart phones as a Pico
+The possibility of using a smart phone as a Pico is briefly considered in the paper. This would have the advantage of not requiring any additional devices from the user. Modern smart phones provide all the necessary hardware required by Pico. However, this would be a security trade-off in exchange for usability. Mobile phones are an ecosystem for malware, and they present uncertainty regarding the privacy of encrypted data. This option may still be used as a cheap alternative to prototype and test.
 
 
 

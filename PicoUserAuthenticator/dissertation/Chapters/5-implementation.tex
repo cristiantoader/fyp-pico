@@ -8,103 +8,21 @@
 
 \lhead{Chapter 4. \emph{Implementation Prototype}} 
 % Introduction for implementation
-In this chapter we will develop a prototype for the scheme proposed in section \ref{propopsedsol}. Just as presented by Stajano \cite{stajano2011pico}, smart phones offer a cheap alternative to prototype and test. Therefore, we have chosen as an implementation platform the Android Nexus 5 hand held device. It offers enough sensors to perform biometric and behavioural analysis\footnote{The full range of sensors supported by the Android platform can be found here: http://developer.android.com/guide/topics/sensors/sensors\_overview.html (accessed on 28.05.2014)}. These resources will be used to demonstrate that the scheme can be implemented using similar dedicated hardware that may offer more security features.
+In this chapter we develop a prototype for the scheme proposed in section \ref{propopsedsol}. According to Stajano \cite{stajano2011pico}, smart phones offer a cheap alternative to prototype and test. Therefore, we have chosen as an implementation platform the Android Nexus 5 hand held device. 
 
-% Android
-\subsection{Android development and security}
-\label{androidsecurity}
-% Introduction to android security and dev model
-To gain a better understanding of different design decisions and limitations of our implementation, we will present a brief literature review of the Android development platform. Mechanisms and components will be described with an emphasis on security. The prototype developed for this dissertation is a proof of concept. However, we still aim to understand and make proper use of available security mechanisms. 
+Smart phones offer sufficient sensors to perform biometric and behavioural analysis\footnote{The full range of sensors supported by the Android platform can be found here: http://developer.android.com/guide/topics/sensors/sensors\_overview.html (accessed on 28.05.2014)}. These resources will be used to demonstrate that the scheme can be implemented using similar dedicated hardware that may offer more security features.
 
-% First paper: introduction
-William Enck et al \cite{enck2009understanding} offer a good introduction to Android application development. They focus on the security aspects of the development platform. It is a relatively old paper (2008), from the same year of the Android initial release. However, the fundamental design principles and security concepts that are discussed did not change considerably. The platform's open standards were made public in November 2007. This allowed researchers such as the authors of this paper to perform a pre-release analysis of the system.
+We have included a brief overview of the Android development model and the platform's security features in appendix \ref{AppendixA}. This information provides an introduction for understanding the principles used in the design of the prototype developed for this dissertation project.
 
-% First paper: OS short description
-Android uses as a core operating system a port of the Linux kernel. This introduces to the platform some of the Linux security mechanisms (i.e. file permissions, access control policies). On top of the kernel there is an application middleware layer composed out of the Java Dalvik virtual machine, core Java application libraries, as well as libraries which offer support for storage, sensors, display, and other device features. Applications are supported by the middleware and developed using the Android Java SDK.
-
-% First paper: Android components
-The Android development model is based on building an application from multiple components. Based on their purpose, the SDK defines four types: activity, service, content provider, and broadcast receiver. For the purpose of brevity we will not discuss each individual component\footnote{More details on the role of each component can be found on the Android website: http://developer.android.com/guide/components/fundamentals.html}. To allow meaningful interaction, Inter Component Communication (ICC) is enabled using special objects called Intents.
-
-% First paper: binding services
-The application we are developing needs to perform most of its processing in the background. It does not require any explicit user interaction. According to the Android model, this should be achieved using Services. To enable convenient component interaction, services may become bound engaging in a client-server communication. An important note made in the paper is that while a Service is bound, it cannot be terminated by an explicit stop action. This provides an useful guarantee regarding its lifetime, which we will use in the prototype.
-
-% First paper: security enforcements, system level
-The paper discusses two types of Android security enforcements: ICC, and system level. System level security is based on the Linux permission model. When installed, each app is allocated an UID and GID. This allows internal storage access control restrictions, keeping application data sandboxed from other apps.
-
-% First paper: security enforcements, ICC
-% 	TODO: too vague, can expand and cite something
-ICC security is the main focus of the paper. Intent communication is based on commands sent to the ``/dev/binder'' device node. The node needs to be world readable and writeable by any application. Therefore, Android cannot mediate ICC using the Linux permissions model. Security relies on a Mandatory Access Control (MAC) framework enforced by a reference monitor. This mechanism validates requests sent to the ``/dev/binder'' node. 
-
-% Manifest file
-During development, each application needs to define a manifest file\footnote{Full details regarding the manifest file can be found on the Android website: http://developer.android.com/guide/topics/manifest/manifest-intro.html}. Some of the security configurations defined in this file are: declared components and their capabilities, permissions required by the app, and permissions other apps need to have in order to interact with app components. These entries are used as labels for the MAC framework. 
-
-% First paper, types of components: public/private.
-Using the app manifest file, each component can be defined as either public or private. This refinement is configured by the ``exported'' field. It defines whether or not another application may launch or interact with one of its components. When this paper was written, the ``exported'' field was defaulted to ``true''. However, as shown by Steffen and Mathias \cite{liebergeld2013android}  in 2013, starting with Android 4.2  the default of this value was changed to ``false'', and now conforms to the ``principle of least privilege''.
-
-% First paper, Intent filters
-Components listening for Intents need to have an intent-filter registered in the application manifest file. This allows them to export only a limited set of intents to other applications. Further restrictions to Intent objects are offered by the SDK using permission labels. This mechanism provides runtime security checks for the application. It is an additional prevention mechanism for data leaks through ICC. An application may broadcast an event throughout the system. By using permission labels, only apps that have the respective permission may process the event. Furthermore, Services may check for permissions when they are bound by another component. This allows them to expose different APIs depending on the binder.
-
-% Paper two!
-Steffen and Mathias \cite{liebergeld2013android} focus on deeper issues of the Android platform. They show how problems are solved from one Android version to the other. Unfortunately, OEMs tend not to update the software of their devices once they have shipped, which creates a high security risk.
-
-The starting point of understanding Android security is learning how it is bootstrapped during the five step booting process:
-\begin{enumerate}
-	\item Initial bootloader (IBL) is loaded from ROM.
-	\item IBL checks the signature of the bootloader (BL) and loads it into RAM.
-	\item BL checks the signature of the linux kernel (LK) and loads it into RAM.
-	\item LK initialises all existing hardware and starts the linux ``init'' process.
-	\item The init process reads a configuration file and boots the rest of LA.
-\end{enumerate}
-
-The android security model is split by the paper in two categories: system security, and application security.
-
-% keychain encryption and security
-Android provides a keychain API used for storing sensitive material such as certificates and other credentials. These are encrypted using a master key, which is stored using AES encryption. Security needs to begin somewhere. An assumption has to be made about a state being secure from which multiple security extensions can be made. In this case, the master key is considered to be that point of security. However, given a rooted device, the master key itself can be retrieved from the system and therefore compromising all other credentials. The Android base system (libraries, app framework, and app runtime) is located in the ``system'' partition. Although it is writeable only by the root user, as mentioned before, exploits which grant this privilege exist. 
-
-% Same author, shared privileges
-From the user's perspective, an interesting ``feature'' which may affect the flow of information within Android is the fact that applications from the same author may share private resources. When installing an app the user needs to accept its predefined set of permissions. Due to resource sharing, a situation may present itself where an application that has permissions for the owner's contacts may communicate with an application that has permissions for internet in order to leak confidential data. A developer may therefore construct pairs of legitimate applications in order to mask a data flow attack.
-
-% Android low level security
-The Android OS offers a number of memory corruption mitigations in order to avoid buffer overflow attacks, or return oriented programming. The following list 
-presents these low level security mechanisms:
-\begin{itemize}
-	\item Implements mmap\_min\_addr which restricts mmap memory mapping calls. This prevents NULL pointer related attacks.
-	\item Implements XN (execute never) bit to mark memory as non-executable. The mechanism prevents attackers from executing remote code passed as data.
-	\item Address space layout randomisation(ASLR) was implemented starting with Android 4.0. This is a first step to preventing return oriented programming attacks. The memory location of the binary library itself is however static. After a number of attempts using trial and error, the attacker may succeed using return oriented programming.
-	\item Position independent and randomised linker (PIE) is implemented starting with Android 4.1 to support ASLP. This makes the memory location of binary libraries to be randomised.
-	\item Read only relocation and immediate binding space (RELro) was implemented starting with Android 4.1. It solves an ASLR issue where an attacker could modify the global offset table (GOT) used when resolving a function from a dynamically linked library. Before this update an attacker may insert his own code to be executed using the GOT table.
-\end{itemize}
-
-% On device bouncer
-A number of application security mechanisms are in place to make Android a safer environment for its users. A device program also known as the ``Bouncer'' prevents malware to be distributed from the Android App store (Google Play). The purpose of the bouncer is to verify apps prior to installation by checking for malware signatures and patterns. 
-
-% Secure USB debugging
-Secure USB debugging was introduced starting with Android 4.4.2. This only allows hosts registered with the device to have USB debugging permissions. The mechanism is circumvented if the user does not have a screen lock.
-
-% The 4 big issues with android and malware
-According to the paper, the Android OS is responsible for $96\%$ of mobile phone malware. The authors claim that this is the case due to 4 big issues of the Android platform:
-\begin{enumerate}
-	\item Security updates are delayed or never deployed. This is due to a number of approvals that an update needs to receive prior to deployment. This introduces an additional cost to the manufacturer (OEM), that does not generate any revenue. The majority of teams working on the Android platform are focusing on current releases. In most cases there are simply not enough resources to merge Google security updates to the OEM repository. Furthermore, the consequences of a failed OS update may cause ``bricking'' of the device, which is a huge risk for the manufacturer. All these issues lead to very few security updates. Therefore, important features such as RELro are never deployed, making older Android releases vulnerable.
-	
-	\item OEMs weaken the security of Android by introducing custom modifications before they roll out a device.
-	
-	\item The Android permission model is defective. According to Kelley et al \cite{kelley2012conundrum}, most users do not understand the permission dialogue when installing an application. Furthermore, even if they could understand the dialogue, most of the time it is ignored in order to use the exciting new app. According to the same study, most applications are over-privileged. This is due to developers not understanding what each privilege grants. Furthermore, as previously pointed out, apps developed by the same owner may share resources and implicitly privileges.
-	
-	\item Google Play has a low barrier for malware. A developer distribution agreement (DDA) and a developer program policy (DPP) need to be agreed to and signed by the developer before submitting the application to the Android market. However, Google Play does not check upfront if an application adheres to DDA and DDP. The application is only reviewed if it becomes suspect of breaking the agreements. Furthermore, according to \cite{percoco2012adventures} there are ways of circumventing the Bouncer program\footnote{An example of such an application is presented in an article written in Tech Republic: http://www.techrepublic.com/blog/google-in-the-enterprise/malware-in-the-google-play-store-enemy-inside-the-gates/\# (visited on 29.05.2014).}. 
-\end{enumerate}
-
-% Conclusion of the section, just a summary of what we presented
-We have briefly presented the Android development model, existing mechanisms, and the security of the platform. Given this information we may proceed to present the prototype implementation of the token unlocking scheme. 
-
-\section{Authenticator design}
+\section{Implementation overview}
 % Introduction with UAService
-The Android user authenticator prototype is designed to work as a bound service implemented in the UAService\footnote{The name of the class stands for User Authentication Service} class. The service collects data from each mechanism and computes the final authentication confidence level. The result is provided to clients either after an explicit request or through periodic broadcasts.
+The Android user authenticator prototype is designed to work as a bound service implemented in the ``UAService'' \footnote{The name of the class stands for User Authentication Service} class. Feedback is provided to clients either after an explicit request or through periodic broadcasts.
 
 % Mention independent services for each mechanism and why
-Each authentication mechanism may have a different requirement for sampling and processing data. As an example, voice recognition may gather optimal data during a phone call\footnote{Call events can be intercepted by registering a listener for the PHONE\_STATE event}, while face recognition when the phone screen is unlocked. Therefore, to enable more flexibility in the individual mechanisms' implementation, we have chosen each to be developed as an independent service.
+Each authentication mechanism may have a different requirement for sampling and processing data. As an example, voice recognition may gather optimal data during a phone call \footnote{Call events can be intercepted by registering a listener for the PHONE\_STATE event}, while face recognition when the phone screen is unlocked. Therefore, to enable more flexibility in the individual mechanisms' implementation, they are developed as independent services.
 
 % Management of authentication mechanisms
-UAService communicates with the authentication mechanisms by binding their service. This allows message passing using a ServiceConnection object. On predefined time intervals UAService acquires the confidence level and weight of each mechanism. Using this data it then calculates the overall result according to the design in section \ref{authfeedback}. Feedback is sent back to each registered client for interpretation.
+``UAService'' communicates with the authentication mechanisms by binding to their service. On predefined time intervals it requests the confidence level and weight of each mechanism. Using this data it then calculates the overall result according to the design in section \ref{authfeedback}. Feedback is sent back to each registered client for interpretation.
 
 \section{Implementation details}
 % Introduction (can expand)
@@ -112,13 +30,12 @@ This section presents the implementation of the scheme proposed in section \ref{
 
 ``https://github.com/cristiantoader/fyp-pico''.
 
-% TODO: rename section (something with activity and services, or idk)
-\subsection{Main application and services}
+\subsection{UAService}
 % UAService
-The Android token unlocking scheme is implemented as a bound service in the UAService class. According to the Android documentation a bound service is the server in the client-server interface. It enables other components to send requests and receive responses by binding to it. It is developed as a regular service that implements the ``onBind()'' callback method to return an IBinder. 
+The Android token unlocking scheme is developed to be used as a bound service. The binding component is implemented in the ``UAService'' class. According to the Android documentation, a bound service is the server in the client-server interface. It enables other components to send requests and receive responses.
 
 % Keep UAService alive via startService().
-According to the Android development API guide\footnote{http://developer.android.com/guide/components/bound-services.html} there are two independent scenarios describing the lifetime of a bound service, depending on how the service was started:
+According to the Android development API guide \footnote{http://developer.android.com/guide/components/bound-services.html} there are two independent scenarios describing the lifetime of a bound service:
 \begin{enumerate}
 	\item If the service was not previously running, and a ``bindService()'' command is issued by a component, the service is kept alive for as long as clients are still bound. A client becomes unbound by calling ``unbindService()''.
 	
@@ -133,23 +50,20 @@ The prototype we have developed takes into account the lifetime of bound service
 A safer alternative would be to create a root service. This requires modifications to the system partition. The process does not resume to simply gaining root privileges and making the modifications. The root directory is mounted as ramdisk, and therefore any direct changes will be reverted once the device is rebooted. In order to make persistent modifications, the user needs to alter the boot image and re-flash it on the device. The service needs to be compiled using the Android NDK C compiler. The binary has to be included in the system partition of the boot image in order to be accessible by the ``init'' process during start up. The ``init.rc'' configuration file used by ``init'' also needs to be configured to start the service.
 
 % UAService, central node.
-% 	TODO: I think I can drop this paragraph if the word count is exceeded
-``UAService'' is a central node in the application. It gathers data from the authentication mechanisms, computes the overall confidence data, and sends feedback to the clients. 
-
-In order to receive authentication updates, clients need to bind ``UAService''. Communication is enabled using the ``Messenger'' interface, which is the simplest way to perform Inter Process Communication (IPC). The ``Messenger'' queues all requests on a single thread, and therefore the application does not require to be thread safe. The following commands are exposed to clients such as Pico through the ``what'' parameter of the ``Message'' class:
+In order to receive authentication updates, clients need to bind ``UAService''. Communication is enabled using the ``Messenger'' interface, which is the simplest way to perform Inter Component Communication (ICC). The ``Messenger'' queues all requests on a single thread, and therefore the application does not require to be thread safe. The following commands are exposed to clients such as Pico through the ``what'' parameter of the ``Message'' class:
 \begin{description}
   \item[MSG\_REGISTER\_CLIENT] \hfill \\
-  Used for registering a client for periodic broadcasts\footnote{An alternative implementation explored in the project was to have each client also register a confidence level using the ``arg1'' parameter of a ``Message''. In this case, the authenticator would only provide each client with a locked/unlocked result. However, this would shift the meaning of client to that of an authentication session, with state managed by the unlocking scheme. A client would therefore have multiple connections, requiring more IPC. Since all ``Messenger'' requests made to ``UAService'' are queued to a single thread, this would slow down the feedback process and possibly even lead to a denial of service attack. Therefore we have chosen to reduce the communication overhead, and have each client manage the status of its authentication sessions based on the confidence level provided by the unlocking scheme.} of the current unlocking confidence level. Feedback is provided at a fixed time interval of 1000ms.
+  Used for registering a client for periodic broadcasts\footnote{An alternative implementation explored in the project was to have each client also register a confidence level using the ``arg1'' parameter of a ``Message''. In this case, the authenticator would only provide each client with a locked/unlocked result. However, this would shift the meaning of client to that of an authentication session, with state managed by the unlocking scheme. A client would therefore have multiple connections, requiring more IPC. Since all ``Messenger'' requests made to ``UAService'' are queued to a single thread, this would slow down the feedback process and possibly lead to a denial of service attack. Therefore we have chosen to reduce the communication overhead, and have each client manage the status of its authentication sessions based on the confidence level provided by the unlocking scheme.} of the current authentication confidence level. Feedback is provided at a fixed time interval of 1000ms.
 
   \item[MSG\_UNREGISTER\_CLIENT] \hfill \\
-  Used for any application to unregister as a listener of this service. No additional parameters required.
+  Used for any application component to unregister as a listener from ``UAService''.
   
   \item[MSG\_GET\_STATUS] \hfill \\
-  Used by any application when an authentication request is needed. Although the service periodically broadcasts the authentication status to its clients, explicit requests may also be performed using this type of ``Message''.
+  Used by any application when an authentication request is needed. Although the service periodically broadcasts the authentication status to its clients, explicit requests may be performed using this type of ``Message''.
 \end{description}
 
 % Introduction tu authentication mechanism services, UAService side
-The communication between ``UAService'' and an authentication mechanism service is intermediated by an ``AuthMech'' object. Each ``AuthMech'' is responsible for interfacing the communication with its corresponding service. 
+The communication between ``UAService'' and an authentication mechanism service is intermediated by ``AuthMech'' objects. Each ``AuthMech'' is responsible for interfacing the communication with its corresponding service. 
 
 % Authentication mechanism side
 From the authentication mechanism's perspective, each service needs to extend the ``AuthMechService'' abstract class. This standardises the communication with the ``AuthMech'' objects, and implicitly ``UAService''. This software engineering approach facilitates adding additional mechanisms with minimal changes to the original code.
