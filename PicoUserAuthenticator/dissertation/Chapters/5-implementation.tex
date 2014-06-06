@@ -81,10 +81,24 @@ When developing an authentication mechanism for this scheme, the following abstr
 A list of authentication mechanism examples that can be implemented on the Android platform is presented in appendix \ref{AppendixC}.
 
 % AuthMechService functionality
-Each mechanism developed for this scheme extends the ``AuthMechService'' abstract class. As mentioned, this class is responsible for defining the mechanism as a bound service. The communication with ``UAService'' is standardized by implementing ``Service.onBind()'' to register the same ``IncomingHandler'' implementation. Furthermore, ``AuthMechService'' defines the decay of a mechanism's weight. This is implemented using a ``Handler'' object that schedules a ``Runnable'' to execute at a predefined time interval. The ``Runnable'' is responsible for decreasing the mechanism's weight.
+Each mechanism developed for this scheme extends the ``AuthMechService'' abstract class. As mentioned, this class is responsible for defining the mechanism as a bound service. The communication with ``UAService'' is standardized by implementing ``Service.onBind()'' to register the same ``IncomingHandler'' implementation. Furthermore, ``AuthMechService'' defines the decay of a mechanism's weight. This is implemented using a ``Handler'' object that schedules a ``Runnable'' to execute at a predefined time interval. The ``Runnable'' is responsible for decreasing the mechanism's weight and sending the result to the corresponding ``AuthMech''.
 
 % General application design
 Although it is not enforced, each authentication mechanism has the same general design. The mechanism implements the ``AuthMechService'' abstract class. Its ``Service.onCreate()'' method starts a threat responsible for collecting data using an access object (DAO), and analysing it using a class that mediates interaction with other components. 
+
+% Euclidean distance conversion
+Most biometric libraries provide feedback as an Euclidean distance. To convert it to a percentage confidence level, we define for each mechanism an acceptable threshold. Any result above the threshold is considered too high and is truncated to its value. Using the equation \ref{eq:euclideantoprob} we convert the Euclidean distance to a confidence level. The final result is $P(E|H)$ (the probability that the evidence belongs to the hypothesis) used in equation \ref{eq:final}.
+
+\begin{equation} 
+\label{eq:euclideantoprob}
+P(E|H) = 1 - \frac{distance}{THRESHOLD}
+\end{equation}
+
+% Probability computation estimate
+Dividing the distance over the threshold yields a confidence value between 0 and 1, where 1 is a very large distance and hence a bad result. By using one minus this value we invert the meaning. Values will range between 0 and 1, and 1 corresponds to a confidence level of $100\%$. 
+
+% Do Bayesian update
+Having known $P(E|H)$ we continue to calculate $P(H|E)$ by using the Bayesian update formula defined in equation \ref{eq:final}. When calculating the final confidence level of the mechanism, we multiply $P(H|E)$ with the current decay rate.
 
 % Listing mechanisms with promises of future details
 The following mechanisms have been implemented as part of the prototype: voice recognition, face recognition, location analysis, and a dummy mechanism used for testing. The following sections will provide details regarding their functionality and implementation process.
@@ -94,23 +108,20 @@ The following mechanisms have been implemented as part of the prototype: voice r
 A dummy authentication mechanism was developed for testing the overall scheme. It produces random confidence levels within a predefined range, which provides a controlled testing environment.
 
 % General implementation detail
-The mechanism was developed in the ``DummyService'' class and was designed consistently with the application model. The ``DummyService.onCreate()'' method creates an authentication thread that periodically generates random values and sends them to ``UAService''. It does not use any DAO, in order not to over complicate its implementation. The random values are generated using a ``DummyAuthMediator'' object. This mimics an authentication mechanism that periodically samples for data.  
+The mechanism was developed in the ``DummyService'' class and was designed consistently with the application model. Its ``DummyService.onCreate()'' method creates an authentication thread that periodically generates random values and sends them to ``UAService''. It does not use any DAO, in order not to over complicate its implementation. The random values are generated using a ``DummyAuthMediator'' object. This mimics an authentication mechanism that periodically samples for data.  
 
 \subsubsection{Voice recognition}
 % Introduction to mechanism
-The voice recognition mechanism is implemented in the ``VoiceService'' class. It extends the ``AuthMechService'' abstract class that defines its communication interface and decay process. The ``VoiceService.onCreate()'' method starts a thread that periodically gathers data from the microphone, performs biometric authentication, and produces a confidence level.
-
-% TODO: decay weight
+The voice recognition mechanism is implemented in the ``VoiceService'' class and extends the ``AuthMechService'' abstract class. The ``VoiceService.onCreate()'' method starts a thread that periodically gathers data from the microphone, performs biometric authentication, and produces a confidence level.
 
 % Library used for implementation
-% 	TODO: library repeats a bit
-The library used for voice recognition is called Recognito\footnote{The library can be downloaded using github from the following link: https://github.com/amaurycrickx/recognito} and was developed by Amaury Crickx. It is a text independent speaker recognition library developed in Java. We do not claim that it is the best voice recognition library, but it was best suited for the purpose of this prototype. Porting the library for Android required minimal changes. It claims very good results in scenarios with minimal background noise\footnote{It was tested by the author on TED talks, such as:  https://www.ted.com/talks/browse (visited on 06.01.2014)}.
+The library used for voice recognition is called Recognito\footnote{The library can be downloaded using github from the following link: https://github.com/amaurycrickx/recognito}, and was developed by Amaury Crickx. It use a text independent speaker recognition algorithm developed using Java (SE). Its author claims very good results in scenarios with minimal background noise\footnote{It was tested by the author on TED talks, such as:  https://www.ted.com/talks/browse (visited on 06.01.2014)}.
 
 % Hack to compile with the library
-In order for the application to compile the Recognito library, a subset of the rt.jar Java (SE) library was required. This is due to ``javax.sound.'' packages included in Recognito that are not available on Android. Trying to import and use the ``javax.sound.'' package is not possible due to the name collision with the ``javax.'' system library available on Android. Therefore, we had to include ``rt.jar'' as part of the application, but without actually using it. This was purely done to trick the Android Java compiler to package the application. Using ``javax.sound'' features would generate a runtime error. This was avoided by only using Recognito functions which require direct sound input, without any knowledge of sound file formats.
+Porting Recognito for Android required no changes. However, in order to package the library, a subset of the ``rt.jar'' Java (SE) library is need for sound file formats. Including the full ``rt.jar'' is not possible due to a package name collision with Android ``javax.*'' system libraries. Therefore, we have included only the ``javax.sound.*'' package using a custom jar. This was purely done to trick the Android Java compiler to build the application. Using ``javax.sound'' features would generate a runtime error. However, we only use Recognito functions which require direct data input, without any knowledge of sound file formats.
 
 % Recording configuration
-In order to gather and manage samples compatible with the Recognito library we have created the ``VoiceRecord'' class. This is responsible of gathering microphone input using the following predefined configuration:
+In order to gather and manage samples compatible with the Recognito library we have created the ``VoiceDAO'' class. Microphone input is gathered using the following predefined configuration:
 \begin{itemize}
 	\item Sample rate: 44100
 	\item Channel configuration: AudioFormat.CHANNEL\_IN\_MONO
@@ -118,37 +129,29 @@ In order to gather and manage samples compatible with the Recognito library we h
 \end{itemize}
 
 % More random recording stuff..
-The minimum buffer size required by the ``VoiceRecord'' class is device dependant and pre-calculated in the constructor. The class wraps an ``AudioRecord'' object used for gathering microphone data. Due limitations of the SDK, the recording is saved as a file and loaded into memory when needed. This makes the implementation not efficient, but it does serve the purpose of the prototype.
+The minimum buffer size required by `VoiceDAO'' is device dependant and pre-calculated in the constructor. The class wraps an ``AudioRecord'' object used for gathering microphone data. Due limitations of the SDK, the recording is saved as a file and loaded into memory when needed. This makes the implementation not efficient, but it does serve the purpose of the prototype.
 
-% DAO
-A DAO class is created to facilitate the interface to the Recognito library. When initialised, it loads the owner configuration, and a predefined set of background noises. It then creates a Recognito object and trains it using the data. This is done using the library's ``createVocalPrint'' public method.
+% Library Mediator
+The ``VoiceAuthMediator'' class was created to mediate calls to the Recognito library. When initialised, it loads the owner configuration, and a predefined set of background noises. It then creates a Recognito object and trains it using the data. This is performed using the ``Recognito.createVocalPrint()'' method.
 
 % Getting confidence level
-Every predefined time interval, the ``VoiceService'' authentication thread records data in ``double[]'' format using the ``VoiceRecord'' class. It then calls the ``recognize'' public method of the Recognito object. This returns the Euclidean distance to the closest match, which is either the owner, or one of the background noises used for training. 
+Every predefined time interval, the ``VoiceService'' authentication thread records data in ``double[]'' format using a ``VoiceDAO'' object. It then calls the ``recognize'' public method of the Recognito object. This returns the Euclidean distance to the closest match, which is either the owner, or one of the background noises used for training. 
 
-% Getting closest match
-To convert the Euclidean distance to a percentage confidence level, we define an acceptable threshold. Any result above the threshold is considered too high and is truncated to its value. Using the following formula we convert the Euclidean distance to a confidence level. The final result is $P(E|H)$ (the probability that the evidence belongs to the hypothesis) used in equation \ref{eq:final}.
-
-$$P(E|H) = 1 - \frac{distance}{THRESHOLD}$$
-
-% Probability computation estimate
-Dividing the distance over the threshold yields a confidence value between 0 and 1, where 1 is a very large distance and hence a bad result. By using one minus this value we invert the meaning. Values will range between 0 and 1, and 1 corresponds to a confidence level of $100\%$. 
-
-% Do Bayesian update
-Having known $P(E|H)$ we continue to calculate $P(H|E)$ by using the Bayesian update formula defined in equation \ref{eq:final}. When calculating the final confidence level of the mechanism, we multiply $P(H|E)$ with the current decay rate. Due to the message passing API, this value needs to be an integer and is therefore multiplied by 100. The overall result is stored in the service and updated whenever the decaying weight is modified. When a request is made by UAService, the value is returned using the IBinder message passing mechanism.
-
+% Sending confidence level
+ We convert the Euclidean distance from ``VoiceAuthMediator'' to a percentage using equation \ref{eq:euclideantoprob}. The value is stored in the service and the decay process is started. Whenever the weight is modified, a ``Message'' is sent to the corresponding ``AuthMech'' and updates its value. 
+ 
 \subsubsection{Face recognition}
 \label{implface}
 % Introduction: brief description of the implementation
-The face recognition mechanism was implemented in the ``FaceService'' class, which extends the ``AuthMechService'' abstract class. When created, the service starts a thread that periodically collects data from the camera. Each sample is analysed using a face recognition library, and a confidence level is outputted for the current sample. The result is multiplied by the mechanism's weight which is a decaying factor.
+The face recognition mechanism was implemented in the ``FaceService'' class and extends the ``AuthMechService'' abstract class. When created, the service starts a thread that periodically collects data from the camera. Each sample is analysed using a face recognition library, and a confidence level is outputted for the current sample.
 
 % Javafaces library
-For biometric face recognition we use a port of the ``Javafaces'' library \footnote{The ``JavaFaces'' library is maintained at the following address: https://code.google.com/p/javafaces/}. This was the closest functional library found that was compatible with the Android API. Javafaces is written entirely using Java (SE). Unfortunately, it makes use of the ``javax.imageio.'' package which is not available in the standard Android SDK. Therefore, a considerable amount of code needed to be ported for the Android platform. The new library is publicly available at the following link:https://github.com/cristiantoader/JavafacesLib. It is currently not optimised for public use.
+For biometric face recognition we use a port of the ``Javafaces'' library \footnote{The ``JavaFaces'' library is maintained at the following address: https://code.google.com/p/javafaces/}. This was the closest functional library found that was compatible with the Android API. Javafaces is written entirely using Java (SE). Unfortunately, it makes use of the ``javax.imageio.'' package which is not available in the standard Android SDK. A considerable amount of code needed to be ported for the Android platform. The new library is publicly available at the following link: https://github.com/cristiantoader/JavafacesLib. It is currently not optimised for public use.
 
 % Javafaces changes for porting to Android
 We will briefly present the changes made when porting the ``Javafaces'' library. The ``BufferedImage'' class had to be replaced by its closest Android equivalent, which is ``Bitmap''. All ``BufferedImage'' references in the original project had to be adapted. Furthermore, The API was modified to support direct ``Bitmap'' input in order to add more flexibility and lighten the main code of the authenticator. 
 
-In the original ``Javafaces'' library, data formats for black and white images were assumed to have a single colour channel representing the grey value. This had to be changed to reflect the Bitmap convention, where all 3 colour channels are present but have the same value. Additional modifications were required due to data type mismatches, as well as other related issues.
+In the original ``Javafaces'' library, data formats for black and white images were assumed to have a single colour channel representing the grey value. This had to be changed to reflect the Bitmap convention that uses all 3 colour channels. Additional modifications were required due to data type mismatches, as well as other related issues.
 
 % Authentication process
 %	TODO: include that if no faces are found, the process is not performed
@@ -195,6 +198,8 @@ There are a number of Activity components that are used in the configuration of 
 
 % They use DAO objects to store data in internal storage
 Each configuration Activity uses the same DAO class as the mechanism Service. The DAO is used for storing the owner data once it was collected. Given that the overall size of the data is relatively small, the files are kept in internal storage. The Linux Android permissions mechanism guarantees its confidentiality and integrity, and therefore further encryption is not necessary.
+
+\subsection{Cryptographic protection}
 
 \section{Conclusion}
 % Small overall

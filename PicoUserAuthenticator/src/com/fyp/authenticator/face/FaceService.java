@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.fyp.activities.util.face.CameraUtil;
 import com.fyp.authenticator.AuthMechService;
 
 /**
@@ -83,13 +82,13 @@ public class FaceService extends AuthMechService {
 		/** Euclidean distance threshold used in calculating confidence. */
 		private static final double THRESHOLD = 1;
 
-		private CameraUtil cameraUtil = null;
+		private FaceDAO cameraUtil = null;
 
 		public void run() {
 			// instantiate face DAO when thread starts
 			this.dao = new FaceAuthMediator(FaceService.this);
 
-			this.cameraUtil = new CameraUtil(FaceService.this);
+			this.cameraUtil = new FaceDAO(FaceService.this);
 
 			// data sampling loop
 			while (this.running) {

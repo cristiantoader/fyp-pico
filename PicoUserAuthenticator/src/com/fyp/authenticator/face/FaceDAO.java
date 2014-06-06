@@ -1,4 +1,4 @@
-package com.fyp.activities.util.face;
+package com.fyp.authenticator.face;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -12,7 +12,7 @@ import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.util.Log;
 
-public class CameraUtil {
+public class FaceDAO {
 
 	private Camera camera = null;
 	private static final String TAG = "CameraUtil";
@@ -28,7 +28,7 @@ public class CameraUtil {
 	 */
 	private final SurfaceTexture dummyTexture = new SurfaceTexture(1);
 
-	public CameraUtil(Context context) {
+	public FaceDAO(Context context) {
 		this.context = context;
 	}
 
@@ -108,14 +108,14 @@ public class CameraUtil {
 
 			if (data == null) {
 				Log.e("FaceService", "null data");
-				CameraUtil.this.picture = null;
+				FaceDAO.this.picture = null;
 				return;
 			}
 
 			bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);
 			if (bmp == null) {
 				Log.e("FaceService", "Decoded bmp is null!");
-				CameraUtil.this.picture = null;
+				FaceDAO.this.picture = null;
 				return;
 			}
 
@@ -127,8 +127,8 @@ public class CameraUtil {
 			bmp = Bitmap.createScaledBitmap(bmp, (int) (0.5 * bmp.getWidth()),
 					(int) (0.5 * bmp.getHeight()), true);
 
-			CameraUtil.this.picture = bmp;
-			CameraUtil.this.faceReady.set(true);
+			FaceDAO.this.picture = bmp;
+			FaceDAO.this.faceReady.set(true);
 
 			Log.d("FaceService", "normal exit-");
 		}

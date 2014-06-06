@@ -1,8 +1,8 @@
 package com.fyp.activities;
 
 import com.fyp.activities.util.face.CameraPreview;
-import com.fyp.activities.util.face.CameraUtil;
 import com.fyp.activities.util.face.OwnerPictureCallback;
+import com.fyp.authenticator.face.FaceDAO;
 
 import android.app.Activity;
 import android.hardware.Camera;
@@ -30,7 +30,7 @@ public class FaceActivity extends Activity {
 
 		setContentView(R.layout.activity_face);
 
-		mCamera = new CameraUtil(this).getCameraInstance();
+		mCamera = new FaceDAO(this).getCameraInstance();
 		mPreview = new CameraPreview(this, mCamera);
 		
 		FrameLayout previewLayout = (FrameLayout) findViewById(R.id.camera_preview);
