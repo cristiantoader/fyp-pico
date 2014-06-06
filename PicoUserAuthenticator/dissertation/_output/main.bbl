@@ -109,11 +109,11 @@ Elena Vildjiounaite, S-M Makela, Mikko Lindholm, Vesa Kyllonen, and Heikki
 \newblock In \emph{Systems and Networks Communications, 2007. ICSNC 2007.
   Second International Conference on}, pages 80--80. IEEE, 2007.
 
-\bibitem[Clarke and Furnell(2007)]{clarke2007authenticating}
-Nathan~L Clarke and SM~Furnell.
-\newblock Authenticating mobile phone users using keystroke analysis.
-\newblock \emph{International Journal of Information Security}, 6\penalty0
-  (1):\penalty0 1--14, 2007.
+\bibitem[Cai et~al.(2009)Cai, Machiraju, and Chen]{cai2009defending}
+Liang Cai, Sridhar Machiraju, and Hao Chen.
+\newblock Defending against sensor-sniffing attacks on mobile phones.
+\newblock In \emph{Proceedings of the 1st ACM workshop on Networking, systems,
+  and applications for mobile handhelds}, pages 31--36. ACM, 2009.
 
 \bibitem[Derawi et~al.(2010)Derawi, Nickel, Bours, and
   Busch]{derawi2010unobtrusive}
@@ -123,29 +123,6 @@ Mohammad~Omar Derawi, Claudia Nickel, Patrick Bours, and Christoph Busch.
 \newblock In \emph{Intelligent Information Hiding and Multimedia Signal
   Processing (IIH-MSP), 2010 Sixth International Conference on}, pages
   306--311. IEEE, 2010.
-
-\bibitem[Burge and Burger(1996)]{burge1996ear}
-Mark Burge and Wilhelm Burger.
-\newblock Ear biometrics.
-\newblock In \emph{Biometrics}, pages 273--285. Springer, 1996.
-
-\bibitem[Mu et~al.(2005)Mu, Yuan, Xu, Xi, and Qi]{mu2005shape}
-Zhichun Mu, Li~Yuan, Zhengguang Xu, Dechun Xi, and Shuai Qi.
-\newblock Shape and structural feature based ear recognition.
-\newblock In \emph{Advances in biometric person authentication}, pages
-  663--670. Springer, 2005.
-
-\bibitem[Faraj and Bigun(2006)]{faraj2006motion}
-Maycel~Isaac Faraj and Josef Bigun.
-\newblock Motion features from lip movement for person authentication.
-\newblock In \emph{Pattern Recognition, 2006. ICPR 2006. 18th International
-  Conference on}, volume~3, pages 1059--1062. IEEE, 2006.
-
-\bibitem[Cai et~al.(2009)Cai, Machiraju, and Chen]{cai2009defending}
-Liang Cai, Sridhar Machiraju, and Hao Chen.
-\newblock Defending against sensor-sniffing attacks on mobile phones.
-\newblock In \emph{Proceedings of the 1st ACM workshop on Networking, systems,
-  and applications for mobile handhelds}, pages 31--36. ACM, 2009.
 
 \bibitem[Ming et~al.(2007)Ming, Hazen, Glass, and Reynolds]{ming2007robust}
 Ji~Ming, Timothy~J Hazen, James~R Glass, and Douglas~A Reynolds.
@@ -164,6 +141,12 @@ Matthew~A Turk and Alex~P Pentland.
 \newblock Face recognition using eigenfaces.
 \newblock In \emph{Computer Vision and Pattern Recognition, 1991. Proceedings
   CVPR'91., IEEE Computer Society Conference on}, pages 586--591. IEEE, 1991.
+
+\bibitem[Clarke and Furnell(2007)]{clarke2007authenticating}
+Nathan~L Clarke and SM~Furnell.
+\newblock Authenticating mobile phone users using keystroke analysis.
+\newblock \emph{International Journal of Information Security}, 6\penalty0
+  (1):\penalty0 1--14, 2007.
 
 \bibitem[Felt et~al.(2012)Felt, Ha, Egelman, Haney, Chin, and
   Wagner]{felt2012android}
@@ -200,5 +183,22 @@ NJ~Percoco and S~Schulte.
 \newblock Adventures in bouncerland: Failures of automated malware detection
   within mobile application markets.
 \newblock \emph{Black Hat USA 2012}, 2012.
+
+\bibitem[Burge and Burger(1996)]{burge1996ear}
+Mark Burge and Wilhelm Burger.
+\newblock Ear biometrics.
+\newblock In \emph{Biometrics}, pages 273--285. Springer, 1996.
+
+\bibitem[Mu et~al.(2005)Mu, Yuan, Xu, Xi, and Qi]{mu2005shape}
+Zhichun Mu, Li~Yuan, Zhengguang Xu, Dechun Xi, and Shuai Qi.
+\newblock Shape and structural feature based ear recognition.
+\newblock In \emph{Advances in biometric person authentication}, pages
+  663--670. Springer, 2005.
+
+\bibitem[Faraj and Bigun(2006)]{faraj2006motion}
+Maycel~Isaac Faraj and Josef Bigun.
+\newblock Motion features from lip movement for person authentication.
+\newblock In \emph{Pattern Recognition, 2006. ICPR 2006. 18th International
+  Conference on}, volume~3, pages 1059--1062. IEEE, 2006.
 
 \end{thebibliography}

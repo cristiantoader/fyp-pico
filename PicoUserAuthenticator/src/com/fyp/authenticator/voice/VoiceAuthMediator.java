@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.bitsinharmony.recognito.Recognito;
 
-public class VoiceMediator {
+public class VoiceAuthMediator {
 	/** Owner voice record manager. */
 	private VoiceDAO ownerRecord = null;
 
@@ -23,7 +23,7 @@ public class VoiceMediator {
 	 * @param ctx
 	 *            android context for application path.
 	 */
-	public VoiceMediator(Context ctx) {
+	public VoiceAuthMediator(Context ctx) {
 		this.ownerRecord = new VoiceDAO(ctx, "owner.3gp");
 		trainRecognito();
 	}

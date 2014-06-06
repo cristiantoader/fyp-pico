@@ -68,7 +68,7 @@ public class VoiceService extends AuthMechService {
 		private volatile boolean stop;
 
 		/** DAO used to interface with the voice recognition library. */
-		private VoiceMediator voiceDAO;
+		private VoiceAuthMediator voiceDAO;
 
 		public AuthenticatorThread() {
 			this.stop = false;
@@ -77,7 +77,7 @@ public class VoiceService extends AuthMechService {
 		@Override
 		public void run() {
 			// instantiating voice DAO when thread starts.
-			this.voiceDAO = new VoiceMediator(VoiceService.this);
+			this.voiceDAO = new VoiceAuthMediator(VoiceService.this);
 
 			// sampling loop.
 			while (stop != true) {

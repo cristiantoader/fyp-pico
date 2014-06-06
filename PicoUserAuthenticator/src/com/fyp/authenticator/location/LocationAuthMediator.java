@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
-public class LocationUtil {
+public class LocationAuthMediator {
 
 	private static final String TAG = "LocationUtil";
 
@@ -24,7 +24,7 @@ public class LocationUtil {
 
 	private LinkedList<Location> locations = null;
 
-	public LocationUtil(Context ctx) {
+	public LocationAuthMediator(Context ctx) {
 		this.ctx = ctx;
 		lm = (LocationManager) this.ctx
 				.getSystemService(Context.LOCATION_SERVICE);

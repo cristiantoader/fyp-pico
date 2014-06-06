@@ -74,7 +74,7 @@ public class FaceService extends AuthMechService {
 		private volatile boolean running = false;
 
 		/** DAO used to interface with the face recognition library. */
-		private FaceDAO dao = null;
+		private FaceAuthMediator dao = null;
 
 		/** Authentication period used between successful camera sampling. */
 		private static final int AUTH_PERIOD = 3 * 1000;
@@ -87,7 +87,7 @@ public class FaceService extends AuthMechService {
 
 		public void run() {
 			// instantiate face DAO when thread starts
-			this.dao = new FaceDAO(FaceService.this);
+			this.dao = new FaceAuthMediator(FaceService.this);
 
 			this.cameraUtil = new CameraUtil(FaceService.this);
 

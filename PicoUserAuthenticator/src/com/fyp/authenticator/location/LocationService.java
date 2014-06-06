@@ -78,7 +78,7 @@ public class LocationService extends AuthMechService {
 			LocationDAO dao = new LocationDAO(ctx, "owner-locations.dat");
 			dao.loadOwnerData();
 			
-			LocationUtil locationUtil = new LocationUtil(ctx);
+			LocationAuthMediator locationUtil = new LocationAuthMediator(ctx);
 			
 			// sampling loop.
 			while (stop != true) {

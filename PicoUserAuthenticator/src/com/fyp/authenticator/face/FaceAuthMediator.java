@@ -8,7 +8,7 @@ import android.util.Log;
 import facerecognition.javafaces.FaceRec;
 import facerecognition.javafaces.MatchResult;
 
-public class FaceDAO {
+public class FaceAuthMediator {
 
 	private FaceRec faceRec = null;
 
@@ -20,7 +20,7 @@ public class FaceDAO {
 
 	private static final String TAG = "FaceDAO";
 
-	public FaceDAO(Context ctx) {
+	public FaceAuthMediator(Context ctx) {
 		Log.d(TAG, "FaceDAO+");
 		
 		this.faceRec = new FaceRec(ctx);

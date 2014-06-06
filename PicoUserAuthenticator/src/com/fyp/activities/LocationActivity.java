@@ -1,7 +1,7 @@
 package com.fyp.activities;
 
 import com.fyp.authenticator.location.LocationDAO;
-import com.fyp.authenticator.location.LocationUtil;
+import com.fyp.authenticator.location.LocationAuthMediator;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ public class LocationActivity extends Activity {
 
 	protected static final String TAG = "LocationActivity";
 	
-	private LocationUtil locUtil = null;
+	private LocationAuthMediator locUtil = null;
 
 	private Button mStartButton = null;
 	private Button mStopButton = null;
@@ -29,7 +29,7 @@ public class LocationActivity extends Activity {
 				return;
 			}
 			
-			locUtil = new LocationUtil(LocationActivity.this);
+			locUtil = new LocationAuthMediator(LocationActivity.this);
 			locUtil.startCollectingLocations(2000);
 
 			Log.d(TAG, "StartListener-");

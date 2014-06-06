@@ -88,3 +88,16 @@ According to the paper, the Android OS is responsible for $96\%$ of mobile phone
 
 % Conclusion of the section, just a summary of what we presented
 We have briefly presented the Android development model, existing mechanisms, and the security of the platform. This information should be sufficient to understand the principles involved in the design of the prototype developed for this dissertation project.
+
+
+% TODO: integrate!===================================================================================
+According to the Android documentation, a bound service is the server in the client-server interface. It enables other components to send requests and receive responses.
+
+
+% Keep UAService alive via startService().
+According to the Android development API guide \footnote{http://developer.android.com/guide/components/bound-services.html} there are two independent scenarios describing the lifetime of a bound service:
+\begin{enumerate}
+	\item If the service was not previously running, and a ``bindService()'' command is issued by a component, the service is kept alive for as long as clients are still bound. A client becomes unbound by calling ``unbindService()''.
+	
+	\item If the service is started using ``onStartCommand()'' it can only be stopped if it has no bound clients and an explicit request is made either via ``stopSelf()'' or ``stopService''. Unlike the previous case, its lifetime persists even with no bound components.
+\end{enumerate}

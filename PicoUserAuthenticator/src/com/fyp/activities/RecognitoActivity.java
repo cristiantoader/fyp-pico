@@ -2,7 +2,7 @@ package com.fyp.activities;
 
 import java.io.File;
 
-import com.fyp.authenticator.voice.VoiceMediator;
+import com.fyp.authenticator.voice.VoiceAuthMediator;
 import com.fyp.authenticator.voice.VoiceDAO;
 
 import android.app.Activity;
@@ -89,7 +89,7 @@ public class RecognitoActivity extends Activity {
 				Log.i("RecognitoActivity", "recording exists!");
 
 				@SuppressWarnings("unused")
-				VoiceMediator voiceDAO = new VoiceMediator(RecognitoActivity.this);
+				VoiceAuthMediator voiceDAO = new VoiceAuthMediator(RecognitoActivity.this);
 
 			} else {
 				Log.i("RecognitoActivity", "recording not present!");
