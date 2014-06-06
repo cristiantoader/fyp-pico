@@ -2,7 +2,7 @@ package com.fyp.authenticator;
 
 import java.util.LinkedList;
 
-import com.fyp.authenticator.dummy.AuthDummyService;
+import com.fyp.authenticator.dummy.DummyService;
 import com.fyp.authenticator.face.FaceService;
 import com.fyp.authenticator.location.LocationService;
 import com.fyp.authenticator.voice.VoiceService;

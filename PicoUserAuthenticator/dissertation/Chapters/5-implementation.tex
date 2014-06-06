@@ -83,26 +83,22 @@ A list of authentication mechanism examples that can be implemented on the Andro
 % AuthMechService functionality
 Each mechanism developed for this scheme extends the ``AuthMechService'' abstract class. As mentioned, this class is responsible for defining the mechanism as a bound service. The communication with ``UAService'' is standardized by implementing ``Service.onBind()'' to register the same ``IncomingHandler'' implementation. Furthermore, ``AuthMechService'' defines the decay of a mechanism's weight. This is implemented using a ``Handler'' object that schedules a ``Runnable'' to execute at a predefined time interval. The ``Runnable'' is responsible for decreasing the mechanism's weight.
 
+% General application design
+Although it is not enforced, each authentication mechanism has the same general design. The mechanism implements the ``AuthMechService'' abstract class. Its ``Service.onCreate()'' method starts a threat responsible for collecting data using an access object (DAO), and analysing it using a class that mediates interaction with other components. 
+
 % Listing mechanisms with promises of future details
 The following mechanisms have been implemented as part of the prototype: voice recognition, face recognition, location analysis, and a dummy mechanism used for testing. The following sections will provide details regarding their functionality and implementation process.
 
-% TODO:
 \subsubsection{Dummy mechanism}
 % Introduction: what it does, why it was developed
 A dummy authentication mechanism was developed for testing the overall scheme. It produces random confidence levels within a predefined range, which provides a controlled testing environment.
 
 % General implementation detail
-The mechanism was developed consistently with the application model. It is implemented in the ``AuthDummyService'' class, and extends the ``AuthMechService'' abstract class. This makes it an independent bound service with a predefined communication interface and decay rate.
-
-% DAO
-All authentication mechanism services have a data access object (DAO) responsible for interfacing with imported libraries and managing authentication data. In this case the DAO only produces random confidence levels within a given range. A thread belonging to the service makes periodic requests to the DAO. This mimics an authentication mechanism that periodically samples for data. The service confidence is updated based on the produced value. 
-
-% sending data back to UAService
-When ``UAService'' needs to update its overall confidence, it makes an AUTH\_MECH\_GET\_STATUS request to the service. The reply contains the most recent confidence level multiplied by the current decay factor, and the original weight of the mechanism. 
+The mechanism was developed in the ``DummyService'' class and was designed consistently with the application model. The ``DummyService.onCreate()'' method creates an authentication thread that periodically generates random values and sends them to ``UAService''. It does not use any DAO, in order not to over complicate its implementation. The random values are generated using a ``DummyAuthMediator'' object. This mimics an authentication mechanism that periodically samples for data.  
 
 \subsubsection{Voice recognition}
 % Introduction to mechanism
-The voice recognition mechanism is implemented in the ``VoiceService'' class. It extends the ``AuthMechService'' abstract class that defines its communication interface. When the service is created, the ``onCreate()'' method is called automatically by the Android platform. The method was developed to start a thread that periodically gathers data from the microphone, performs biometric authentication, and produces a confidence level.
+The voice recognition mechanism is implemented in the ``VoiceService'' class. It extends the ``AuthMechService'' abstract class that defines its communication interface and decay process. The ``VoiceService.onCreate()'' method starts a thread that periodically gathers data from the microphone, performs biometric authentication, and produces a confidence level.
 
 % TODO: decay weight
 

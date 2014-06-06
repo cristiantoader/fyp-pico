@@ -4,10 +4,10 @@ import android.util.Log;
 
 import com.fyp.authenticator.AuthMechService;
 
-public class AuthDummyService extends AuthMechService {
+public class DummyService extends AuthMechService {
 
 	/** Dummy data DAO. */
-	private AuthDevDummyDAO dummyDAO = null;
+	private DummyAuthMediator dummyDAO = null;
 
 	/** Thread used to periodically authenticate the user and broadcast result. */
 	private AuthenticatorThread authThread = null;
@@ -59,7 +59,7 @@ public class AuthDummyService extends AuthMechService {
 		public void run() {
 			// instantiating DAO when starting thread.
 			if (dummyDAO == null) {
-				dummyDAO = new AuthDevDummyDAO();
+				dummyDAO = new DummyAuthMediator();
 			}
 
 			// authentication loop.
@@ -71,7 +71,7 @@ public class AuthDummyService extends AuthMechService {
 					sendDecayedScore(true);
 
 					// start decaying process after collecting data
-					AuthDummyService.this.startDecay();
+					DummyService.this.startDecay();
 
 				} catch (InterruptedException e) {
 					e.printStackTrace();

@@ -68,7 +68,7 @@
             android:process=":UAService" >
         </service>
         <service
-            android:name="com.fyp.authenticator.dummy.AuthDummyService"
+            android:name="com.fyp.authenticator.dummy.DummyService"
             android:process=":AuthDummyService" >
         </service>
         <service
