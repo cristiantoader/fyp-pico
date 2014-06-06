@@ -1,0 +1,67 @@
+% Appendix Template
+
+\chapter{Examples of supported Android authentication mechanisms} % Main appendix title
+
+\label{AppendixC} % Change X to a consecutive letter; for referencing this appendix elsewhere, use \ref{AppendixX}
+
+\lhead{Appendix C. \emph{Example authentication mechanisms}}
+
+% Presenting examples of what we can port on android
+% 	TODO: rephrase, make larger a bit
+Android provides an extensive sensor API that can support the scheme. This can be used to develop a number of continuous authentication mechanisms.  We have listed the following non-exhaustive set of examples:
+\begin{description}
+  \item[Face recognition] \hfill \\
+  The mechanism is based on capturing an image of the user's face and performing face recognition. Sampling valid face images can be performed without explicit requests by predicting user behaviour. We will use as an example an user that owns a phone with a front-facing camera. When the owner is unlocking the phone, there is a high probability that they will be looking towards the screen. This provides a good opportunity for the face recognition service to capture a valid sample. Using the Android API, this can be achieved by registering a ``BroadcastReceiver'' to listen for the one of the following events: ACTION\_SCREEN\_ON, ACTION\_SCREEN\_OFF, or ACTION\_USER\_PRESENT. The mechanism may continue to perform face recognition based on collected data and a previously recorded sample of the owner. A simple face recognition mechanism was also implemented as part of the prototype.
+  
+  % TODO: replay attacks are easy if using only features
+  \item[Voice recognition] \hfill \\
+  A voice recognition mechanism can record data either periodically, or based on Android events. It may then perform voice recognition and provide a confidence level of the owner being present. Voice sampling does not necessarily imply a voice password. An analysis can be performed using feature extraction. This facilitates the sampling process, which may be performed at any time. With a frequent sampling period, the owner of the device is likely to be recorded while speaking, which would provide a valid data sample. For even better confidence the mechanism can be implemented to start recording when a call is either made or received. On Android this can be achieved by listening for a PHONE\_STATE event. A simple voice recognition mechanism was implemented as part of the prototype.
+  
+  \item[Iris scanning] \hfill \\
+  Similar to face recognition, this can be implemented by taking advantage of user behaviour while using the phone. When the phone is unlocked, the user is very likely to face the front camera, allowing for a good capture. The only problem with this mechanism is the quality of pictures offered by most phones. If the sampling quality is not sufficiently good, meaningful features from the iris may not be extracted. This would make the confidence level of the mechanism relatively low, but may change in the future as devices become increasingly performant.
+  
+  \item[Keystroke analysis] \hfill \\
+  This mechanism was inspired from a paper by Clarke et al \cite{clarke2007authenticating}. The principle of keystroke analysis is based on the patterns in which the user types on his mobile phone. Different features can be extracted here, such as: letter sequence timings, words per minute, letters per minute, frequent used words, and others. Using this data a confidence level can be generated. 
+  
+  This mechanism is harder to implement using solely the Android SDK. A good starting point would be to have a keyboard app developed for the user that also communicates with the authentication mechanism. If the keyboard is disabled by an attacker this should be considered, especially if the authenticator was originally configured to listen for input.
+  
+  \item[Gait recognition] \hfill \\
+  This mechanism is based on analysing individual walking patterns. According to data presented by Derawi et al \cite{derawi2010unobtrusive}, error rates\footnote{The performance indicator used in biometric analysis is the Equal Error Rate (EER).} may vary between $5\%$ to $20\%$.  Android offers native recognition support for walking, driving, or standing still. Applications can register a sensor callback for the TYPE\_STEP\_DETECTOR composite sensor. Whenever such an event is detected, data can be recorded from the accelerometer and validated using an algorithm similar to the one described by Derawi et al \cite{derawi2010unobtrusive}.
+  
+  \item[Ear shape analysis] \hfill \\
+  Research shows (i.e. Burge et al \cite{burge1996ear}, Mu et al \cite{mu2005shape}) that the shape of the human ear contains enough unique features to perform biometric authentication. Taking advantage of user behaviour, valid data can be captured and analysed using a smart phone. We suggest that a picture is taken a few seconds after a phone call event is detected. If no peripherals are attached, the user is likely to move the device towards the ear. Images captured by such a mechanism could then be used to calculate an accurate confidence level of the user's identity. This method was not tested, so therefore we cannot ensure whether the auto-focus of the camera is sufficiently fast to obtain a valid image.
+  
+  \item[Proximity devices] \hfill \\
+  This is an original idea based on providing a confidence level depending on the presence of known devices. The mechanism should connect with other devices that are also running the authenticator. The two owners don't necessarily need to know one another for the acknowledgement to be performed. Whether regular travel schedules, or working in an office, users are constantly being in the presence of other known devices. This should provide a confidence as to whether the device is in the presence of its owner. 
+  
+  The authentication works by seeking connections with other devices. Whenever a device is identified, its ID is recorded. The mechanism needs to keep track of the number of times it has connected with another device. Some connections may be established for the first time, and should not bring any confidence. Other connections, such as the Pico of a co-worker, would probably have a high number of connections, and therefore the mechanism should output a higher confidence level in its presence. This mechanism is similar to the Picosiblings solution, but with no k-out-of-n secrets. Each Pico is essentially a Picosibling for another Pico, with each device having a different weight based on familiarity.
+
+  As an example, when travelling with your family on holiday most of the devices there are unknown. However, given that a number of frequent IDs are in the proximity of the authenticator, the mechanism should still consider to some extent that it is in the possession of its owner. 
+  
+  The mechanism can be circumvented in the scenario where co-workers or friends try to unlock the Pico. Due to this downside, it should never have sufficient weight to unlock the token on its own. However, in combination with other mechanisms it would provide a good approximation of whether it is in the possession of its owner. If the device is in good company there is a good chance the owner is also present. 
+  
+  \item[Location data] \hfill \\
+  This mechanism is similar to ``Proximity devices'' and much easier to implement. Based on Android GPS and network location data, the phone may detect whether it is in an usual location or not. Just as ``Proximity devices'' this should not carry a high weight in the scheme, especially since it would not provide accurate results in scenarios such as holidays.
+  
+   \item[Service utilisation] \hfill \\
+  This mechanism exploits patterns in the Android phone's service and app utilisation. Based on current running applications, services, and the time they were started we may create a model where some confidence is given regarding the ownership of the device. This mechanism would only be effective in detecting sudden changes. It would have a low weight in the overall scheme due to its lack in precision. 
+  
+  \item[Picosiblings]
+  The original Picosiblings mechanism may also be used with this scheme. Although not part of the standard set of Android device sensors, if available, a Picosiblings implementation may be included as one of the authentication mechanisms.
+\end{description}
+
+% continuous mechanisms for explicit authentication
+A number of continuous authentication mechanisms may also be used for explicit authentication. The user can be notified to provide accurate information for the following mechanism: face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and ear shape analysis. This creates the opportunity for a valid data sample to be collected.
+
+% explicit authentication mechanisms
+A number of explicit authentication mechanisms which do not satisfy the continuous authentication property of Pico may be implemented for the Android platform. It is important to note that additional mechanisms not included in this list need to satisfy the memorywise-effortless property of the token unlocking framework (\ref{tokenframework}). We suggest the following mechanisms for implementation:
+\begin{description}
+  \item[Fingerprint scanner] \hfill \\
+  Devices that incorporate a fingerprint scanner (such as the IPhone 5S) can use the sensor as an explicit authentication mechanism. It cannot be used for continuous authentication because the user doesn't come in contact with the sensors on a regular basis. A mechanism can therefore request explicit fingerprint data, which would then be compared with the owner's biometric model, outputting a confidence for the authentication. The result will be combined in the overall scheme just as any other mechanism. The the only difference will be in terms of weight and decay rate.
+    
+  \item[Hand writing recognition] \hfill \\
+  The user may be prompted to use the touch screen in order to write a word of his choice. This would guarantee the memorywise-effortless property because the user doesn't need to remember any secret. The handwriting would be analysed with a preconfigured set of handwriting samples in order to compute the confidence level that the owner produced the input.
+  
+  \item[Lip movement analysis] \hfill \\
+  According to Faraj and Bigun \cite{faraj2006motion}, analysing lip movement while speaking can be used for authentication. The user would be prompted to provide a data sample such as reading a word provided by the authenticator. Using lip movement authentication, a quantifiable confidence level would be produced. This mechanism can also be implemented as a continuous authentication mechanism. However, data sampling would likely have a low success rate as users tend not to have their mouth within the camera's field of view.
+\end{description}
