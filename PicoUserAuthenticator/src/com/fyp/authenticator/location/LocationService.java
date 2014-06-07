@@ -75,10 +75,10 @@ public class LocationService extends AuthMechService {
 			Looper.prepare();
 
 			// instantiating voice DAO when thread starts.
-			LocationDAO dao = new LocationDAO(ctx, "owner-locations.dat");
+			LocationAuthMediator dao = new LocationAuthMediator(ctx, "owner-locations.dat");
 			dao.loadOwnerData();
 			
-			LocationAuthMediator locationUtil = new LocationAuthMediator(ctx);
+			LocationDAO locationUtil = new LocationDAO(ctx);
 			
 			// sampling loop.
 			while (stop != true) {

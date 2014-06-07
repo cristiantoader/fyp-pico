@@ -1,180 +1,193 @@
 package com.fyp.authenticator.location;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Scanner;
-
-import javax.crypto.CipherInputStream;
-import javax.crypto.CipherOutputStream;
-
-import com.fyp.ctypto.KeyManager;
 
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 
 public class LocationDAO {
 
+	private static final String TAG = "LocationUtil";
+
 	private Context ctx = null;
 
-	LinkedList<Location> locations = null;
+	private LocationManager lm = null;
 
-	private static final String TAG = "LocationDAO";
+	private LocationRecorder lr = null;
 
-	/** Audio file data. */
-	private String fileName = null;
-	private String filePath = null;
+	private LinkedList<Location> locations = null;
 
-	public LocationDAO(Context ctx, String fileName) {
+	public LocationDAO(Context ctx) {
 		this.ctx = ctx;
-
-		this.fileName = fileName;
-		this.filePath = this.ctx.getFilesDir().toString();
+		lm = (LocationManager) this.ctx
+				.getSystemService(Context.LOCATION_SERVICE);
 	}
 
-	public void loadOwnerData() {
-		KeyManager km = null;
+	public Location getCurrentLocation() {
+		Location location = null;
+		Log.d(TAG, "getCurrentLocation()+");
 		
-		CipherInputStream cis = null;
-		FileInputStream fis = null;
+		initialiseLocationUpdates(500);
 		
-		Scanner scanner = null;
+		// acquire location
+		Criteria criteria = new Criteria();
+		String provider = lm.getBestProvider(criteria, true);
+		location = lm.getLastKnownLocation(provider);
 		
-		Log.d(TAG, "loadLocationData+");
+		this.lm.removeUpdates(locationListener);
 
-		try {
-			// check for owner files
-			if (!isOwnerFile()) {
-				Log.e(TAG, "Owner location file not found!");
+		Log.d(TAG, "getCurrentLocation- " + location.getLatitude() + " "
+				+ location.getLongitude() + " " + location.getProvider());
+		return location;
+	}
+
+	public void startCollectingLocations(int interval) {
+		this.locations = new LinkedList<Location>();
+
+		// starting location updates
+		initialiseLocationUpdates(interval);
+
+		this.lr = new LocationRecorder(2000);
+		this.lr.startRecord();
+	}
+
+	public void stopCollectingLocations() {
+		if (this.lr == null) {
+			Log.d(TAG, "Location recorder was not running.");
+			return;
+		}
+
+		this.lr.stopRecord();
+		this.lr = null;
+
+		this.lm.removeUpdates(locationListener);
+	}
+
+	public void saveCollectedLocations(String name) {
+		LocationAuthMediator dao = new LocationAuthMediator(this.ctx, name);
+		dao.saveOwnerData(locations);
+		dao = null;
+
+		this.locations.clear();
+		this.locations = null;
+	}
+
+	private void initialiseLocationUpdates(int interval) {
+		// starting location updates
+		this.lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+				interval, 0, locationListener);
+		this.lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, interval,
+				0, locationListener);
+	}
+
+	private class LocationRecorder implements Runnable {
+		/** Time interval after which decay occurs. */
+		private int interval = 0;
+
+		/** Wrapped handler object used for task scheduling. */
+		private Handler handler = null;
+
+		private volatile boolean running = false;
+
+		public LocationRecorder(int interval) {
+			this.interval = interval;
+		}
+
+		@Override
+		public void run() {
+			Log.d(TAG, "timer run method.");
+
+			// acquire location
+			Criteria criteria = new Criteria();
+			String provider = lm.getBestProvider(criteria, true);
+
+			addLocation(lm.getLastKnownLocation(provider));
+
+			// only reschedule if running is true
+			if (this.running == true) {
+				Log.d(TAG, "Reposting timer");
+				this.handler.postDelayed(this, interval);
+			}
+		}
+
+		public boolean startRecord() {
+			Log.d(TAG, "startRecord+");
+
+			if (handler != null || running == true) {
+				return false;
+			}
+
+			this.running = true;
+
+			HandlerThread hThread = new HandlerThread("hThread");
+			hThread.start();
+
+			handler = new Handler(hThread.getLooper());
+			handler.postDelayed(this, interval);
+
+			Log.d(TAG, "startRecord-");
+			return true;
+		}
+
+		public void stopRecord() {
+			Log.d(TAG, "stopRecord+");
+
+			// this is how we tell if the handler is stopped
+			if (handler == null) {
+				Log.d(TAG, "stopRecord: hadnler was null");
+				return;
+			}
+
+			// stoping current task from rescheduling
+			this.running = false;
+
+			// removing pending tasks
+			this.handler.removeCallbacks(this);
+			this.handler = null;
+
+			Log.d(TAG, "stopRecord-");
+		}
+
+		public void addLocation(Location location) {
+			
+			if (location == null) {
+				Log.w(TAG, "addLocation: location is null.");
 				return;
 			}
 			
-			km = KeyManager.getInstance(ctx);
-			
-			// initialising read
-			Log.d(TAG, "loadLocationData: initialising read.");
-			fis = new FileInputStream(getAbsoluteFilePath());
-			cis = new CipherInputStream(fis, km.getDecryptionCipher());
-			
-			int b;
-			ArrayList<Byte> decByteList = new ArrayList<Byte>();
-			while((b = cis.read()) != -1) {
-				decByteList.add((byte) b);
-			}
-			
-			byte[] byteArray = new byte[decByteList.size()];
-			for (int i = 0; i < byteArray.length; i++) {
-				byteArray[i] = decByteList.get(i);
-			}
-			
-			String decRes = new String(byteArray);
-			scanner = new Scanner(decRes);
-			
-			// read location data
-			Log.d(TAG, "loadLocationData: reading locations.");
-			locations = new LinkedList<Location>();
-			while (scanner.hasNext()) {
-				String provider = scanner.next();
-				Double latitude = scanner.nextDouble();
-				Double longitude = scanner.nextDouble();
+			Log.d(TAG,
+					"addLocation: latitude=" + location.getLatitude()
+							+ " longitude=" + location.getLongitude()
+							+ " provider=" + location.getProvider()
+							+ " accuracy=" + location.getAccuracy());
 
-				Log.d(TAG, "Location: " + provider + " " + latitude + " "
-						+ longitude);
-				Location loc = new Location(provider);
-				loc.setLatitude(latitude);
-				loc.setLongitude(longitude);
-
-				locations.add(loc);
-			}
-
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			Log.d(TAG, "Owner file not found.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			locations.add(location);
 		}
 
 	}
 
-	public void saveOwnerData(LinkedList<Location> locations) {
-		KeyManager km = null;
-		
-		FileOutputStream fos = null;
-		CipherOutputStream cos = null;
-		
-		String path = getAbsoluteFilePath();
-		StringBuffer sb = new StringBuffer();
-
-		Log.d(TAG, "saveLocationData+");
-
-		try {
-			Log.d(TAG, "saveLocationData: initialising key manager.");
-			km = KeyManager.getInstance(ctx);
-			
-			Log.d(TAG, "saveLocationData: initialising output stream.");
-			fos = new FileOutputStream(path);
-			cos = new CipherOutputStream(fos, km.getEncryptionCipher());
-
-			Log.d(TAG, "saveLocationData: building locations.");
-			for (Location location : locations) {
-				String line = location.getProvider() + " "
-						+ location.getLatitude() + " "
-						+ location.getLongitude() + "\n";
-				
-				sb.append(line);
-			}
-
-			Log.d(TAG, "saveLocationData: saving locations.");
-			Log.d(TAG, sb.toString());
-			cos.write(sb.toString().getBytes());
-			cos.flush();
-			cos.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+	LocationListener locationListener = new LocationListener() {
+		public void onLocationChanged(Location location) {
+			;
 		}
 
-		this.locations = locations;
-	}
-	
-	public double getMinDistance(Location current) {
-		double min = Double.MAX_VALUE;
-		
-		Log.d(TAG, "getMinDistance+");
-		
-		// check if locations are not loaded
-		if (this.locations == null) {
-			Log.e(TAG, "getClosestMatchDistance: locations not loaded");
-			return Double.MAX_VALUE;
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			;
 		}
-		
-		// calculate minimum distance
-		for (Location location : this.locations) {
-			double distance = current.distanceTo(location);
-			if (distance < min) {
-				min = distance;
-			}
+
+		public void onProviderEnabled(String provider) {
+			;
 		}
-		
-		Log.d(TAG, "getMinDistance- " + min);
-		return min;
-	}
 
-	private String getAbsoluteFilePath() {
-		return this.filePath + "/" + this.fileName;
-	}
-
-	private boolean isOwnerFile() {
-		File ownerFile = new File(getAbsoluteFilePath());
-		return ownerFile.exists();
-	}
-	
+		public void onProviderDisabled(String provider) {
+			;
+		}
+	};
 }

@@ -73,7 +73,7 @@ public class FaceService extends AuthMechService {
 		private volatile boolean running = false;
 
 		/** DAO used to interface with the face recognition library. */
-		private FaceAuthMediator dao = null;
+		private FaceAuthMediator mediator = null;
 
 		/** Authentication period used between successful camera sampling. */
 		private static final int AUTH_PERIOD = 3 * 1000;
@@ -86,7 +86,7 @@ public class FaceService extends AuthMechService {
 
 		public void run() {
 			// instantiate face DAO when thread starts
-			this.dao = new FaceAuthMediator(FaceService.this);
+			this.mediator = new FaceAuthMediator(FaceService.this);
 
 			this.cameraUtil = new FaceDAO(FaceService.this);
 
@@ -106,7 +106,7 @@ public class FaceService extends AuthMechService {
 					Log.d(TAG, "taking picture...");
 					Bitmap picture = this.cameraUtil.takePicture();
 
-					dscore = this.dao.getMatch(picture);
+					dscore = this.mediator.getMatch(picture);
 					if (dscore > THRESHOLD) {
 						dscore = THRESHOLD;
 					}
