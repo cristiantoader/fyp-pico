@@ -55,12 +55,12 @@ public class VoiceDAO {
 				SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, this.minBufferSize);
 	}
 
-	public void startOwnerRecord() {
+	public void startRecord() {
 		this.mRecorder.startRecording();
 		this.rt.startThread();
 	}
 
-	public void stopOwnerRecord() {
+	public void stopRecord() {
 		this.mRecorder.stop();
 		this.mRecorder.release();
 

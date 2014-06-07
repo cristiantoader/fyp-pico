@@ -132,9 +132,9 @@ public class VoiceService extends AuthMechService {
 					"challenge.3gp");
 
 			try {
-				record.startOwnerRecord();
+				record.startRecord();
 				Thread.sleep(RECORD_TIME);
-				record.stopOwnerRecord();
+				record.stopRecord();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

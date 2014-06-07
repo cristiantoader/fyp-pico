@@ -72,12 +72,12 @@ public class RecognitoActivity extends Activity {
 		private void startRecording() {
 			this.recording = true;
 			this.record = new VoiceDAO(RecognitoActivity.this, FILE_NAME);
-			this.record.startOwnerRecord();
+			this.record.startRecord();
 		}
 
 		private void stopRecording() {
 			this.recording = false;
-			this.record.stopOwnerRecord();
+			this.record.stopRecord();
 		}
 
 	};

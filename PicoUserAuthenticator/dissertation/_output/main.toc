@@ -25,14 +25,14 @@
 \contentsline {section}{\numberline {5.2}Implementation details}{28}{section.52}
 \contentsline {subsection}{\numberline {5.2.1}UAService}{28}{subsection.53}
 \contentsline {subsection}{\numberline {5.2.2}Authentication mechanisms}{30}{subsection.55}
-\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{32}{subsubsection.60}
+\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{31}{subsubsection.60}
 \contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{32}{subsubsection.61}
 \contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{33}{subsubsection.64}
 \contentsline {subsubsection}{\numberline {5.2.2.4}Location analysis}{35}{subsubsection.66}
 \contentsline {subsection}{\numberline {5.2.3}Owner configuration}{36}{subsection.67}
-\contentsline {subsection}{\numberline {5.2.4}Cryptographic protection}{37}{subsection.68}
+\contentsline {subsection}{\numberline {5.2.4}Cryptographic protection}{36}{subsection.68}
 \contentsline {section}{\numberline {5.3}Conclusion}{37}{section.69}
-\contentsline {section}{\numberline {5.4}Related work}{38}{section.70}
+\contentsline {section}{\numberline {5.4}Related work}{37}{section.70}
 \contentsline {chapter}{\numberline {6}Evaluation}{40}{chapter.71}
 \contentsline {section}{\numberline {6.1}Threat model}{40}{section.72}
 \contentsline {section}{\numberline {6.2}Functional evaluation}{45}{section.79}
@@ -41,9 +41,9 @@
 \contentsline {section}{\numberline {6.5}Future work}{48}{section.85}
 \contentsline {section}{\numberline {6.6}Conclusions}{49}{section.86}
 \vspace {2em}
-\contentsline {chapter}{\numberline {A}Android development and security}{50}{appendix.87}
-\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{56}{appendix.103}
-\contentsline {subsection}{\numberline {B.0.1}Face unlock}{57}{subsection.108}
-\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{59}{appendix.109}
+\contentsline {chapter}{\numberline {A}Android development and security}{51}{appendix.87}
+\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{57}{appendix.103}
+\contentsline {subsection}{\numberline {B.0.1}Face unlock}{58}{subsection.108}
+\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{60}{appendix.109}
 \vspace {2em}
-\contentsline {chapter}{Bibliography}{64}{dummy.111}
+\contentsline {chapter}{Bibliography}{65}{dummy.111}

@@ -2,12 +2,12 @@
 
 \chapter{Android development and security} % Main appendix title
 
-\label{AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
+\label{AppendixB} % For referencing this appendix elsewhere, use \ref{AppendixA}
 
-\lhead{Appendix A. \emph{Android development and security}} % This is for the header on each page - perhaps a shortened title
+\lhead{Appendix B. \emph{Android development and security}} % This is for the header on each page - perhaps a shortened title
 
 % Introduction to android security and dev model
-To gain a better understanding of different design decisions and limitations of our implementation, we will present a brief literature review of the Android development platform. Mechanisms and components will be described with an emphasis on security. The prototype developed for this dissertation is a proof of concept. However, we still aim to understand and make proper use of available security mechanisms. 
+To gain a better understanding of different design decisions and limitations of our implementation, we will present a brief literature review of the Android development platform. Mechanisms and components will be described with an emphasis on security.
 
 % First paper: introduction
 William Enck et al \cite{enck2009understanding} offer a good introduction to Android application development. They focus on the security aspects of the development platform. It is a relatively old paper (2008), from the same year of the Android initial release. However, the fundamental design principles and security concepts that are discussed did not change considerably. The platform's open standards were made public in November 2007. This allowed researchers such as the authors of this paper to perform a pre-release analysis of the system.
@@ -16,17 +16,22 @@ William Enck et al \cite{enck2009understanding} offer a good introduction to And
 Android uses as a core operating system a port of the Linux kernel. This introduces to the platform some of the Linux security mechanisms (i.e. file permissions, access control policies). On top of the kernel there is an application middleware layer composed out of the Java Dalvik virtual machine, core Java application libraries, as well as libraries which offer support for storage, sensors, display, and other device features. Applications are supported by the middleware and developed using the Android Java SDK.
 
 % First paper: Android components
-The Android development model is based on building an application from multiple components. Based on their purpose, the SDK defines four types: activity, service, content provider, and broadcast receiver. For the purpose of brevity we will not discuss each individual component\footnote{More details on the role of each component can be found on the Android website: http://developer.android.com/guide/components/fundamentals.html}. To allow meaningful interaction, Inter Component Communication (ICC) is enabled using special objects called Intents.
+The Android development model is based on building an application from multiple components. Depending on their purpose, the SDK defines four types: activity, service, content provider, and broadcast receiver. For the purpose of brevity we will not discuss each individual component\footnote{More details on the role of each component can be found on the Android website: http://developer.android.com/guide/components/fundamentals.html}. To allow meaningful interaction, Inter Component Communication (ICC) is enabled using special objects called Intents.
 
 % First paper: binding services
-The application we are developing needs to perform most of its processing in the background. It does not require any explicit user interaction. According to the Android model, this should be achieved using Services. To enable convenient component interaction, services may become bound engaging in a client-server communication. An important note made in the paper is that while a Service is bound, it cannot be terminated by an explicit stop action. This provides an useful guarantee regarding its lifetime, which we will use in the prototype.
+The application we are developing needs to perform most of its processing in the background. It does not require any explicit user interaction. According to the Android model, this should be achieved using Services. To enable convenient component interaction, services can be bound engaging in a client-server communication. An important note made in the paper is that while a Service is bound, it cannot be terminated by an explicit stop action. According to the Android development API guide \footnote{http://developer.android.com/guide/components/bound-services.html} there are two independent scenarios describing the lifetime of a bound service:
+\begin{enumerate}
+	\item If the service was not previously running, and a ``bindService()'' command is issued by a component, the service is kept alive for as long as clients are still bound. A client becomes unbound by calling ``unbindService()''.
+	
+	\item If the service is started using ``onStartCommand()'' it can only be stopped if it has no bound clients and an explicit request is made either via ``stopSelf()'' or ``stopService''. Unlike the previous case, its lifetime persists even with no bound components.
+\end{enumerate}
+
 
 % First paper: security enforcements, system level
 The paper discusses two types of Android security enforcements: ICC, and system level. System level security is based on the Linux permission model. When installed, each app is allocated an UID and GID. This allows internal storage access control restrictions, keeping application data sandboxed from other apps.
 
 % First paper: security enforcements, ICC
-% 	TODO: too vague, can expand and cite something
-ICC security is the main focus of the paper. Intent communication is based on commands sent to the ``/dev/binder'' device node. The node needs to be world readable and writeable by any application. Therefore, Android cannot mediate ICC using the Linux permissions model. Security relies on a Mandatory Access Control (MAC) framework enforced by a reference monitor. This mechanism validates requests sent to the ``/dev/binder'' node. 
+ICC security is the main focus of the paper. Intent communication is based on commands sent to the ``/dev/binder'' device node. The node needs to be world readable and writeable by any application. Therefore, Android cannot mediate ICC using the Linux permissions model. Security relies on a Mandatory Access Control (MAC) framework enforced by a reference monitor. This protection is implemented by the driver responsible for processing IOCTL calls for the ``/dev/binder'' node. 
 
 % Manifest file
 During development, each application needs to define a manifest file\footnote{Full details regarding the manifest file can be found on the Android website: http://developer.android.com/guide/topics/manifest/manifest-intro.html}. Some of the security configurations defined in this file are: declared components and their capabilities, permissions required by the app, and permissions other apps need to have in order to interact with app components. These entries are used as labels for the MAC framework. 
@@ -89,15 +94,3 @@ According to the paper, the Android OS is responsible for $96\%$ of mobile phone
 % Conclusion of the section, just a summary of what we presented
 We have briefly presented the Android development model, existing mechanisms, and the security of the platform. This information should be sufficient to understand the principles involved in the design of the prototype developed for this dissertation project.
 
-
-% TODO: integrate!===================================================================================
-According to the Android documentation, a bound service is the server in the client-server interface. It enables other components to send requests and receive responses.
-
-
-% Keep UAService alive via startService().
-According to the Android development API guide \footnote{http://developer.android.com/guide/components/bound-services.html} there are two independent scenarios describing the lifetime of a bound service:
-\begin{enumerate}
-	\item If the service was not previously running, and a ``bindService()'' command is issued by a component, the service is kept alive for as long as clients are still bound. A client becomes unbound by calling ``unbindService()''.
-	
-	\item If the service is started using ``onStartCommand()'' it can only be stopped if it has no bound clients and an explicit request is made either via ``stopSelf()'' or ``stopService''. Unlike the previous case, its lifetime persists even with no bound components.
-\end{enumerate}

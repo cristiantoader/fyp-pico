@@ -8,7 +8,7 @@
 
 % Presenting examples of what we can port on android
 % 	TODO: rephrase, make larger a bit
-Android provides an extensive sensor API that can support the scheme. This can be used to develop a number of continuous authentication mechanisms.  We have listed the following non-exhaustive set of examples:
+Android provides an extensive sensor API that can support the token unlocking scheme proposed in section \ref{propopsedsol}. This can be used to develop a number of continuous authentication mechanisms.  We have listed the following non-exhaustive set of examples:
 \begin{description}
   \item[Face recognition] \hfill \\
   The mechanism is based on capturing an image of the user's face and performing face recognition. Sampling valid face images can be performed without explicit requests by predicting user behaviour. We will use as an example an user that owns a phone with a front-facing camera. When the owner is unlocking the phone, there is a high probability that they will be looking towards the screen. This provides a good opportunity for the face recognition service to capture a valid sample. Using the Android API, this can be achieved by registering a ``BroadcastReceiver'' to listen for the one of the following events: ACTION\_SCREEN\_ON, ACTION\_SCREEN\_OFF, or ACTION\_USER\_PRESENT. The mechanism may continue to perform face recognition based on collected data and a previously recorded sample of the owner. A simple face recognition mechanism was also implemented as part of the prototype.
@@ -51,7 +51,7 @@ Android provides an extensive sensor API that can support the scheme. This can b
 \end{description}
 
 % continuous mechanisms for explicit authentication
-A number of continuous authentication mechanisms may also be used for explicit authentication. The user can be notified to provide accurate information for the following mechanism: face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and ear shape analysis. This creates the opportunity for a valid data sample to be collected.
+A number of continuous authentication mechanisms may also be used for explicit authentication. The user can be notified to provide accurate information for the following mechanisms: face recognition, voice recognition, iris scanning, keystroke analysis, gait recognition, and ear shape analysis. This creates the opportunity for a valid data sample to be collected.
 
 % explicit authentication mechanisms
 A number of explicit authentication mechanisms which do not satisfy the continuous authentication property of Pico may be implemented for the Android platform. It is important to note that additional mechanisms not included in this list need to satisfy the memorywise-effortless property of the token unlocking framework (\ref{tokenframework}). We suggest the following mechanisms for implementation:

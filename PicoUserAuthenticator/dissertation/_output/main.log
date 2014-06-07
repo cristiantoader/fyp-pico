@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  7 JUN 2014 12:13
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  7 JUN 2014 16:00
 entering extended mode
 **main
 
@@ -930,78 +930,66 @@ Underfull \hbox (badness 5652) in paragraph at lines 9--9
 [27
 
 ]
-Overfull \hbox (7.86407pt too wide) in paragraph at lines 38--39
+
+LaTeX Warning: Reference `TODO' on page 28 undefined on input line 30.
+
+
+Overfull \hbox (7.86407pt too wide) in paragraph at lines 37--38
 []\OT1/cmr/m/n/10.95 ``PicoMainActivity'' starts ``UASer-vice'' us-ing the ``Co
 n-text.startService()'' method. Com-
  []
 
 [28] [29] [30] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 118--118
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
 [][][]\OT1/cmr/m/n/9 The li-brary can be down-loaded us-ing github from the fol
 -low-ing link:
  []
 
 [32]
-Underfull \hbox (badness 10000) in paragraph at lines 149--149
+Underfull \hbox (badness 10000) in paragraph at lines 144--144
 [][][]\OT1/cmr/m/n/9 The ``JavaFaces'' li-brary is main-tained at the fol-low-i
 ng ad-dress:
  []
 
 
-Overfull \hbox (64.08423pt too wide) in paragraph at lines 149--150
-\OT1/cmr/m/n/10.95 new li-brary is pub-licly avail-able at the fol-low-ing link
-: https://github.com/cristiantoader/JavafacesLib. 
+Overfull \hbox (23.62999pt too wide) in paragraph at lines 144--145
+\OT1/cmr/m/n/10.95 new li-brary is avail-able at the fol-low-ing link: https://
+github.com/cristiantoader/JavafacesLib. 
  []
 
 [33] [34] [35] [36]
 
-LaTeX Warning: Reference `TODO' on page 37 undefined on input line 205.
+LaTeX Warning: Reference `TODO' on page 37 undefined on input line 200.
 
-[37] [38])
+[37])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/6-evaluation.tex [39]
+Chapters/6-evaluation.tex [38] [39]
 Chapter 6.
 ------------------------------------------------------------------------------
  6 Evaluation
 ------------------------------------------------------------------------------
 [40
 
-]
-
-LaTeX Warning: Reference `androidsecurity' on page 41 undefined on input line 3
-1.
-
-[41]
-Underfull \hbox (badness 10000) in paragraph at lines 52--52
+] [41]
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
 [][][]\OT1/cmr/m/n/9 For con-ve-nience, a link to the binder driver is found he
 re:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--52
+Underfull \hbox (badness 10000) in paragraph at lines 51--51
 \OT1/cmr/m/n/9 https://android.googlesource.com/kernel/common.git/+/android-3.0
 /drivers/staging/android/binder.c
  []
 
-[42] [43] [44]
-
-LaTeX Warning: Reference `' on page 45 undefined on input line 107.
-
-[45] [46]
-Overfull \hbox (17.19772pt too wide) in paragraph at lines 157--185
+[42] [43] [44] [45] [46]
+Overfull \hbox (17.19772pt too wide) in paragraph at lines 155--183
 [][] 
  []
 
-[47] [48]
-
-LaTeX Warning: Reference `' on page 49 undefined on input line 208.
-
-
-LaTeX Warning: Reference `' on page 49 undefined on input line 208.
-
-)
+[47] [48] [49])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/Appendix-android.tex [49]
+Appendices/Appendix-android.tex [50]
 Appendix A.
 ------------------------------------------------------------------------------
  A Android development and security
@@ -1012,61 +1000,61 @@ Underfull \hbox (badness 3323) in paragraph at lines 19--19
  on the An-droid web-site:
  []
 
-[50
+[51
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 32--32
+Underfull \hbox (badness 10000) in paragraph at lines 37--37
 [][][]\OT1/cmr/m/n/9 Full de-tails re-gard-ing the man-i-fest file can be found
  on the An-droid web-site:
  []
 
-[51] [52] [53]
-Underfull \hbox (badness 4254) in paragraph at lines 86--86
+[52] [53] [54] [55]
+Underfull \hbox (badness 4254) in paragraph at lines 91--91
 [][][]\OT1/cmr/m/n/9 An ex-am-ple of such an ap-pli-ca-tion is pre-sented in an
  ar-ti-cle writ-ten in Tech Re-
  []
 
-[54])
+)
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/Appendix-frameworkex.tex [55]
+Appendices/Appendix-frameworkex.tex [56]
 Appendix B.
 ------------------------------------------------------------------------------
  B Token Unlocking Framework evaluation examples
 ------------------------------------------------------------------------------
-[56
+[57
 
 ]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 33.
+(hyperref)                than one, level fixed on input line 32.
 
-[57]
-Overfull \hbox (20.00021pt too wide) in paragraph at lines 43--44
+[58]
+Overfull \hbox (20.00021pt too wide) in paragraph at lines 42--43
 \OT1/cmr/m/n/10.95 targeted-impersonation''. The ''resilient-to-throttled-guess
 ing`` and ``resilient-to-unthrottled-
  []
 
 )
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/Appendix-mechanisms.tex [58]
+Appendices/Appendix-mechanisms.tex [59]
 Appendix C.
 ------------------------------------------------------------------------------
  C Examples of supported Android authentication mechanisms
 ------------------------------------------------------------------------------
-[59
+[60
 
-] [60] [61] [62]) [63]
+] [61] [62] [63]) [64]
 ------------------------------------------------------------------------------
  Bibliography
 ------------------------------------------------------------------------------
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-_output\main.bbl [64
+_output\main.bbl [65
 
 
-] [65] [66])
+] [66] [67])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
- [67]
+ [68]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
@@ -1086,13 +1074,13 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
 ### simple group (level 1) entered at line 152 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13849 strings out of 493921
- 196210 string characters out of 3147279
- 275193 words of memory out of 3000000
+ 13850 strings out of 493921
+ 196231 string characters out of 3147279
+ 274291 words of memory out of 3000000
  16704 multiletter control sequences out of 15000+200000
  15452 words of font info for 57 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 49i,12n,45p,1565b,587s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,12n,45p,1591b,585s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
 x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pro
@@ -1108,9 +1096,9 @@ am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (76 pages, 456169 bytes).
+tor/dissertation/_output/main.pdf (77 pages, 457034 bytes).
 PDF statistics:
- 869 PDF objects out of 1000 (max. 8388607)
- 219 named destinations out of 1000 (max. 500000)
+ 878 PDF objects out of 1000 (max. 8388607)
+ 220 named destinations out of 1000 (max. 500000)
  361 words of extra memory for PDF output out of 10000 (max. 10000000)
 
