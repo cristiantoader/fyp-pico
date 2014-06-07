@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  6 JUN 2014 21:40
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  7 JUN 2014 12:13
 entering extended mode
 **main
 
@@ -935,33 +935,27 @@ Overfull \hbox (7.86407pt too wide) in paragraph at lines 38--39
 n-text.startService()'' method. Com-
  []
 
-[28] [29] [30]
-Overfull \hbox (55.72864pt too wide) in paragraph at lines 103--104
-[]\OT1/cmr/m/n/10.95 When ``UASer-vice'' needs to up-date its over-all con-fi-d
-ence, it makes an AUTH[]MECH[]GET[]STATUS
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[28] [29] [30] [31]
+Underfull \hbox (badness 10000) in paragraph at lines 118--118
 [][][]\OT1/cmr/m/n/9 The li-brary can be down-loaded us-ing github from the fol
 -low-ing link:
  []
 
-[31] [32] [33]
-Underfull \hbox (badness 10000) in paragraph at lines 152--152
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 149--149
 [][][]\OT1/cmr/m/n/9 The ``JavaFaces'' li-brary is main-tained at the fol-low-i
 ng ad-dress:
  []
 
 
-Overfull \hbox (5.34581pt too wide) in paragraph at lines 163--164
-[]\OT1/cmr/m/n/10.95 A DAO class called ``FaceDAO'' was de-vel-oped to me-di-at
-e calls to the An-droid ``Javafaces''
+Overfull \hbox (64.08423pt too wide) in paragraph at lines 149--150
+\OT1/cmr/m/n/10.95 new li-brary is pub-licly avail-able at the fol-low-ing link
+: https://github.com/cristiantoader/JavafacesLib. 
  []
 
-[34] [35] [36]
+[33] [34] [35] [36]
 
-LaTeX Warning: Reference `TODO' on page 37 undefined on input line 207.
+LaTeX Warning: Reference `TODO' on page 37 undefined on input line 205.
 
 [37] [38])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
@@ -1080,7 +1074,7 @@ _output\main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7B4E39775F769389D9B65D94BE733570;7320.
+(rerunfilecheck)             Checksum: 1A915D384AE5272A839ADE3CF1ECA18C;7535.
 
 
 LaTeX Warning: There were undefined references.
@@ -1092,10 +1086,10 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
 ### simple group (level 1) entered at line 152 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13845 strings out of 493921
- 196149 string characters out of 3147279
- 275140 words of memory out of 3000000
- 16702 multiletter control sequences out of 15000+200000
+ 13849 strings out of 493921
+ 196210 string characters out of 3147279
+ 275193 words of memory out of 3000000
+ 16704 multiletter control sequences out of 15000+200000
  15452 words of font info for 57 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  49i,12n,45p,1565b,587s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1114,9 +1108,9 @@ am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (76 pages, 454308 bytes).
+tor/dissertation/_output/main.pdf (76 pages, 456169 bytes).
 PDF statistics:
- 860 PDF objects out of 1000 (max. 8388607)
- 217 named destinations out of 1000 (max. 500000)
- 353 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 869 PDF objects out of 1000 (max. 8388607)
+ 219 named destinations out of 1000 (max. 500000)
+ 361 words of extra memory for PDF output out of 10000 (max. 10000000)
 
