@@ -65,6 +65,9 @@ public class LocationService extends AuthMechService {
 		/** Service context. */
 		private Context ctx = null;
 		
+		private LocationAuthMediator mediator = null;
+		private LocationDAO dao = null;
+		
 		public AuthenticatorThread() {
 			this.stop = false;
 			this.ctx = LocationService.this;
@@ -75,10 +78,10 @@ public class LocationService extends AuthMechService {
 			Looper.prepare();
 
 			// instantiating voice DAO when thread starts.
-			LocationAuthMediator dao = new LocationAuthMediator(ctx, "owner-locations.dat");
-			dao.loadOwnerData();
+			mediator = new LocationAuthMediator(ctx, "owner-locations.dat");
+			mediator.loadOwnerData();
 			
-			LocationDAO locationUtil = new LocationDAO(ctx);
+			dao = new LocationDAO(ctx);
 			
 			// sampling loop.
 			while (stop != true) {
@@ -87,10 +90,10 @@ public class LocationService extends AuthMechService {
 					Thread.sleep(AUTH_PERIOD);
 					
 					Log.d(TAG, "Getting current location.");
-					Location current = locationUtil.getCurrentLocation();
+					Location current = dao.getCurrentLocation();
 
 					Log.d(TAG, "Getting score.");
-					double dscore = dao.getMinDistance(current);
+					double dscore = mediator.getMinDistance(current);
 					dscore = (dscore > THRESHOLD) ? THRESHOLD : dscore;
 					
 					Log.d(TAG, "Calculating percentage score.");
