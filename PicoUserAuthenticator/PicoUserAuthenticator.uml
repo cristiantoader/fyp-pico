@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_PuSdYO8yEeOflObM3pPwYg" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_PuSdYe8yEeOflObM3pPwYg" source="codegen">
         <details xmi:id="_PuSdYu8yEeOflObM3pPwYg" key="codegenDirectory" value="/PicoUserAuthenticator/src"/>
-        <details xmi:id="_R3zHkO8yEeOflObM3pPwYg" key="AssociatedSourceCode" value="/PicoUserAuthenticator/src/com/fyp/activities/FaceActivity.java;1093990200/1;/PicoUserAuthenticator/src/com/fyp/activities/LocationActivity.java;1230895216/1;/PicoUserAuthenticator/src/com/fyp/activities/PicoMainActivity.java;1832267297/1;/PicoUserAuthenticator/src/com/fyp/activities/RecognitoActivity.java;16588477/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHider.java;3668678304/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderBase.java;278251744/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderHoneycomb.java;1607558873/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/CameraPreview.java;295302009/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/OwnerPictureCallback.java;1439980403/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMech.java;988823234/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceAuthMediator.java;1105784068/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationAuthMediator.java;2252198972/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UserAuthenticator.java;1172958397/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyAuthMediator.java;4015114913/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyService.java;2485625171/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceAuthMediator.java;1671933156/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceDAO.java;1237088386/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceService.java;2109222308/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UAService.java;4092733477/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationDAO.java;3763509935/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationService.java;3206446664/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMechService.java;3196947903/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceDAO.java;510173741/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceService.java;3205808209/1;/PicoUserAuthenticator/src/com/fyp/ctypto/KeyManager.java;2826996977/1;"/>
+        <details xmi:id="_R3zHkO8yEeOflObM3pPwYg" key="AssociatedSourceCode" value="/PicoUserAuthenticator/src/com/fyp/activities/FaceActivity.java;1093990200/1;/PicoUserAuthenticator/src/com/fyp/activities/LocationActivity.java;1230895216/1;/PicoUserAuthenticator/src/com/fyp/activities/PicoMainActivity.java;751606603/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHider.java;3668678304/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderBase.java;278251744/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderHoneycomb.java;1607558873/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/CameraPreview.java;295302009/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/OwnerPictureCallback.java;1439980403/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMech.java;988823234/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceAuthMediator.java;2530732646/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationAuthMediator.java;2252198972/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UserAuthenticator.java;1172958397/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyAuthMediator.java;4015114913/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyService.java;2485625171/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceAuthMediator.java;2349100440/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceDAO.java;1237088386/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceService.java;3325119881/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UAService.java;4092733477/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationDAO.java;3763509935/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationService.java;3206446664/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMechService.java;3196947903/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceDAO.java;2026743886/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceService.java;3048431177/1;/PicoUserAuthenticator/src/com/fyp/ctypto/KeyManager.java;2826996977/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_Q0pogO8yEeOflObM3pPwYg">
@@ -844,7 +844,7 @@ status bar and navigation/system bar) with user interaction.
               <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTfgoO8yEeOflObM3pPwYg" value="new View.OnClickListener() {&#xA;&#x9;&#x9;@Override&#xA;&#x9;&#x9;public void onClick(View v) {&#xA;&#x9;&#x9;&#x9;if (boundService) {&#xA;&#x9;&#x9;&#x9;&#x9;doUnbindService();&#xA;&#x9;&#x9;&#x9;&#x9;doStopService();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;contentView.append(&quot;Pico service stopped. \n&quot;);&#xA;&#x9;&#x9;&#x9;}&#xA;&#xA;&#x9;&#x9;}&#xA;&#x9;}"/>
             </ownedAttribute>
             <ownedAttribute xmi:id="_RTgHsO8yEeOflObM3pPwYg" name="buttonAudioListener" visibility="package" type="_RPa48O8yEeOflObM3pPwYg" association="_RYQr4O8yEeOflObM3pPwYg">
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTgHse8yEeOflObM3pPwYg" value="new View.OnClickListener() {&#xA;&#x9;&#x9;@Override&#xA;&#x9;&#x9;public void onClick(View v) {&#xA;&#x9;&#x9;&#x9;startActivity(new Intent(PicoMainActivity.this,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;RecognitoActivity.class));&#xA;&#x9;&#x9;}&#xA;&#x9;}"/>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTgHse8yEeOflObM3pPwYg" value="new View.OnClickListener() {&#xA;&#x9;&#x9;@Override&#xA;&#x9;&#x9;public void onClick(View v) {&#xA;&#x9;&#x9;&#x9;startActivity(new Intent(PicoMainActivity.this,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;VoiceActivity.class));&#xA;&#x9;&#x9;}&#xA;&#x9;}"/>
             </ownedAttribute>
             <ownedAttribute xmi:id="_RTguwe8yEeOflObM3pPwYg" name="buttonFaceListener" visibility="package" type="_RPa48O8yEeOflObM3pPwYg" association="_RYRS8e8yEeOflObM3pPwYg">
               <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTguwu8yEeOflObM3pPwYg" value="new View.OnClickListener() {&#xA;&#x9;&#x9;@Override&#xA;&#x9;&#x9;public void onClick(View v) {&#xA;&#x9;&#x9;&#x9;startActivity(new Intent(PicoMainActivity.this, FaceActivity.class));&#xA;&#x9;&#x9;}&#xA;&#x9;}"/>
@@ -938,7 +938,9 @@ status bar and navigation/system bar) with user interaction.
               <ownedAttribute xmi:id="_RTh84e8yEeOflObM3pPwYg" name="amwr" visibility="package" type="_RPRvAO8yEeOflObM3pPwYg" association="_RYTvMe8yEeOflObM3pPwYg"/>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWPSoO8yEeOflObM3pPwYg" name="IncomingHandler" specification="_RPcuIO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWPSoe8yEeOflObM3pPwYg" name="am" type="_Q6oUsO8yEeOflObM3pPwYg"/>
-                <ownedParameter xmi:id="_RWPSou8yEeOflObM3pPwYg" type="_Q6yFsO8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_RWPSou8yEeOflObM3pPwYg" type="_Q6yFsO8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>this.amwr = new WeakReference&lt;PicoMainActivity>(am);
 		</body>
@@ -977,57 +979,7 @@ status bar and navigation/system bar) with user interaction.
               </ownedOperation>
             </nestedClassifier>
           </packagedElement>
-          <packagedElement xmi:type="uml:Class" xmi:id="_Q7DLcO8yEeOflObM3pPwYg" name="RecognitoActivity">
-            <generalization xmi:id="_RR8og-8yEeOflObM3pPwYg" general="_RPE6sO8yEeOflObM3pPwYg"/>
-            <ownedAttribute xmi:id="_RTnccO8yEeOflObM3pPwYg" name="TAG" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
-              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RToDgO8yEeOflObM3pPwYg" value="&quot;AudioRecordTest&quot;"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:id="_RTpRou8yEeOflObM3pPwYg" name="FILE_NAME" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
-              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTp4sO8yEeOflObM3pPwYg" value="&quot;owner.3gp&quot;"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:id="_RTp4se8yEeOflObM3pPwYg" name="timerDisplay" visibility="private" type="_RPjb0e8yEeOflObM3pPwYg" association="_RYVkYe8yEeOflObM3pPwYg">
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTp4su8yEeOflObM3pPwYg" value="null"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:id="_RTrG0O8yEeOflObM3pPwYg" name="mRecordButton" visibility="private" type="_RPJzMe8yEeOflObM3pPwYg" association="_RYWygO8yEeOflObM3pPwYg">
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTrG0e8yEeOflObM3pPwYg" value="null"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:id="_RTrt4O8yEeOflObM3pPwYg" name="mSaveButton" visibility="private" type="_RPJzMe8yEeOflObM3pPwYg" association="_RYXZke8yEeOflObM3pPwYg">
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTrt4e8yEeOflObM3pPwYg" value="null"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:id="_RTsU8e8yEeOflObM3pPwYg" name="clickerRecord" visibility="package" type="_RPJMIO8yEeOflObM3pPwYg" association="_RYYnsO8yEeOflObM3pPwYg">
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTs8AO8yEeOflObM3pPwYg" value="new OnClickListener() {&#xD;&#xA;&#x9;&#x9;private boolean recording = false;&#xD;&#xA;&#x9;&#x9;private long mStartTime = 0;&#xD;&#xA;&#x9;&#x9;private VoiceDAO record = null;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;private Handler timerHandler = new Handler();&#xD;&#xA;&#x9;&#x9;private Runnable timerRunable = new Runnable() {&#xD;&#xA;&#x9;&#x9;&#x9;@Override&#xD;&#xA;&#x9;&#x9;&#x9;public void run() {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;long millis = System.currentTimeMillis() - mStartTime;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;int seconds = (int) (millis / 1000);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;int minutes = seconds / 60;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;seconds = seconds % 60;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;timerDisplay.setText(String.format(&quot;%d:%02d&quot;, minutes, seconds));&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;timerHandler.postDelayed(this, 500);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;};&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;private void startTimer() {&#xD;&#xA;&#x9;&#x9;&#x9;this.mStartTime = System.currentTimeMillis();&#xD;&#xA;&#x9;&#x9;&#x9;timerDisplay.setText(String.format(&quot;%d:%02d&quot;, 0, 0));&#xD;&#xA;&#x9;&#x9;&#x9;timerHandler.postDelayed(timerRunable, 1000);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;private void stopTimer() {&#xD;&#xA;&#x9;&#x9;&#x9;this.mStartTime = 0;&#xD;&#xA;&#x9;&#x9;&#x9;timerHandler.removeCallbacks(timerRunable);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;public void onClick(View v) {&#xD;&#xA;&#x9;&#x9;&#x9;if (recording == false) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;startTimer();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;startRecording();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;mRecordButton.setText(&quot;Stop&quot;);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;stopTimer();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;stopRecording();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;mRecordButton.setText(&quot;Record&quot;);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;private void startRecording() {&#xD;&#xA;&#x9;&#x9;&#x9;this.recording = true;&#xD;&#xA;&#x9;&#x9;&#x9;this.record = new VoiceDAO(RecognitoActivity.this, FILE_NAME);&#xD;&#xA;&#x9;&#x9;&#x9;this.record.startRecord();&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;private void stopRecording() {&#xD;&#xA;&#x9;&#x9;&#x9;this.recording = false;&#xD;&#xA;&#x9;&#x9;&#x9;this.record.stopRecord();&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;}"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:id="_RTtjEO8yEeOflObM3pPwYg" name="clickerTest" visibility="package" type="_RPJMIO8yEeOflObM3pPwYg" association="_RYZOwe8yEeOflObM3pPwYg">
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTtjEe8yEeOflObM3pPwYg" value="new OnClickListener() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;public void onClick(View v) {&#xD;&#xA;&#x9;&#x9;&#x9;if (recordingExists()) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;Log.i(&quot;RecognitoActivity&quot;, &quot;recording exists!&quot;);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;@SuppressWarnings(&quot;unused&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;VoiceAuthMediator voiceDAO = new VoiceAuthMediator(RecognitoActivity.this);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;} else {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;Log.i(&quot;RecognitoActivity&quot;, &quot;recording not present!&quot;);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;private boolean recordingExists() {&#xD;&#xA;&#x9;&#x9;&#x9;return new File(getFilesDir() + &quot;/&quot; + FILE_NAME).exists();&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}"/>
-            </ownedAttribute>
-            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWQgwO8yEeOflObM3pPwYg" name="onCreate" specification="_RR8BcO8yEeOflObM3pPwYg">
-              <ownedParameter xmi:id="_RWQgwe8yEeOflObM3pPwYg" name="icicle" type="_RPHW8e8yEeOflObM3pPwYg"/>
-              <language>java</language>
-              <body>super.onCreate(icicle);&#xD;
-&#xD;
-		setContentView(R.layout.activity_recognito);&#xD;
-&#xD;
-		this.mRecordButton = (Button) findViewById(R.id.ButtonRecognitoRecord);&#xD;
-		this.mRecordButton.setOnClickListener(clickerRecord);&#xD;
-&#xD;
-		this.mSaveButton = (Button) findViewById(R.id.ButtonRecognitoTest);&#xD;
-		this.mSaveButton.setOnClickListener(clickerTest);&#xD;
-&#xD;
-		this.timerDisplay = (EditText) findViewById(R.id.timer1);&#xD;
-	</body>
-            </ownedBehavior>
-            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWRH0O8yEeOflObM3pPwYg" name="onPause" specification="_Q7FnsO8yEeOflObM3pPwYg">
-              <language>java</language>
-              <body>super.onPause();&#xD;
-	</body>
-            </ownedBehavior>
-            <ownedOperation xmi:id="_Q7FnsO8yEeOflObM3pPwYg" name="onPause" method="_RWRH0O8yEeOflObM3pPwYg"/>
-            <ownedOperation xmi:id="_RR8BcO8yEeOflObM3pPwYg" name="onCreate" method="_RWQgwO8yEeOflObM3pPwYg">
-              <ownedParameter xmi:id="_RR8Bce8yEeOflObM3pPwYg" name="icicle" type="_RPHW8e8yEeOflObM3pPwYg"/>
-            </ownedOperation>
-          </packagedElement>
+          <packagedElement xmi:type="uml:Class" xmi:id="_Q7DLcO8yEeOflObM3pPwYg" name="RecognitoActivity"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_RPS9Ie8yEeOflObM3pPwYg" name="R"/>
           <packagedElement xmi:type="uml:Association" xmi:id="_RYA0QO8yEeOflObM3pPwYg" name="" memberEnd="_RYA0Qe8yEeOflObM3pPwYg _RTTTYO8yEeOflObM3pPwYg">
             <ownedEnd xmi:id="_RYA0Qe8yEeOflObM3pPwYg" name="" type="_Q6Ds8O8yEeOflObM3pPwYg" association="_RYA0QO8yEeOflObM3pPwYg"/>
@@ -1089,21 +1041,6 @@ status bar and navigation/system bar) with user interaction.
           <packagedElement xmi:type="uml:Association" xmi:id="_RYUWQe8yEeOflObM3pPwYg" name="" memberEnd="_RYUWQu8yEeOflObM3pPwYg _RTkZIO8yEeOflObM3pPwYg">
             <ownedEnd xmi:id="_RYUWQu8yEeOflObM3pPwYg" name="" type="_Q6oUsO8yEeOflObM3pPwYg" association="_RYUWQe8yEeOflObM3pPwYg"/>
           </packagedElement>
-          <packagedElement xmi:type="uml:Association" xmi:id="_RYVkYe8yEeOflObM3pPwYg" name="" memberEnd="_RYVkYu8yEeOflObM3pPwYg _RTp4se8yEeOflObM3pPwYg">
-            <ownedEnd xmi:id="_RYVkYu8yEeOflObM3pPwYg" name="" type="_Q7DLcO8yEeOflObM3pPwYg" association="_RYVkYe8yEeOflObM3pPwYg"/>
-          </packagedElement>
-          <packagedElement xmi:type="uml:Association" xmi:id="_RYWygO8yEeOflObM3pPwYg" name="" memberEnd="_RYWyge8yEeOflObM3pPwYg _RTrG0O8yEeOflObM3pPwYg">
-            <ownedEnd xmi:id="_RYWyge8yEeOflObM3pPwYg" name="" type="_Q7DLcO8yEeOflObM3pPwYg" association="_RYWygO8yEeOflObM3pPwYg"/>
-          </packagedElement>
-          <packagedElement xmi:type="uml:Association" xmi:id="_RYXZke8yEeOflObM3pPwYg" name="" memberEnd="_RYXZku8yEeOflObM3pPwYg _RTrt4O8yEeOflObM3pPwYg">
-            <ownedEnd xmi:id="_RYXZku8yEeOflObM3pPwYg" name="" type="_Q7DLcO8yEeOflObM3pPwYg" association="_RYXZke8yEeOflObM3pPwYg"/>
-          </packagedElement>
-          <packagedElement xmi:type="uml:Association" xmi:id="_RYYnsO8yEeOflObM3pPwYg" name="" memberEnd="_RYYnse8yEeOflObM3pPwYg _RTsU8e8yEeOflObM3pPwYg">
-            <ownedEnd xmi:id="_RYYnse8yEeOflObM3pPwYg" name="" type="_Q7DLcO8yEeOflObM3pPwYg" association="_RYYnsO8yEeOflObM3pPwYg"/>
-          </packagedElement>
-          <packagedElement xmi:type="uml:Association" xmi:id="_RYZOwe8yEeOflObM3pPwYg" name="" memberEnd="_RYZOwu8yEeOflObM3pPwYg _RTtjEO8yEeOflObM3pPwYg">
-            <ownedEnd xmi:id="_RYZOwu8yEeOflObM3pPwYg" name="" type="_Q7DLcO8yEeOflObM3pPwYg" association="_RYZOwe8yEeOflObM3pPwYg"/>
-          </packagedElement>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_Qz6osO8yEeOflObM3pPwYg" name="authenticator">
           <packagedElement xmi:type="uml:Package" xmi:id="_Qz6ose8yEeOflObM3pPwYg" name="face">
@@ -1133,42 +1070,45 @@ status bar and navigation/system bar) with user interaction.
               </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWr-kO8yEeOflObM3pPwYg" name="FaceAuthMediator" specification="_RSfbEO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWr-ke8yEeOflObM3pPwYg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
-                <ownedParameter xmi:id="_RWr-ku8yEeOflObM3pPwYg" type="_Q9KEQO8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_RWr-ku8yEeOflObM3pPwYg" type="_Q9KEQO8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>Log.d(TAG, &quot;FaceDAO+&quot;);&#xD;
-		&#xD;
+&#xD;
 		this.faceRec = new FaceRec(ctx);&#xD;
-		&#xD;
+&#xD;
 		this.trainDirectory = ctx.getFilesDir().toString();&#xD;
 		this.ownerImage = getOwnerImage();&#xD;
-		&#xD;
+&#xD;
 		this.trainFaceRecognizer();&#xD;
-		&#xD;
+&#xD;
 		Log.d(TAG, &quot;FaceDAO-&quot;);&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWr-k-8yEeOflObM3pPwYg" name="trainFaceRecognizer" specification="_Q9L5cO8yEeOflObM3pPwYg">
                 <language>java</language>
                 <body>Log.d(TAG, &quot;trainFaceRecognizer+&quot;);&#xD;
-		&#xD;
+&#xD;
 		MatchResult r = this.faceRec.processSelections(getAbsoluteFilePath(),&#xD;
 				trainDirectory, NUM_FACES, THRESHOLD);&#xD;
 		printMatch(r);&#xD;
-		&#xD;
+&#xD;
 		Log.d(TAG, &quot;trainFaceRecognizer-&quot;);&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWr-lO8yEeOflObM3pPwYg" name="getMatch" specification="_RSgpMO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWr-le8yEeOflObM3pPwYg" name="faceObject" type="_RP7PQO8yEeOflObM3pPwYg"/>
                 <ownedParameter xmi:id="_RWr-lu8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
                 </ownedParameter>
                 <language>java</language>
                 <body>double result = 0;&#xD;
 		MatchResult r = null;&#xD;
-		&#xD;
+&#xD;
 		Log.d(TAG, &quot;getMatch+&quot;);&#xD;
-		&#xD;
+&#xD;
 		r = this.faceRec.findMatchResult(faceObject,&#xD;
 				Integer.parseInt(NUM_FACES), Double.parseDouble(THRESHOLD));&#xD;
 		printMatch(r);&#xD;
@@ -1187,6 +1127,7 @@ status bar and navigation/system bar) with user interaction.
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWsloO8yEeOflObM3pPwYg" name="getAbsoluteFilePath" specification="_Q9MggO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWsloe8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 </ownedParameter>
                 <language>java</language>
@@ -1219,6 +1160,24 @@ status bar and navigation/system bar) with user interaction.
 		}&#xD;
 	</body>
               </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrvH4O_9EeOro6Du1a1f1w" name="hasFace" specification="_lqaSMO_9EeOro6Du1a1f1w">
+                <ownedParameter xmi:id="_lrvH4e_9EeOro6Du1a1f1w" name="img" type="_RP7PQO8yEeOflObM3pPwYg"/>
+                <ownedParameter xmi:id="_lrvH4u_9EeOro6Du1a1f1w" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+                </ownedParameter>
+                <language>java</language>
+                <body>int maxFaces = 10;&#xD;
+&#xD;
+		Face[] faces = new Face[maxFaces];&#xD;
+&#xD;
+		FaceDetector fr = new FaceDetector(img.getWidth() - img.getWidth() % 2,&#xD;
+				img.getHeight(), maxFaces);&#xD;
+&#xD;
+		fr.findFaces(img, faces);&#xD;
+&#xD;
+		return faces.length != 0;&#xD;
+	</body>
+              </ownedBehavior>
               <ownedOperation xmi:id="_Q9L5cO8yEeOflObM3pPwYg" name="trainFaceRecognizer" method="_RWr-k-8yEeOflObM3pPwYg"/>
               <ownedOperation xmi:id="_Q9MggO8yEeOflObM3pPwYg" name="getAbsoluteFilePath" visibility="private" method="_RWsloO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_Q9NHkO8yEeOflObM3pPwYg" direction="return">
@@ -1240,6 +1199,21 @@ status bar and navigation/system bar) with user interaction.
               </ownedOperation>
               <ownedOperation xmi:id="_RShQQO8yEeOflObM3pPwYg" name="printMatch" visibility="private" isStatic="true" method="_RWslou8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RShQQe8yEeOflObM3pPwYg" name="r" type="_RQX7MO8yEeOflObM3pPwYg"/>
+              </ownedOperation>
+              <ownedOperation xmi:id="_lqaSMO_9EeOro6Du1a1f1w" name="hasFace" isStatic="true" method="_lrvH4O_9EeOro6Du1a1f1w">
+                <ownedComment xmi:id="_RXa-YO8yEeOflObM3pPwYg">
+                  <body>Checks if the supplied image contains at least one face.&#xD;
+	 * &#xD;
+	 * This method is used by the FaceService in order to check if the sampled&#xD;
+	 * data is valid for face recognition.&#xD;
+	 * &#xD;
+	 * @param img&#xD;
+	 * @return</body>
+                </ownedComment>
+                <ownedParameter xmi:id="_lqa5QO_9EeOro6Du1a1f1w" name="img" type="_RP7PQO8yEeOflObM3pPwYg"/>
+                <ownedParameter xmi:id="_lrepMO_9EeOro6Du1a1f1w" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+                </ownedParameter>
               </ownedOperation>
             </packagedElement>
             <packagedElement xmi:type="uml:Class" xmi:id="_Q9RZAO8yEeOflObM3pPwYg" name="FaceDAO">
@@ -1417,6 +1391,7 @@ status bar and navigation/system bar) with user interaction.
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWvB4O8yEeOflObM3pPwYg" name="isSupported" specification="_Q9gCgu8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWvB4e8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                 </ownedParameter>
                 <language>java</language>
@@ -1487,7 +1462,13 @@ status bar and navigation/system bar) with user interaction.
 
 					Log.d(TAG, &quot;taking picture...&quot;);
 					Bitmap picture = this.cameraUtil.takePicture();
-
+					
+					if (!FaceAuthMediator.hasFace(picture)) {
+						Log.d(TAG, &quot;No faces in picture.&quot;);
+						continue;
+					}
+					
+					Log.d(TAG, &quot;Calculating score.&quot;);
 					dscore = this.mediator.getMatch(picture);
 					if (dscore > THRESHOLD) {
 						dscore = THRESHOLD;
@@ -2203,7 +2184,7 @@ status bar and navigation/system bar) with user interaction.
           </packagedElement>
           <packagedElement xmi:type="uml:Package" xmi:id="_Q02c0O8yEeOflObM3pPwYg" name="voice">
             <packagedElement xmi:type="uml:Class" xmi:id="_Q8f88O8yEeOflObM3pPwYg" name="VoiceAuthMediator">
-              <ownedAttribute xmi:id="_RUJn8O8yEeOflObM3pPwYg" name="ownerRecord" visibility="private" type="_Q-_QQO8yEeOflObM3pPwYg" association="_RYmqIO8yEeOflObM3pPwYg">
+              <ownedAttribute xmi:id="_RUJn8O8yEeOflObM3pPwYg" name="ctx" visibility="private" type="_RPULQe8yEeOflObM3pPwYg" association="_ixVMQO_9EeOro6Du1a1f1w">
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_RUJn8e8yEeOflObM3pPwYg" value="null"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_RUK2EO8yEeOflObM3pPwYg" name="recognito" visibility="private" type="_RQIqoe8yEeOflObM3pPwYg" association="_RYnRMO8yEeOflObM3pPwYg">
@@ -2211,62 +2192,91 @@ status bar and navigation/system bar) with user interaction.
               </ownedAttribute>
               <ownedAttribute xmi:id="_RUMEMe8yEeOflObM3pPwYg" name="TAG" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-                <defaultValue xmi:type="uml:LiteralString" xmi:id="_RUMrQO8yEeOflObM3pPwYg" value="&quot;VoiceDAO&quot;"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_RUMrQO8yEeOflObM3pPwYg" value="&quot;VoiceAuthMediator&quot;"/>
               </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWkp0O8yEeOflObM3pPwYg" name="VoiceAuthMediator" specification="_RSWRIO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWkp0e8yEeOflObM3pPwYg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
-                <ownedParameter xmi:id="_RWkp0u8yEeOflObM3pPwYg" type="_Q8f88O8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_RWkp0u8yEeOflObM3pPwYg" type="_Q8f88O8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
-                <body>this.ownerRecord = new VoiceDAO(ctx, &quot;owner.3gp&quot;);&#xD;
+                <body>this.ctx = ctx.getApplicationContext();&#xD;
+		&#xD;
 		trainRecognito();&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWlQ4O8yEeOflObM3pPwYg" name="trainRecognito" specification="_Q8hLEO8yEeOflObM3pPwYg">
                 <language>java</language>
-                <body>Log.i(&quot;trainRecognito&quot;, &quot;entering&quot;);&#xD;
+                <body>Log.i(TAG, &quot;trainRecognito+&quot;);&#xD;
 &#xD;
-		if (!this.ownerRecord.hasRecording()) {&#xD;
-			Log.e(TAG, &quot;Null owner recording data..&quot;);&#xD;
+		VoiceDAO owner = new VoiceDAO(this.ctx, VoiceDAO.OWNER_FN);&#xD;
+		LinkedList&lt;VoiceDAO> noises = VoiceDAO.getNoiseDAOs(this.ctx);&#xD;
+		&#xD;
+		// check for owner data.&#xD;
+		if (!owner.hasRecording()) {&#xD;
+			Log.e(TAG, &quot;Null owner recording data!&quot;);&#xD;
+			return;&#xD;
+		&#xD;
+		} else {&#xD;
+			Log.d(TAG, &quot;Owner rate:&quot; + VoiceDAO.getSampleRate());&#xD;
+		}&#xD;
+		&#xD;
+		// adding owner data&#xD;
+		recognito.createVocalPrint(&quot;owner&quot;, owner.getData(),&#xD;
+				VoiceDAO.getSampleRate());&#xD;
+&#xD;
+		// check for noise data&#xD;
+		if (noises.isEmpty()) {&#xD;
+			Log.d(TAG, &quot;No noise data!&quot;);&#xD;
 			return;&#xD;
 		}&#xD;
-&#xD;
-		Log.d(TAG, &quot;traing data&quot; + this.ownerRecord.getOwnerData());&#xD;
-		Log.d(TAG, &quot;traing data len&quot; + this.ownerRecord.getOwnerData().length);&#xD;
-		Log.d(TAG, &quot;traing sample rate&quot; + VoiceDAO.getSampleRate());&#xD;
-&#xD;
-		recognito.createVocalPrint(&quot;owner&quot;, this.ownerRecord.getOwnerData(),&#xD;
-				VoiceDAO.getSampleRate());&#xD;
+		&#xD;
+		for(VoiceDAO noise : noises) {&#xD;
+			Log.d(TAG, &quot;Adding noise file: &quot; + noise.getName());&#xD;
+			recognito.createVocalPrint(noise.getName(), &#xD;
+					noise.getData(), &#xD;
+					VoiceDAO.getSampleRate());&#xD;
+		}&#xD;
+		&#xD;
+		Log.i(TAG, &quot;trainRecognito-&quot;);&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWlQ4e8yEeOflObM3pPwYg" name="getMatch" specification="_RQJ4wO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWlQ4u8yEeOflObM3pPwYg" name="record" type="_Q-_QQO8yEeOflObM3pPwYg"/>
                 <ownedParameter xmi:id="_RWlQ4-8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
                 </ownedParameter>
                 <language>java</language>
-                <body>double result = 0;&#xD;
+                <body>boolean owner = false;&#xD;
+		double result = Double.MAX_VALUE;&#xD;
+		&#xD;
 		Map&lt;Double, String> matches = null;&#xD;
 &#xD;
-		if (record == null || !record.hasRecording()) {&#xD;
+		if (record == null || record.getData() == null) {&#xD;
+			Log.e(TAG, &quot;Record file does not exist:&quot; + record.getName());&#xD;
 			return 0;&#xD;
 		}&#xD;
 &#xD;
-		matches = recognito.recognize(record.getOwnerData(),&#xD;
+		matches = recognito.recognize(record.getData(),&#xD;
 				VoiceDAO.getSampleRate());&#xD;
 &#xD;
-		for (Entry&lt;Double, String> entry : matches.entrySet()) {&#xD;
-&#xD;
-			if (entry.getValue().equals(&quot;owner&quot;)) {&#xD;
-				Log.i(&quot;recognito&quot;, &quot;found owner at distance: &quot; + entry.getKey());&#xD;
+		for (Entry&lt;Double, String> entry : matches.entrySet()) {			&#xD;
+			if (entry.getKey() &lt; result) {&#xD;
 				result = entry.getKey();&#xD;
-				break;&#xD;
+				owner = entry.getValue().equals(&quot;owner&quot;);&#xD;
 			}&#xD;
+		}&#xD;
+		&#xD;
+		if (!owner) {&#xD;
+			Log.d(TAG, &quot;Owner not best value!&quot;);&#xD;
+			result = - 1;&#xD;
 		}&#xD;
 &#xD;
 		return result;&#xD;
 	</body>
               </ownedBehavior>
-              <ownedOperation xmi:id="_Q8hLEO8yEeOflObM3pPwYg" name="trainRecognito" method="_RWlQ4O8yEeOflObM3pPwYg">
+              <ownedOperation xmi:id="_Q8hLEO8yEeOflObM3pPwYg" name="trainRecognito" visibility="private" method="_RWlQ4O8yEeOflObM3pPwYg">
                 <ownedComment xmi:id="_RXVe0e8yEeOflObM3pPwYg">
                   <body>Trains recognito library for the owner's voice. Searches through internal&#xD;
 	 * data in order to train the recognito library.</body>
@@ -2305,10 +2315,6 @@ status bar and navigation/system bar) with user interaction.
               <ownedAttribute xmi:id="_RVmZce8yEeOflObM3pPwYg" name="rt" visibility="private" type="_Q_HzIO8yEeOflObM3pPwYg" association="_RY_EoO8yEeOflObM3pPwYg">
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVnAgO8yEeOflObM3pPwYg" value="new RecordingThread()"/>
               </ownedAttribute>
-              <ownedAttribute xmi:id="_RVnnkO8yEeOflObM3pPwYg" name="recordingSaved" visibility="private">
-                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
-                <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVnnke8yEeOflObM3pPwYg" value="false"/>
-              </ownedAttribute>
               <ownedAttribute xmi:id="_RVoOoe8yEeOflObM3pPwYg" name="SAMPLE_RATE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVo1sO8yEeOflObM3pPwYg" value="44100"/>
@@ -2329,7 +2335,7 @@ status bar and navigation/system bar) with user interaction.
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVqq4e8yEeOflObM3pPwYg" value="0"/>
               </ownedAttribute>
-              <ownedAttribute xmi:id="_RVrR8e8yEeOflObM3pPwYg" name="fileName" visibility="private">
+              <ownedAttribute xmi:id="_RVrR8e8yEeOflObM3pPwYg" name="name" visibility="public" isReadOnly="true">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVr5AO8yEeOflObM3pPwYg" value="null"/>
               </ownedAttribute>
@@ -2340,28 +2346,45 @@ status bar and navigation/system bar) with user interaction.
               <ownedAttribute xmi:id="_RVtHIO8yEeOflObM3pPwYg" name="ctx" visibility="private" type="_RPULQe8yEeOflObM3pPwYg" association="_RY_rse8yEeOflObM3pPwYg">
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVtHIe8yEeOflObM3pPwYg" value="null"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_lrpoUO_9EeOro6Du1a1f1w" name="data" isReadOnly="true">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrqPYO_9EeOro6Du1a1f1w" value="*"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_lrqPYu_9EeOro6Du1a1f1w" value="null"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_lrrdgO_9EeOro6Du1a1f1w" name="OWNER_FN" isLeaf="true" isStatic="true" isReadOnly="true">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_lrsEkO_9EeOro6Du1a1f1w" value="&quot;owner.3gp&quot;"/>
+              </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW72MO8yEeOflObM3pPwYg" name="VoiceDAO" specification="_RS-jQO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW72Me8yEeOflObM3pPwYg" name="context" type="_RPULQe8yEeOflObM3pPwYg"/>
                 <ownedParameter xmi:id="_RW72Mu8yEeOflObM3pPwYg" name="fileName">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 </ownedParameter>
-                <ownedParameter xmi:id="_RW72M-8yEeOflObM3pPwYg" type="_Q-_QQO8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_RW72M-8yEeOflObM3pPwYg" type="_Q-_QQO8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>this.ctx = context.getApplicationContext();&#xD;
-		&#xD;
-		this.fileName = fileName;&#xD;
+&#xD;
+		this.name = fileName;&#xD;
 		this.filePath = context.getFilesDir().toString();&#xD;
+&#xD;
+	</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW8dQO8yEeOflObM3pPwYg" name="startRecord" specification="_Q_CTkO8yEeOflObM3pPwYg">
+                <language>java</language>
+                <body>if (this.data != null) {&#xD;
+			Log.w(TAG, &quot;Existing recording will be overwritten!&quot;);&#xD;
+			this.data = null;&#xD;
+		}&#xD;
 &#xD;
 		this.minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE,&#xD;
 				CHANNEL_CONFIG, AUDIO_FORMAT);&#xD;
 &#xD;
 		this.mRecorder = new AudioRecord(MediaRecorder.AudioSource.MIC,&#xD;
 				SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, this.minBufferSize);&#xD;
-	</body>
-              </ownedBehavior>
-              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW8dQO8yEeOflObM3pPwYg" name="startRecord" specification="_Q_CTkO8yEeOflObM3pPwYg">
-                <language>java</language>
-                <body>this.mRecorder.startRecording();&#xD;
+&#xD;
+		this.mRecorder.startRecording();&#xD;
 		this.rt.startThread();&#xD;
 	</body>
               </ownedBehavior>
@@ -2371,85 +2394,166 @@ status bar and navigation/system bar) with user interaction.
 		this.mRecorder.release();&#xD;
 &#xD;
 		this.rt.stopThread();&#xD;
+		this.data = this.rt.getData();&#xD;
 		this.rt = null;&#xD;
-&#xD;
-		this.recordingSaved = true;&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW8dQu8yEeOflObM3pPwYg" name="getSampleRate" specification="_Q_DhsO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW8dQ-8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
                 </ownedParameter>
                 <language>java</language>
                 <body>return SAMPLE_RATE;&#xD;
 	</body>
               </ownedBehavior>
-              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW9EUO8yEeOflObM3pPwYg" name="getOwnerData" specification="_Q_EIwO8yEeOflObM3pPwYg">
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW9EUO8yEeOflObM3pPwYg" name="getData" specification="_Q_EIwO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW9EUe8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RW9EUu8yEeOflObM3pPwYg" value="*"/>
                 </ownedParameter>
                 <language>java</language>
-                <body>KeyManager km = null;;&#xD;
-		&#xD;
-		FileInputStream fis = null;&#xD;
-		CipherInputStream cis = null;&#xD;
+                <body>double[] result = null;&#xD;
 &#xD;
-		double[] result = null;&#xD;
-		int fileSize = 0;&#xD;
-		&#xD;
 		Log.d(TAG, &quot;getOwnerData+&quot;);&#xD;
 &#xD;
-		if (doneRecoring() == false &amp;&amp; !hasRecording()) {&#xD;
-			return null;&#xD;
+		if (data == null) {&#xD;
+			Log.d(TAG, &quot;Retrieving data from file.&quot;);&#xD;
+			loadDataFromFile();&#xD;
+		}&#xD;
+&#xD;
+		result = getDataFromObject();&#xD;
+&#xD;
+		Log.d(TAG, &quot;getData- &quot; + result);&#xD;
+		return result;&#xD;
+	</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW9EU-8yEeOflObM3pPwYg" name="saveRecording" specification="_Q_F98O8yEeOflObM3pPwYg">
+                <language>java</language>
+                <body>KeyManager km = null;&#xD;
+&#xD;
+		FileOutputStream fos = null;&#xD;
+		CipherOutputStream cos = null;&#xD;
+&#xD;
+		if (new File(getAbsoluteFilePath()).exists()) {&#xD;
+			Log.w(TAG, &quot;File with the same name will get overwritten: &quot;&#xD;
+					+ getAbsoluteFilePath());&#xD;
 		}&#xD;
 &#xD;
 		try {&#xD;
 			km = KeyManager.getInstance(ctx);&#xD;
-			&#xD;
-			fis = new FileInputStream(getAbsoluteFilePath());&#xD;
-			cis = new CipherInputStream(fis, km.getDecryptionCipher());&#xD;
 &#xD;
-			fileSize = (int) fis.getChannel().size();&#xD;
-			result = new double[fileSize];&#xD;
+			fos = new FileOutputStream(getAbsoluteFilePath());&#xD;
+			cos = new CipherOutputStream(fos, km.getEncryptionCipher());&#xD;
 &#xD;
-			int i = 0, val = 0;&#xD;
-			while((val = cis.read()) != -1) {&#xD;
-				result[i++] = (((double) val) / 128) - 1;&#xD;
-			}&#xD;
-			&#xD;
-			cis.close();&#xD;
+			cos.write(this.data);&#xD;
+			cos.flush();&#xD;
+			cos.close();&#xD;
 		} catch (FileNotFoundException e) {&#xD;
 			e.printStackTrace();&#xD;
 		} catch (IOException e) {&#xD;
 			e.printStackTrace();&#xD;
 		}&#xD;
 &#xD;
-		return result;&#xD;
-	</body>
-              </ownedBehavior>
-              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW9EU-8yEeOflObM3pPwYg" name="doneRecoring" specification="_Q_F98O8yEeOflObM3pPwYg">
-                <ownedParameter xmi:id="_RW9EVO8yEeOflObM3pPwYg" direction="return">
-                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
-                </ownedParameter>
-                <language>java</language>
-                <body>return this.recordingSaved;&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW9rYO8yEeOflObM3pPwYg" name="hasRecording" specification="_Q_GlAO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW9rYe8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                 </ownedParameter>
                 <language>java</language>
-                <body>return new File(getAbsoluteFilePath()).exists();&#xD;
+                <body>return new File(getAbsoluteFilePath()).exists() || this.data != null;&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW9rYu8yEeOflObM3pPwYg" name="getAbsoluteFilePath" specification="_Q_HMEO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW9rY-8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 </ownedParameter>
                 <language>java</language>
-                <body>return this.filePath + &quot;/&quot; + this.fileName;&#xD;
+                <body>return this.filePath + &quot;/&quot; + this.name;&#xD;
+	</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrwWAu_9EeOro6Du1a1f1w" name="getDataFromObject" specification="_lq3lMO_9EeOro6Du1a1f1w">
+                <ownedParameter xmi:id="_lrwWA-_9EeOro6Du1a1f1w" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrwWBO_9EeOro6Du1a1f1w" value="*"/>
+                </ownedParameter>
+                <language>java</language>
+                <body>double[] result = new double[this.data.length];&#xD;
+&#xD;
+		for (int i = 0; i &lt; result.length; i++) {&#xD;
+			result[i] = (((double) this.data[i]) / 128) - 1;&#xD;
+		}&#xD;
+&#xD;
+		return result;&#xD;
+	</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrw9EO_9EeOro6Du1a1f1w" name="loadDataFromFile" specification="_lq4zUO_9EeOro6Du1a1f1w">
+                <language>java</language>
+                <body>KeyManager km = null;&#xD;
+		FileInputStream fis = null;&#xD;
+		CipherInputStream cis = null;&#xD;
+&#xD;
+		if (!hasRecording()) {&#xD;
+			Log.d(TAG, &quot;File does not exist: &quot; + this.getAbsoluteFilePath());&#xD;
+			return;&#xD;
+		}&#xD;
+&#xD;
+		try {&#xD;
+			km = KeyManager.getInstance(ctx);&#xD;
+&#xD;
+			fis = new FileInputStream(getAbsoluteFilePath());&#xD;
+			cis = new CipherInputStream(fis, km.getDecryptionCipher());&#xD;
+&#xD;
+			data = new byte[(int) fis.getChannel().size()];&#xD;
+&#xD;
+			int i = 0, val = 0;&#xD;
+			while ((val = cis.read()) != -1) {&#xD;
+				data[i++] = (byte) val;&#xD;
+				i++;&#xD;
+			}&#xD;
+&#xD;
+			cis.close();&#xD;
+		} catch (Exception e) {&#xD;
+			e.printStackTrace();&#xD;
+			data = null;&#xD;
+		}&#xD;
+	</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrxkIO_9EeOro6Du1a1f1w" name="generateNoiseFileName" specification="_lq5aYO_9EeOro6Du1a1f1w">
+                <ownedParameter xmi:id="_lrxkIe_9EeOro6Du1a1f1w" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
+                <ownedParameter xmi:id="_lrxkIu_9EeOro6Du1a1f1w" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                </ownedParameter>
+                <language>java</language>
+                <body>String fn = null;&#xD;
+&#xD;
+		do {&#xD;
+			fn = &quot;noise&quot; + new Random().nextInt() + &quot;.3gp&quot;;&#xD;
+&#xD;
+		} while (!new File(ctx.getFilesDir() + &quot;/&quot; + fn).exists());&#xD;
+&#xD;
+		return fn;&#xD;
+	</body>
+              </ownedBehavior>
+              <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrxkI-_9EeOro6Du1a1f1w" name="getNoiseDAOs" specification="_lq6BcO_9EeOro6Du1a1f1w">
+                <ownedParameter xmi:id="_lrxkJO_9EeOro6Du1a1f1w" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
+                <ownedParameter xmi:id="_lrxkJe_9EeOro6Du1a1f1w" type="_RQMVAe8yEeOflObM3pPwYg" direction="return"/>
+                <language>java</language>
+                <body>File dir = ctx.getFilesDir();&#xD;
+		LinkedList&lt;VoiceDAO> noises = new LinkedList&lt;VoiceDAO>();&#xD;
+&#xD;
+		for (String fn : dir.list()) {&#xD;
+			if (fn.startsWith(&quot;noise&quot;) &amp;&amp; fn.endsWith(&quot;.3gp&quot;)) {&#xD;
+				Log.d(TAG, &quot;Added noise file: &quot; + fn);&#xD;
+				noises.add(new VoiceDAO(ctx, fn));&#xD;
+			}&#xD;
+		}&#xD;
+&#xD;
+		return noises;&#xD;
 	</body>
               </ownedBehavior>
               <ownedOperation xmi:id="_Q_CTkO8yEeOflObM3pPwYg" name="startRecord" method="_RW8dQO8yEeOflObM3pPwYg"/>
@@ -2459,28 +2563,18 @@ status bar and navigation/system bar) with user interaction.
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
                 </ownedParameter>
               </ownedOperation>
-              <ownedOperation xmi:id="_Q_EIwO8yEeOflObM3pPwYg" name="getOwnerData" method="_RW9EUO8yEeOflObM3pPwYg">
+              <ownedOperation xmi:id="_Q_EIwO8yEeOflObM3pPwYg" name="getData" method="_RW9EUO8yEeOflObM3pPwYg">
                 <ownedComment xmi:id="_RXaXU-8yEeOflObM3pPwYg">
                   <body>Retrieves the recording data from the record saved in internal memory.&#xD;
 	 * &#xD;
 	 * @return recording data from the record saved in internal memory.</body>
                 </ownedComment>
-                <ownedParameter xmi:id="_Q_EIwe8yEeOflObM3pPwYg" direction="return">
+                <ownedParameter xmi:id="_lqqKRu_9EeOro6Du1a1f1w" direction="return">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
-                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Q_EIwu8yEeOflObM3pPwYg" value="*"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lqqKle_9EeOro6Du1a1f1w" value="*"/>
                 </ownedParameter>
               </ownedOperation>
-              <ownedOperation xmi:id="_Q_F98O8yEeOflObM3pPwYg" name="doneRecoring" visibility="private" method="_RW9EU-8yEeOflObM3pPwYg">
-                <ownedComment xmi:id="_RXa-YO8yEeOflObM3pPwYg">
-                  <body>Checks if the recording process is over and the recording was marked as&#xD;
-	 * saved.&#xD;
-	 * &#xD;
-	 * @return true if the recording is done, false otherwise.</body>
-                </ownedComment>
-                <ownedParameter xmi:id="_Q_F98e8yEeOflObM3pPwYg" direction="return">
-                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
-                </ownedParameter>
-              </ownedOperation>
+              <ownedOperation xmi:id="_Q_F98O8yEeOflObM3pPwYg" name="saveRecording" visibility="public" method="_RW9EU-8yEeOflObM3pPwYg"/>
               <ownedOperation xmi:id="_Q_GlAO8yEeOflObM3pPwYg" name="hasRecording" method="_RW9rYO8yEeOflObM3pPwYg">
                 <ownedComment xmi:id="_RXa-Ye8yEeOflObM3pPwYg">
                   <body>Checks if the recording file exists in the file system.&#xD;
@@ -2500,11 +2594,55 @@ status bar and navigation/system bar) with user interaction.
                 <eAnnotations xmi:id="_RS_KUO8yEeOflObM3pPwYg" source="http://www.eclipse.org/uml2/2.0.0/UML">
                   <details xmi:id="_RS_KUe8yEeOflObM3pPwYg" key="create"/>
                 </eAnnotations>
+                <ownedComment xmi:id="_lr0AYO_9EeOro6Du1a1f1w">
+                  <body>Public constructor of voice object.&#xD;
+	 * &#xD;
+	 * This class can be used for recording, saving, and loading data from&#xD;
+	 * filesystem.&#xD;
+	 * &#xD;
+	 * @param context&#xD;
+	 *            application context used for file management.&#xD;
+	 * @param fileName&#xD;
+	 *            name of the recording.</body>
+                </ownedComment>
                 <ownedParameter xmi:id="_RS-jQe8yEeOflObM3pPwYg" name="context" type="_RPULQe8yEeOflObM3pPwYg"/>
                 <ownedParameter xmi:id="_RS-jQu8yEeOflObM3pPwYg" name="fileName">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 </ownedParameter>
                 <ownedParameter xmi:id="_RS_KUu8yEeOflObM3pPwYg" type="_Q-_QQO8yEeOflObM3pPwYg" direction="return"/>
+              </ownedOperation>
+              <ownedOperation xmi:id="_lq3lMO_9EeOro6Du1a1f1w" name="getDataFromObject" visibility="private" method="_lrwWAu_9EeOro6Du1a1f1w">
+                <ownedComment xmi:id="_lr0ncO_9EeOro6Du1a1f1w">
+                  <body>Gets data from object and converts it to the appropriate format.&#xD;
+	 * &#xD;
+	 * @return recording data.</body>
+                </ownedComment>
+                <ownedParameter xmi:id="_lq4MQO_9EeOro6Du1a1f1w" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
+                  <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lq4MQe_9EeOro6Du1a1f1w" value="*"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:id="_lq4zUO_9EeOro6Du1a1f1w" name="loadDataFromFile" visibility="private" method="_lrw9EO_9EeOro6Du1a1f1w">
+                <ownedComment xmi:id="_lr0nce_9EeOro6Du1a1f1w">
+                  <body>Loads recording from file.</body>
+                </ownedComment>
+              </ownedOperation>
+              <ownedOperation xmi:id="_lq5aYO_9EeOro6Du1a1f1w" name="generateNoiseFileName" isStatic="true" method="_lrxkIO_9EeOro6Du1a1f1w">
+                <ownedComment xmi:id="_lr0ncu_9EeOro6Du1a1f1w">
+                  <body>Generates an unique noise file name.&#xD;
+	 * &#xD;
+	 * @param ctx&#xD;
+	 *            Context used for current path.&#xD;
+	 * @return The noise file name.</body>
+                </ownedComment>
+                <ownedParameter xmi:id="_lq5aYe_9EeOro6Du1a1f1w" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
+                <ownedParameter xmi:id="_lrkIwO_9EeOro6Du1a1f1w" direction="return">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                </ownedParameter>
+              </ownedOperation>
+              <ownedOperation xmi:id="_lq6BcO_9EeOro6Du1a1f1w" name="getNoiseDAOs" isStatic="true" method="_lrxkI-_9EeOro6Du1a1f1w">
+                <ownedParameter xmi:id="_lq6Bce_9EeOro6Du1a1f1w" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
+                <ownedParameter xmi:id="_lq6ogO_9EeOro6Du1a1f1w" type="_RQMVAe8yEeOflObM3pPwYg" direction="return"/>
               </ownedOperation>
               <nestedClassifier xmi:type="uml:Class" xmi:id="_Q_HzIO8yEeOflObM3pPwYg" name="RecordingThread" visibility="private">
                 <generalization xmi:id="_RS_xYO8yEeOflObM3pPwYg" general="_RSc-0O8yEeOflObM3pPwYg"/>
@@ -2514,6 +2652,9 @@ status bar and navigation/system bar) with user interaction.
                   </eAnnotations>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                   <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVuVQ-8yEeOflObM3pPwYg" value="false"/>
+                </ownedAttribute>
+                <ownedAttribute xmi:id="_RTnccO8yEeOflObM3pPwYg" name="threadData" visibility="private" type="_RQLt8e8yEeOflObM3pPwYg">
+                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_RToDgO8yEeOflObM3pPwYg" value="new ArrayList&lt;Byte>()"/>
                 </ownedAttribute>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW-ScO8yEeOflObM3pPwYg" name="startThread" specification="_Q_HzIe8yEeOflObM3pPwYg">
                   <language>java</language>
@@ -2533,41 +2674,40 @@ status bar and navigation/system bar) with user interaction.
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW-Scu8yEeOflObM3pPwYg" name="run" specification="_Q_JBQO8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>KeyManager km = null;&#xD;
+                  <body>int read = 0;&#xD;
+			byte buffer[] = new byte[minBufferSize];&#xD;
 &#xD;
-			FileOutputStream fos = null;&#xD;
-			CipherOutputStream cos = null;&#xD;
+			while (recording == true) {&#xD;
+				read = mRecorder.read(buffer, 0, buffer.length);&#xD;
 &#xD;
-			byte data[] = new byte[minBufferSize];&#xD;
-&#xD;
-			try {&#xD;
-				km = KeyManager.getInstance(ctx);&#xD;
-				&#xD;
-				fos = new FileOutputStream(getAbsoluteFilePath());&#xD;
-				cos = new CipherOutputStream(fos, km.getEncryptionCipher());&#xD;
-&#xD;
-				int read = 0;&#xD;
-				while (recording == true) {&#xD;
-					read = mRecorder.read(data, 0, data.length);&#xD;
-&#xD;
-					if (read != AudioRecord.ERROR_INVALID_OPERATION) {&#xD;
-						cos.write(data);&#xD;
-					}&#xD;
+				if (read != AudioRecord.ERROR_INVALID_OPERATION) {&#xD;
+					addData(buffer);&#xD;
+				} else {&#xD;
+					Log.w(TAG, &quot;AudioRecord error!&quot;);&#xD;
 				}&#xD;
-&#xD;
-				cos.flush();&#xD;
-				cos.close();&#xD;
-			} catch (FileNotFoundException e) {&#xD;
-				e.printStackTrace();&#xD;
-			} catch (IOException e) {&#xD;
-				e.printStackTrace();&#xD;
 			}&#xD;
-&#xD;
+		</body>
+                </ownedBehavior>
+                <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrw9Ee_9EeOro6Du1a1f1w" name="addData" specification="_lriTkO_9EeOro6Du1a1f1w">
+                  <ownedParameter xmi:id="_lrw9Eu_9EeOro6Du1a1f1w" name="data">
+                    <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+                    <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrw9E-_9EeOro6Du1a1f1w" value="*"/>
+                  </ownedParameter>
+                  <language>java</language>
+                  <body>for (byte b : data) {&#xD;
+				this.threadData.add(b);&#xD;
+			}&#xD;
 		</body>
                 </ownedBehavior>
                 <ownedOperation xmi:id="_Q_HzIe8yEeOflObM3pPwYg" name="startThread" method="_RW-ScO8yEeOflObM3pPwYg"/>
                 <ownedOperation xmi:id="_Q_IaMO8yEeOflObM3pPwYg" name="stopThread" method="_RW-Sce8yEeOflObM3pPwYg"/>
                 <ownedOperation xmi:id="_Q_JBQO8yEeOflObM3pPwYg" name="run" method="_RW-Scu8yEeOflObM3pPwYg"/>
+                <ownedOperation xmi:id="_lriTkO_9EeOro6Du1a1f1w" name="addData" visibility="private" method="_lrw9Ee_9EeOro6Du1a1f1w">
+                  <ownedParameter xmi:id="_lriTke_9EeOro6Du1a1f1w" name="data">
+                    <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+                    <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrjhsO_9EeOro6Du1a1f1w" value="*"/>
+                  </ownedParameter>
+                </ownedOperation>
               </nestedClassifier>
             </packagedElement>
             <packagedElement xmi:type="uml:Class" xmi:id="_Q_Pu8O8yEeOflObM3pPwYg" name="VoiceService">
@@ -2644,16 +2784,18 @@ of this observable.&#xD;
                   </eAnnotations>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_RVz00e8yEeOflObM3pPwYg" name="voiceDAO" visibility="private" type="_Q8f88O8yEeOflObM3pPwYg" association="_RZA50e8yEeOflObM3pPwYg"/>
+                <ownedAttribute xmi:id="_RVz00e8yEeOflObM3pPwYg" name="mediator" visibility="private" type="_Q8f88O8yEeOflObM3pPwYg" association="_lr4R0O_9EeOro6Du1a1f1w"/>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXAHoO8yEeOflObM3pPwYg" name="AuthenticatorThread" specification="_Q_TZUO8yEeOflObM3pPwYg">
-                  <ownedParameter xmi:id="_RXAHoe8yEeOflObM3pPwYg" type="_Q_SLMO8yEeOflObM3pPwYg" direction="return"/>
+                  <ownedParameter xmi:id="_RXAHoe8yEeOflObM3pPwYg" type="_Q_SLMO8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
+                  </ownedParameter>
                   <language>java</language>
                   <body>this.stop = false;&#xD;
 		</body>
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXAHou8yEeOflObM3pPwYg" name="run" specification="_Q_UAYu8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>this.voiceDAO = new VoiceAuthMediator(VoiceService.this);&#xD;
+                  <body>this.mediator = new VoiceAuthMediator(VoiceService.this);&#xD;
 &#xD;
 			// sampling loop.&#xD;
 			while (stop != true) {&#xD;
@@ -2670,7 +2812,12 @@ of this observable.&#xD;
 					}&#xD;
 &#xD;
 					// sending match score.&#xD;
-					double dscore = this.voiceDAO.getMatch(record);&#xD;
+					double dscore = this.mediator.getMatch(record);&#xD;
+					if (dscore == -1) {&#xD;
+						Log.d(TAG, &quot;Noise detected, continuing decay.&quot;);&#xD;
+						continue;&#xD;
+					}&#xD;
+					&#xD;
 					if (dscore > THRESHOLD) {&#xD;
 						dscore = THRESHOLD;&#xD;
 					}&#xD;
@@ -2698,13 +2845,14 @@ of this observable.&#xD;
 		</body>
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXAusO8yEeOflObM3pPwYg" name="recordData" specification="_Q_VOgu8yEeOflObM3pPwYg">
-                  <ownedParameter xmi:id="_RXAuse8yEeOflObM3pPwYg" type="_Q-_QQO8yEeOflObM3pPwYg" direction="return"/>
+                  <ownedParameter xmi:id="_RXAuse8yEeOflObM3pPwYg" type="_Q-_QQO8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
+                  </ownedParameter>
                   <language>java</language>
                   <body>Log.d(TAG, &quot;recordData+&quot;);&#xD;
 &#xD;
-			VoiceDAO record = new VoiceDAO(VoiceService.this,&#xD;
-					&quot;challenge.3gp&quot;);&#xD;
-&#xD;
+			VoiceDAO record = new VoiceDAO(VoiceService.this, &quot;challenge.3gp&quot;);&#xD;
+			&#xD;
 			try {&#xD;
 				record.startRecord();&#xD;
 				Thread.sleep(RECORD_TIME);&#xD;
@@ -2736,9 +2884,6 @@ of this observable.&#xD;
                 </ownedOperation>
               </nestedClassifier>
             </packagedElement>
-            <packagedElement xmi:type="uml:Association" xmi:id="_RYmqIO8yEeOflObM3pPwYg" name="" memberEnd="_RYmqIe8yEeOflObM3pPwYg _RUJn8O8yEeOflObM3pPwYg">
-              <ownedEnd xmi:id="_RYmqIe8yEeOflObM3pPwYg" name="" type="_Q8f88O8yEeOflObM3pPwYg" association="_RYmqIO8yEeOflObM3pPwYg"/>
-            </packagedElement>
             <packagedElement xmi:type="uml:Association" xmi:id="_RYnRMO8yEeOflObM3pPwYg" name="" memberEnd="_RYnRMe8yEeOflObM3pPwYg _RUK2EO8yEeOflObM3pPwYg">
               <ownedEnd xmi:id="_RYnRMe8yEeOflObM3pPwYg" name="" type="_Q8f88O8yEeOflObM3pPwYg" association="_RYnRMO8yEeOflObM3pPwYg"/>
             </packagedElement>
@@ -2754,8 +2899,11 @@ of this observable.&#xD;
             <packagedElement xmi:type="uml:Association" xmi:id="_RZASwe8yEeOflObM3pPwYg" name="" memberEnd="_RZASwu8yEeOflObM3pPwYg _RVwKcO8yEeOflObM3pPwYg">
               <ownedEnd xmi:id="_RZASwu8yEeOflObM3pPwYg" name="" type="_Q_Pu8O8yEeOflObM3pPwYg" association="_RZASwe8yEeOflObM3pPwYg"/>
             </packagedElement>
-            <packagedElement xmi:type="uml:Association" xmi:id="_RZA50e8yEeOflObM3pPwYg" name="" memberEnd="_RZA50u8yEeOflObM3pPwYg _RVz00e8yEeOflObM3pPwYg">
-              <ownedEnd xmi:id="_RZA50u8yEeOflObM3pPwYg" name="" type="_Q_SLMO8yEeOflObM3pPwYg" association="_RZA50e8yEeOflObM3pPwYg"/>
+            <packagedElement xmi:type="uml:Association" xmi:id="_ixVMQO_9EeOro6Du1a1f1w" name="" memberEnd="_ixVMQe_9EeOro6Du1a1f1w _RUJn8O8yEeOflObM3pPwYg">
+              <ownedEnd xmi:id="_ixVMQe_9EeOro6Du1a1f1w" name="" type="_Q8f88O8yEeOflObM3pPwYg" association="_ixVMQO_9EeOro6Du1a1f1w"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Association" xmi:id="_lr4R0O_9EeOro6Du1a1f1w" name="" memberEnd="_lr4R0e_9EeOro6Du1a1f1w _RVz00e8yEeOflObM3pPwYg">
+              <ownedEnd xmi:id="_lr4R0e_9EeOro6Du1a1f1w" name="" type="_Q_SLMO8yEeOflObM3pPwYg" association="_lr4R0O_9EeOro6Du1a1f1w"/>
             </packagedElement>
           </packagedElement>
           <packagedElement xmi:type="uml:Package" xmi:id="_Q1_sUO8yEeOflObM3pPwYg" name="dummy">
@@ -4387,10 +4535,6 @@ this class.&#xD;
   <UMLLabProfile:Annotations xmi:id="_Q6vCYO8yEeOflObM3pPwYg" base_Element="_Q6tNMu8yEeOflObM3pPwYg">
     <annotations xmi:id="_Q6vCYe8yEeOflObM3pPwYg" name="Override"/>
   </UMLLabProfile:Annotations>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_Q7GOwO8yEeOflObM3pPwYg" base_Element="_Q7FnsO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Annotations xmi:id="_Q7GOwe8yEeOflObM3pPwYg" base_Element="_Q7FnsO8yEeOflObM3pPwYg">
-    <annotations xmi:id="_Q7GOwu8yEeOflObM3pPwYg" name="Override"/>
-  </UMLLabProfile:Annotations>
   <UMLLabProfile:LegacyStyledElement xmi:id="_Q7hFgO8yEeOflObM3pPwYg" base_Element="_Q7gecO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Annotations xmi:id="_Q7hFge8yEeOflObM3pPwYg" base_Element="_Q7gecO8yEeOflObM3pPwYg">
     <annotations xmi:id="_Q7hFgu8yEeOflObM3pPwYg" name="Override"/>
@@ -4507,7 +4651,6 @@ this class.&#xD;
   <UMLLabProfile:Annotations xmi:id="_Q-zqEO8yEeOflObM3pPwYg" base_Element="_Q-zDAO8yEeOflObM3pPwYg">
     <annotations xmi:id="_Q-zqEe8yEeOflObM3pPwYg" name="Override"/>
   </UMLLabProfile:Annotations>
-  <UMLLabProfile:Array xmi:id="_Q_Ev0O8yEeOflObM3pPwYg" base_Element="_Q_EIwO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_Q_UncO8yEeOflObM3pPwYg" base_Element="_Q_UAYu8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Annotations xmi:id="_Q_Unce8yEeOflObM3pPwYg" base_Element="_Q_UAYu8yEeOflObM3pPwYg">
     <annotations xmi:id="_Q_VOgO8yEeOflObM3pPwYg" name="Override"/>
@@ -4620,10 +4763,6 @@ this class.&#xD;
   <UMLLabProfile:Annotations xmi:id="_RR3I8O8yEeOflObM3pPwYg" base_Element="_RR160O8yEeOflObM3pPwYg">
     <annotations xmi:id="_RR3I8e8yEeOflObM3pPwYg" name="Override"/>
   </UMLLabProfile:Annotations>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RR8ogO8yEeOflObM3pPwYg" base_Element="_RR8BcO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Annotations xmi:id="_RR8oge8yEeOflObM3pPwYg" base_Element="_RR8BcO8yEeOflObM3pPwYg">
-    <annotations xmi:id="_RR8ogu8yEeOflObM3pPwYg" name="Override"/>
-  </UMLLabProfile:Annotations>
   <UMLLabProfile:StyledElement xmi:id="_RSEkVe8yEeOflObM3pPwYg" base_Element="_RSD9QO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RSMgIO8yEeOflObM3pPwYg" base_Element="_RSL5EO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Array xmi:id="_RSNHMO8yEeOflObM3pPwYg" base_Element="_RSL5Ee8yEeOflObM3pPwYg"/>
@@ -4680,19 +4819,6 @@ this class.&#xD;
   <UMLLabProfile:Generics xmi:id="_RTjLAO8yEeOflObM3pPwYg" genericsValue="PicoMainActivity" base_Element="_RTh84e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RTjyEO8yEeOflObM3pPwYg" base_Element="_RTh84e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RTlAMe8yEeOflObM3pPwYg" base_Element="_RTkZIO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RToqkO8yEeOflObM3pPwYg" base_Element="_RTnccO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Annotations xmi:id="_RToqke8yEeOflObM3pPwYg" base_Element="_RTnccO8yEeOflObM3pPwYg">
-    <annotations xmi:id="_RTpRoO8yEeOflObM3pPwYg" name="SuppressWarnings">
-      <annotationParameters xmi:id="_RTpRoe8yEeOflObM3pPwYg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RXR0ce8yEeOflObM3pPwYg" value="&quot;unused&quot;"/>
-      </annotationParameters>
-    </annotations>
-  </UMLLabProfile:Annotations>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RTqfwO8yEeOflObM3pPwYg" base_Element="_RTp4se8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RTrG0u8yEeOflObM3pPwYg" base_Element="_RTrG0O8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RTsU8O8yEeOflObM3pPwYg" base_Element="_RTrt4O8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RTs8Ae8yEeOflObM3pPwYg" base_Element="_RTsU8e8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RTuKIO8yEeOflObM3pPwYg" base_Element="_RTtjEO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RTxNcO8yEeOflObM3pPwYg" base_Element="_RTwmYe8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RTx0gO8yEeOflObM3pPwYg" base_Element="_RTxNce8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RTx0gu8yEeOflObM3pPwYg" base_Element="_RTx0ge8yEeOflObM3pPwYg"/>
@@ -4789,15 +4915,12 @@ this class.&#xD;
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVivEu8yEeOflObM3pPwYg" base_Element="_RVivEO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVmZcO8yEeOflObM3pPwYg" base_Element="_RVlyYO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVnAge8yEeOflObM3pPwYg" base_Element="_RVmZce8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RVoOoO8yEeOflObM3pPwYg" base_Element="_RVnnkO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVrR8O8yEeOflObM3pPwYg" base_Element="_RVqq4O8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RVr5Ae8yEeOflObM3pPwYg" base_Element="_RVrR8e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVsgEu8yEeOflObM3pPwYg" base_Element="_RVsgEO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVtuMO8yEeOflObM3pPwYg" base_Element="_RVtHIO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVu8UO8yEeOflObM3pPwYg" base_Element="_RVuVQO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVwxge8yEeOflObM3pPwYg" base_Element="_RVwKcO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RVz00O8yEeOflObM3pPwYg" base_Element="_RVzNwO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_RV0b4O8yEeOflObM3pPwYg" base_Element="_RVz00e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RV2REO8yEeOflObM3pPwYg" base_Element="_RV1qAO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RV24IO8yEeOflObM3pPwYg" base_Element="_RV2REe8yEeOflObM3pPwYg"/>
   <UMLLabProfile:LegacyStyledElement xmi:id="_RV3fMO8yEeOflObM3pPwYg" base_Element="_RV24Ie8yEeOflObM3pPwYg"/>
@@ -4815,26 +4938,27 @@ this class.&#xD;
   </uml:OpaqueBehavior>
   <uml:OpaqueBehavior xmi:id="_RWrXgO8yEeOflObM3pPwYg" name="getOwnerImage" specification="_RUjQkO8yEeOflObM3pPwYg">
     <ownedParameter xmi:id="_RWrXge8yEeOflObM3pPwYg" direction="return">
+      <name xsi:nil="true"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedParameter>
     <language>java</language>
     <body>String owner = null;&#xD;
-		&#xD;
+&#xD;
 		Log.d(TAG, &quot;getOwnerImage+&quot;);&#xD;
-		&#xD;
+&#xD;
 		File dir = new File(this.trainDirectory);&#xD;
 		for (File file : dir.listFiles()) {&#xD;
 			if (file.isDirectory()) {&#xD;
 				continue;&#xD;
 			}&#xD;
-			&#xD;
+&#xD;
 			String fn = file.getName();&#xD;
 			if (fn.startsWith(&quot;owner&quot;) &amp;&amp; fn.endsWith(&quot;.png&quot;)) {&#xD;
 				owner = fn;&#xD;
 				break;&#xD;
 			}&#xD;
 		}&#xD;
-		&#xD;
+&#xD;
 		Log.d(TAG, &quot;getOwnerImage- &quot; + owner);&#xD;
 		return owner;&#xD;
 	</body>
@@ -4859,11 +4983,6 @@ this class.&#xD;
   <UMLLabProfile:Reference xmi:id="_RYTvMO8yEeOflObM3pPwYg" base_Element="_RYShEe8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYUWQO8yEeOflObM3pPwYg" base_Element="_RYTvMe8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYVkYO8yEeOflObM3pPwYg" base_Element="_RYUWQe8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Reference xmi:id="_RYWLcO8yEeOflObM3pPwYg" base_Element="_RYVkYe8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Reference xmi:id="_RYXZkO8yEeOflObM3pPwYg" base_Element="_RYWygO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Reference xmi:id="_RYYAoO8yEeOflObM3pPwYg" base_Element="_RYXZke8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Reference xmi:id="_RYZOwO8yEeOflObM3pPwYg" base_Element="_RYYnsO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Reference xmi:id="_RYac4O8yEeOflObM3pPwYg" base_Element="_RYZOwe8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYbrAO8yEeOflObM3pPwYg" base_Element="_RYac4e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYcSEO8yEeOflObM3pPwYg" base_Element="_RYbrAe8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYdgMO8yEeOflObM3pPwYg" base_Element="_RYc5IO8yEeOflObM3pPwYg"/>
@@ -4878,7 +4997,6 @@ this class.&#xD;
   <UMLLabProfile:Reference xmi:id="_RYk08u8yEeOflObM3pPwYg" base_Element="_RYk08O8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYlcAu8yEeOflObM3pPwYg" base_Element="_RYlcAO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYmDEu8yEeOflObM3pPwYg" base_Element="_RYmDEO8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Reference xmi:id="_RYmqIu8yEeOflObM3pPwYg" base_Element="_RYmqIO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYnRMu8yEeOflObM3pPwYg" base_Element="_RYnRMO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYn4Qu8yEeOflObM3pPwYg" base_Element="_RYn4QO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RYofUu8yEeOflObM3pPwYg" base_Element="_RYofUO8yEeOflObM3pPwYg"/>
@@ -4921,8 +5039,37 @@ this class.&#xD;
   <UMLLabProfile:Reference xmi:id="_RY_rsO8yEeOflObM3pPwYg" base_Element="_RY_EoO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RZASwO8yEeOflObM3pPwYg" base_Element="_RY_rse8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RZA50O8yEeOflObM3pPwYg" base_Element="_RZASwe8yEeOflObM3pPwYg"/>
-  <UMLLabProfile:Reference xmi:id="_RZBg4O8yEeOflObM3pPwYg" base_Element="_RZA50e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RZCH8O8yEeOflObM3pPwYg" base_Element="_RZBg4e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RZCvAO8yEeOflObM3pPwYg" base_Element="_RZCH8e8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Reference xmi:id="_RZDWEO8yEeOflObM3pPwYg" base_Element="_RZCvAe8yEeOflObM3pPwYg"/>
+  <UMLLabProfile:Reference xmi:id="_ixVzUO_9EeOro6Du1a1f1w" base_Element="_ixVMQO_9EeOro6Du1a1f1w"/>
+  <UMLLabProfile:Generics xmi:id="_lqvpYO_9EeOro6Du1a1f1w" genericsValue="Byte" base_Element="_RTnccO8yEeOflObM3pPwYg"/>
+  <UMLLabProfile:Array xmi:id="_lq4MQu_9EeOro6Du1a1f1w" dimensions="1" base_Element="_lq3lMO_9EeOro6Du1a1f1w"/>
+  <UMLLabProfile:Generics xmi:id="_lq7PkO_9EeOro6Du1a1f1w" genericsValue="VoiceDAO" base_Element="_lq6BcO_9EeOro6Du1a1f1w"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_lrpoUe_9EeOro6Du1a1f1w" base_Element="_lrpoUO_9EeOro6Du1a1f1w">
+    <associatedElement xmi:type="uml:Operation" xmi:id="_lrq2cO_9EeOro6Du1a1f1w" name="getData" method="_lrvu8O_9EeOro6Du1a1f1w">
+      <ownedParameter xmi:id="_lrq2ce_9EeOro6Du1a1f1w" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrq2cu_9EeOro6Du1a1f1w" value="*"/>
+      </ownedParameter>
+    </associatedElement>
+  </UMLLabProfile:LegacyStyledElement>
+  <UMLLabProfile:Array xmi:id="_lrqPYe_9EeOro6Du1a1f1w" dimensions="1" base_Element="_lrpoUO_9EeOro6Du1a1f1w"/>
+  <UMLLabProfile:Array xmi:id="_lrq2c-_9EeOro6Du1a1f1w" base_Element="_lrq2cO_9EeOro6Du1a1f1w"/>
+  <uml:OpaqueBehavior xmi:id="_lrvu8O_9EeOro6Du1a1f1w" name="getData" specification="_lrq2cO_9EeOro6Du1a1f1w">
+    <ownedParameter xmi:id="_lrwWAO_9EeOro6Du1a1f1w" direction="return">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrwWAe_9EeOro6Du1a1f1w" value="*"/>
+    </ownedParameter>
+    <language>java</language>
+    <body>byte[] result = new byte[this.threadData.size()];&#xD;
+&#xD;
+			for (int i = 0; i &lt; result.length; i++) {&#xD;
+				result[i] = this.threadData.get(i);&#xD;
+			}&#xD;
+&#xD;
+			return result;&#xD;
+		</body>
+  </uml:OpaqueBehavior>
+  <UMLLabProfile:Reference xmi:id="_lr444O_9EeOro6Du1a1f1w" base_Element="_lr4R0O_9EeOro6Du1a1f1w"/>
 </xmi:XMI>

@@ -153,11 +153,10 @@ In order to gather and manage samples compatible with the Recognito library we h
 	\item Audio format: AudioFormat.ENCODING\_PCM\_16BIT
 \end{itemize}
 
-% More random recording stuff..
-The minimum buffer size required by `VoiceDAO'' is device dependant and pre-calculated in the constructor. The class wraps an Android ``AudioRecord'' object used for gathering microphone data. The recording is saved as a file and loaded into memory when needed. The implementation is not efficient, but serves the purpose of the prototype.
+% More DAO recording stuff.
+The minimum buffer size required by ``VoiceDAO'' is device dependant and pre-calculated when data recording is initiated using ``VoiceDAO.startRecord()''. The class wraps an Android ``AudioRecord'' object used for gathering microphone data. When the recording is stopped, data is stored in the object with the option of saving to disk by calling ``VoiceDAO.saveRecording()''. 
 
 % Library Mediator
-%	TODO: implement this!
 The ``VoiceAuthMediator'' class was created to mediate calls to the Recognito library. When initialised, it loads the owner configuration, and a predefined set of background noises. It then creates a ``Recognito'' object and trains it using the data. This is performed using the ``Recognito.createVocalPrint()'' method.
 
 % Getting confidence level
@@ -181,7 +180,6 @@ Face recognition is implemented using a modified version of the ``Javafaces'' li
 We will briefly present the changes made when porting the ``Javafaces'' library. The ``BufferedImage'' class had to be replaced by its closest Android equivalent, which is ``Bitmap''. This required a number of adaptations due to differences between the two classes. For example, ``BufferedImage'' grey-scale images use a single colour channel for the grey intensity value. This had to be changed to the Bitmap format that uses all 3 channels. Additional modifications were required due to data type mismatches, as well as other related issues. Furthermore, The API was modified to support direct ``Bitmap'' input in order to add more flexibility and lighten the main code of the authenticator. 
 
 % Authentication process
-% 	TODO: implement this
 Each predefined time interval the ``FaceService'' authentication thread collects a picture from the camera. Its validity is determined using the Android ``FaceDetector'' class. If the image contains a face it continues to be processed, otherwise the weight decays until a new data sample is collected. The image collection and validation was simplified by developing the ``CameraDAO'' class.
 
 The ``FaceAuthMediator'' class was implemented to mediate calls to the ``Javafaces'' library. When the authentication thread is started, a ``FaceAuthMediator'' is created and used for training the biometric recognizer. It then analyses face data sampled from ``CameraDAO'' in order to produce a result. The return value represents the Euclidean distance between the face captured from the camera and the registered owner face. This distance is transformed into a percentage confidence level using equation \ref{eq:euclideantoprob}, and the decay process is restarted.  

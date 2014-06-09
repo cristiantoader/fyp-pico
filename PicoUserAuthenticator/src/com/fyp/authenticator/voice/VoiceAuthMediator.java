@@ -17,7 +17,7 @@ public class VoiceAuthMediator {
 	/** Reference to recognito library object */
 	private Recognito<String> recognito = new Recognito<String>();
 
-	private static final String TAG = "VoiceDAO";
+	private static final String TAG = "VoiceAuthMediator";
 
 	/**
 	 * Constructor
