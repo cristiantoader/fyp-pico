@@ -104,7 +104,13 @@ public class FaceService extends AuthMechService {
 
 					Log.d(TAG, "taking picture...");
 					Bitmap picture = this.cameraUtil.takePicture();
-
+					
+					if (!FaceAuthMediator.hasFace(picture)) {
+						Log.d(TAG, "No faces in picture.");
+						continue;
+					}
+					
+					Log.d(TAG, "Calculating score.");
 					dscore = this.mediator.getMatch(picture);
 					if (dscore > THRESHOLD) {
 						dscore = THRESHOLD;

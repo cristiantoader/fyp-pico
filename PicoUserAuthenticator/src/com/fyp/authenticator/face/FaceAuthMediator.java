@@ -4,6 +4,8 @@ import java.io.File;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.FaceDetector;
+import android.media.FaceDetector.Face;
 import android.util.Log;
 import facerecognition.javafaces.FaceRec;
 import facerecognition.javafaces.MatchResult;
@@ -113,5 +115,20 @@ public class FaceAuthMediator {
 		
 		Log.d(TAG, "getOwnerImage- " + owner);
 		return owner;
+	}
+	
+	public static boolean hasFace(Bitmap img) {
+		int maxFaces = 10;
+		
+		Face[] faces = new Face[maxFaces];
+		
+		FaceDetector fr = new FaceDetector(
+				img.getWidth() - img.getWidth() % 2, 
+				img.getHeight(), 
+				maxFaces);
+		
+		fr.findFaces(img, faces);
+		
+		return faces.length != 0;
 	}
 }
