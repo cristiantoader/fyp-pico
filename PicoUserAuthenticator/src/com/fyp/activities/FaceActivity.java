@@ -42,13 +42,8 @@ public class FaceActivity extends Activity {
 
 	@Override
 	protected void onPause() {
-		if (mCamera != null) {
-			mCamera.release();
-			mCamera = null;
-		}
-
+		mCamera = null;
 		super.onPause();
 	}
-
 
 }

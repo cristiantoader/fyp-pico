@@ -57,7 +57,7 @@ public class FaceAuthMediator {
 
 		if (r.getMatchSuccess() == false) {
 			Log.d(TAG, "getMatch: No match found!");
-			result = -1;
+			result = Double.MAX_VALUE;
 		} else {
 			Log.d(TAG, "getMatch: Match found!");
 			result = r.getMatchDistance();
@@ -128,14 +128,16 @@ public class FaceAuthMediator {
 	 */
 	public static boolean hasFace(Bitmap img) {
 		int maxFaces = 10;
+		int numFaces = 0;
 
 		Face[] faces = new Face[maxFaces];
 
 		FaceDetector fr = new FaceDetector(img.getWidth() - img.getWidth() % 2,
 				img.getHeight(), maxFaces);
 
-		fr.findFaces(img, faces);
+		numFaces = fr.findFaces(img, faces);
 
-		return faces.length != 0;
+		Log.d(TAG, "hasFace: " + numFaces);
+		return numFaces != 0;
 	}
 }

@@ -72,16 +72,16 @@ public class OwnerPictureCallback implements PictureCallback {
 		options.inPreferredConfig = Bitmap.Config.RGB_565;	
 		
 		if (data == null) {
-			Log.e("FaceService", "null data");
+			Log.e(TAG, "null data");
 			return;
 		}
 
 		bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);
 		if (bmp == null) {
-			Log.e("FaceService", "Decoded bmp is null!");
+			Log.e(TAG, "Decoded bmp is null!");
 			return;
 		} else {
-			Log.d("FaceService", "Decoded bmp is ok!");
+			Log.d(TAG, "Decoded bmp is ok!");
 		}
 		
 		Matrix rotMatrix = new Matrix();
@@ -93,7 +93,6 @@ public class OwnerPictureCallback implements PictureCallback {
 				(int) (0.5 * bmp.getHeight()), true);
 		
 		
-		// TODO: extract face and save face only!
 		FaceDetector.Face[] faces = new FaceDetector.Face[10];
 		this.mFaceDetector = new FaceDetector(bmp.getWidth(), bmp.getHeight(), 10);
 		int numFaces = this.mFaceDetector.findFaces(bmp, faces);
