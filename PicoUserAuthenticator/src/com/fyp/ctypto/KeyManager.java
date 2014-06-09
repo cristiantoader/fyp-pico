@@ -19,6 +19,8 @@ import java.security.cert.CertificateException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Calendar;
+import java.util.Enumeration;
+import java.util.GregorianCalendar;
 
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
@@ -197,9 +199,12 @@ public class KeyManager {
 			ks = KeyStore.getInstance("AndroidKeyStore");
 			ks.load(null);
 			
+			boolean more = ks.aliases().hasMoreElements();
+			
 			KeyStore.PrivateKeyEntry ke = (KeyStore.PrivateKeyEntry)ks.getEntry(ALIAS, null);
 			if (ke == null) {
 				Log.e(TAG, "Null key entry!");
+				return null;
 			}
 			
 			privKey = (RSAPrivateKey) ke.getPrivateKey();
@@ -269,17 +274,17 @@ public class KeyManager {
 	private KeyPairGeneratorSpec generateStandardKeySpec() {
 		KeyPairGeneratorSpec spec = null;
 
-		Calendar notBefore = Calendar.getInstance();
-		Calendar notAfter = Calendar.getInstance();
-		notAfter.add(1, Calendar.YEAR);
+		Calendar start = new GregorianCalendar();
+		Calendar end = new GregorianCalendar();
+		end.add(Calendar.YEAR, 5);
 
 		spec = new KeyPairGeneratorSpec.Builder(ctx)
 				.setAlias(ALIAS)
-				.setSubject(new X500Principal(
-						String.format("CN=%s", ALIAS)))
+				.setSubject(new X500Principal("CN=" + ALIAS))
 				.setSerialNumber(BigInteger.ONE)
-				.setStartDate(notBefore.getTime())
-				.setEndDate(notAfter.getTime()).build();
+				.setStartDate(start.getTime())
+				.setEndDate(end.getTime())
+				.build();
 
 		return spec;
 	}

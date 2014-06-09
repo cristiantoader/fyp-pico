@@ -45,7 +45,8 @@ public class LocationActivity extends Activity {
 				locUtil.stopCollectingLocations();
 				locUtil.saveCollectedLocations("owner-locations.dat");
 				
-				new LocationAuthMediator(LocationActivity.this, "owner-locations.dat").loadOwnerData();
+//				new LocationAuthMediator(LocationActivity.this, "owner-locations.dat")
+//					.loadOwnerData();
 				
 				locUtil = null;
 			}

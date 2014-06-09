@@ -91,7 +91,10 @@ public class LocationService extends AuthMechService {
 					
 					Log.d(TAG, "Getting current location.");
 					Location current = dao.getCurrentLocation();
-
+					if (current == null) {
+						continue;
+					}
+					
 					Log.d(TAG, "Getting score.");
 					double dscore = mediator.getMinDistance(current);
 					dscore = (dscore > THRESHOLD) ? THRESHOLD : dscore;

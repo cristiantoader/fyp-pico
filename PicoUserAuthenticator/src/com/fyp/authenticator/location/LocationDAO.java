@@ -39,12 +39,15 @@ public class LocationDAO {
 		// acquire location
 		Criteria criteria = new Criteria();
 		String provider = lm.getBestProvider(criteria, true);
+		
 		location = lm.getLastKnownLocation(provider);
+		if (location != null) {
+			Log.d(TAG, "getCurrentLocation- " + location.getLatitude() + " "
+					+ location.getLongitude() + " " + location.getProvider());
+		}
 		
 		this.lm.removeUpdates(locationListener);
 
-		Log.d(TAG, "getCurrentLocation- " + location.getLatitude() + " "
-				+ location.getLongitude() + " " + location.getProvider());
 		return location;
 	}
 
