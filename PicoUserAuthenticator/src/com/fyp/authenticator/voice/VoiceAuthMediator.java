@@ -38,7 +38,7 @@ public class VoiceAuthMediator {
 	private void trainRecognito() {
 		Log.i(TAG, "trainRecognito+");
 
-		VoiceDAO owner = new VoiceDAO(this.ctx, "owner.3gp");
+		VoiceDAO owner = new VoiceDAO(this.ctx, "owner.3gp", false);
 		LinkedList<VoiceDAO> noises = VoiceDAO.getNoiseDAOs(this.ctx);
 		
 		// check for owner data.

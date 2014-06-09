@@ -83,7 +83,7 @@ public class VoiceActivity extends Activity {
 		}
 		
 		private void startRecording() {
-			this.record = new VoiceDAO(VoiceActivity.this, this.fileName);
+			this.record = new VoiceDAO(VoiceActivity.this, this.fileName, true);
 			this.record.startRecord();
 		}
 

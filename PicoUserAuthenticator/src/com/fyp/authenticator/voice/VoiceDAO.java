@@ -29,6 +29,9 @@ public class VoiceDAO {
 
 	/** Variable stating if recording was saved. */
 	private boolean recordingSaved = false;
+	
+	/** Determines whether the recording will be saved on disk. */
+	private boolean save = false;
 
 	/** Audio record data. */
 	private static final int SAMPLE_RATE = 44100;
@@ -48,7 +51,7 @@ public class VoiceDAO {
 
 	public static final String OWNER_FN = "owner.3gp";
 
-	public VoiceDAO(Context context, String fileName) {
+	public VoiceDAO(Context context, String fileName, boolean save) {
 		this.ctx = context.getApplicationContext();
 
 		this.fileName = fileName;
@@ -74,8 +77,22 @@ public class VoiceDAO {
 		this.rt = null;
 
 		this.recordingSaved = true;
+		
+		// delete file data if not desired
+		if (save) {
+			deleteRecording();
+		}
 	}
 
+	private void deleteRecording() {
+		if (new File(getAbsoluteFilePath()).exists()) {
+			Log.d(TAG, "Deleting recording.");
+			new File(getAbsoluteFilePath()).delete();
+		} else {
+			Log.d(TAG, "Recording does not exist!");
+		}
+	}
+	
 	public static int getSampleRate() {
 		return SAMPLE_RATE;
 	}
@@ -227,7 +244,7 @@ public class VoiceDAO {
 		for (String fn : dir.list()) {
 			if (fn.startsWith("noise") && fn.endsWith(".3gp")) {
 				Log.d(TAG, "Added noise file: " +fn);
-				noises.add(new VoiceDAO(ctx, fn));
+				noises.add(new VoiceDAO(ctx, fn, false));
 			}
 		}
 		
