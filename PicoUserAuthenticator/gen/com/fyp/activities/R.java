@@ -47,7 +47,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_face=0x7f030000;
         public static final int activity_location=0x7f030001;
         public static final int activity_pico_main=0x7f030002;
-        public static final int activity_recognito=0x7f030003;
+        public static final int activity_voice=0x7f030003;
     }
     public static final class string {
         public static final int Capture=0x7f04000b;

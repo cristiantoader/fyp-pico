@@ -105,7 +105,7 @@ public class VoiceActivity extends Activity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
-		setContentView(R.layout.activity_recognito);
+		setContentView(R.layout.activity_voice);
 
 		this.mRecordButton = (Button) findViewById(R.id.ButtonRecognitoRecord);
 		this.mRecordButton.setOnClickListener(clickerRecord);
