@@ -1,14 +1,10 @@
 package com.fyp.activities;
 
-import java.io.File;
-
-import com.fyp.authenticator.voice.VoiceAuthMediator;
 import com.fyp.authenticator.voice.VoiceDAO;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,18 +13,26 @@ import android.widget.EditText;
 public class VoiceActivity extends Activity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "AudioRecordTest";
-	private static final String FILE_NAME = "owner.3gp";
+	
 
+	/** Text box used for displaying current recording time. */
 	private EditText timerDisplay = null;
 
-	private Button mRecordButton = null;
-	private Button mSaveButton = null;
-
-	OnClickListener clickerRecord = new OnClickListener() {
-		private boolean recording = false;
+	/** Owner record button. */
+	private Button mRecordOwnerButton = null;
+	/** Noise record button.*/
+	private Button mRecordBackgroundButton = null;
+	
+	private class AuthRecordListener implements OnClickListener {
+		/** Recording start time. */
 		private long mStartTime = 0;
+		
+		/** VoiceDAO object used for managing recorded data.*/
 		private VoiceDAO record = null;
-
+		
+		/** File name of recorded data.*/
+		private String fileName = null;
+		
 		private Handler timerHandler = new Handler();
 		private Runnable timerRunable = new Runnable() {
 			@Override
@@ -39,11 +43,33 @@ public class VoiceActivity extends Activity {
 				seconds = seconds % 60;
 
 				timerDisplay.setText(String.format("%d:%02d", minutes, seconds));
-
 				timerHandler.postDelayed(this, 500);
 			}
 
 		};
+		
+		public AuthRecordListener(boolean isOwner) {
+			if (isOwner) {
+				this.fileName = VoiceDAO.OWNER_FN;
+			} else {
+				this.fileName = VoiceDAO.getNoiseFileName(VoiceActivity.this);
+			}
+		}
+
+		public void onClick(View v) {
+			// start recording
+			if (!isRecording()) {
+				startTimer();
+				startRecording();
+				mRecordOwnerButton.setText("Stop");
+				
+			// stop recording
+			} else {
+				stopTimer();
+				stopRecording();
+				mRecordOwnerButton.setText("Record");
+			}
+		}
 
 		private void startTimer() {
 			this.mStartTime = System.currentTimeMillis();
@@ -55,50 +81,21 @@ public class VoiceActivity extends Activity {
 			this.mStartTime = 0;
 			timerHandler.removeCallbacks(timerRunable);
 		}
-
-		public void onClick(View v) {
-			if (recording == false) {
-				startTimer();
-				startRecording();
-				mRecordButton.setText("Stop");
-
-			} else {
-				stopTimer();
-				stopRecording();
-				mRecordButton.setText("Record");
-			}
-		}
-
+		
 		private void startRecording() {
-			this.recording = true;
-			this.record = new VoiceDAO(VoiceActivity.this, FILE_NAME);
+			this.record = new VoiceDAO(VoiceActivity.this, this.fileName);
 			this.record.startRecord();
 		}
 
 		private void stopRecording() {
-			this.recording = false;
 			this.record.stopRecord();
+			this.record = null;
+		}
+		
+		private boolean isRecording() {
+			return this.record == null;
 		}
 
-	};
-
-	OnClickListener clickerTest = new OnClickListener() {
-
-		public void onClick(View v) {
-			if (recordingExists()) {
-				Log.i("RecognitoActivity", "recording exists!");
-
-				@SuppressWarnings("unused")
-				VoiceAuthMediator voiceDAO = new VoiceAuthMediator(VoiceActivity.this);
-
-			} else {
-				Log.i("RecognitoActivity", "recording not present!");
-			}
-		}
-
-		private boolean recordingExists() {
-			return new File(getFilesDir() + "/" + FILE_NAME).exists();
-		}
 	};
 
 	@Override
@@ -107,11 +104,11 @@ public class VoiceActivity extends Activity {
 
 		setContentView(R.layout.activity_voice);
 
-		this.mRecordButton = (Button) findViewById(R.id.ButtonRecognitoRecord);
-		this.mRecordButton.setOnClickListener(clickerRecord);
+		this.mRecordOwnerButton = (Button) findViewById(R.id.ButtonRecognitoRecordOwner);
+		this.mRecordOwnerButton.setOnClickListener(new  AuthRecordListener(true));
 
-		this.mSaveButton = (Button) findViewById(R.id.ButtonRecognitoTest);
-		this.mSaveButton.setOnClickListener(clickerTest);
+		this.mRecordBackgroundButton = (Button) findViewById(R.id.ButtonRecognitoRecordBackground);
+		this.mRecordBackgroundButton.setOnClickListener(new  AuthRecordListener(false));
 
 		this.timerDisplay = (EditText) findViewById(R.id.timer1);
 	}

@@ -9,7 +9,8 @@
     <string name="Recognito">Recognito</string>
     <string name="Face">Face</string>
     <string name="Location">Location</string>
-    <string name="Record">Record</string>
+    <string name="RecordOwner">Record Owner</string>
+    <string name="AddBackground">Record Noise</string>
     <string name="Play">Play</string>
     <string name="Test">Test</string>
     <string name="Capture">Capture</string>

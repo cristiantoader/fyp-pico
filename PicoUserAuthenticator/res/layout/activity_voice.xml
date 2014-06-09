@@ -21,25 +21,24 @@
         android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
         <Button
-            android:id="@+id/ButtonRecognitoRecord"
+            android:id="@+id/ButtonRecognitoRecordOwner"
             style="?buttonBarButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.33"
             android:background="@color/black_overlay"
-            android:text="@string/Record" />
+            android:text="@string/RecordOwner" />
         
-        <Button
-            android:id="@+id/ButtonRecognitoTest"
+         <Button
+            android:id="@+id/ButtonRecognitoRecordBackground"
             style="?buttonBarButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.33"
             android:background="@color/black_overlay"
-            android:text="@string/Test" />
+            android:text="@string/AddBackground" />       
+            
     </LinearLayout>
 
 </LinearLayout>

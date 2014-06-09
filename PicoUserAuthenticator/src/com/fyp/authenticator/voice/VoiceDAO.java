@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
@@ -36,15 +37,19 @@ public class VoiceDAO {
 	private static final String TAG = "VoideDAO";
 	private int minBufferSize = 0;
 
-	/** Audio file data. */
+	/** Audio file name. */
 	private String fileName = null;
+	/** Audio file path. */
 	private String filePath = null;
-	
+
+	/** Android context used with the class. */
 	private Context ctx = null;
+
+	public static final String OWNER_FN = "owner.3gp";
 
 	public VoiceDAO(Context context, String fileName) {
 		this.ctx = context.getApplicationContext();
-		
+
 		this.fileName = fileName;
 		this.filePath = context.getFilesDir().toString();
 
@@ -80,14 +85,15 @@ public class VoiceDAO {
 	 * @return recording data from the record saved in internal memory.
 	 */
 	public double[] getOwnerData() {
-		KeyManager km = null;;
-		
+		KeyManager km = null;
+		;
+
 		FileInputStream fis = null;
 		CipherInputStream cis = null;
 
 		double[] result = null;
 		int fileSize = 0;
-		
+
 		Log.d(TAG, "getOwnerData+");
 
 		if (doneRecoring() == false && !hasRecording()) {
@@ -96,7 +102,7 @@ public class VoiceDAO {
 
 		try {
 			km = KeyManager.getInstance(ctx);
-			
+
 			fis = new FileInputStream(getAbsoluteFilePath());
 			cis = new CipherInputStream(fis, km.getDecryptionCipher());
 
@@ -104,10 +110,10 @@ public class VoiceDAO {
 			result = new double[fileSize];
 
 			int i = 0, val = 0;
-			while((val = cis.read()) != -1) {
+			while ((val = cis.read()) != -1) {
 				result[i++] = (((double) val) / 128) - 1;
 			}
-			
+
 			cis.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -168,7 +174,7 @@ public class VoiceDAO {
 
 			try {
 				km = KeyManager.getInstance(ctx);
-				
+
 				fos = new FileOutputStream(getAbsoluteFilePath());
 				cos = new CipherOutputStream(fos, km.getEncryptionCipher());
 
@@ -190,5 +196,23 @@ public class VoiceDAO {
 			}
 
 		}
+	}
+
+	/**
+	 * Generates an unique noise file name.
+	 * 
+	 * @param ctx
+	 *            Context used for current path.
+	 * @return The noise file name.
+	 */
+	public static String getNoiseFileName(Context ctx) {
+		String fn = null;
+
+		do {
+			fn = "noise" + new Random().nextInt() + ".3gp";
+
+		} while (!new File(ctx.getFilesDir() + "/" + fn).exists());
+
+		return fn;
 	}
 }

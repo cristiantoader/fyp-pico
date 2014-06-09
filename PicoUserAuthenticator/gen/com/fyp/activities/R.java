@@ -32,8 +32,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ButtonLocation=0x7f07000e;
         public static final int ButtonLocationStart=0x7f070005;
         public static final int ButtonLocationStop=0x7f070006;
-        public static final int ButtonRecognitoRecord=0x7f07000f;
-        public static final int ButtonRecognitoTest=0x7f070010;
+        public static final int ButtonRecognitoRecordBackground=0x7f070010;
+        public static final int ButtonRecognitoRecordOwner=0x7f07000f;
         public static final int ButtonVoice=0x7f07000c;
         public static final int LinearLayout1=0x7f070004;
         public static final int LinearLayoutRecognito=0x7f070000;
@@ -50,13 +50,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_voice=0x7f030003;
     }
     public static final class string {
-        public static final int Capture=0x7f04000b;
+        public static final int AddBackground=0x7f040009;
+        public static final int Capture=0x7f04000c;
         public static final int Face=0x7f040006;
         public static final int Location=0x7f040007;
-        public static final int Play=0x7f040009;
+        public static final int Play=0x7f04000a;
         public static final int Recognito=0x7f040005;
-        public static final int Record=0x7f040008;
-        public static final int Test=0x7f04000a;
+        public static final int RecordOwner=0x7f040008;
+        public static final int Test=0x7f04000b;
         public static final int app_name=0x7f040000;
         public static final int dummy_button=0x7f040001;
         public static final int pause=0x7f040003;
