@@ -131,7 +131,7 @@ public class PicoMainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			startActivity(new Intent(PicoMainActivity.this,
-					RecognitoActivity.class));
+					VoiceActivity.class));
 		}
 	};
 

@@ -6,7 +6,7 @@
     android:background="#ffffff"
     android:gravity="bottom"
     android:orientation="vertical"
-    tools:context=".RecognitoActivity" >
+    tools:context=".VoiceActivity" >
 
     <EditText
         android:id="@+id/timer1"

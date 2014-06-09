@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class RecognitoActivity extends Activity {
+public class VoiceActivity extends Activity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "AudioRecordTest";
 	private static final String FILE_NAME = "owner.3gp";
@@ -71,7 +71,7 @@ public class RecognitoActivity extends Activity {
 
 		private void startRecording() {
 			this.recording = true;
-			this.record = new VoiceDAO(RecognitoActivity.this, FILE_NAME);
+			this.record = new VoiceDAO(VoiceActivity.this, FILE_NAME);
 			this.record.startRecord();
 		}
 
@@ -89,7 +89,7 @@ public class RecognitoActivity extends Activity {
 				Log.i("RecognitoActivity", "recording exists!");
 
 				@SuppressWarnings("unused")
-				VoiceAuthMediator voiceDAO = new VoiceAuthMediator(RecognitoActivity.this);
+				VoiceAuthMediator voiceDAO = new VoiceAuthMediator(VoiceActivity.this);
 
 			} else {
 				Log.i("RecognitoActivity", "recording not present!");
