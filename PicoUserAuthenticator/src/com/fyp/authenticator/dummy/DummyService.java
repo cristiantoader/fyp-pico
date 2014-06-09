@@ -6,9 +6,6 @@ import com.fyp.authenticator.AuthMechService;
 
 public class DummyService extends AuthMechService {
 
-	/** Dummy data DAO. */
-	private DummyAuthMediator dummyDAO = null;
-
 	/** Thread used to periodically authenticate the user and broadcast result. */
 	private AuthenticatorThread authThread = null;
 
@@ -34,10 +31,6 @@ public class DummyService extends AuthMechService {
 			authThread = null;
 		}
 
-		if (dummyDAO != null) {
-			dummyDAO = null;
-		}
-
 		this.decayTimer.stopTimer();
 	}
 
@@ -51,6 +44,9 @@ public class DummyService extends AuthMechService {
 		private static final int AUTH_PERIOD = 5000;
 		private volatile boolean stop;
 
+		/** Dummy data DAO. */
+		private DummyAuthMediator dummyDAO = null;
+		
 		public AuthenticatorThread() {
 			this.stop = false;
 		}

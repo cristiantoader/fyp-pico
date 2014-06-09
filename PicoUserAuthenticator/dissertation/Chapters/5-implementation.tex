@@ -2,9 +2,9 @@
 
 \chapter{Implementation Prototype} % Main chapter title
 
-\label{Chapter4} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{Chapter5} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-\lhead{Chapter 4. \emph{Implementation Prototype}} 
+\lhead{Chapter 5. \emph{Implementation Prototype}} 
 % Introduction for implementation
 In this chapter we have developed a prototype for the scheme proposed in section \ref{propopsedsol}. We have chosen as an implementation platform the Android Nexus 5 smart phone. The device offers enough sensors to perform biometric and behavioural analysis \footnote{The full range of sensors supported by the Android platform can be found here: http://developer.android.com/guide/topics/sensors/sensors\_overview.html (accessed on 28.05.2014)}. These resources will be used to demonstrate that the scheme can be implemented using similar dedicated hardware that may offer more security features.
 
@@ -25,17 +25,23 @@ Each authentication mechanism that participates in the scheme may have different
 % Introduction (can expand)
 This section presents the implementation of the design proposed in section \ref{propopsedsol}. The full source code for the prototype can be downloaded from github \footnote{https://github.com/cristiantoader/fyp-pico}. 
 
-The structure of the Android application is presented in figure \ref{fig:overview}. Each colour represents an Android component (e.g. activity, service). This should provide a better understanding of the overall design. A detailed UML diagram could not be included with this dissertation, but can be downloaded from github \footnote{https://github.com/cristiantoader/fyp-pico/blob/master/PicoUserAuthenticator/dissertation/Pictures/detailed-uml.png}.
+The structure of the Android application is presented in figure \ref{fig:overview}. Each colour represents an Android component (e.g. activity, service). This should provide a better understanding of the overall design. A full detailed UML diagram could not be included with this dissertation, but can be downloaded from github \footnote{https://github.com/cristiantoader/fyp-pico/blob/master/PicoUserAuthenticator/dissertation/Pictures/detailed-uml.png}.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{Pictures/overview-uml}
+    \includegraphics[width=0.7\textwidth]{Pictures/overview-uml}
     \caption{Authenticator design overview}
     \label{fig:overview}
 \end{figure}
 
 \subsection{UAService}
 % UAService
-The token unlocking mechanism is started using the ``PicoMainActivity'' class, which acts as a Pico client. The scheme itself is developed to be used by binding the ``UAService'' component.
+The token unlocking mechanism is started using the ``PicoMainActivity'' class, which acts as a Pico client. The scheme itself is developed to be used by binding the ``UAService'' component. An UML diagram of the different components related to ``UAService'' is attached in figure \ref{fig:uaservice}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Pictures/uaservice}
+    \caption{UAService components}
+    \label{fig:uaservice}
+\end{figure}
 
 % UAService and lifetime
 ``PicoMainActivity'' starts ``UAService'' using the ``Context.startService()'' method. Communication is enabled by binding to ``UAService'' using ``Context.bindService()''. This approach protects the lifetime of the authenticator. When ``PicoMainActivity'' gets sent to background and loses control of the screen, ``UAService'' is not explicitly unbound. This guarantees that the service will continue running in the background, and should also prevent malicious components from stopping it. 
@@ -72,7 +78,6 @@ Each authentication mechanism service extends the ``AuthMechService'' abstract c
   
 \subsection{Authentication mechanisms}
 \label{implauthmech}
-
 % Introduction for authentication mechanisms
 In order to create a functional prototype, we have implemented a number user authentication mechanisms. The result quality of each mechanisms is outside the scope of this project. Their sole purpose is to demonstrate that sensor data offered by smart phones can be used to implement biometric and behavioural analysis.
 
@@ -86,7 +91,13 @@ When developing an individual authentication mechanism, the following abstract r
 A list of authentication mechanism examples that can be implemented on the Android platform is presented in appendix \ref{AppendixC}.
 
 % AuthMechService functionality
-Each mechanism developed for this scheme extends the ``AuthMechService'' abstract class. As mentioned, this class defines the mechanism as a bound service. The communication with ``UAService'' is standardized by implementing ``Service.onBind()'' to register the same ``IncomingHandler'' implementation. Furthermore, ``AuthMechService'' defines the decay implementation of a mechanism's weight. This is developed using a ``Handler'' object that schedules a ``Runnable'' to execute at a predefined time interval. The ``Runnable'' is responsible for decreasing the mechanism's weight and sending the result to the corresponding ``AuthMech''.
+Each mechanism developed for this scheme extends the ``AuthMechService'' abstract class. As mentioned, this class defines the mechanism as a bound service. The communication with ``UAService'' is standardized by implementing ``Service.onBind()'' to register the same ``IncomingHandler'' implementation. Furthermore, ``AuthMechService'' defines the decay implementation of a mechanism's weight. This is developed using a ``Handler'' object that schedules a ``Runnable'' to execute at a predefined time interval. The ``Runnable'' is responsible for decreasing the mechanism's weight and sending the result to the corresponding ``AuthMech''. Figure \ref{fig:authmechservice} provides an overview of the components interacting with ``AuthMechService''.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Pictures/authmechservice}
+    \caption{AuthMechService components overview.}
+    \label{fig:authmechservice}
+\end{figure}
 
 % General application design
 Although it is not enforced, each authentication mechanism has the same general design. The mechanism's ``Service.onCreate()'' method initialises the weight of the mechanism, and starts a thread responsible for periodically collecting sensor data using an access object (DAO). The samples are analysed using a class that mediates interaction with other components and libraries. After each successful analysis, the result is sent back to the corresponding ``AuthMech'' and the decay process is started using ``AuthMechService.startDecay()''.
@@ -107,14 +118,26 @@ The following mechanisms have been implemented as part of the prototype: voice r
 
 \subsubsection{Dummy mechanism}
 % Introduction: what it does, why it was developed
-A dummy authentication mechanism was developed for testing the overall scheme. It produces random confidence levels within a predefined range, which provides a controlled testing environment.
+A dummy authentication mechanism was developed for testing the overall scheme. It produces random confidence levels within a predefined range, which provides a controlled testing environment. An overview of the components involved in the dummy mechanism are shown in figure \ref{fig:dummy}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Pictures/dummy}
+    \caption{Dummy mechanism}
+    \label{fig:dummy}
+\end{figure}
 
 % General implementation detail
 The mechanism was developed in the ``DummyService'' class and was designed consistently with the application model. Its ``DummyService.onCreate()'' method creates an authentication thread that periodically generates random values and sends them to ``UAService''. It does not use any DAO, in order not to over complicate its implementation. The random values are generated using a ``DummyAuthMediator'' object. Once the mechanism's confidence level is calculated, the weight decay process is started using ``AuthMechService.startDecay()'' and result updates are sent back to ``UAService''.
 
 \subsubsection{Voice recognition}
 % Introduction to mechanism
-The voice recognition mechanism is implemented in the ``VoiceService'' class and extends the ``AuthMechService'' abstract class. The ``VoiceService.onCreate()'' method starts a thread that periodically gathers data from the microphone, performs biometric authentication, and produces a confidence level.
+The voice recognition mechanism is implemented in the ``VoiceService'' class and extends the ``AuthMechService'' abstract class. The ``VoiceService.onCreate()'' method starts a thread that periodically gathers data from the microphone, performs biometric authentication, and produces a confidence level. An overview of the components involved in this mechanism is presented in figure \ref{fig:voice}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Pictures/voice}
+    \caption{Voice recognition overview.}
+    \label{fig:voice}
+\end{figure}
 
 % Library used for implementation
 The library used for biometric voice recognition is called Recognito \footnote{The library can be downloaded using github from the following link: https://github.com/amaurycrickx/recognito}, and was developed by Amaury Crickx. It uses a text independent speaker recognition algorithm developed in Java (SE). Its author claims very good results in scenarios with minimal background noise \footnote{It was tested by its author on TED talks such as:  https://www.ted.com/talks/browse (visited on 06.01.2014)}.
@@ -143,7 +166,13 @@ Every predefined time interval, the ``VoiceService'' authentication thread recor
 \subsubsection{Face recognition}
 \label{implface}
 % Introduction: brief description of the implementation
-The face recognition mechanism was implemented in the ``FaceService'' class and extends ``AuthMechService''. When created, the service starts an authentication thread that periodically collects data from the camera, performs biometric face recognition, and produces a confidence level.
+The face recognition mechanism was implemented in the ``FaceService'' class and extends ``AuthMechService''. When created, the service starts an authentication thread that periodically collects data from the camera, performs biometric face recognition, and produces a confidence level. An overview of the components involved in the face recognition mechanism is shown in figure \ref{fig:face}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Pictures/face}
+    \caption{Face recognition overview.}
+    \label{fig:face}
+\end{figure}
 
 % Javafaces library
 Face recognition is implemented using a modified version of the ``Javafaces'' library \footnote{The ``JavaFaces'' library is maintained at the following address: https://code.google.com/p/javafaces/}. It is written entirely using Java (SE), but unfortunately uses the ``javax.imageio.'' package that is not available in the Android API. A considerable amount of code needed to be ported for the Android platform. Although not currently optimised for public use, the new library is available at the following link: https://github.com/cristiantoader/JavafacesLib.
@@ -171,7 +200,13 @@ The library combined with the Android SDK does not provide accurate results. The
 
 \subsubsection{Location analysis}
 % Introduction: short description of the mechanism
-This mechanism is based on gathering location data and using it to generate a probability that the owner is present. This is implemented in the ``LocationService'' class and extends the ``AuthMechService'' abstract class. Data is collected periodically using the ``LocationManager'' provided by the Android API.
+This mechanism is based on gathering location data and using it to generate a probability that the owner is present. This is implemented in the ``LocationService'' class and extends the ``AuthMechService'' abstract class. Data is collected periodically using the ``LocationManager'' provided by the Android API. An overview of the components involved in the location analysis mechanism is shown in figure \ref{fig:location}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Pictures/location}
+    \caption{Location analysis overview.}
+    \label{fig:location}
+\end{figure}
 
 % DAO object used for collecting data
 A DAO object is used to mediate Android API calls and manage the existing owner configuration. It is implemented in the ``LocationDAO'' class. It offers functionality for gathering and saving location updates. It is developed to use the most accurate data provider. The Android API offers the following sources of collecting ``Location'' data:
@@ -198,13 +233,19 @@ Each configuration Activity uses the same DAO class as its corresponding authent
 \subsection{Cryptographic protection}
 All biometric data registered by the owner and used by the mechanisms is stored in internal memory. This is protected by the Linux permissions model, and provides sufficient security from other applications. However, if an attacker acquires ``root'' privileges, the biometric files would be completely exposed. To add an additional layer of security, we have included cryptographic protection of owner data.
 
-The cryptographic layer is implemented in the ``KeyManager'' class. It uses the ``KeyStore'' API in order to keep an RSA key pair securely stored. Starting with Android 4.3, credentials stored in the Android ``KeyStore'' are not extractable because they are hardware secured using: Secure Element, TPM, or TrustZone. The securely stored RSA key pair is used to decrypt an AES master key that is kept encrypted in the app's internal memory. Once it is retrieved, the AES master key is used for encryption/decryption of configuration files.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Pictures/keymanager}
+    \caption{KeyManager overview.}
+    \label{fig:keymanager}
+\end{figure}
+The cryptographic layer is implemented in the ``KeyManager'' class. An overview of the class structure can be seen in figure \ref{fig:keymanager}. It uses the ``KeyStore'' API in order to keep an RSA key pair securely stored. Starting with Android 4.3, credentials stored in the Android ``KeyStore'' are not extractable because they are hardware secured using: Secure Element, TPM, or TrustZone. The securely stored RSA key pair is used to decrypt an AES master key that is kept encrypted in the app's internal memory. Once it is retrieved, the AES master key is used for encryption/decryption of configuration files.
 
 All mechanisms except for face recognition use this cryptographic layer to keep data encrypted in internal memory. The face recognition mechanism does not support this feature due to the ``Javafaces'' library, which is implemented to process image files independently with no cryptographic support. 
 
 \section{Conclusion}
 % Small overall
-We have described the Activity and Service components developed for the prototype, as well as their communication flow. We have ported two biometric libraries and developed a location analysis mechanism. DAO objects facilitate cryptographic access to owner configuration files, and additional classes mediate the calls to external libraries. An overview of the app design can be seen in figure \ref{TODO}.
+We have described the Activity and Service components developed for the prototype, as well as their communication flow. We have ported two biometric libraries and developed a location analysis mechanism. DAO objects facilitate cryptographic access to owner configuration files, and additional classes mediate the calls to external libraries. An overview of the app design is available on github \footnote{https://github.com/cristiantoader/fyp-pico/blob/master/PicoUserAuthenticator/dissertation/Pictures/detailed-uml.png}.
 
 % Limitations and solutions
 One of the limitations of the prototype is the lack of explicit authentication mechanisms. Another issue is the precision of the biometric mechanisms, in the lack of better libraries. However, due to the modular design of the application, existing mechanisms can be improved simply by importing a new library and modifying the corresponding mediator class. The existing set of mechanisms can be increased by creating a new class that extends ``AuthMechService'' and implements the algorithm's logic. In order to be managed by ``UAService'', the new mechanism needs to be included in the ``UserAuthenticator.initAvailableDevices()'' method.

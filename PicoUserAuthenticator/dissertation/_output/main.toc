@@ -1,49 +1,51 @@
-\contentsline {chapter}{Abstract}{i}{dummy.1}
+\contentsline {chapter}{Declaration of Originality}{i}{dummy.1}
 \vspace {1em}
-\contentsline {chapter}{Acknowledgements}{ii}{dummy.2}
+\contentsline {chapter}{Abstract}{ii}{dummy.2}
 \vspace {1em}
-\contentsline {chapter}{Contents}{iii}{dummy.3}
-\contentsline {chapter}{List of Figures}{v}{dummy.5}
-\contentsline {chapter}{List of Tables}{vi}{dummy.7}
-\contentsline {chapter}{Abbreviations}{vii}{dummy.9}
-\contentsline {chapter}{Symbols}{viii}{dummy.12}
-\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.15}
-\contentsline {chapter}{\numberline {2}Pico: no more passwords!}{5}{chapter.16}
-\contentsline {chapter}{\numberline {3}Assessment framework}{9}{chapter.18}
-\contentsline {section}{\numberline {3.1}UDS assessment framework}{9}{section.19}
-\contentsline {section}{\numberline {3.2}Token unlocking framework}{11}{section.21}
-\contentsline {section}{\numberline {3.3}Picosiblings evaluation}{16}{section.25}
-\contentsline {section}{\numberline {3.4}Conclusions}{17}{section.27}
-\contentsline {chapter}{\numberline {4}Design}{19}{chapter.29}
-\contentsline {section}{\numberline {4.1}Design requirements}{19}{section.30}
-\contentsline {section}{\numberline {4.2}Proposed solution}{20}{section.32}
-\contentsline {subsection}{\numberline {4.2.1}Explicit authentication}{21}{subsection.35}
-\contentsline {section}{\numberline {4.3}Related work}{24}{section.43}
-\contentsline {section}{\numberline {4.4}Conclusions}{26}{section.46}
-\contentsline {chapter}{\numberline {5}Implementation Prototype}{27}{chapter.47}
-\contentsline {section}{\numberline {5.1}Implementation overview}{27}{section.49}
-\contentsline {section}{\numberline {5.2}Implementation details}{28}{section.52}
-\contentsline {subsection}{\numberline {5.2.1}UAService}{29}{subsection.56}
-\contentsline {subsection}{\numberline {5.2.2}Authentication mechanisms}{30}{subsection.58}
-\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{32}{subsubsection.63}
-\contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{32}{subsubsection.64}
-\contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{34}{subsubsection.67}
-\contentsline {subsubsection}{\numberline {5.2.2.4}Location analysis}{35}{subsubsection.69}
-\contentsline {subsection}{\numberline {5.2.3}Owner configuration}{36}{subsection.70}
-\contentsline {subsection}{\numberline {5.2.4}Cryptographic protection}{36}{subsection.71}
-\contentsline {section}{\numberline {5.3}Conclusion}{37}{section.72}
-\contentsline {section}{\numberline {5.4}Related work}{38}{section.73}
-\contentsline {chapter}{\numberline {6}Evaluation}{40}{chapter.74}
-\contentsline {section}{\numberline {6.1}Threat model}{40}{section.75}
-\contentsline {section}{\numberline {6.2}Functional evaluation}{45}{section.82}
-\contentsline {section}{\numberline {6.3}Token unlocking framework evaluation}{45}{section.83}
-\contentsline {section}{\numberline {6.4}UDS framework evaluation}{47}{section.86}
-\contentsline {section}{\numberline {6.5}Future work}{48}{section.88}
-\contentsline {section}{\numberline {6.6}Conclusions}{49}{section.89}
+\contentsline {chapter}{Acknowledgements}{iii}{dummy.3}
+\vspace {1em}
+\contentsline {chapter}{Contents}{iv}{dummy.4}
+\contentsline {chapter}{List of Figures}{vi}{dummy.6}
+\contentsline {chapter}{List of Tables}{vii}{dummy.8}
+\contentsline {chapter}{Abbreviations}{viii}{dummy.10}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.13}
+\contentsline {chapter}{\numberline {2}Pico: no more passwords!}{5}{chapter.14}
+\contentsline {chapter}{\numberline {3}Assessment framework}{9}{chapter.16}
+\contentsline {section}{\numberline {3.1}UDS assessment framework}{9}{section.17}
+\contentsline {section}{\numberline {3.2}Token unlocking framework}{11}{section.19}
+\contentsline {section}{\numberline {3.3}Picosiblings evaluation}{16}{section.23}
+\contentsline {section}{\numberline {3.4}Conclusions}{17}{section.25}
+\contentsline {chapter}{\numberline {4}Design}{19}{chapter.27}
+\contentsline {section}{\numberline {4.1}Design requirements}{19}{section.28}
+\contentsline {section}{\numberline {4.2}Proposed solution}{20}{section.30}
+\contentsline {subsection}{\numberline {4.2.1}Explicit authentication}{21}{subsection.33}
+\contentsline {section}{\numberline {4.3}Related work}{24}{section.41}
+\contentsline {section}{\numberline {4.4}Conclusions}{26}{section.44}
+\contentsline {chapter}{\numberline {5}Implementation Prototype}{27}{chapter.45}
+\contentsline {section}{\numberline {5.1}Implementation overview}{27}{section.47}
+\contentsline {section}{\numberline {5.2}Implementation details}{28}{section.50}
+\contentsline {subsection}{\numberline {5.2.1}UAService}{29}{subsection.54}
+\contentsline {subsection}{\numberline {5.2.2}Authentication mechanisms}{31}{subsection.57}
+\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{34}{subsubsection.63}
+\contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{35}{subsubsection.65}
+\contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{37}{subsubsection.69}
+\contentsline {subsubsection}{\numberline {5.2.2.4}Location analysis}{40}{subsubsection.72}
+\contentsline {subsection}{\numberline {5.2.3}Owner configuration}{41}{subsection.74}
+\contentsline {subsection}{\numberline {5.2.4}Cryptographic protection}{42}{subsection.75}
+\contentsline {section}{\numberline {5.3}Conclusion}{43}{section.77}
+\contentsline {section}{\numberline {5.4}Related work}{43}{section.79}
+\contentsline {chapter}{\numberline {6}Evaluation}{46}{chapter.80}
+\contentsline {section}{\numberline {6.1}Threat model}{46}{section.81}
+\contentsline {section}{\numberline {6.2}Functional evaluation}{51}{section.88}
+\contentsline {section}{\numberline {6.3}Token unlocking framework evaluation}{51}{section.89}
+\contentsline {section}{\numberline {6.4}UDS framework evaluation}{53}{section.92}
+\contentsline {section}{\numberline {6.5}Future work}{54}{section.94}
+\contentsline {section}{\numberline {6.6}Conclusions}{55}{section.95}
 \vspace {2em}
-\contentsline {chapter}{\numberline {A}Android development and security}{51}{appendix.90}
-\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{57}{appendix.106}
-\contentsline {subsection}{\numberline {B.0.1}Face unlock}{58}{subsection.111}
-\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{60}{appendix.112}
+\contentsline {chapter}{\numberline {A}Android development and security}{56}{appendix.96}
+\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{62}{appendix.112}
+\contentsline {section}{\numberline {B.1}PIN}{62}{section.113}
+\contentsline {section}{\numberline {B.2}Face unlock}{63}{section.117}
+\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{65}{appendix.118}
 \vspace {2em}
-\contentsline {chapter}{Bibliography}{65}{dummy.114}
+\contentsline {chapter}{Bibliography}{70}{dummy.120}

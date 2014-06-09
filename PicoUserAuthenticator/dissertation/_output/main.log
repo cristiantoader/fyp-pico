@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  8 JUN 2014 18:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  9 JUN 2014 15:03
 entering extended mode
 **main
 
@@ -795,13 +795,19 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
 ------------------------------------------------------------------------------
- Abstract Page
+ Declaration of Originality
 ------------------------------------------------------------------------------
 [1]
 ------------------------------------------------------------------------------
- Acknowledgements
+ Abstract Page
 ------------------------------------------------------------------------------
 [2
+
+]
+------------------------------------------------------------------------------
+ Acknowledgements
+------------------------------------------------------------------------------
+[3
 
 ]
 ------------------------------------------------------------------------------
@@ -809,12 +815,12 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ------------------------------------------------------------------------------
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-_output\main.toc [3
+_output\main.toc [4
 
 
 ])
 \tf@toc=\write4
- [4]
+ [5]
 ------------------------------------------------------------------------------
  List of Figures
 ------------------------------------------------------------------------------
@@ -822,7 +828,7 @@ _output\main.toc [3
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.lof)
 \tf@lof=\write5
- [5
+ [6
 
 
 ]
@@ -833,20 +839,12 @@ _output\main.lof)
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.lot)
 \tf@lot=\write6
- [6
+ [7
 
 
 ]
 ------------------------------------------------------------------------------
  Abbreviations
-------------------------------------------------------------------------------
-[7
-
-
-
-]
-------------------------------------------------------------------------------
- Symbols
 ------------------------------------------------------------------------------
 [8
 
@@ -935,70 +933,142 @@ Overfull \hbox (53.72371pt too wide) in paragraph at lines 28--28
 oUserAuthenticator/dissertation/Pictures/detailed-
  []
 
-<Pictures/overview-uml.png, id=507, 428.35031pt x 395.97937pt>
+<Pictures/overview-uml.png, id=523, 428.35031pt x 395.97937pt>
 File: Pictures/overview-uml.png Graphic file (type png)
 
 <use Pictures/overview-uml.png>
 Package pdftex.def Info: Pictures/overview-uml.png used on input line 31.
-(pdftex.def)             Requested size: 208.73653pt x 192.96213pt.
+(pdftex.def)             Requested size: 292.22987pt x 270.14456pt.
+
+<Pictures/uaservice.png, id=526, 575.90157pt x 719.68875pt>
+File: Pictures/uaservice.png Graphic file (type png)
+
+<use Pictures/uaservice.png>
+Package pdftex.def Info: Pictures/uaservice.png used on input line 41.
+(pdftex.def)             Requested size: 417.47307pt x 521.72255pt.
  [28 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/disserta
 tion/Pictures/overview-uml.png>]
-Overfull \hbox (7.86407pt too wide) in paragraph at lines 41--42
+Overfull \hbox (7.86407pt too wide) in paragraph at lines 47--48
 []\OT1/cmr/m/n/10.95 ``PicoMainActivity'' starts ``UASer-vice'' us-ing the ``Co
 n-text.startService()'' method. Com-
  []
 
-[29] [30] [31]
-Underfull \hbox (badness 10000) in paragraph at lines 120--120
+[29 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dissertat
+ion/Pictures/uaservice.png>] [30]
+<Pictures/authmechservice.png, id=548, 557.08125pt x 709.14937pt>
+File: Pictures/authmechservice.png Graphic file (type png)
+
+<use Pictures/authmechservice.png>
+Package pdftex.def Info: Pictures/authmechservice.png used on input line 97.
+(pdftex.def)             Requested size: 417.47307pt x 531.43872pt.
+ [31]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[32] <Pictures/dummy.png, id=565, 513.41812pt x 570.63188pt>
+File: Pictures/dummy.png Graphic file (type png)
+
+<use Pictures/dummy.png>
+Package pdftex.def Info: Pictures/dummy.png used on input line 124.
+(pdftex.def)             Requested size: 417.47307pt x 464.00296pt.
+ [33 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/disserta
+tion/Pictures/authmechservice.png>] [34 <C:/Users/cristi/workspace/android/fyp-
+pico/PicoUserAuthenticator/dissertation/Pictures/dummy.png>] <Pictures/voice.pn
+g, id=578, 614.295pt x 719.68875pt>
+File: Pictures/voice.png Graphic file (type png)
+
+<use Pictures/voice.png>
+Package pdftex.def Info: Pictures/voice.png used on input line 137.
+(pdftex.def)             Requested size: 417.47307pt x 489.10735pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
 [][][]\OT1/cmr/m/n/9 The li-brary can be down-loaded us-ing github from the fol
 -low-ing link:
  []
 
-[32] [33]
-Underfull \hbox (badness 10000) in paragraph at lines 149--149
+[35] [36 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/diss
+ertation/Pictures/voice.png>]
+<Pictures/face.png, id=594, 585.68813pt x 676.02562pt>
+File: Pictures/face.png Graphic file (type png)
+ <use Pictures/face.png>
+Package pdftex.def Info: Pictures/face.png used on input line 172.
+(pdftex.def)             Requested size: 417.47307pt x 481.87956pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--178
 [][][]\OT1/cmr/m/n/9 The ``JavaFaces'' li-brary is main-tained at the fol-low-i
 ng ad-dress:
  []
 
 
-Overfull \hbox (23.62999pt too wide) in paragraph at lines 149--150
+Overfull \hbox (23.62999pt too wide) in paragraph at lines 178--179
 \OT1/cmr/m/n/10.95 new li-brary is avail-able at the fol-low-ing link: https://
 github.com/cristiantoader/JavafacesLib. 
  []
 
-[34] [35] [36]
+[37] [38 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/diss
+ertation/Pictures/face.png>]
+<Pictures/location.png, id=608, 638.385pt x 832.61063pt>
+File: Pictures/location.png Graphic file (type png)
 
-LaTeX Warning: Reference `TODO' on page 37 undefined on input line 207.
+<use Pictures/location.png>
+Package pdftex.def Info: Pictures/location.png used on input line 206.
+(pdftex.def)             Requested size: 417.47307pt x 544.4937pt.
+ [39]
 
-[37] [38])
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[40] [41 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/diss
+ertation/Pictures/location.png>]
+<Pictures/keymanager.png, id=624, 383.93437pt x 377.91188pt>
+File: Pictures/keymanager.png Graphic file (type png)
+
+<use Pictures/keymanager.png>
+Package pdftex.def Info: Pictures/keymanager.png used on input line 238.
+(pdftex.def)             Requested size: 292.22987pt x 287.66579pt.
+ [42 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/disserta
+tion/Pictures/keymanager.png>]
+Overfull \hbox (53.72371pt too wide) in paragraph at lines 248--248
+[][][]\OT1/cmr/m/n/9 https://github.com/cristiantoader/fyp-pico/blob/master/Pic
+oUserAuthenticator/dissertation/Pictures/detailed-
+ []
+
+[43] [44])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/6-evaluation.tex [39]
+Chapters/6-evaluation.tex [45]
 Chapter 6.
 ------------------------------------------------------------------------------
  6 Evaluation
 ------------------------------------------------------------------------------
-[40
+[46
 
-] [41]
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
+] [47]
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
 [][][]\OT1/cmr/m/n/9 For con-ve-nience, a link to the binder driver is found he
 re:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
 \OT1/cmr/m/n/9 https://android.googlesource.com/kernel/common.git/+/android-3.0
 /drivers/staging/android/binder.c
  []
 
-[42] [43] [44] [45] [46]
-Overfull \hbox (17.19772pt too wide) in paragraph at lines 155--183
+[48] [49] [50] [51] [52]
+Overfull \hbox (17.19772pt too wide) in paragraph at lines 146--174
 [][] 
  []
 
-[47] [48] [49])
+[53] [54])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/Appendix-android.tex [50]
+Appendices/Appendix-android.tex [55]
 Appendix A.
 ------------------------------------------------------------------------------
  A Android development and security
@@ -1009,7 +1079,7 @@ Underfull \hbox (badness 3323) in paragraph at lines 19--19
  on the An-droid web-site:
  []
 
-[51
+[56
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 37--37
@@ -1017,7 +1087,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--37
  on the An-droid web-site:
  []
 
-[52] [53] [54] [55]
+[57] [58] [59] [60]
 Underfull \hbox (badness 4254) in paragraph at lines 91--91
 [][][]\OT1/cmr/m/n/9 An ex-am-ple of such an ap-pli-ca-tion is pre-sented in an
  ar-ti-cle writ-ten in Tech Re-
@@ -1025,19 +1095,14 @@ Underfull \hbox (badness 4254) in paragraph at lines 91--91
 
 )
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/Appendix-frameworkex.tex [56]
+Appendices/Appendix-frameworkex.tex [61]
 Appendix B.
 ------------------------------------------------------------------------------
  B Token Unlocking Framework evaluation examples
 ------------------------------------------------------------------------------
-[57
+[62
 
-]
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 32.
-
-[58]
+] [63]
 Overfull \hbox (20.00021pt too wide) in paragraph at lines 42--43
 \OT1/cmr/m/n/10.95 targeted-impersonation''. The ''resilient-to-throttled-guess
 ing`` and ``resilient-to-unthrottled-
@@ -1045,51 +1110,47 @@ ing`` and ``resilient-to-unthrottled-
 
 )
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Appendices/Appendix-mechanisms.tex [59]
+Appendices/Appendix-mechanisms.tex [64]
 Appendix C.
 ------------------------------------------------------------------------------
  C Examples of supported Android authentication mechanisms
 ------------------------------------------------------------------------------
-[60
+[65
 
-] [61] [62] [63]) [64]
+] [66] [67] [68]) [69]
 ------------------------------------------------------------------------------
  Bibliography
 ------------------------------------------------------------------------------
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-_output\main.bbl [65
+_output\main.bbl [70
 
 
-] [66] [67])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 270.
- [68]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 270.
+] [71] [72])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 265.
+ [73]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 265.
 
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
 _output\main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 270.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 270.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 265.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 265.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 417EBAB0D31458B21ADF44F2AB98DF87;7535.
-
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 270.
+(rerunfilecheck)             Checksum: F0C48BCCFA7CE8BFA19D7ACAAE6648A2;7720.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 265.
  )
 (\end occurred inside a group at level 1)
 
-### simple group (level 1) entered at line 152 ({)
+### simple group (level 1) entered at line 146 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 13862 strings out of 493921
- 196455 string characters out of 3147279
- 274355 words of memory out of 3000000
- 16710 multiletter control sequences out of 15000+200000
+ 13913 strings out of 493921
+ 197501 string characters out of 3147279
+ 269767 words of memory out of 3000000
+ 16744 multiletter control sequences out of 15000+200000
  15452 words of font info for 57 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 49i,12n,45p,1591b,585s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 49i,12n,45p,1591b,584s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
 x10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Pro
@@ -1101,13 +1162,12 @@ public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
 sfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><
 C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/
-MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (77 pages, 492732 bytes).
+tor/dissertation/_output/main.pdf (82 pages, 756347 bytes).
 PDF statistics:
- 889 PDF objects out of 1000 (max. 8388607)
- 223 named destinations out of 1000 (max. 500000)
- 366 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 948 PDF objects out of 1000 (max. 8388607)
+ 234 named destinations out of 1000 (max. 500000)
+ 409 words of extra memory for PDF output out of 10000 (max. 10000000)
 

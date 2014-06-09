@@ -8,66 +8,55 @@
 \lhead{Chapter 6. \emph{Evaluation}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
 % Brief summary of this chapter
-This chapter evaluates different aspects of the proposed token unlocking mechanism. We start by performing a threat model on the Android prototype. This should reveal any security limitations of the implementation and the overall scheme. We continue by analysing the performance of the prototype and discuss how it can be improved.
+This chapter presents an evaluation of the proposed token unlocking mechanism. We start by performing a threat model of the Android prototype. This should reveal any security limitations of the implementation, as well as the overall scheme. We continue by analysing the performance of the prototype and discuss how it can be improved.
 
-Given a well defined implementation, we can assess the scheme using the token unlocking framework, and compare the results with the Picosiblings solution. In order to check for overall improvements, we use the UDS framework to evaluate a Pico token that uses the proposed token unlocking scheme, and compare the results with the original work by Bonneau et al \cite{bonneau2012quest}.
+Given a well defined implementation (\ref{Chapter5}), we assess the scheme using the token unlocking framework (\ref{tokenframework}), and compare the results with the Picosiblings solution. In order to check for overall improvements, we use the UDS framework to evaluate a Pico token that uses the proposed token unlocking scheme, and compare the results with the original work by Bonneau et al \cite{bonneau2012quest}.
 
 \section{Threat model}
-% TODO:
-% - clear cache data from android
-% - not really relevant since this is just a prototype
-% - any cryptographic keys and content is not secure as the application may be decompiled
-% - DOS by generating bad sensor data
-% - check William Ench et al year
-% - referenced android website instead of talk about components
-%  - more mmap_min_addr stuff. why does it help?
-
-% Introduction on what we want to achieve
-The purpose of the prototype was to provide a proof of concept that the scheme can be developed using existing hardware. However, we will perform a threat analysis in order to ensure that the implementation is secure. The main reason for this is the possibility of gaining additional insight to the scheme's design limitations. Furthermore, the assessment should reveal attack paths that need to be considered in future implementations this mechanism.
+% % Introduction on what we want to achieve
+% The purpose of the prototype was to provide a proof of concept that the scheme can be developed using existing hardware. However, we will perform a threat analysis in order to ensure that the implementation is secure. The main reason for this is the possibility of gaining additional insight to the scheme's design limitations. Furthermore, the assessment should reveal attack paths that need to be considered in future implementations this mechanism.
 
 % Types of attacks we will be analysing
-The threat analysis will be performed from an availability, integrity, and confidentiality perspective. Attack paths will be analysed in different scenarios based on whether an attacker has physical access to the token or not. Although we will be making a security assessment for a prototype developed on the commercial Android platform, similar issues may arise for an implementation that uses dedicated hardware.
-
-We continue by studying the threat model of the authenticator Android app. We will consider the security mechanisms presented in appendix \ref{AppendixA} as predefined assumptions used in this model.
+The threat analysis is performed from an availability, integrity, and confidentiality perspective. We consider the security mechanisms of the Android platform presented in appendix \ref{AppendixA} as predefined assumptions used in this model. Attack paths are analysed in different scenarios based on whether an attacker has physical access to the token or not. Although we are making a security assessment for a prototype developed on the commercial Android platform, similar issues may arise for a future implementation that uses dedicated hardware.
 
 \subsubsection*{Availability}
 % Availability: attacker has token
-Breaking the scheme's availability while the device is in the possession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models for the different mechanisms. Furthermore, in this scenario the owner is no longer in possession of their Pico, so basically the device is already unavailable.
+Breaking the scheme's availability while the device is in the possession of the attacker is relatively trivial. The application can be uninstalled, or the application data cache can be cleared, therefore removing the owner biometric models used by the individual mechanisms. Furthermore, in this scenario the owner is no longer in possession of their Pico, so basically the device is already unavailable.
 
 % Availability: attacker does not have token
-Let us continue and study what denial of service (DoS) attacks can be achieved by a remote attacker. Removing the owner configuration data from internal storage would make the authenticator unusable. This can only be achieved if the attacker (or a malware application designed by the attacker) manages to get root access on the device. Given the Linux permissions model, there would be no way to protect this data from deletion. Without root access, the app data cannot be accessed or modified.
+Let us continue and study what denial of service (DoS) exploits can be achieved by a remote attacker. Removing the owner configuration data from internal storage would make the authenticator unusable. This can only be achieved if the attacker (or a malware application designed by the attacker) manages to get root access on the device. Given the Linux permissions model, there would be no way to protect this data from deletion. However, without root access the application data cannot be accessed or modified.
 
 % Availability: dos via sensor locking
 Based on each device platform, multiple apps recording data from a sensor may not be possible. This can enable a DoS attack on the prototype by having malware locking sensors before the authenticator. This would make data collection impossible, and therefore the mechanisms' weights would gradually decrease to 0. The overall confidence level would be lowered, preventing the user from authenticating. After performing experiments, we can confirm this problem for the Google Nexus 5 smart phone when two applications try to record microphone data using different sampling rates \footnote{The apps were trying to record microphone data using the AudioRecord class; application one was using a sampling rate of 44100 and application two 22050.}.
 
 % Availability: starting multiple connections
-The current prototype is susceptible to a DoS attack caused by too many clients registered with the authenticator. Given that no permission is required to register to the ``UAService'' component, an unlimited number of connections can be made. Therefore, broadcasting the authentication status to each client may cause considerable delays. Furthermore, in order to unburden the developer from developing thread-safe code, ICC is performed on a single thread. This means that by spamming ``UAService'' with requests, the attacker can achieve a DoS attack for legitimate Pico applications. This can be fixed if we only allow access to application developed by the same author as the authenticator app.
+The current prototype is susceptible to a DoS attack caused by too many clients registered with the authenticator. Given that no permission is required to register to the ``UAService'' component, an unlimited number of connections can be made. Therefore, broadcasting the authentication status to each client may cause considerable delays. Furthermore, in order to unburden the developer from developing thread-safe code, ICC is performed on a single thread. This means that by spamming ``UAService'' with requests, the attacker can achieve a DoS attack for legitimate Pico clients. This can be fixed if we only allow access to application developed by the same author as the authenticator app.
 
 \subsubsection*{Integrity}
 % Integrity: root data modifications
 The prototype stores data in internal storage, and cannot be accessed by other applications due to the Linux permissions mechanism. However, just as mentioned in the previous section, if the attacker gains root privileges it may modify any data on the device. The attack can be performed regardless of physical access.
 
 % Integrity: Binder communication ok
-From a data flow point of view, ICC is performed using the ``/dev/binder'' node driver. According to the official Android source code \footnote{For convenience, a link to the binder driver is found here: https://android.googlesource.com/kernel/common.git/+/android-3.0/drivers/staging/android/binder.c (visited on 06.02.2014).}, although the node is readable and writeable by any application, communication is performed using IOCTL calls. Data is transferred from one component to the other without the possibility to intercept or modify. Given that Android ICC is secure, data either from the sensors or from app components cannot be modified.
+From a data flow point of view, ICC is performed using the ``/dev/binder'' node driver. According to the official Android source code \footnote{For convenience, a link to the binder driver is found here: https://android.googlesource.com/kernel/common.git/+/android-3.0/drivers/staging/android/binder.c (visited on 06.02.2014).}, although the node is readable and writeable by any application, communication is performed using IOCTL calls. Data is transferred from one component to the other without the possibility to intercept or modify. Given that Android ICC is secure, data either from the sensors or from app components cannot be tampered.
 
 \subsubsection*{Confidentiality}
 % Confidentiality: same owner
 Android apps may share private resources only if developed by the same author. This is determined by verifying the signature of the app, which is performed using a private key specific to each developer. Therefore, an attack where owner configuration data is leaked due to private resource sharing would only be possible if the attacker manages to acquire the private key that was used for signing the authenticator app. We will consider this to be a scenario outside the scope of the project.
 
 % Confidentiality
-Another scenario where owner authentication data can be accessed is having malware run with root privileges. This would allow an attacker the rights to read any application's data. However, the owner's biometric files would not be compromised, as they are kept encrypted using the Android Keychain API. Although the data can be read from internal storage, it cannot be interpreted in a meaningful way. Starting with Android 4.3, the Keychain API has hardware support, making the encryption keys non-extractable. 
+Another case where owner authentication data can be accessed is having malware run with root privileges. This would allow an attacker the rights to read any application's data. However, the owner's biometric files would not be compromised, as they are kept encrypted using the Android Keychain API. Although the data can be read from internal storage, it cannot be interpreted in a meaningful way. Starting with Android 4.3, the Keychain API has hardware support, making the encryption keys non-extractable. 
 
 % Keychain exposure
 On Android versions earlier than 4.3, the following confidentiality attack path can be performed. Given root access, the attacker may retrieve the AES master key used by the keychain manager to store credentials. Using this key they can then retrieve the authenticator's application key used for encrypting owner configuration files. By retrieving this final key, the attacker may decode sensitive data (i.e. biometric data) and leak it outside of the system, therefore compromising confidentiality.
 
 % Solution to encrypted data problem
-A solution to this problem is to not keep the key used for decryption on the device. It should be generated on the app's first run, and communicated securely back to a credentials server. Whenever the authenticator app starts up, it would request the key remotely via a secure connection, use it to decrypt owner authentication files, and discard it without saving.
+A solution to this problem is not keeping the key used for decryption on the device. It should be generated on the app's first run, and communicated securely back to a credentials server. Whenever the authenticator app starts, it would request the key remotely via a secure connection, use it to decrypt owner authentication files, and discard it without saving.
 
 % Data flow confidentiality
 From a data flow perspective, ICC should offer full confidentiality. As previously mentioned, the ``/dev/binder'' device node used for ICC is managed by a driver which listens for ``ioctl'' requests. Data cannot be compromised as it is transferred from one component to the other. Only ``UAService is an ``exported'' component that may be accessed by other apps. It only provides final authentication feedback from the mechanisms, and only exposes a limited API through the IBinder interface object used for ``Message'' passing.
 
 % Sensor data collection
-The communication between the authenticator and Pico can be secured, preventing other applications to register for updates. This can be achieved using runtime permission label checks. Both Pico and its authenticator would need to define these permission in their manifest files. Additional checks would need to be added for ICC with ``UAService''.
+The communication between the authenticator and Pico can be secured, preventing other applications to register for updates. This can be achieved using runtime permission label checks. Both Pico and its authenticator would need to define these permission in their manifest files. Additional checks would need to be added for ICC in ``UAService''.
 
 % Sensor sniffing
 Liang Cai et al \cite{cai2009defending} presents the problem of sensor sniffing. A malware application may collect all relevant data on its own from the user, using the same functionality as the prototype. This would allow for a powerful replay attack in the future. Adrienne Porter Felt et al \cite{felt2012android} show that when installing an app only $17\%$ of users pay attention to the Android permissions dialogue, and only $3\%$ understand what each permission represents.
@@ -87,10 +76,10 @@ The main problem with the scheme is not denying service to the owner, but falsel
 % Compromise solution
 From the authenticator's perspective there is no difference between the two scenarios presented above. The first suggests that non biometric mechanisms should provide sufficient confidence to provide authentication when the owner ``goes silent''. The second scenario requires the opposite; when the owner can no longer provide biometric data, they are likely no longer with the token and Pico should lock. 
 
-A compromise needs to be performed between the two scenarios. Non-biometric mechanisms need to provide a confidence level that is almost sufficient to grant access to medium-level security accounts. Periodically, explicit authentication requests will be made by the mechanism in order to provide a sufficiently high score. Given the decaying weights, the confidence level will gradually drop until another explicit authentication is required. The weights and decay rates need to be configured in such a way that the time interval between two explicit authentication requests is acceptable for the user, without compromising security. We suggest the time interval of 1 minute, but an user study would be more appropriate to determine this value.
+A compromise solution is needed for the two scenarios. Non-biometric mechanisms need to provide a confidence level that is almost sufficient to grant access to most medium-level security accounts. Periodically, explicit authentication requests will be made by the mechanism in order to provide a sufficiently high score. Given the decaying weights, the confidence level will gradually drop until another explicit authentication is required. The weights and decay rates need to be configured in such a way that the time interval between two explicit authentication requests is acceptable for the user, without compromising security. We suggest the time interval of 1 minute, but an user study would be more appropriate to determine this value.
 
 % Alternative solution: heartbeat
-An alternative solution to the problem presented above is to have an auxiliary biometric sensor that the owner would carry at all times. A good example is a heartbeat monitor. This can be embedded in an every day item such as a watch. The heartbeat authentication mechanism combined with the existing location analysis mechanism should provide a high enough confidence to unlock Pico for any medium-security authentication session.
+An alternative solution to the problem presented above is to have an auxiliary biometric sensor that the owner would carry at all times. A good example is a heartbeat monitor. This can be embedded in an every day item such as a watch. The heartbeat authentication mechanism combined with the existing location analysis mechanism should provide a sufficiently high confidence level to unlock Pico for any medium-security authentication session.
 
 % TODO!!
 \section{Functional evaluation}
@@ -102,13 +91,13 @@ TODO: timings, and power consumption..
 We will continue by evaluating the proposed scheme with the token unlocking framework defined in section \ref{tokenframework}. 
 
 % Usability
-The scheme is ``memorywise-effortless'' because it doesn't require any secrets to provide authentication. The prototype sensors used for authentication are embedded in the token, therefore offering ``nothing-to-carry''. It is also ``easy-to-learn'', as user authentication is performed non-obtrusively. As shown in section \ref{functionaleval}, although user authentication is performed in a timely manner, setting up the scheme may take some time. Therefore, the ``efficient-to-use'' property is only quasi-offered.  The scheme only quasi-offers ``infrequent errors'' because of the underlying biometric and behavioural authentication. Results however should be better than individual biometric mechanisms, due to the way they are combined. Any differences in biometric features that may occur can be resolved by re-configuring the authenticator. The prototype does not have a well defined secure process for this task. In the lack of additional details we mark the scheme to only quasi-offer ``easy-recovery-from-loss''. As briefly shown in section \ref{secdesignattacks}, even in unfavourable scenarios the scheme may still provide authentication to the token. The ``availability'' property is therefore satisfied.
+The scheme is ``memorywise-effortless'' because it doesn't require any secrets to provide authentication. The sensors used for authentication are embedded in the token, therefore offering ``nothing-to-carry''. It is also ``easy-to-learn'', as user authentication is performed non-obtrusively. As shown in section \ref{functionaleval}, although user authentication is performed in a timely manner, setting up the scheme may take some time. Therefore, the ``efficient-to-use'' property is only quasi-offered.  The scheme only quasi-offers ``infrequent errors'' because of the underlying biometric and behavioural authentication. Any differences in biometric features that may occur can be resolved by re-configuring the authenticator. The prototype does not have a well defined secure process for this task. In the lack of additional details we mark the scheme to only quasi-offer ``easy-recovery-from-loss''. As briefly shown in section \ref{secdesignattacks}, even in unfavourable scenarios the scheme may still provide authentication to the token. The ``availability'' property is therefore satisfied.
 
 % Deployability
 Given that multiple continuous authentication mechanisms are combined, the scheme offers ``accessibility'' to any user, regardless of disabilities. Since it is implemented as an Android app, it has a ``negligible-cost-per-user'' both for the owner and the developer. It is not ``mature'' since it has only been prototyped. The ``non-proprietary'' property is offered, as long as the individual mechanisms are developed using free to use algorithms and libraries.
 
 % Security
-From a security perspective the scheme is ``resilient-to-physical-observations''. If an attacker would have valid pre-recordings of the owner for all biometric mechanisms, they would still need to perform these in a location considered safe by the authenticator. Furthermore, the replays would have to be performed periodically in order to keep the authentication session alive. Therefore, due to the difficulty to perform a replay attack, the scheme is considered to be ``resilient-to-targeted-impersonation''. The ``resilient-to-throttled-guessing'', ``resilient-to-unthrottled-guessing'', and ``resilient-to-theft'' properties do not apply to this type of authentication. The scheme is not ``unlinkable'' because biometric data is unique for each individual. In order to satisfy the Pico requirements, all mechanism involved in the token unlocking process support ``continuous-authentication''. The authenticator provides as final feedback a confidence level, which allows for ``multi-level-unlocking''. Purposely disclosing authentication credentials would result in the same difficulties as a replay attack, and therefore the scheme offers ``non-disclosability''.
+From a security perspective the scheme is ``resilient-to-physical-observations''. If an attacker would have valid pre-recordings of the owner for all biometric mechanisms, they would still need to perform these in a location considered safe by the authenticator. Furthermore, the replays would have to be performed periodically in order to keep the authentication session alive. Therefore, due to the difficulty to perform a replay attack, the scheme is considered to be ``resilient-to-targeted-impersonation''. The ``resilient-to-throttled-guessing'', ``resilient-to-unthrottled-guessing'', and ``resilient-to-theft'' properties do not apply. The scheme is not ``unlinkable'' because biometric data is unique for each individual. In order to satisfy the Pico requirements, all mechanism involved in the token unlocking process support ``continuous-authentication''. The authenticator provides as final feedback a confidence level, which allows for ``multi-level-unlocking''. Intentional disclosure of authentication credentials would pose the same difficulties as a replay attack, and therefore the scheme offers ``non-disclosability''.
 
 % Summary of results
 The results are summarised in table \ref{table:tokenresults}. Column properties are highlighted to facilitate the comparison with the Picosiblings solution \footnote{The colours have the following meanings based on the result: green - offered, red - not offered, and yellow - quasi offered.}.
@@ -140,16 +129,18 @@ The results are summarised in table \ref{table:tokenresults}. Column properties 
     Non-disclosability                  & \cellcolor{red!25}Not-offered   		& \cellcolor{green!25}Offered    		\\
     \end{tabular}
 
-	\caption{Token unlocking framework assessment.}
+	\caption{Token unlocking framework results compared with Picosiblings.}
 	\label{table:tokenresults}
 
 \end{table}
 
 % Conclusion based on comparison
-The proposed solution does not completely dominate Picosiblings. This is only because the scheme is not ``unlinkable''. It performs better than Picosiblings by offering ``nothing-to-carry'' and quasi-offering ``easy-recovery-from-loss''. The prototype also has a ``negligible-cost-per-user'', which is something Picosiblings do not aim to achieve. In terms of security it is also better by offering the ``resilient-to-theft'', ``multi-level-unlocking'', and ``non-disclosability properties. In conclusion, we achieve our proposed goal of providing a solution that is better than Picosiblings in at least one property.
+The proposed solution does not completely dominate Picosiblings. This is only because the scheme is not ``unlinkable''. It performs better by offering ``nothing-to-carry'' and quasi-offering ``easy-recovery-from-loss''. The prototype also has a ``negligible-cost-per-user'', which is something Picosiblings do not aim to achieve. In terms of security it is also better by offering the ``resilient-to-theft'', ``multi-level-unlocking'', and ``non-disclosability properties. 
+
+In conclusion, we achieve our proposed goal of providing a solution that is better than Picosiblings in at least one property.
 
 \section{UDS framework evaluation}
-We now perform a reassessment of Pico using the scheme proposed in this dissertation as an unlocking mechanism. The evaluation is performed using the UDS framework developed by Bonneau et al \cite{bonneau2012quest}. The results of the evaluation are presented in table \ref{table:udsresults}.
+We now perform the reassessment of a Pico that uses our proposed token unlocking mechanism. The evaluation is performed using the UDS framework developed by Bonneau et al \cite{bonneau2012quest}. We will compare the result with the original Pico assessment in order to check for improvements. A summary is presented in table \ref{table:udsresults}.
 
 \begin{table}
     \begin{tabular}{c|l|l|l}
@@ -186,10 +177,10 @@ We now perform a reassessment of Pico using the scheme proposed in this disserta
 \end{table}
 
 % How Pico is improved
-The UDS framework assessment shows similar results to the token unlocking framework. By using the new scheme, Pico achieves a better score. It now offers ``easy-to-learn'', as it no longer requires Picosibling secret share management. In the lack of a cost analysis, we will consider that even with the new scheme the ``negligible-cost-per-user'' property is not offered. By relying on more than auxiliary devices, a Pico that uses the proposed scheme does offer ``resilient-to-theft''.
+The UDS framework assessment shows similar results to the token unlocking framework. By using the new scheme, Pico achieves an overall better score. It now offers ``easy-to-learn'', as it no longer requires Picosibling secret share management. In the lack of a cost analysis, we will consider that even with the new scheme the ``negligible-cost-per-user'' property is not offered. By relying on more than auxiliary devices, a Pico that uses the proposed scheme does offer ``resilient-to-theft''.
 
 % The downsides and conclusion
-The only property where Picosiblings outperforms the scheme presented in this dissertation is ``unlinkable''. Unfortunately, this trade-off cannot be fixed	as the mechanisms combined in the scheme need to rely on biometrics and behavioural analysis, which are meant to be unique for each individual. 
+The only property where Picosiblings outperforms the scheme presented in this dissertation is ``unlinkable''. Unfortunately, this trade-off cannot be fixed	as the mechanisms combined in the scheme need to rely on biometrics and behavioural analysis, which are unique for each individual. 
 
 In conclusion, by using the new token unlocking mechanism, overall Pico would improve 2 properties in exchange for one.
 
@@ -198,7 +189,7 @@ In conclusion, by using the new token unlocking mechanism, overall Pico would im
 The token unlocking mechanism proposed in this project offers a new perspective to Pico unlocking. The assessment presented in this chapter shows that it offers a reliable alternative to Picosiblings. However, improvements can be made both to its design and implementation.
 
 % Experiment with weights and decay factors
-The Android prototype was developed as a proof of concept. Further experiments need to be performed using different weights and decay functions. An user study would be beneficial in order to determine the acceptable time interval between consecutive explicit authentication requests, and the implementation needs to be adapted accordingly. Furthermore, explicit authentication mechanisms need to be developed for the Android prototype.
+The Android prototype was developed as a proof of concept. Further experiments need to be performed using different weights and decay functions. An user study is required in order to determine the acceptable time interval between consecutive explicit authentication requests, and the implementation needs to be adapted accordingly. Furthermore, explicit authentication mechanisms need to be developed for the Android prototype.
 
 % Add aditional mechanisms and improve accuracy of current.
 The set of individual mechanisms used with the scheme's prototype can be improved. Better biometric libraries should be either developed or imported in order to increase the accuracy of the implementation. Furthermore, additional mechanisms should be developed for the platform. A number of viable suggestions are made in appendix \ref{AppendixC}.
@@ -206,13 +197,13 @@ The set of individual mechanisms used with the scheme's prototype can be improve
 % Take data samples based on external events
 With the current prototype, the voice and face recognition mechanisms sample data at fixed time intervals. This should be change by taking advantage of user behaviour and Android events. Examples for this were given in section \ref{impleoverview}. 
 
-The face recognition mechanism can be improved either by introducing another library that performs face detection, or by using a different face recognition library that offers both features. Cryptographic support needs to be added for this mechanism. This can be performed through further modifications of the ``Javafaces'' library that would allow it to use raw data during the training process.
+The face recognition mechanism can be improved either by introducing another library that performs face detection, or by using a different face recognition library that offers both features. Cryptographic support needs to be added for this mechanism.  It can be performed through additional modifications of the ``Javafaces'' library that would allow it to use raw data during the training process.
 
 % Safer implementation
-A safer prototype would be to develop a root system service using the Android NDK C compiler. The binary has to be included in the system partition of the boot image in order to be accessible by the ``init'' process during start up. The ``init.rc'' configuration file used by ``init'' also needs to be configured to start the service. This implementation requires modifications to the ``/system'' partition. The process does not resume to simply gaining root privileges. The root ``/.'' directory is mounted as ramdisk, and therefore any modifications will be reverted once the device is rebooted. In order to make persistent changes, the user needs to modify the boot image, and re-flash it on the device.
+A safer prototype would be to develop a root system service using the Android NDK C compiler. The binary has to be included in the system partition of the boot image in order to be accessible by the ``init'' process during start up. The ``init.rc'' configuration file used by ``init'' also needs to be configured to start the service. This implementation requires modifications to the ``/system'' partition. The process does not resume to simply gaining root privileges. The root directory ``/.'' is mounted as ramdisk, and therefore any modifications will be reverted once the device is rebooted. In order to make persistent changes, the user needs to modify the boot image, and re-flash it on the device.
 
 \section{Conclusions}
-The purpose of this dissertation was to create a new scheme for unlocking the Pico token. We have adapted the UDS framework developed by Bonneau et al \cite{bonneau2012quest} to create a token unlocking framework. Both frameworks were used in evaluating the solution proposed in this dissertation. Results have shown that although the new scheme does not completely outperform Picosiblings, they offer a larger number of benefits. The new token unlocking mechanism was prototyped on an Android smart phone, proving that the design can be implemented using current hardware.
+The purpose of this dissertation was to create a new scheme for unlocking the Pico token. We have adapted the UDS framework developed by Bonneau et al \cite{bonneau2012quest} to create a token unlocking framework. Both frameworks were used in evaluating the solution proposed in this dissertation. Results have shown that although the new scheme does not completely outperform Picosiblings, they offer a larger number of benefits. The new token unlocking mechanism was prototyped on an Android smart phone, proving that the design can be implemented using existing hardware.
 
 
 %=========================================================================================================================
