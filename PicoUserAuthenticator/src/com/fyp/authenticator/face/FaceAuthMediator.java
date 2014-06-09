@@ -16,7 +16,7 @@ public class FaceAuthMediator {
 
 	private String trainDirectory = null;
 	private String ownerImage = null;
-	
+
 	private static final String NUM_FACES = "1";
 	private static final String THRESHOLD = "2";
 
@@ -24,33 +24,33 @@ public class FaceAuthMediator {
 
 	public FaceAuthMediator(Context ctx) {
 		Log.d(TAG, "FaceDAO+");
-		
+
 		this.faceRec = new FaceRec(ctx);
-		
+
 		this.trainDirectory = ctx.getFilesDir().toString();
 		this.ownerImage = getOwnerImage();
-		
+
 		this.trainFaceRecognizer();
-		
+
 		Log.d(TAG, "FaceDAO-");
 	}
 
 	public void trainFaceRecognizer() {
 		Log.d(TAG, "trainFaceRecognizer+");
-		
+
 		MatchResult r = this.faceRec.processSelections(getAbsoluteFilePath(),
 				trainDirectory, NUM_FACES, THRESHOLD);
 		printMatch(r);
-		
+
 		Log.d(TAG, "trainFaceRecognizer-");
 	}
 
 	public double getMatch(Bitmap faceObject) {
 		double result = 0;
 		MatchResult r = null;
-		
+
 		Log.d(TAG, "getMatch+");
-		
+
 		r = this.faceRec.findMatchResult(faceObject,
 				Integer.parseInt(NUM_FACES), Double.parseDouble(THRESHOLD));
 		printMatch(r);
@@ -94,41 +94,48 @@ public class FaceAuthMediator {
 			Log.d(TAG, "MatchResult message: " + aux);
 		}
 	}
-	
+
 	private String getOwnerImage() {
 		String owner = null;
-		
+
 		Log.d(TAG, "getOwnerImage+");
-		
+
 		File dir = new File(this.trainDirectory);
 		for (File file : dir.listFiles()) {
 			if (file.isDirectory()) {
 				continue;
 			}
-			
+
 			String fn = file.getName();
 			if (fn.startsWith("owner") && fn.endsWith(".png")) {
 				owner = fn;
 				break;
 			}
 		}
-		
+
 		Log.d(TAG, "getOwnerImage- " + owner);
 		return owner;
 	}
-	
+
+	/**
+	 * Checks if the supplied image contains at least one face.
+	 * 
+	 * This method is used by the FaceService in order to check if the sampled
+	 * data is valid for face recognition.
+	 * 
+	 * @param img
+	 * @return
+	 */
 	public static boolean hasFace(Bitmap img) {
 		int maxFaces = 10;
-		
+
 		Face[] faces = new Face[maxFaces];
-		
-		FaceDetector fr = new FaceDetector(
-				img.getWidth() - img.getWidth() % 2, 
-				img.getHeight(), 
-				maxFaces);
-		
+
+		FaceDetector fr = new FaceDetector(img.getWidth() - img.getWidth() % 2,
+				img.getHeight(), maxFaces);
+
 		fr.findFaces(img, faces);
-		
+
 		return faces.length != 0;
 	}
 }
