@@ -84,9 +84,8 @@ public class VoiceDAO {
 	 * 
 	 * @return recording data from the record saved in internal memory.
 	 */
-	public double[] getOwnerData() {
+	public double[] getData() {
 		KeyManager km = null;
-		;
 
 		FileInputStream fis = null;
 		CipherInputStream cis = null;
@@ -198,6 +197,10 @@ public class VoiceDAO {
 		}
 	}
 
+	public String getFileName() {
+		return this.fileName;
+	}
+	
 	/**
 	 * Generates an unique noise file name.
 	 * 
@@ -214,5 +217,11 @@ public class VoiceDAO {
 		} while (!new File(ctx.getFilesDir() + "/" + fn).exists());
 
 		return fn;
+	}
+
+	public static VoiceDAO[] getNoiseDAOs(Context ctx) {
+		File dir = ctx.getFilesDir();
+		
+		return null;
 	}
 }

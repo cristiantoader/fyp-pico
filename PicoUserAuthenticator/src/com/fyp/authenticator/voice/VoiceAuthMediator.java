@@ -9,9 +9,10 @@ import android.util.Log;
 import com.bitsinharmony.recognito.Recognito;
 
 public class VoiceAuthMediator {
-	/** Owner voice record manager. */
-	private VoiceDAO ownerRecord = null;
-
+	
+	/**Android context used for file IO*/
+	private Context ctx = null;
+	
 	/** Reference to recognito library object */
 	private Recognito<String> recognito = new Recognito<String>();
 
@@ -24,7 +25,8 @@ public class VoiceAuthMediator {
 	 *            android context for application path.
 	 */
 	public VoiceAuthMediator(Context ctx) {
-		this.ownerRecord = new VoiceDAO(ctx, "owner.3gp");
+		this.ctx = ctx.getApplicationContext();
+		
 		trainRecognito();
 	}
 
@@ -32,24 +34,46 @@ public class VoiceAuthMediator {
 	 * Trains recognito library for the owner's voice. Searches through internal
 	 * data in order to train the recognito library.
 	 */
-	public void trainRecognito() {
-		Log.i("trainRecognito", "entering");
+	private void trainRecognito() {
+		Log.i(TAG, "trainRecognito+");
 
-		if (!this.ownerRecord.hasRecording()) {
+		VoiceDAO owner = new VoiceDAO(this.ctx, "owner.3gp");
+		VoiceDAO[] noises = VoiceDAO.getNoiseDAOs(this.ctx);
+		
+		// check for owner data.
+		if (!owner.hasRecording()) {
 			Log.e(TAG, "Null owner recording data..");
 			return;
+		
+		} else {
+			Log.d(TAG, "Owner length:" + owner.getData().length);
+			Log.d(TAG, "Owner rate:" + VoiceDAO.getSampleRate());
 		}
-
-		Log.d(TAG, "traing data" + this.ownerRecord.getOwnerData());
-		Log.d(TAG, "traing data len" + this.ownerRecord.getOwnerData().length);
-		Log.d(TAG, "traing sample rate" + VoiceDAO.getSampleRate());
-
-		recognito.createVocalPrint("owner", this.ownerRecord.getOwnerData(),
+		
+		// adding owner data
+		recognito.createVocalPrint("owner", owner.getData(),
 				VoiceDAO.getSampleRate());
-	}
 
+		// check for noise data
+		if (noises == null) {
+			Log.d(TAG, "No noise data!");
+			return;
+		}
+		
+		for(VoiceDAO noise : noises) {
+			Log.d(TAG, "Adding noise file: " + noise.getFileName());
+			recognito.createVocalPrint(noise.getFileName(), 
+					noise.getData(), 
+					VoiceDAO.getSampleRate());
+		}
+		
+		Log.i(TAG, "trainRecognito-");
+	}
+	
 	/**
 	 * Return's the match distance between the current recording and the owner.
+	 * 
+	 * TODO: add check for noise and according result.
 	 * 
 	 * @param filename
 	 * @return recording match indicator.
@@ -62,7 +86,7 @@ public class VoiceAuthMediator {
 			return 0;
 		}
 
-		matches = recognito.recognize(record.getOwnerData(),
+		matches = recognito.recognize(record.getData(),
 				VoiceDAO.getSampleRate());
 
 		for (Entry<Double, String> entry : matches.entrySet()) {
