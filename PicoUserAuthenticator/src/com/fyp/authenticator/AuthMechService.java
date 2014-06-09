@@ -269,10 +269,6 @@ public abstract class AuthMechService extends Service {
 		
 		int decayedScore = this.decayedWeight * this.score;
 
-		Log.e(TAG, "Service score: " + score);
-		Log.e(TAG, "Decayed weight: " + decayedWeight);
-		Log.e(TAG, "Decayed score: " + decayedScore);
-
 		try {
 			clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS,
 					decayedScore, this.initialWeight));

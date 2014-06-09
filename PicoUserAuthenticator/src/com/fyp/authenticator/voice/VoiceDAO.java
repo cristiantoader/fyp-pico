@@ -162,16 +162,6 @@ public class VoiceDAO {
 		
 		for (int i = 0; i < result.length; i++) {
 			result[i] = ((double) this.data[i]) / 128;
-			
-			if (i < 5) {
-				Log.e(TAG, "getData i < 5:" + result[i] + " " + this.data[i] + " " 
-						+ (double)this.data[i] + " " + ((double) this.data[i])/128);
-			}
-			
-			if (result [i] < -1 || result[i] > 1) {
-				Log.e(TAG, "getData:" + result[i] + " " + this.data[i] + " " 
-						+ (double)this.data[i] + " " + ((double) this.data[i])/128);
-			}
 		}
 
 		Log.d(TAG, "getDataFromObject-");

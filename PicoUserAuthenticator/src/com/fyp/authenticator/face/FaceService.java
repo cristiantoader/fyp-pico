@@ -106,7 +106,7 @@ public class FaceService extends AuthMechService {
 					Bitmap picture = this.cameraUtil.takePicture();
 					
 					if (!FaceAuthMediator.hasFace(picture)) {
-						Log.d(TAG, "No faces in picture.");
+						Log.w(TAG, "No faces in picture. continue decay.");
 						continue;
 					}
 					

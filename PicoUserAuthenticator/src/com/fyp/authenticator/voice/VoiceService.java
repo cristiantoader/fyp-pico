@@ -40,7 +40,9 @@ public class VoiceService extends AuthMechService {
 			voiceThread = null;
 		}
 
-		this.decayTimer.stopTimer();
+		if (this.decayTimer != null) {
+			this.decayTimer.stopTimer();
+		}
 	}
 
 	/**
@@ -96,7 +98,7 @@ public class VoiceService extends AuthMechService {
 					// sending match score.
 					double dscore = this.mediator.getMatch(record);
 					if (dscore == -1) {
-						Log.d(TAG, "Noise detected, continuing decay.");
+						Log.w(TAG, "Noise detected, continuing decay.");
 						continue;
 					}
 					
