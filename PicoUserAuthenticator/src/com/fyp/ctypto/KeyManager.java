@@ -65,6 +65,7 @@ public class KeyManager {
 			singleton.loadMasterKey();
 		}
 		
+		Log.d(TAG, "getInstance- " + (singleton != null));
 		return singleton;
 	}
 	

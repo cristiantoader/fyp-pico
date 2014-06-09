@@ -6,7 +6,7 @@
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
-    <string name="Recognito">Recognito</string>
+    <string name="Voice">Voice</string>
     <string name="Face">Face</string>
     <string name="Location">Location</string>
     <string name="RecordOwner">Record Owner</string>

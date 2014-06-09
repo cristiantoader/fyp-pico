@@ -87,6 +87,7 @@ public class VoiceDAO {
 	public void stopRecord() {
 		this.mRecorder.stop();
 		this.mRecorder.release();
+		this.mRecorder = null;
 
 		this.rt.stopThread();
 		this.data = this.rt.getData();
@@ -99,6 +100,8 @@ public class VoiceDAO {
 		FileOutputStream fos = null;
 		CipherOutputStream cos = null;
 
+		Log.d(TAG, "saveRecording+");
+		
 		if (new File(getAbsoluteFilePath()).exists()) {
 			Log.w(TAG, "File with the same name will get overwritten: "
 					+ getAbsoluteFilePath());
@@ -119,6 +122,7 @@ public class VoiceDAO {
 			e.printStackTrace();
 		}
 
+		Log.d(TAG, "saveRecording-");
 	}
 
 	public static int getSampleRate() {
@@ -133,7 +137,7 @@ public class VoiceDAO {
 	public double[] getData() {
 		double[] result = null;
 
-		Log.d(TAG, "getOwnerData+");
+		Log.d(TAG, "getData+");
 
 		if (data == null) {
 			Log.d(TAG, "Retrieving data from file.");
@@ -154,10 +158,23 @@ public class VoiceDAO {
 	private double[] getDataFromObject() {
 		double[] result = new double[this.data.length];
 
+		Log.d(TAG, "getDataFromObject+");
+		
 		for (int i = 0; i < result.length; i++) {
-			result[i] = (((double) this.data[i]) / 128) - 1;
+			result[i] = ((double) this.data[i]) / 128;
+			
+			if (i < 5) {
+				Log.e(TAG, "getData i < 5:" + result[i] + " " + this.data[i] + " " 
+						+ (double)this.data[i] + " " + ((double) this.data[i])/128);
+			}
+			
+			if (result [i] < -1 || result[i] > 1) {
+				Log.e(TAG, "getData:" + result[i] + " " + this.data[i] + " " 
+						+ (double)this.data[i] + " " + ((double) this.data[i])/128);
+			}
 		}
 
+		Log.d(TAG, "getDataFromObject-");
 		return result;
 	}
 
@@ -180,12 +197,17 @@ public class VoiceDAO {
 			fis = new FileInputStream(getAbsoluteFilePath());
 			cis = new CipherInputStream(fis, km.getDecryptionCipher());
 
-			data = new byte[(int) fis.getChannel().size()];
-
-			int i = 0, val = 0;
-			while ((val = cis.read()) != -1) {
-				data[i++] = (byte) val;
-				i++;
+			// read data from stream
+			int b;
+			ArrayList<Byte> decByteList = new ArrayList<Byte>();
+			while((b = cis.read()) != -1) {
+				decByteList.add((byte) b);
+			}
+			
+			// saving data
+			data = new byte[decByteList.size()];
+			for (int i = 0; i < data.length; i++) {
+				data[i] = decByteList.get(i);
 			}
 
 			cis.close();
@@ -276,7 +298,7 @@ public class VoiceDAO {
 		do {
 			fn = "noise" + new Random().nextInt() + ".3gp";
 
-		} while (!new File(ctx.getFilesDir() + "/" + fn).exists());
+		} while (new File(ctx.getFilesDir() + "/" + fn).exists());
 
 		return fn;
 	}

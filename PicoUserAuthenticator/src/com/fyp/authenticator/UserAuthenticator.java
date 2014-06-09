@@ -91,9 +91,9 @@ public class UserAuthenticator {
 	 */
 	private void initAvailableDevices() {
 //		this.mechanisms.add(new AuthMech(uaservice, DummyService.class));
-//		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));
+		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));
 //		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));
-		this.mechanisms.add(new AuthMech(uaservice, LocationService.class));
+//		this.mechanisms.add(new AuthMech(uaservice, LocationService.class));
 	}
 	
 	public void stopMechanisms() {

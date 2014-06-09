@@ -29,7 +29,7 @@
 \contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{34}{subsubsection.63}
 \contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{35}{subsubsection.65}
 \contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{37}{subsubsection.69}
-\contentsline {subsubsection}{\numberline {5.2.2.4}Location analysis}{40}{subsubsection.72}
+\contentsline {subsubsection}{\numberline {5.2.2.4}Location analysis}{39}{subsubsection.72}
 \contentsline {subsection}{\numberline {5.2.3}Owner configuration}{41}{subsection.74}
 \contentsline {subsection}{\numberline {5.2.4}Cryptographic protection}{42}{subsection.75}
 \contentsline {section}{\numberline {5.3}Conclusion}{43}{section.77}

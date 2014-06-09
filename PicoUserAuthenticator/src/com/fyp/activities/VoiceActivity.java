@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 public class VoiceActivity extends Activity {
 	@SuppressWarnings("unused")
-	private static final String TAG = "AudioRecordTest";
+	private static final String TAG = "VoiceActivity";
 	
 
 	/** Text box used for displaying current recording time. */
@@ -94,7 +94,7 @@ public class VoiceActivity extends Activity {
 		}
 		
 		private boolean isRecording() {
-			return this.record == null;
+			return this.record != null;
 		}
 
 	};

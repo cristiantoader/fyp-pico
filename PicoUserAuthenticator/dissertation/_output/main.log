@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  9 JUN 2014 15:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.4.25)  9 JUN 2014 22:23
 entering extended mode
 **main
 
@@ -974,12 +974,12 @@ Package pdftex.def Info: Pictures/dummy.png used on input line 124.
  [33 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/disserta
 tion/Pictures/authmechservice.png>] [34 <C:/Users/cristi/workspace/android/fyp-
 pico/PicoUserAuthenticator/dissertation/Pictures/dummy.png>] <Pictures/voice.pn
-g, id=578, 614.295pt x 719.68875pt>
+g, id=578, 644.4075pt x 676.02562pt>
 File: Pictures/voice.png Graphic file (type png)
 
 <use Pictures/voice.png>
 Package pdftex.def Info: Pictures/voice.png used on input line 137.
-(pdftex.def)             Requested size: 417.47307pt x 489.10735pt.
+(pdftex.def)             Requested size: 417.47307pt x 437.9673pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -990,25 +990,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 143--143
 -low-ing link:
  []
 
-[35] [36 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/diss
-ertation/Pictures/voice.png>]
+[35]
+Overfull \hbox (1.45491pt too wide) in paragraph at lines 157--158
+[]\OT1/cmr/m/n/10.95 The min-i-mum buffer size re-quired by ``VoiceDAO'' is de-
+vice de-pen-dant and pre-calculated
+ []
+
+[36 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dissertat
+ion/Pictures/voice.png>]
 <Pictures/face.png, id=594, 585.68813pt x 676.02562pt>
 File: Pictures/face.png Graphic file (type png)
  <use Pictures/face.png>
-Package pdftex.def Info: Pictures/face.png used on input line 172.
+Package pdftex.def Info: Pictures/face.png used on input line 171.
 (pdftex.def)             Requested size: 417.47307pt x 481.87956pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 178--178
+Underfull \hbox (badness 10000) in paragraph at lines 177--177
 [][][]\OT1/cmr/m/n/9 The ``JavaFaces'' li-brary is main-tained at the fol-low-i
 ng ad-dress:
  []
 
 
-Overfull \hbox (23.62999pt too wide) in paragraph at lines 178--179
+Overfull \hbox (23.62999pt too wide) in paragraph at lines 177--178
 \OT1/cmr/m/n/10.95 new li-brary is avail-able at the fol-low-ing link: https://
 github.com/cristiantoader/JavafacesLib. 
  []
@@ -1019,30 +1025,26 @@ ertation/Pictures/face.png>]
 File: Pictures/location.png Graphic file (type png)
 
 <use Pictures/location.png>
-Package pdftex.def Info: Pictures/location.png used on input line 206.
+Package pdftex.def Info: Pictures/location.png used on input line 204.
 (pdftex.def)             Requested size: 417.47307pt x 544.4937pt.
- [39]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[40] [41 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/diss
-ertation/Pictures/location.png>]
+ [39] [40 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dis
+sertation/Pictures/location.png>] [41]
 <Pictures/keymanager.png, id=624, 383.93437pt x 377.91188pt>
 File: Pictures/keymanager.png Graphic file (type png)
 
 <use Pictures/keymanager.png>
-Package pdftex.def Info: Pictures/keymanager.png used on input line 238.
+Package pdftex.def Info: Pictures/keymanager.png used on input line 236.
 (pdftex.def)             Requested size: 292.22987pt x 287.66579pt.
  [42 <C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/disserta
 tion/Pictures/keymanager.png>]
-Overfull \hbox (53.72371pt too wide) in paragraph at lines 248--248
+Overfull \hbox (53.72371pt too wide) in paragraph at lines 246--246
 [][][]\OT1/cmr/m/n/9 https://github.com/cristiantoader/fyp-pico/blob/master/Pic
 oUserAuthenticator/dissertation/Pictures/detailed-
  []
 
-[43] [44])
+[43])
 (C:\Users\cristi\workspace\android\fyp-pico\PicoUserAuthenticator\dissertation\
-Chapters/6-evaluation.tex [45]
+Chapters/6-evaluation.tex [44] [45]
 Chapter 6.
 ------------------------------------------------------------------------------
  6 Evaluation
@@ -1165,7 +1167,7 @@ C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progr
 am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files
 /MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
 Output written on C:/Users/cristi/workspace/android/fyp-pico/PicoUserAuthentica
-tor/dissertation/_output/main.pdf (82 pages, 756347 bytes).
+tor/dissertation/_output/main.pdf (82 pages, 759452 bytes).
 PDF statistics:
  948 PDF objects out of 1000 (max. 8388607)
  234 named destinations out of 1000 (max. 500000)
