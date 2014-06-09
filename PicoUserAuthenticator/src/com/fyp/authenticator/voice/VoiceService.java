@@ -95,6 +95,11 @@ public class VoiceService extends AuthMechService {
 
 					// sending match score.
 					double dscore = this.voiceDAO.getMatch(record);
+					if (dscore == -1) {
+						Log.d(TAG, "Noise detected, continuing decay.");
+						continue;
+					}
+					
 					if (dscore > THRESHOLD) {
 						dscore = THRESHOLD;
 					}

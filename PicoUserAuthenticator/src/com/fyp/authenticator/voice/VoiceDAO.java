@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Random;
 
 import javax.crypto.CipherInputStream;
@@ -219,9 +220,17 @@ public class VoiceDAO {
 		return fn;
 	}
 
-	public static VoiceDAO[] getNoiseDAOs(Context ctx) {
+	public static LinkedList<VoiceDAO> getNoiseDAOs(Context ctx) {
 		File dir = ctx.getFilesDir();
+		LinkedList<VoiceDAO> noises = new LinkedList<VoiceDAO>();
 		
-		return null;
+		for (String fn : dir.list()) {
+			if (fn.startsWith("noise") && fn.endsWith(".3gp")) {
+				Log.d(TAG, "Added noise file: " +fn);
+				noises.add(new VoiceDAO(ctx, fn));
+			}
+		}
+		
+		return noises;
 	}
 }

@@ -1,5 +1,6 @@
 package com.fyp.authenticator.voice;
 
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -38,7 +39,7 @@ public class VoiceAuthMediator {
 		Log.i(TAG, "trainRecognito+");
 
 		VoiceDAO owner = new VoiceDAO(this.ctx, "owner.3gp");
-		VoiceDAO[] noises = VoiceDAO.getNoiseDAOs(this.ctx);
+		LinkedList<VoiceDAO> noises = VoiceDAO.getNoiseDAOs(this.ctx);
 		
 		// check for owner data.
 		if (!owner.hasRecording()) {
@@ -55,7 +56,7 @@ public class VoiceAuthMediator {
 				VoiceDAO.getSampleRate());
 
 		// check for noise data
-		if (noises == null) {
+		if (noises.isEmpty()) {
 			Log.d(TAG, "No noise data!");
 			return;
 		}
@@ -73,13 +74,13 @@ public class VoiceAuthMediator {
 	/**
 	 * Return's the match distance between the current recording and the owner.
 	 * 
-	 * TODO: add check for noise and according result.
-	 * 
 	 * @param filename
 	 * @return recording match indicator.
 	 */
 	public double getMatch(VoiceDAO record) {
-		double result = 0;
+		boolean owner = false;
+		double result = Double.MAX_VALUE;
+		
 		Map<Double, String> matches = null;
 
 		if (record == null || !record.hasRecording()) {
@@ -89,13 +90,16 @@ public class VoiceAuthMediator {
 		matches = recognito.recognize(record.getData(),
 				VoiceDAO.getSampleRate());
 
-		for (Entry<Double, String> entry : matches.entrySet()) {
-
-			if (entry.getValue().equals("owner")) {
-				Log.i("recognito", "found owner at distance: " + entry.getKey());
+		for (Entry<Double, String> entry : matches.entrySet()) {			
+			if (entry.getKey() < result) {
 				result = entry.getKey();
-				break;
+				owner = entry.getValue().equals("owner");
 			}
+		}
+		
+		if (!owner) {
+			Log.d(TAG, "Owner not best value!");
+			result = - 1;
 		}
 
 		return result;
