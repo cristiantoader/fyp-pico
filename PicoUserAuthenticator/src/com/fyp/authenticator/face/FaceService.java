@@ -78,7 +78,6 @@ public class FaceService extends AuthMechService {
 		/** Authentication period used between successful camera sampling. */
 		private static final int AUTH_PERIOD = 3 * 1000;
 
-		// TODO: maybe move this in DAO?
 		/** Euclidean distance threshold used in calculating confidence. */
 		private static final double THRESHOLD = 1;
 
