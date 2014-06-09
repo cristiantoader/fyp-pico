@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -27,22 +28,18 @@ public class VoiceDAO {
 	/** Recording thread. */
 	private RecordingThread rt = new RecordingThread();
 
-	/** Variable stating if recording was saved. */
-	private boolean recordingSaved = false;
-	
-	/** Determines whether the recording will be saved on disk. */
-	private boolean save = false;
-
 	/** Audio record data. */
 	private static final int SAMPLE_RATE = 44100;
 	private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
 	private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
 
+	private byte[] data = null;
+
 	private static final String TAG = "VoideDAO";
 	private int minBufferSize = 0;
 
 	/** Audio file name. */
-	private String fileName = null;
+	private String name = null;
 	/** Audio file path. */
 	private String filePath = null;
 
@@ -51,20 +48,38 @@ public class VoiceDAO {
 
 	public static final String OWNER_FN = "owner.3gp";
 
-	public VoiceDAO(Context context, String fileName, boolean save) {
+	/**
+	 * Public constructor of voice object.
+	 * 
+	 * This class can be used for recording, saving, and loading data from
+	 * filesystem.
+	 * 
+	 * @param context
+	 *            application context used for file management.
+	 * @param fileName
+	 *            name of the recording.
+	 */
+	public VoiceDAO(Context context, String fileName) {
 		this.ctx = context.getApplicationContext();
 
-		this.fileName = fileName;
+		this.name = fileName;
 		this.filePath = context.getFilesDir().toString();
+
+	}
+
+	public void startRecord() {
+
+		if (this.data != null) {
+			Log.w(TAG, "Existing recording will be overwritten!");
+			this.data = null;
+		}
 
 		this.minBufferSize = AudioRecord.getMinBufferSize(SAMPLE_RATE,
 				CHANNEL_CONFIG, AUDIO_FORMAT);
 
 		this.mRecorder = new AudioRecord(MediaRecorder.AudioSource.MIC,
 				SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, this.minBufferSize);
-	}
 
-	public void startRecord() {
 		this.mRecorder.startRecording();
 		this.rt.startThread();
 	}
@@ -74,25 +89,38 @@ public class VoiceDAO {
 		this.mRecorder.release();
 
 		this.rt.stopThread();
+		this.data = this.rt.getData();
 		this.rt = null;
-
-		this.recordingSaved = true;
-		
-		// delete file data if not desired
-		if (save) {
-			deleteRecording();
-		}
 	}
 
-	private void deleteRecording() {
+	public void saveRecording() {
+		KeyManager km = null;
+
+		FileOutputStream fos = null;
+		CipherOutputStream cos = null;
+
 		if (new File(getAbsoluteFilePath()).exists()) {
-			Log.d(TAG, "Deleting recording.");
-			new File(getAbsoluteFilePath()).delete();
-		} else {
-			Log.d(TAG, "Recording does not exist!");
+			Log.w(TAG, "File with the same name will get overwritten: "
+					+ getAbsoluteFilePath());
 		}
+
+		try {
+			km = KeyManager.getInstance(ctx);
+
+			fos = new FileOutputStream(getAbsoluteFilePath());
+			cos = new CipherOutputStream(fos, km.getEncryptionCipher());
+
+			cos.write(this.data);
+			cos.flush();
+			cos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
-	
+
 	public static int getSampleRate() {
 		return SAMPLE_RATE;
 	}
@@ -103,18 +131,47 @@ public class VoiceDAO {
 	 * @return recording data from the record saved in internal memory.
 	 */
 	public double[] getData() {
-		KeyManager km = null;
-
-		FileInputStream fis = null;
-		CipherInputStream cis = null;
-
 		double[] result = null;
-		int fileSize = 0;
 
 		Log.d(TAG, "getOwnerData+");
 
-		if (doneRecoring() == false && !hasRecording()) {
-			return null;
+		if (data == null) {
+			Log.d(TAG, "Retrieving data from file.");
+			loadDataFromFile();
+		}
+
+		result = getDataFromObject();
+
+		Log.d(TAG, "getData- " + result);
+		return result;
+	}
+
+	/**
+	 * Gets data from object and converts it to the appropriate format.
+	 * 
+	 * @return recording data.
+	 */
+	private double[] getDataFromObject() {
+		double[] result = new double[this.data.length];
+
+		for (int i = 0; i < result.length; i++) {
+			result[i] = (((double) this.data[i]) / 128) - 1;
+		}
+
+		return result;
+	}
+
+	/**
+	 * Loads recording from file.
+	 */
+	private void loadDataFromFile() {
+		KeyManager km = null;
+		FileInputStream fis = null;
+		CipherInputStream cis = null;
+
+		if (!hasRecording()) {
+			Log.d(TAG, "File does not exist: " + this.getAbsoluteFilePath());
+			return;
 		}
 
 		try {
@@ -123,32 +180,19 @@ public class VoiceDAO {
 			fis = new FileInputStream(getAbsoluteFilePath());
 			cis = new CipherInputStream(fis, km.getDecryptionCipher());
 
-			fileSize = (int) fis.getChannel().size();
-			result = new double[fileSize];
+			data = new byte[(int) fis.getChannel().size()];
 
 			int i = 0, val = 0;
 			while ((val = cis.read()) != -1) {
-				result[i++] = (((double) val) / 128) - 1;
+				data[i++] = (byte) val;
+				i++;
 			}
 
 			cis.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			data = null;
 		}
-
-		return result;
-	}
-
-	/**
-	 * Checks if the recording process is over and the recording was marked as
-	 * saved.
-	 * 
-	 * @return true if the recording is done, false otherwise.
-	 */
-	private boolean doneRecoring() {
-		return this.recordingSaved;
 	}
 
 	/**
@@ -157,15 +201,17 @@ public class VoiceDAO {
 	 * @return true if the file exists, false otherwise.
 	 */
 	public boolean hasRecording() {
-		return new File(getAbsoluteFilePath()).exists();
+		return new File(getAbsoluteFilePath()).exists() || this.data != null;
 	}
 
 	private String getAbsoluteFilePath() {
-		return this.filePath + "/" + this.fileName;
+		return this.filePath + "/" + this.name;
 	}
 
 	private class RecordingThread extends Thread {
 		private volatile boolean recording = false;
+
+		private ArrayList<Byte> threadData = new ArrayList<Byte>();
 
 		public void startThread() {
 			this.recording = true;
@@ -182,43 +228,41 @@ public class VoiceDAO {
 		}
 
 		public void run() {
-			KeyManager km = null;
+			int read = 0;
+			byte buffer[] = new byte[minBufferSize];
 
-			FileOutputStream fos = null;
-			CipherOutputStream cos = null;
+			while (recording == true) {
+				read = mRecorder.read(buffer, 0, buffer.length);
 
-			byte data[] = new byte[minBufferSize];
-
-			try {
-				km = KeyManager.getInstance(ctx);
-
-				fos = new FileOutputStream(getAbsoluteFilePath());
-				cos = new CipherOutputStream(fos, km.getEncryptionCipher());
-
-				int read = 0;
-				while (recording == true) {
-					read = mRecorder.read(data, 0, data.length);
-
-					if (read != AudioRecord.ERROR_INVALID_OPERATION) {
-						cos.write(data);
-					}
+				if (read != AudioRecord.ERROR_INVALID_OPERATION) {
+					addData(buffer);
+				} else {
+					Log.w(TAG, "AudioRecord error!");
 				}
+			}
+		}
 
-				cos.flush();
-				cos.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+		private void addData(byte[] data) {
+			for (byte b : data) {
+				this.threadData.add(b);
+			}
+		}
+
+		public byte[] getData() {
+			byte[] result = new byte[this.threadData.size()];
+
+			for (int i = 0; i < result.length; i++) {
+				result[i] = this.threadData.get(i);
 			}
 
+			return result;
 		}
 	}
 
-	public String getFileName() {
-		return this.fileName;
+	public String getName() {
+		return this.name;
 	}
-	
+
 	/**
 	 * Generates an unique noise file name.
 	 * 
@@ -226,7 +270,7 @@ public class VoiceDAO {
 	 *            Context used for current path.
 	 * @return The noise file name.
 	 */
-	public static String getNoiseFileName(Context ctx) {
+	public static String generateNoiseFileName(Context ctx) {
 		String fn = null;
 
 		do {
@@ -240,14 +284,14 @@ public class VoiceDAO {
 	public static LinkedList<VoiceDAO> getNoiseDAOs(Context ctx) {
 		File dir = ctx.getFilesDir();
 		LinkedList<VoiceDAO> noises = new LinkedList<VoiceDAO>();
-		
+
 		for (String fn : dir.list()) {
 			if (fn.startsWith("noise") && fn.endsWith(".3gp")) {
-				Log.d(TAG, "Added noise file: " +fn);
-				noises.add(new VoiceDAO(ctx, fn, false));
+				Log.d(TAG, "Added noise file: " + fn);
+				noises.add(new VoiceDAO(ctx, fn));
 			}
 		}
-		
+
 		return noises;
 	}
 }

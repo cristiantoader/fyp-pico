@@ -52,7 +52,7 @@ public class VoiceActivity extends Activity {
 			if (isOwner) {
 				this.fileName = VoiceDAO.OWNER_FN;
 			} else {
-				this.fileName = VoiceDAO.getNoiseFileName(VoiceActivity.this);
+				this.fileName = VoiceDAO.generateNoiseFileName(VoiceActivity.this);
 			}
 		}
 
@@ -83,12 +83,13 @@ public class VoiceActivity extends Activity {
 		}
 		
 		private void startRecording() {
-			this.record = new VoiceDAO(VoiceActivity.this, this.fileName, true);
+			this.record = new VoiceDAO(VoiceActivity.this, this.fileName);
 			this.record.startRecord();
 		}
 
 		private void stopRecording() {
 			this.record.stopRecord();
+			this.record.saveRecording();
 			this.record = null;
 		}
 		

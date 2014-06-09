@@ -133,7 +133,7 @@ public class VoiceService extends AuthMechService {
 		private VoiceDAO recordData() {
 			Log.d(TAG, "recordData+");
 
-			VoiceDAO record = new VoiceDAO(VoiceService.this, "challenge.3gp", false);
+			VoiceDAO record = new VoiceDAO(VoiceService.this, "challenge.3gp");
 			
 			try {
 				record.startRecord();

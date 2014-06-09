@@ -38,16 +38,15 @@ public class VoiceAuthMediator {
 	private void trainRecognito() {
 		Log.i(TAG, "trainRecognito+");
 
-		VoiceDAO owner = new VoiceDAO(this.ctx, "owner.3gp", false);
+		VoiceDAO owner = new VoiceDAO(this.ctx, VoiceDAO.OWNER_FN);
 		LinkedList<VoiceDAO> noises = VoiceDAO.getNoiseDAOs(this.ctx);
 		
 		// check for owner data.
 		if (!owner.hasRecording()) {
-			Log.e(TAG, "Null owner recording data..");
+			Log.e(TAG, "Null owner recording data!");
 			return;
 		
 		} else {
-			Log.d(TAG, "Owner length:" + owner.getData().length);
 			Log.d(TAG, "Owner rate:" + VoiceDAO.getSampleRate());
 		}
 		
@@ -62,8 +61,8 @@ public class VoiceAuthMediator {
 		}
 		
 		for(VoiceDAO noise : noises) {
-			Log.d(TAG, "Adding noise file: " + noise.getFileName());
-			recognito.createVocalPrint(noise.getFileName(), 
+			Log.d(TAG, "Adding noise file: " + noise.getName());
+			recognito.createVocalPrint(noise.getName(), 
 					noise.getData(), 
 					VoiceDAO.getSampleRate());
 		}
@@ -83,7 +82,8 @@ public class VoiceAuthMediator {
 		
 		Map<Double, String> matches = null;
 
-		if (record == null || !record.hasRecording()) {
+		if (record == null || record.getData() == null) {
+			Log.e(TAG, "Record file does not exist:" + record.getName());
 			return 0;
 		}
 
