@@ -50,13 +50,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_voice=0x7f030003;
     }
     public static final class string {
-        public static final int AddBackground=0x7f040009;
-        public static final int Capture=0x7f04000c;
+        public static final int AddBackground=0x7f04000a;
+        public static final int Capture=0x7f04000d;
         public static final int Face=0x7f040006;
         public static final int Location=0x7f040007;
-        public static final int Play=0x7f04000a;
-        public static final int RecordOwner=0x7f040008;
-        public static final int Test=0x7f04000b;
+        public static final int Play=0x7f04000b;
+        public static final int RecordOwner=0x7f040009;
+        public static final int ResetKey=0x7f040008;
+        public static final int Test=0x7f04000c;
         public static final int Voice=0x7f040005;
         public static final int app_name=0x7f040000;
         public static final int dummy_button=0x7f040001;

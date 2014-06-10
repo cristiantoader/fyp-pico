@@ -5,6 +5,7 @@ import java.lang.ref.WeakReference;
 import com.fyp.activities.R;
 import com.fyp.activities.util.SystemUiHider;
 import com.fyp.authenticator.UAService;
+import com.fyp.ctypto.KeyManager;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -17,6 +18,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ import android.widget.TextView;
  */
 public class PicoMainActivity extends Activity {
 
+	protected static final String TAG = "PicoMainActivity";
 	/**
 	 * UI stuff.
 	 */
@@ -55,6 +58,8 @@ public class PicoMainActivity extends Activity {
 		findViewById(R.id.ButtonVoice).setOnClickListener(buttonAudioListener);
 		findViewById(R.id.ButtonFace).setOnClickListener(buttonFaceListener);
 		findViewById(R.id.ButtonLocation).setOnClickListener(buttonLocationListener);
+//		findViewById(R.id.ButtonResetKey).setOnClickListener(buttonKeyListener);
+
 	}
 
 	@Override
@@ -148,6 +153,14 @@ public class PicoMainActivity extends Activity {
 			startActivity(new Intent(PicoMainActivity.this, LocationActivity.class));
 		}
 	};
+	
+//	View.OnClickListener buttonKeyListener = new View.OnClickListener() {
+//		@Override
+//		public void onClick(View v) {
+//			Log.d(TAG, "Generating new master key. All data needs reconfiguration.");
+//			KeyManager.getFreshInstance(PicoMainActivity.this);
+//		}
+//	};
 
 	static class IncomingHandler extends Handler {
 		WeakReference<PicoMainActivity> amwr;

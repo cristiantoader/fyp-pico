@@ -58,7 +58,7 @@ public class VoiceService extends AuthMechService {
 	 */
 	private class AuthenticatorThread extends Thread {
 		/** Authentication period between consecutive samples. */
-		private static final int SAMPLING_RATE = 7 * 1000;
+		private static final int SAMPLING_RATE = 20 * 1000;
 
 		/** Recording time of the data. */
 		private static final int RECORD_TIME = 3 * 1000;

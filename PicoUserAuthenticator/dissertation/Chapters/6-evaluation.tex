@@ -84,19 +84,39 @@ An alternative solution to the problem presented above is to have an auxiliary b
 % TODO!!
 \section{Functional evaluation}
 \label{functionaleval}
-We have performed a series of tests in order to assess the usability of the scheme's prototype. The following table shows the power consumption of the application in different scenarios.
+We have performed a series of tests in order to assess the usability of the scheme's prototype. 
 
-% Test number, Test time, Voice rate, face rate, location rate, power consumption
+Battery power is a scarce resource for hand-held devices. The amount of time they can function without recharging directly determines their availability. The token unlocking scheme we have proposed requires periodic sampling of sensor data. This can be a power consuming task, if not managed appropriately. Given that the prototype's individual mechanisms currently use a configurable sampling rate, we continue by analysing the power consumption changes with various intervals.
+
+The power consumption analysis was performed using the Trepn profiling tool developed by Qualcomm\ref{The tool's official website can be found at the following address: https://developer.qualcomm.com/mobile-development/increase-app-performance/trepn-profiler}. The results are posted in table \ref{tab:powerprofile}. We analyse for different sampling rates the scheme's resource consumption while collecting and processing data. Using the profiler we gather the application's average CPU and power consumption. The tool only provides overall battery usage, which includes other Android components. Therefore, when calculating the average power consumed by the application, we deduct the base power consumption of $30.33 mW$ that was obtained by analysing the system without running the prototype. Although this introduces a margin of error, overall results should serve as a valid approximation.
+
 \begin{table}
-    \begin{tabular}{lllllll}
-    Test number & Voice sampling rate & Face sampling rate & Location sampling rate & Testing time & Power consumption & Total time \\
-    1           & ~                   & ~                  & ~                      & ~            & ~                 & ~          \\
-    2           & ~                   & ~                  & ~                      & ~            & ~                 & ~          \\
-    3           & ~                   & ~                  & ~                      & ~            & ~                 & ~          \\
-    4           & ~                   & ~                  & ~                      & ~            & ~                 & ~          \\
-    5           & ~                   & ~                  & ~                      & ~            & ~                 & ~          \\
-    6           & ~                   & ~                  & ~                      & ~            & ~                 & ~          \\
+    \begin{tabular}{l|l|l|l}
+    Test number & Sampling rate (s) & Average CPU (\%) & Average Power (mW) \\ \hline
+    1           & 5                 & 10.61            & 313.17             \\
+    2           & 10                & 4.68             & 279.48             \\
+    3           & 15                & 4.04             & 192.61             \\
+    4           & 20                & 3.27             & 81.57              \\
+    5           & 25                & 2.62             & 111.93             \\
+    6           & 30                & 2.34             & 72.86              \\
     \end{tabular}
+	
+	\caption{Application profiling results using Trepn}
+	\label{tab:powerprofile}
+\end{table}
+
+Results from table \ref{tab:powerprofile} show a relatively high CPU and Power usage for a small sampling rate of 5 seconds. This drops considerably in the following tests. In order to have the prototype constantly functional, sampling rates need to be configured in conjunction with the decay process and initial weights of the mechanisms. This is a multivariate optimisation problem, where we are trying to minimise power consumption and the error rate of the device.
+
+In order to assess the time performance scheme's authentication mechanisms, we have timed different sections in table \ref{}. It is important to note that this does not directly impact user experience. In the lack of fast data collection and authentication, previous results are used for unlocking.
+\begin{table}
+    \begin{tabular}{lll}
+		Mechanism         & Initialisation & Authentication \\
+		Voice recognition & ~              & ~              \\
+		Face recognition  & ~              & ~              \\
+		Location analysis & ~              & ~              \\
+    \end{tabular}
+	\caption{Application profiling results using Trepn}
+	\label{tab:timeprofile}
 \end{table}
 
 % TODO: review this! it is very likely poorly worded

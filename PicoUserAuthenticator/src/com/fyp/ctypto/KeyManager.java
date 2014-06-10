@@ -68,6 +68,16 @@ public class KeyManager {
 		return singleton;
 	}
 	
+	public static KeyManager getFreshInstance(Context ctx) {
+		Log.d(TAG, "getInstance+");
+
+		singleton = new KeyManager(ctx.getApplicationContext());
+		singleton.generateMasterKey();
+
+		Log.d(TAG, "getInstance- " + (singleton != null));
+		return singleton;
+	}
+	
 	private KeyManager(Context ctx) {
 		this.ctx = ctx;
 		this.filePath = this.ctx.getFilesDir().toString();

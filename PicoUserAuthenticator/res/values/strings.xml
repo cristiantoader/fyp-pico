@@ -9,6 +9,7 @@
     <string name="Voice">Voice</string>
     <string name="Face">Face</string>
     <string name="Location">Location</string>
+    <string name="ResetKey">Reset Master Key</string>
     <string name="RecordOwner">Record Owner</string>
     <string name="AddBackground">Record Noise</string>
     <string name="Play">Play</string>
