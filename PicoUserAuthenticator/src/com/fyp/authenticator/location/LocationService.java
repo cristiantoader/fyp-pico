@@ -83,17 +83,20 @@ public class LocationService extends AuthMechService {
 		public void run() {
 			Looper.prepare();
 
+			long start = System.currentTimeMillis();
+			
 			// instantiating voice DAO when thread starts.
 			mediator = new LocationAuthMediator(ctx, "owner-locations.dat");
 			mediator.loadOwnerData();
 			
 			dao = new LocationDAO(ctx);
 			
+			Log.d(TAG, "Initialisation time: " + (System.currentTimeMillis() - start));
+			
 			// sampling loop.
 			while (stop != true) {
 				try {
-					Log.d(TAG, "Start loop.");
-					Thread.sleep(SAMPLING_RATE);
+					start = System.currentTimeMillis();
 					
 					Log.d(TAG, "Getting current location.");
 					Location current = dao.getCurrentLocation();
@@ -112,6 +115,9 @@ public class LocationService extends AuthMechService {
 					Log.d(TAG, "Starting decay process for score " + score);
 					sendDecayedScore(true);
 					startDecay();
+					
+					Log.d(TAG, "Authentication time: " + (System.currentTimeMillis() - start));
+					Thread.sleep(SAMPLING_RATE);
 
 				} catch (InterruptedException e) {
 					e.printStackTrace();

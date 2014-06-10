@@ -89,18 +89,22 @@ public class FaceService extends AuthMechService {
 		private FaceDAO cameraUtil = null;
 
 		public void run() {
+			long start = System.currentTimeMillis();
+			
 			// instantiate face DAO when thread starts
 			this.mediator = new FaceAuthMediator(FaceService.this);
 
 			this.cameraUtil = new FaceDAO(FaceService.this);
 
+			Log.d(TAG, "Initialisation: " + (System.currentTimeMillis() - start));
+			
 			// data sampling loop
 			while (this.running) {
 				try {
+					start = System.currentTimeMillis();
+					
 					Log.d(TAG, "Loop start.");
 					double dscore = 0;
-
-					Thread.sleep(SAMPLING_RATE);
 
 					Log.d(TAG, "initialise camera...");
 					while (this.cameraUtil.initialiseCamera() != true) {
@@ -126,7 +130,10 @@ public class FaceService extends AuthMechService {
 
 					// start decaying process after collecting data
 					FaceService.this.startDecay();
-
+					Log.d(TAG, "Authentication time: " + (System.currentTimeMillis() - start));
+					
+					Log.d(TAG, "sleeping " + SAMPLING_RATE);
+					Thread.sleep(SAMPLING_RATE);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

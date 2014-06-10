@@ -83,12 +83,18 @@ public class VoiceService extends AuthMechService {
 
 		@Override
 		public void run() {
+			long start = System.currentTimeMillis();
+			
 			// instantiating voice DAO when thread starts.
 			this.mediator = new VoiceAuthMediator(VoiceService.this);
 
+			Log.d(TAG, "Initialisation time: " + (System.currentTimeMillis() - start));
+			
 			// sampling loop.
 			while (stop != true) {
 				try {
+					start = System.currentTimeMillis();
+					
 					Log.d(TAG, "Start loop.");
 					Thread.sleep(SAMPLING_RATE);
 
@@ -116,6 +122,7 @@ public class VoiceService extends AuthMechService {
 
 					// starts the decay process
 					VoiceService.this.startDecay();
+					Log.d(TAG, "Authentication time: " + (System.currentTimeMillis() - start));
 
 				} catch (InterruptedException e) {
 					e.printStackTrace();
