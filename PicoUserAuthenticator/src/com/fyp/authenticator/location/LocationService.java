@@ -34,8 +34,14 @@ public class LocationService extends AuthMechService {
 		
 		if (locationThread != null) {
 			Log.d(TAG, "Stopping location thread.");
-			locationThread.stopThread();
-			locationThread = null;
+			
+			try {
+				locationThread.stopThread();
+				locationThread.join();
+				locationThread = null;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		this.decayTimer.stopTimer();
@@ -49,7 +55,7 @@ public class LocationService extends AuthMechService {
 	 */
 	private class AuthenticatorThread extends Thread {
 		/** Authentication period between consecutive samples. */
-		private static final int AUTH_PERIOD = 7 * 1000;
+		private static final int SAMPLING_RATE = 3 * 1000;
 
 		/**
 		 * Number of acceptable meters threshold
@@ -87,7 +93,7 @@ public class LocationService extends AuthMechService {
 			while (stop != true) {
 				try {
 					Log.d(TAG, "Start loop.");
-					Thread.sleep(AUTH_PERIOD);
+					Thread.sleep(SAMPLING_RATE);
 					
 					Log.d(TAG, "Getting current location.");
 					Location current = dao.getCurrentLocation();
@@ -114,12 +120,7 @@ public class LocationService extends AuthMechService {
 		}
 
 		public void stopThread() {
-			try {
-				this.stop = true;
-				this.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			this.stop = true;
 		}
 
 	}

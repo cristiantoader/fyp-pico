@@ -44,8 +44,13 @@ public class FaceService extends AuthMechService {
 		Log.d(TAG, "onDestroy+");
 
 		if (this.faceThread != null) {
-			this.faceThread.stopThread();
-			this.faceThread = null;
+			try {
+				this.faceThread.stopThread();
+				this.faceThread.join();
+				this.faceThread = null;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		this.decayTimer.stopTimer();
@@ -76,7 +81,7 @@ public class FaceService extends AuthMechService {
 		private FaceAuthMediator mediator = null;
 
 		/** Authentication period used between successful camera sampling. */
-		private static final int AUTH_PERIOD = 3 * 1000;
+		private static final int SAMPLING_RATE = 3 * 1000;
 
 		/** Euclidean distance threshold used in calculating confidence. */
 		private static final double THRESHOLD = 1;
@@ -95,7 +100,7 @@ public class FaceService extends AuthMechService {
 					Log.d(TAG, "Loop start.");
 					double dscore = 0;
 
-					Thread.sleep(AUTH_PERIOD);
+					Thread.sleep(SAMPLING_RATE);
 
 					Log.d(TAG, "initialise camera...");
 					while (this.cameraUtil.initialiseCamera() != true) {
@@ -135,12 +140,7 @@ public class FaceService extends AuthMechService {
 		}
 
 		public void stopThread() {
-			try {
-				this.running = false;
-				this.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			this.running = false;
 		}
 
 	}

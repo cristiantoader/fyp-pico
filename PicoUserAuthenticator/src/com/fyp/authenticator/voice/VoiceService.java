@@ -36,8 +36,13 @@ public class VoiceService extends AuthMechService {
 		Log.i(TAG, "onDestroy");
 
 		if (voiceThread != null) {
-			voiceThread.stopThread();
-			voiceThread = null;
+			try {
+				voiceThread.stopThread();
+				voiceThread.join();
+				voiceThread = null;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		if (this.decayTimer != null) {
@@ -53,7 +58,7 @@ public class VoiceService extends AuthMechService {
 	 */
 	private class AuthenticatorThread extends Thread {
 		/** Authentication period between consecutive samples. */
-		private static final int AUTH_PERIOD = 7 * 1000;
+		private static final int SAMPLING_RATE = 7 * 1000;
 
 		/** Recording time of the data. */
 		private static final int RECORD_TIME = 3 * 1000;
@@ -85,7 +90,7 @@ public class VoiceService extends AuthMechService {
 			while (stop != true) {
 				try {
 					Log.d(TAG, "Start loop.");
-					Thread.sleep(AUTH_PERIOD);
+					Thread.sleep(SAMPLING_RATE);
 
 					VoiceDAO record = recordData();
 
@@ -119,12 +124,7 @@ public class VoiceService extends AuthMechService {
 		}
 
 		public void stopThread() {
-			try {
-				this.stop = true;
-				this.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			this.stop = true;
 		}
 
 		/***

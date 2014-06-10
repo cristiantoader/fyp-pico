@@ -19,7 +19,6 @@ import java.security.cert.CertificateException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Calendar;
-import java.util.Enumeration;
 import java.util.GregorianCalendar;
 
 import javax.crypto.Cipher;
@@ -200,8 +199,6 @@ public class KeyManager {
 			ks = KeyStore.getInstance("AndroidKeyStore");
 			ks.load(null);
 			
-			boolean more = ks.aliases().hasMoreElements();
-			
 			KeyStore.PrivateKeyEntry ke = (KeyStore.PrivateKeyEntry)ks.getEntry(ALIAS, null);
 			if (ke == null) {
 				Log.e(TAG, "Null key entry!");
@@ -277,7 +274,7 @@ public class KeyManager {
 
 		Calendar start = new GregorianCalendar();
 		Calendar end = new GregorianCalendar();
-		end.add(Calendar.YEAR, 5);
+		end.add(Calendar.YEAR, 50);
 
 		spec = new KeyPairGeneratorSpec.Builder(ctx)
 				.setAlias(ALIAS)

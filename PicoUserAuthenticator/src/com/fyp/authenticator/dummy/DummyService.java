@@ -27,8 +27,13 @@ public class DummyService extends AuthMechService {
 		Log.i("AuthDummyService", "onDestroy");
 
 		if (authThread != null) {
-			authThread.stopThread();
-			authThread = null;
+			try {
+				authThread.stopThread();
+				authThread.join();
+				authThread = null;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		this.decayTimer.stopTimer();
@@ -76,12 +81,7 @@ public class DummyService extends AuthMechService {
 		}
 
 		public void stopThread() {
-			try {
-				this.stop = true;
-				this.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			this.stop = true;
 		}
 
 	}
