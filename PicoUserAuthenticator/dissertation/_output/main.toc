@@ -26,26 +26,26 @@
 \contentsline {section}{\numberline {5.2}Implementation details}{28}{section.50}
 \contentsline {subsection}{\numberline {5.2.1}UAService}{29}{subsection.54}
 \contentsline {subsection}{\numberline {5.2.2}Authentication mechanisms}{31}{subsection.57}
-\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{34}{subsubsection.63}
-\contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{35}{subsubsection.65}
-\contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{37}{subsubsection.69}
-\contentsline {subsubsection}{\numberline {5.2.2.4}Location analysis}{39}{subsubsection.72}
-\contentsline {subsection}{\numberline {5.2.3}Owner configuration}{41}{subsection.74}
-\contentsline {subsection}{\numberline {5.2.4}Cryptographic protection}{42}{subsection.75}
-\contentsline {section}{\numberline {5.3}Conclusion}{43}{section.77}
-\contentsline {section}{\numberline {5.4}Related work}{43}{section.79}
-\contentsline {chapter}{\numberline {6}Evaluation}{46}{chapter.80}
-\contentsline {section}{\numberline {6.1}Threat model}{46}{section.81}
-\contentsline {section}{\numberline {6.2}Functional evaluation}{51}{section.88}
-\contentsline {section}{\numberline {6.3}Token unlocking framework evaluation}{51}{section.89}
-\contentsline {section}{\numberline {6.4}UDS framework evaluation}{53}{section.92}
-\contentsline {section}{\numberline {6.5}Future work}{54}{section.94}
-\contentsline {section}{\numberline {6.6}Conclusions}{55}{section.95}
+\contentsline {subsubsection}{\numberline {5.2.2.1}Dummy mechanism}{33}{subsubsection.63}
+\contentsline {subsubsection}{\numberline {5.2.2.2}Voice recognition}{34}{subsubsection.65}
+\contentsline {subsubsection}{\numberline {5.2.2.3}Face recognition}{36}{subsubsection.69}
+\contentsline {subsubsection}{\numberline {5.2.2.4}Location analysis}{38}{subsubsection.73}
+\contentsline {subsection}{\numberline {5.2.3}Owner configuration}{40}{subsection.75}
+\contentsline {subsection}{\numberline {5.2.4}Cryptographic protection}{40}{subsection.76}
+\contentsline {section}{\numberline {5.3}Conclusion}{41}{section.78}
+\contentsline {section}{\numberline {5.4}Related work}{41}{section.80}
+\contentsline {chapter}{\numberline {6}Evaluation}{44}{chapter.81}
+\contentsline {section}{\numberline {6.1}Threat model}{44}{section.82}
+\contentsline {section}{\numberline {6.2}Functional evaluation}{49}{section.89}
+\contentsline {section}{\numberline {6.3}Token unlocking framework evaluation}{50}{section.93}
+\contentsline {section}{\numberline {6.4}UDS framework evaluation}{52}{section.96}
+\contentsline {section}{\numberline {6.5}Future work}{53}{section.98}
+\contentsline {section}{\numberline {6.6}Conclusions}{54}{section.99}
 \vspace {2em}
-\contentsline {chapter}{\numberline {A}Android development and security}{56}{appendix.96}
-\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{62}{appendix.112}
-\contentsline {section}{\numberline {B.1}PIN}{62}{section.113}
-\contentsline {section}{\numberline {B.2}Face unlock}{63}{section.117}
-\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{65}{appendix.118}
+\contentsline {chapter}{\numberline {A}Android development and security}{56}{appendix.100}
+\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{62}{appendix.116}
+\contentsline {section}{\numberline {B.1}PIN}{62}{section.117}
+\contentsline {section}{\numberline {B.2}Face unlock}{63}{section.121}
+\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{65}{appendix.122}
 \vspace {2em}
-\contentsline {chapter}{Bibliography}{70}{dummy.120}
+\contentsline {chapter}{Bibliography}{70}{dummy.124}

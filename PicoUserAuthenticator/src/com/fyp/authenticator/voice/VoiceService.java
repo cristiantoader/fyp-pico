@@ -75,8 +75,10 @@ public class VoiceService extends AuthMechService {
 		private volatile boolean stop;
 
 		/** DAO used to interface with the voice recognition library. */
-		private VoiceAuthMediator mediator;
+		private VoiceAuthMediator mediator = null;
 
+		private VoiceDAO record = null;
+		
 		public AuthenticatorThread() {
 			this.stop = false;
 		}
@@ -95,7 +97,7 @@ public class VoiceService extends AuthMechService {
 				try {
 					start = System.currentTimeMillis();
 					
-					VoiceDAO record = recordData();
+					this.record = recordData();
 
 					Log.d(TAG, "Getting score.");
 					if (record == null || !record.hasRecording()) {

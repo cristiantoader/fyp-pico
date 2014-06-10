@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_PuSdYO8yEeOflObM3pPwYg" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_PuSdYe8yEeOflObM3pPwYg" source="codegen">
         <details xmi:id="_PuSdYu8yEeOflObM3pPwYg" key="codegenDirectory" value="/PicoUserAuthenticator/src"/>
-        <details xmi:id="_R3zHkO8yEeOflObM3pPwYg" key="AssociatedSourceCode" value="/PicoUserAuthenticator/src/com/fyp/activities/FaceActivity.java;1093990200/1;/PicoUserAuthenticator/src/com/fyp/activities/LocationActivity.java;1230895216/1;/PicoUserAuthenticator/src/com/fyp/activities/PicoMainActivity.java;751606603/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHider.java;3668678304/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderBase.java;278251744/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderHoneycomb.java;1607558873/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/CameraPreview.java;295302009/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/OwnerPictureCallback.java;1439980403/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMech.java;988823234/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceAuthMediator.java;2530732646/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationAuthMediator.java;2252198972/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UserAuthenticator.java;1172958397/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyAuthMediator.java;4015114913/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyService.java;2485625171/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceAuthMediator.java;2349100440/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceDAO.java;1237088386/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceService.java;3325119881/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UAService.java;4092733477/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationDAO.java;3763509935/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationService.java;3206446664/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMechService.java;3196947903/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceDAO.java;2026743886/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceService.java;3048431177/1;/PicoUserAuthenticator/src/com/fyp/ctypto/KeyManager.java;2826996977/1;"/>
+        <details xmi:id="_R3zHkO8yEeOflObM3pPwYg" key="AssociatedSourceCode" value="/PicoUserAuthenticator/src/com/fyp/activities/FaceActivity.java;1447357508/1;/PicoUserAuthenticator/src/com/fyp/activities/LocationActivity.java;1775938239/1;/PicoUserAuthenticator/src/com/fyp/activities/PicoMainActivity.java;516969846/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHider.java;3668678304/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderBase.java;278251744/1;/PicoUserAuthenticator/src/com/fyp/activities/util/SystemUiHiderHoneycomb.java;1607558873/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/CameraPreview.java;295302009/1;/PicoUserAuthenticator/src/com/fyp/activities/util/face/OwnerPictureCallback.java;1868295552/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMech.java;988823234/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceAuthMediator.java;2530732646/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationAuthMediator.java;2252198972/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UserAuthenticator.java;993901982/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyAuthMediator.java;4015114913/1;/PicoUserAuthenticator/src/com/fyp/authenticator/dummy/DummyService.java;3992861950/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceAuthMediator.java;617150305/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceDAO.java;1237088386/1;/PicoUserAuthenticator/src/com/fyp/authenticator/face/FaceService.java;3217403610/1;/PicoUserAuthenticator/src/com/fyp/authenticator/UAService.java;4092733477/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationDAO.java;1499833485/1;/PicoUserAuthenticator/src/com/fyp/authenticator/location/LocationService.java;2253116318/1;/PicoUserAuthenticator/src/com/fyp/authenticator/AuthMechService.java;1373624870/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceDAO.java;3979765431/1;/PicoUserAuthenticator/src/com/fyp/authenticator/voice/VoiceService.java;4000919414/1;/PicoUserAuthenticator/src/com/fyp/ctypto/KeyManager.java;1623260650/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_Q0pogO8yEeOflObM3pPwYg">
@@ -173,7 +173,9 @@
                 <interfaceRealization xmi:id="_RSKD4O8yEeOflObM3pPwYg" client="_Q7-_kO8yEeOflObM3pPwYg" supplier="_RP8dYe8yEeOflObM3pPwYg" contract="_RP8dYe8yEeOflObM3pPwYg"/>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWejMO8yEeOflObM3pPwYg" name="OwnerPictureCallback" specification="_RSLSAO8yEeOflObM3pPwYg">
                   <ownedParameter xmi:id="_RWejMe8yEeOflObM3pPwYg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
-                  <ownedParameter xmi:id="_RWejMu8yEeOflObM3pPwYg" type="_Q7-_kO8yEeOflObM3pPwYg" direction="return"/>
+                  <ownedParameter xmi:id="_RWejMu8yEeOflObM3pPwYg" type="_Q7-_kO8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
+                  </ownedParameter>
                   <language>java</language>
                   <body>this.filePath = ctx.getFilesDir().toString();&#xD;
 		this.fileName = &quot;owner&quot; + getNextOwner() + &quot;.png&quot;;&#xD;
@@ -181,6 +183,7 @@
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWfKQO8yEeOflObM3pPwYg" name="getNextOwner" specification="_Q8Bb0O8yEeOflObM3pPwYg">
                   <ownedParameter xmi:id="_RWfKQe8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
                     <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
                   </ownedParameter>
                   <language>java</language>
@@ -231,16 +234,16 @@
 		options.inPreferredConfig = Bitmap.Config.RGB_565;	&#xD;
 		&#xD;
 		if (data == null) {&#xD;
-			Log.e(&quot;FaceService&quot;, &quot;null data&quot;);&#xD;
+			Log.e(TAG, &quot;null data&quot;);&#xD;
 			return;&#xD;
 		}&#xD;
 &#xD;
 		bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);&#xD;
 		if (bmp == null) {&#xD;
-			Log.e(&quot;FaceService&quot;, &quot;Decoded bmp is null!&quot;);&#xD;
+			Log.e(TAG, &quot;Decoded bmp is null!&quot;);&#xD;
 			return;&#xD;
 		} else {&#xD;
-			Log.d(&quot;FaceService&quot;, &quot;Decoded bmp is ok!&quot;);&#xD;
+			Log.d(TAG, &quot;Decoded bmp is ok!&quot;);&#xD;
 		}&#xD;
 		&#xD;
 		Matrix rotMatrix = new Matrix();&#xD;
@@ -252,7 +255,6 @@
 				(int) (0.5 * bmp.getHeight()), true);&#xD;
 		&#xD;
 		&#xD;
-		// TODO: extract face and save face only!&#xD;
 		FaceDetector.Face[] faces = new FaceDetector.Face[10];&#xD;
 		this.mFaceDetector = new FaceDetector(bmp.getWidth(), bmp.getHeight(), 10);&#xD;
 		int numFaces = this.mFaceDetector.findFaces(bmp, faces);&#xD;
@@ -287,6 +289,7 @@
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWgYYO8yEeOflObM3pPwYg" name="getAbsoluteFilePath" specification="_Q8CC4O8yEeOflObM3pPwYg">
                   <ownedParameter xmi:id="_RWgYYe8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
                     <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                   </ownedParameter>
                   <language>java</language>
@@ -295,6 +298,7 @@
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWgYYu8yEeOflObM3pPwYg" name="getSdAbsoulteFilePath" specification="_Q8DRAO8yEeOflObM3pPwYg">
                   <ownedParameter xmi:id="_RWgYY-8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
                     <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                   </ownedParameter>
                   <language>java</language>
@@ -758,11 +762,7 @@ API levels to show and hide the status bar.</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWLoQO8yEeOflObM3pPwYg" name="onPause" specification="_Q6M24O8yEeOflObM3pPwYg">
               <language>java</language>
-              <body>if (mCamera != null) {&#xD;
-			mCamera.release();&#xD;
-			mCamera = null;&#xD;
-		}&#xD;
-&#xD;
+              <body>mCamera = null;&#xD;
 		super.onPause();&#xD;
 	</body>
             </ownedBehavior>
@@ -790,7 +790,7 @@ API levels to show and hide the status bar.</body>
               <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTYL4u8yEeOflObM3pPwYg" value="new OnClickListener() {&#xA;&#x9;&#x9;@Override&#xA;&#x9;&#x9;public void onClick(View v) {&#xA;&#x9;&#x9;&#x9;Log.d(TAG, &quot;StartListener+&quot;);&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if (locUtil != null) {&#xA;&#x9;&#x9;&#x9;&#x9;Log.d(TAG, &quot;Listener already started.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;return;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;locUtil = new LocationDAO(LocationActivity.this);&#xA;&#x9;&#x9;&#x9;locUtil.startCollectingLocations(2000);&#xA;&#xA;&#x9;&#x9;&#x9;Log.d(TAG, &quot;StartListener-&quot;);&#xA;&#x9;&#x9;}&#xA;&#x9;}"/>
             </ownedAttribute>
             <ownedAttribute xmi:id="_RTYy8O8yEeOflObM3pPwYg" name="mStopListener" visibility="package" type="_RPJMIO8yEeOflObM3pPwYg" association="_RYJXIe8yEeOflObM3pPwYg">
-              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTYy8e8yEeOflObM3pPwYg" value="new OnClickListener() {&#xA;&#x9;&#x9;@Override&#xA;&#x9;&#x9;public void onClick(View v) {&#xA;&#x9;&#x9;&#x9;Log.d(TAG, &quot;StopListener+&quot;);&#xA;&#xA;&#x9;&#x9;&#x9;if (locUtil != null) {&#xA;&#x9;&#x9;&#x9;&#x9;locUtil.stopCollectingLocations();&#xA;&#x9;&#x9;&#x9;&#x9;locUtil.saveCollectedLocations(&quot;owner-locations.dat&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;new LocationAuthMediator(LocationActivity.this, &quot;owner-locations.dat&quot;).loadOwnerData();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;locUtil = null;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Log.d(TAG, &quot;StopListener-&quot;);&#xA;&#x9;&#x9;}&#xA;&#x9;}"/>
+              <defaultValue xmi:type="uml:LiteralString" xmi:id="_RTYy8e8yEeOflObM3pPwYg" value="new OnClickListener() {&#xA;&#x9;&#x9;@Override&#xA;&#x9;&#x9;public void onClick(View v) {&#xA;&#x9;&#x9;&#x9;Log.d(TAG, &quot;StopListener+&quot;);&#xA;&#xA;&#x9;&#x9;&#x9;if (locUtil != null) {&#xA;&#x9;&#x9;&#x9;&#x9;locUtil.stopCollectingLocations();&#xA;&#x9;&#x9;&#x9;&#x9;locUtil.saveCollectedLocations(&quot;owner-locations.dat&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;new LocationAuthMediator(LocationActivity.this, &quot;owner-locations.dat&quot;)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;.loadOwnerData();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;locUtil = null;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Log.d(TAG, &quot;StopListener-&quot;);&#xA;&#x9;&#x9;}&#xA;&#x9;}"/>
             </ownedAttribute>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWMPUO8yEeOflObM3pPwYg" name="onCreate" specification="_RRumEO8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RWMPUe8yEeOflObM3pPwYg" name="icicle" type="_RPHW8e8yEeOflObM3pPwYg"/>
@@ -871,6 +871,8 @@ status bar and navigation/system bar) with user interaction.
 		findViewById(R.id.ButtonVoice).setOnClickListener(buttonAudioListener);
 		findViewById(R.id.ButtonFace).setOnClickListener(buttonFaceListener);
 		findViewById(R.id.ButtonLocation).setOnClickListener(buttonLocationListener);
+//		findViewById(R.id.ButtonResetKey).setOnClickListener(buttonKeyListener);
+
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWNdcu8yEeOflObM3pPwYg" name="onPostCreate" specification="_RRy3gu8yEeOflObM3pPwYg">
@@ -1115,7 +1117,7 @@ status bar and navigation/system bar) with user interaction.
 &#xD;
 		if (r.getMatchSuccess() == false) {&#xD;
 			Log.d(TAG, &quot;getMatch: No match found!&quot;);&#xD;
-			result = -1;&#xD;
+			result = Double.MAX_VALUE;&#xD;
 		} else {&#xD;
 			Log.d(TAG, &quot;getMatch: Match found!&quot;);&#xD;
 			result = r.getMatchDistance();&#xD;
@@ -1163,19 +1165,22 @@ status bar and navigation/system bar) with user interaction.
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrvH4O_9EeOro6Du1a1f1w" name="hasFace" specification="_lqaSMO_9EeOro6Du1a1f1w">
                 <ownedParameter xmi:id="_lrvH4e_9EeOro6Du1a1f1w" name="img" type="_RP7PQO8yEeOflObM3pPwYg"/>
                 <ownedParameter xmi:id="_lrvH4u_9EeOro6Du1a1f1w" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                 </ownedParameter>
                 <language>java</language>
                 <body>int maxFaces = 10;&#xD;
+		int numFaces = 0;&#xD;
 &#xD;
 		Face[] faces = new Face[maxFaces];&#xD;
 &#xD;
 		FaceDetector fr = new FaceDetector(img.getWidth() - img.getWidth() % 2,&#xD;
 				img.getHeight(), maxFaces);&#xD;
 &#xD;
-		fr.findFaces(img, faces);&#xD;
+		numFaces = fr.findFaces(img, faces);&#xD;
 &#xD;
-		return faces.length != 0;&#xD;
+		Log.d(TAG, &quot;hasFace: &quot; + numFaces);&#xD;
+		return numFaces != 0;&#xD;
 	</body>
               </ownedBehavior>
               <ownedOperation xmi:id="_Q9L5cO8yEeOflObM3pPwYg" name="trainFaceRecognizer" method="_RWr-k-8yEeOflObM3pPwYg"/>
@@ -1381,8 +1386,13 @@ status bar and navigation/system bar) with user interaction.
                 <body>Log.d(TAG, &quot;onDestroy+&quot;);
 
 		if (this.faceThread != null) {
-			this.faceThread.stopThread();
-			this.faceThread = null;
+			try {
+				this.faceThread.stopThread();
+				this.faceThread.join();
+				this.faceThread = null;
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		this.decayTimer.stopTimer();
@@ -1429,9 +1439,9 @@ status bar and navigation/system bar) with user interaction.
                 <ownedAttribute xmi:id="_RUvd0O8yEeOflObM3pPwYg" name="mediator" visibility="private" type="_Q9KEQO8yEeOflObM3pPwYg" association="_RYwbIe8yEeOflObM3pPwYg">
                   <defaultValue xmi:type="uml:LiteralString" xmi:id="_RUvd0e8yEeOflObM3pPwYg" value="null"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_RUwE4e8yEeOflObM3pPwYg" name="AUTH_PERIOD" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+                <ownedAttribute xmi:id="_RUwE4e8yEeOflObM3pPwYg" name="SAMPLING_RATE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_RUwr8O8yEeOflObM3pPwYg" value="3 * 1000"/>
+                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_vD6KkPDhEeOS4eqfKUJrJg" value="10 * 1000"/>
                 </ownedAttribute>
                 <ownedAttribute xmi:id="_RUwr8e8yEeOflObM3pPwYg" name="THRESHOLD" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
@@ -1442,18 +1452,22 @@ status bar and navigation/system bar) with user interaction.
                 </ownedAttribute>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWvB4u8yEeOflObM3pPwYg" name="run" specification="_Q9h3sO8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>// instantiate face DAO when thread starts
+                  <body>long start = System.currentTimeMillis();
+			
+			// instantiate face DAO when thread starts
 			this.mediator = new FaceAuthMediator(FaceService.this);
 
 			this.cameraUtil = new FaceDAO(FaceService.this);
 
+			Log.d(TAG, &quot;Initialisation: &quot; + (System.currentTimeMillis() - start));
+			
 			// data sampling loop
 			while (this.running) {
 				try {
+					start = System.currentTimeMillis();
+					
 					Log.d(TAG, &quot;Loop start.&quot;);
 					double dscore = 0;
-
-					Thread.sleep(AUTH_PERIOD);
 
 					Log.d(TAG, &quot;initialise camera...&quot;);
 					while (this.cameraUtil.initialiseCamera() != true) {
@@ -1464,7 +1478,7 @@ status bar and navigation/system bar) with user interaction.
 					Bitmap picture = this.cameraUtil.takePicture();
 					
 					if (!FaceAuthMediator.hasFace(picture)) {
-						Log.d(TAG, &quot;No faces in picture.&quot;);
+						Log.w(TAG, &quot;No faces in picture. continue decay.&quot;);
 						continue;
 					}
 					
@@ -1479,7 +1493,10 @@ status bar and navigation/system bar) with user interaction.
 
 					// start decaying process after collecting data
 					FaceService.this.startDecay();
-
+					Log.d(TAG, &quot;Authentication time: &quot; + (System.currentTimeMillis() - start));
+					
+					Log.d(TAG, &quot;sleeping &quot; + SAMPLING_RATE);
+					Thread.sleep(SAMPLING_RATE);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -1495,12 +1512,7 @@ status bar and navigation/system bar) with user interaction.
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWvo8e8yEeOflObM3pPwYg" name="stopThread" specification="_Q9iewO8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>try {
-				this.running = false;
-				this.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+                  <body>this.running = false;
 		</body>
                 </ownedBehavior>
                 <ownedOperation xmi:id="_Q9h3sO8yEeOflObM3pPwYg" name="run" method="_RWvB4u8yEeOflObM3pPwYg"/>
@@ -1781,7 +1793,9 @@ status bar and navigation/system bar) with user interaction.
               </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWzTUO8yEeOflObM3pPwYg" name="LocationDAO" specification="_RSvSsO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RWzTUe8yEeOflObM3pPwYg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
-                <ownedParameter xmi:id="_RWzTUu8yEeOflObM3pPwYg" type="_Q965QO8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_RWzTUu8yEeOflObM3pPwYg" type="_Q965QO8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>this.ctx = ctx;&#xD;
 		lm = (LocationManager) this.ctx&#xD;
@@ -1789,7 +1803,9 @@ status bar and navigation/system bar) with user interaction.
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWzTU-8yEeOflObM3pPwYg" name="getCurrentLocation" specification="_Q99VgO8yEeOflObM3pPwYg">
-                <ownedParameter xmi:id="_RWzTVO8yEeOflObM3pPwYg" type="_RQOxQO8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_RWzTVO8yEeOflObM3pPwYg" type="_RQOxQO8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>Location location = null;&#xD;
 		Log.d(TAG, &quot;getCurrentLocation()+&quot;);&#xD;
@@ -1799,12 +1815,15 @@ status bar and navigation/system bar) with user interaction.
 		// acquire location&#xD;
 		Criteria criteria = new Criteria();&#xD;
 		String provider = lm.getBestProvider(criteria, true);&#xD;
+		&#xD;
 		location = lm.getLastKnownLocation(provider);&#xD;
+		if (location != null) {&#xD;
+			Log.d(TAG, &quot;getCurrentLocation- &quot; + location.getLatitude() + &quot; &quot;&#xD;
+					+ location.getLongitude() + &quot; &quot; + location.getProvider());&#xD;
+		}&#xD;
 		&#xD;
 		this.lm.removeUpdates(locationListener);&#xD;
 &#xD;
-		Log.d(TAG, &quot;getCurrentLocation- &quot; + location.getLatitude() + &quot; &quot;&#xD;
-				+ location.getLongitude() + &quot; &quot; + location.getProvider());&#xD;
 		return location;&#xD;
 	</body>
               </ownedBehavior>
@@ -1906,7 +1925,9 @@ status bar and navigation/system bar) with user interaction.
                   <ownedParameter xmi:id="_RW0hce8yEeOflObM3pPwYg" name="interval">
                     <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
                   </ownedParameter>
-                  <ownedParameter xmi:id="_RW0hcu8yEeOflObM3pPwYg" type="_Q-COAO8yEeOflObM3pPwYg" direction="return"/>
+                  <ownedParameter xmi:id="_RW0hcu8yEeOflObM3pPwYg" type="_Q-COAO8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
+                  </ownedParameter>
                   <language>java</language>
                   <body>this.interval = interval;&#xD;
 		</body>
@@ -1930,6 +1951,7 @@ status bar and navigation/system bar) with user interaction.
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW1IgO8yEeOflObM3pPwYg" name="startRecord" specification="_Q-HtkO8yEeOflObM3pPwYg">
                   <ownedParameter xmi:id="_RW1Ige8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
                     <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                   </ownedParameter>
                   <language>java</language>
@@ -2038,8 +2060,14 @@ status bar and navigation/system bar) with user interaction.
 		&#xD;
 		if (locationThread != null) {&#xD;
 			Log.d(TAG, &quot;Stopping location thread.&quot;);&#xD;
-			locationThread.stopThread();&#xD;
-			locationThread = null;&#xD;
+			&#xD;
+			try {&#xD;
+				locationThread.stopThread();&#xD;
+				locationThread.join();&#xD;
+				locationThread = null;&#xD;
+			} catch (InterruptedException e) {&#xD;
+				e.printStackTrace();&#xD;
+			}&#xD;
 		}&#xD;
 		&#xD;
 		this.decayTimer.stopTimer();&#xD;
@@ -2055,9 +2083,9 @@ status bar and navigation/system bar) with user interaction.
 	 *</body>
                 </ownedComment>
                 <generalization xmi:id="_RS0yQO8yEeOflObM3pPwYg" general="_RSc-0O8yEeOflObM3pPwYg"/>
-                <ownedAttribute xmi:id="_RVRCQO8yEeOflObM3pPwYg" name="AUTH_PERIOD" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+                <ownedAttribute xmi:id="_RVRCQO8yEeOflObM3pPwYg" name="SAMPLING_RATE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVRCQe8yEeOflObM3pPwYg" value="7 * 1000"/>
+                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_vEBfUPDhEeOS4eqfKUJrJg" value="10 * 1000"/>
                 </ownedAttribute>
                 <ownedAttribute xmi:id="_RVRpUO8yEeOflObM3pPwYg" name="THRESHOLD" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
@@ -2083,7 +2111,9 @@ status bar and navigation/system bar) with user interaction.
                   <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVVTsO8yEeOflObM3pPwYg" value="null"/>
                 </ownedAttribute>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW29sO8yEeOflObM3pPwYg" name="AuthenticatorThread" specification="_Q-dEwO8yEeOflObM3pPwYg">
-                  <ownedParameter xmi:id="_RW29se8yEeOflObM3pPwYg" type="_Q-bPkO8yEeOflObM3pPwYg" direction="return"/>
+                  <ownedParameter xmi:id="_RW29se8yEeOflObM3pPwYg" type="_Q-bPkO8yEeOflObM3pPwYg" direction="return">
+                    <name xsi:nil="true"/>
+                  </ownedParameter>
                   <language>java</language>
                   <body>this.stop = false;&#xD;
 			this.ctx = LocationService.this;&#xD;
@@ -2093,21 +2123,28 @@ status bar and navigation/system bar) with user interaction.
                   <language>java</language>
                   <body>Looper.prepare();&#xD;
 &#xD;
+			long start = System.currentTimeMillis();&#xD;
+			&#xD;
 			// instantiating voice DAO when thread starts.&#xD;
 			mediator = new LocationAuthMediator(ctx, &quot;owner-locations.dat&quot;);&#xD;
 			mediator.loadOwnerData();&#xD;
 			&#xD;
 			dao = new LocationDAO(ctx);&#xD;
 			&#xD;
+			Log.d(TAG, &quot;Initialisation time: &quot; + (System.currentTimeMillis() - start));&#xD;
+			&#xD;
 			// sampling loop.&#xD;
 			while (stop != true) {&#xD;
 				try {&#xD;
-					Log.d(TAG, &quot;Start loop.&quot;);&#xD;
-					Thread.sleep(AUTH_PERIOD);&#xD;
+					start = System.currentTimeMillis();&#xD;
 					&#xD;
 					Log.d(TAG, &quot;Getting current location.&quot;);&#xD;
 					Location current = dao.getCurrentLocation();&#xD;
-&#xD;
+					if (current == null) {&#xD;
+						Log.w(TAG, &quot;location not available, continue decay.&quot;);&#xD;
+						continue;&#xD;
+					}&#xD;
+					&#xD;
 					Log.d(TAG, &quot;Getting score.&quot;);&#xD;
 					double dscore = mediator.getMinDistance(current);&#xD;
 					dscore = (dscore > THRESHOLD) ? THRESHOLD : dscore;&#xD;
@@ -2118,6 +2155,9 @@ status bar and navigation/system bar) with user interaction.
 					Log.d(TAG, &quot;Starting decay process for score &quot; + score);&#xD;
 					sendDecayedScore(true);&#xD;
 					startDecay();&#xD;
+					&#xD;
+					Log.d(TAG, &quot;Authentication time: &quot; + (System.currentTimeMillis() - start));&#xD;
+					Thread.sleep(SAMPLING_RATE);&#xD;
 &#xD;
 				} catch (InterruptedException e) {&#xD;
 					e.printStackTrace();&#xD;
@@ -2127,12 +2167,7 @@ status bar and navigation/system bar) with user interaction.
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW3kwO8yEeOflObM3pPwYg" name="stopThread" specification="_Q-e58u8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>try {&#xD;
-				this.stop = true;&#xD;
-				this.join();&#xD;
-			} catch (InterruptedException e) {&#xD;
-				e.printStackTrace();&#xD;
-			}&#xD;
+                  <body>this.stop = true;&#xD;
 		</body>
                 </ownedBehavior>
                 <ownedOperation xmi:id="_Q-dEwO8yEeOflObM3pPwYg" name="AuthenticatorThread" method="_RW29sO8yEeOflObM3pPwYg">
@@ -2346,14 +2381,14 @@ status bar and navigation/system bar) with user interaction.
               <ownedAttribute xmi:id="_RVtHIO8yEeOflObM3pPwYg" name="ctx" visibility="private" type="_RPULQe8yEeOflObM3pPwYg" association="_RY_rse8yEeOflObM3pPwYg">
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVtHIe8yEeOflObM3pPwYg" value="null"/>
               </ownedAttribute>
-              <ownedAttribute xmi:id="_lrpoUO_9EeOro6Du1a1f1w" name="data" isReadOnly="true">
-                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
-                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrqPYO_9EeOro6Du1a1f1w" value="*"/>
-                <defaultValue xmi:type="uml:LiteralString" xmi:id="_lrqPYu_9EeOro6Du1a1f1w" value="null"/>
-              </ownedAttribute>
               <ownedAttribute xmi:id="_lrrdgO_9EeOro6Du1a1f1w" name="OWNER_FN" isLeaf="true" isStatic="true" isReadOnly="true">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_lrsEkO_9EeOro6Du1a1f1w" value="&quot;owner.3gp&quot;"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_lrpoUO_9EeOro6Du1a1f1w" name="data" visibility="public" isReadOnly="true">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vEEioPDhEeOS4eqfKUJrJg" value="*"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_lrqPYu_9EeOro6Du1a1f1w" value="null"/>
               </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW72MO8yEeOflObM3pPwYg" name="VoiceDAO" specification="_RS-jQO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW72Me8yEeOflObM3pPwYg" name="context" type="_RPULQe8yEeOflObM3pPwYg"/>
@@ -2392,6 +2427,7 @@ status bar and navigation/system bar) with user interaction.
                 <language>java</language>
                 <body>this.mRecorder.stop();&#xD;
 		this.mRecorder.release();&#xD;
+		this.mRecorder = null;&#xD;
 &#xD;
 		this.rt.stopThread();&#xD;
 		this.data = this.rt.getData();&#xD;
@@ -2416,7 +2452,7 @@ status bar and navigation/system bar) with user interaction.
                 <language>java</language>
                 <body>double[] result = null;&#xD;
 &#xD;
-		Log.d(TAG, &quot;getOwnerData+&quot;);&#xD;
+		Log.d(TAG, &quot;getData+&quot;);&#xD;
 &#xD;
 		if (data == null) {&#xD;
 			Log.d(TAG, &quot;Retrieving data from file.&quot;);&#xD;
@@ -2436,6 +2472,8 @@ status bar and navigation/system bar) with user interaction.
 		FileOutputStream fos = null;&#xD;
 		CipherOutputStream cos = null;&#xD;
 &#xD;
+		Log.d(TAG, &quot;saveRecording+&quot;);&#xD;
+		&#xD;
 		if (new File(getAbsoluteFilePath()).exists()) {&#xD;
 			Log.w(TAG, &quot;File with the same name will get overwritten: &quot;&#xD;
 					+ getAbsoluteFilePath());&#xD;
@@ -2456,6 +2494,7 @@ status bar and navigation/system bar) with user interaction.
 			e.printStackTrace();&#xD;
 		}&#xD;
 &#xD;
+		Log.d(TAG, &quot;saveRecording-&quot;);&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW9rYO8yEeOflObM3pPwYg" name="hasRecording" specification="_Q_GlAO8yEeOflObM3pPwYg">
@@ -2478,16 +2517,20 @@ status bar and navigation/system bar) with user interaction.
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrwWAu_9EeOro6Du1a1f1w" name="getDataFromObject" specification="_lq3lMO_9EeOro6Du1a1f1w">
                 <ownedParameter xmi:id="_lrwWA-_9EeOro6Du1a1f1w" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#double"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrwWBO_9EeOro6Du1a1f1w" value="*"/>
                 </ownedParameter>
                 <language>java</language>
                 <body>double[] result = new double[this.data.length];&#xD;
 &#xD;
+		Log.d(TAG, &quot;getDataFromObject+&quot;);&#xD;
+		&#xD;
 		for (int i = 0; i &lt; result.length; i++) {&#xD;
-			result[i] = (((double) this.data[i]) / 128) - 1;&#xD;
+			result[i] = ((double) this.data[i]) / 128;&#xD;
 		}&#xD;
 &#xD;
+		Log.d(TAG, &quot;getDataFromObject-&quot;);&#xD;
 		return result;&#xD;
 	</body>
               </ownedBehavior>
@@ -2508,12 +2551,17 @@ status bar and navigation/system bar) with user interaction.
 			fis = new FileInputStream(getAbsoluteFilePath());&#xD;
 			cis = new CipherInputStream(fis, km.getDecryptionCipher());&#xD;
 &#xD;
-			data = new byte[(int) fis.getChannel().size()];&#xD;
-&#xD;
-			int i = 0, val = 0;&#xD;
-			while ((val = cis.read()) != -1) {&#xD;
-				data[i++] = (byte) val;&#xD;
-				i++;&#xD;
+			// read data from stream&#xD;
+			int b;&#xD;
+			ArrayList&lt;Byte> decByteList = new ArrayList&lt;Byte>();&#xD;
+			while((b = cis.read()) != -1) {&#xD;
+				decByteList.add((byte) b);&#xD;
+			}&#xD;
+			&#xD;
+			// saving data&#xD;
+			data = new byte[decByteList.size()];&#xD;
+			for (int i = 0; i &lt; data.length; i++) {&#xD;
+				data[i] = decByteList.get(i);&#xD;
 			}&#xD;
 &#xD;
 			cis.close();&#xD;
@@ -2526,6 +2574,7 @@ status bar and navigation/system bar) with user interaction.
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrxkIO_9EeOro6Du1a1f1w" name="generateNoiseFileName" specification="_lq5aYO_9EeOro6Du1a1f1w">
                 <ownedParameter xmi:id="_lrxkIe_9EeOro6Du1a1f1w" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
                 <ownedParameter xmi:id="_lrxkIu_9EeOro6Du1a1f1w" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 </ownedParameter>
                 <language>java</language>
@@ -2534,14 +2583,16 @@ status bar and navigation/system bar) with user interaction.
 		do {&#xD;
 			fn = &quot;noise&quot; + new Random().nextInt() + &quot;.3gp&quot;;&#xD;
 &#xD;
-		} while (!new File(ctx.getFilesDir() + &quot;/&quot; + fn).exists());&#xD;
+		} while (new File(ctx.getFilesDir() + &quot;/&quot; + fn).exists());&#xD;
 &#xD;
 		return fn;&#xD;
 	</body>
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrxkI-_9EeOro6Du1a1f1w" name="getNoiseDAOs" specification="_lq6BcO_9EeOro6Du1a1f1w">
                 <ownedParameter xmi:id="_lrxkJO_9EeOro6Du1a1f1w" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
-                <ownedParameter xmi:id="_lrxkJe_9EeOro6Du1a1f1w" type="_RQMVAe8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_lrxkJe_9EeOro6Du1a1f1w" type="_RQMVAe8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>File dir = ctx.getFilesDir();&#xD;
 		LinkedList&lt;VoiceDAO> noises = new LinkedList&lt;VoiceDAO>();&#xD;
@@ -2745,11 +2796,18 @@ of this observable.&#xD;
                 <body>Log.i(TAG, &quot;onDestroy&quot;);&#xD;
 &#xD;
 		if (voiceThread != null) {&#xD;
-			voiceThread.stopThread();&#xD;
-			voiceThread = null;&#xD;
+			try {&#xD;
+				voiceThread.stopThread();&#xD;
+				voiceThread.join();&#xD;
+				voiceThread = null;&#xD;
+			} catch (InterruptedException e) {&#xD;
+				e.printStackTrace();&#xD;
+			}&#xD;
 		}&#xD;
 &#xD;
-		this.decayTimer.stopTimer();&#xD;
+		if (this.decayTimer != null) {&#xD;
+			this.decayTimer.stopTimer();&#xD;
+		}&#xD;
 	</body>
               </ownedBehavior>
               <ownedOperation xmi:id="_Q_Q9EO8yEeOflObM3pPwYg" name="onCreate" method="_RW_gkO8yEeOflObM3pPwYg"/>
@@ -2762,9 +2820,9 @@ of this observable.&#xD;
 	 *</body>
                 </ownedComment>
                 <generalization xmi:id="_RTCNoO8yEeOflObM3pPwYg" general="_RSc-0O8yEeOflObM3pPwYg"/>
-                <ownedAttribute xmi:id="_RVxYke8yEeOflObM3pPwYg" name="AUTH_PERIOD" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
+                <ownedAttribute xmi:id="_RVxYke8yEeOflObM3pPwYg" name="SAMPLING_RATE" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
-                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_RVx_oO8yEeOflObM3pPwYg" value="7 * 1000"/>
+                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_vEL3YPDhEeOS4eqfKUJrJg" value="10 * 1000"/>
                 </ownedAttribute>
                 <ownedAttribute xmi:id="_RVx_oe8yEeOflObM3pPwYg" name="RECORD_TIME" visibility="private" isLeaf="true" isStatic="true" isReadOnly="true">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
@@ -2784,7 +2842,12 @@ of this observable.&#xD;
                   </eAnnotations>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_RVz00e8yEeOflObM3pPwYg" name="mediator" visibility="private" type="_Q8f88O8yEeOflObM3pPwYg" association="_lr4R0O_9EeOro6Du1a1f1w"/>
+                <ownedAttribute xmi:id="_RVz00e8yEeOflObM3pPwYg" name="mediator" visibility="private" type="_Q8f88O8yEeOflObM3pPwYg" association="_lr4R0O_9EeOro6Du1a1f1w">
+                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_kCIpwPDiEeOS4eqfKUJrJg" value="null"/>
+                </ownedAttribute>
+                <ownedAttribute xmi:id="_kCMUIPDiEeOS4eqfKUJrJg" name="record" visibility="private" type="_Q-_QQO8yEeOflObM3pPwYg" association="_kCOwYPDiEeOS4eqfKUJrJg">
+                  <defaultValue xmi:type="uml:LiteralString" xmi:id="_kCM7MPDiEeOS4eqfKUJrJg" value="null"/>
+                </ownedAttribute>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXAHoO8yEeOflObM3pPwYg" name="AuthenticatorThread" specification="_Q_TZUO8yEeOflObM3pPwYg">
                   <ownedParameter xmi:id="_RXAHoe8yEeOflObM3pPwYg" type="_Q_SLMO8yEeOflObM3pPwYg" direction="return">
                     <name xsi:nil="true"/>
@@ -2795,15 +2858,19 @@ of this observable.&#xD;
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXAHou8yEeOflObM3pPwYg" name="run" specification="_Q_UAYu8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>this.mediator = new VoiceAuthMediator(VoiceService.this);&#xD;
+                  <body>long start = System.currentTimeMillis();&#xD;
+			&#xD;
+			// instantiating voice DAO when thread starts.&#xD;
+			this.mediator = new VoiceAuthMediator(VoiceService.this);&#xD;
 &#xD;
+			Log.d(TAG, &quot;Initialisation time: &quot; + (System.currentTimeMillis() - start));&#xD;
+			&#xD;
 			// sampling loop.&#xD;
 			while (stop != true) {&#xD;
 				try {&#xD;
-					Log.d(TAG, &quot;Start loop.&quot;);&#xD;
-					Thread.sleep(AUTH_PERIOD);&#xD;
-&#xD;
-					VoiceDAO record = recordData();&#xD;
+					start = System.currentTimeMillis();&#xD;
+					&#xD;
+					this.record = recordData();&#xD;
 &#xD;
 					Log.d(TAG, &quot;Getting score.&quot;);&#xD;
 					if (record == null || !record.hasRecording()) {&#xD;
@@ -2814,7 +2881,7 @@ of this observable.&#xD;
 					// sending match score.&#xD;
 					double dscore = this.mediator.getMatch(record);&#xD;
 					if (dscore == -1) {&#xD;
-						Log.d(TAG, &quot;Noise detected, continuing decay.&quot;);&#xD;
+						Log.w(TAG, &quot;Noise detected, continuing decay.&quot;);&#xD;
 						continue;&#xD;
 					}&#xD;
 					&#xD;
@@ -2827,7 +2894,10 @@ of this observable.&#xD;
 &#xD;
 					// starts the decay process&#xD;
 					VoiceService.this.startDecay();&#xD;
+					Log.d(TAG, &quot;Authentication time: &quot; + &#xD;
+							(System.currentTimeMillis() - start - RECORD_TIME));&#xD;
 &#xD;
+					Thread.sleep(SAMPLING_RATE);&#xD;
 				} catch (InterruptedException e) {&#xD;
 					e.printStackTrace();&#xD;
 				}&#xD;
@@ -2836,12 +2906,7 @@ of this observable.&#xD;
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXAHo-8yEeOflObM3pPwYg" name="stopThread" specification="_Q_VOge8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>try {&#xD;
-				this.stop = true;&#xD;
-				this.join();&#xD;
-			} catch (InterruptedException e) {&#xD;
-				e.printStackTrace();&#xD;
-			}&#xD;
+                  <body>this.stop = true;&#xD;
 		</body>
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXAusO8yEeOflObM3pPwYg" name="recordData" specification="_Q_VOgu8yEeOflObM3pPwYg">
@@ -2905,6 +2970,9 @@ of this observable.&#xD;
             <packagedElement xmi:type="uml:Association" xmi:id="_lr4R0O_9EeOro6Du1a1f1w" name="" memberEnd="_lr4R0e_9EeOro6Du1a1f1w _RVz00e8yEeOflObM3pPwYg">
               <ownedEnd xmi:id="_lr4R0e_9EeOro6Du1a1f1w" name="" type="_Q_SLMO8yEeOflObM3pPwYg" association="_lr4R0O_9EeOro6Du1a1f1w"/>
             </packagedElement>
+            <packagedElement xmi:type="uml:Association" xmi:id="_kCOwYPDiEeOS4eqfKUJrJg" name="" memberEnd="_kCOwYfDiEeOS4eqfKUJrJg _kCMUIPDiEeOS4eqfKUJrJg">
+              <ownedEnd xmi:id="_kCOwYfDiEeOS4eqfKUJrJg" name="" type="_Q_SLMO8yEeOflObM3pPwYg" association="_kCOwYPDiEeOS4eqfKUJrJg"/>
+            </packagedElement>
           </packagedElement>
           <packagedElement xmi:type="uml:Package" xmi:id="_Q1_sUO8yEeOflObM3pPwYg" name="dummy">
             <packagedElement xmi:type="uml:Class" xmi:id="_Q86MoO8yEeOflObM3pPwYg" name="DummyAuthMediator">
@@ -2960,8 +3028,13 @@ of this observable.&#xD;
                 <body>Log.i(&quot;AuthDummyService&quot;, &quot;onDestroy&quot;);&#xD;
 &#xD;
 		if (authThread != null) {&#xD;
-			authThread.stopThread();&#xD;
-			authThread = null;&#xD;
+			try {&#xD;
+				authThread.stopThread();&#xD;
+				authThread.join();&#xD;
+				authThread = null;&#xD;
+			} catch (InterruptedException e) {&#xD;
+				e.printStackTrace();&#xD;
+			}&#xD;
 		}&#xD;
 &#xD;
 		this.decayTimer.stopTimer();&#xD;
@@ -3023,12 +3096,7 @@ of this observable.&#xD;
                 </ownedBehavior>
                 <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWqwce8yEeOflObM3pPwYg" name="stopThread" specification="_Q9GZ4O8yEeOflObM3pPwYg">
                   <language>java</language>
-                  <body>try {&#xD;
-				this.stop = true;&#xD;
-				this.join();&#xD;
-			} catch (InterruptedException e) {&#xD;
-				e.printStackTrace();&#xD;
-			}&#xD;
+                  <body>this.stop = true;&#xD;
 		</body>
                 </ownedBehavior>
                 <ownedOperation xmi:id="_Q9D9oO8yEeOflObM3pPwYg" name="AuthenticatorThread" method="_RWqJYu8yEeOflObM3pPwYg">
@@ -3247,7 +3315,9 @@ is binded by UAService.&#xD;
             </ownedAttribute>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWoUMe8yEeOflObM3pPwYg" name="UserAuthenticator" specification="_RSbJoO8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RWoUMu8yEeOflObM3pPwYg" name="service" type="_RQAu0O8yEeOflObM3pPwYg"/>
-              <ownedParameter xmi:id="_RWoUM-8yEeOflObM3pPwYg" type="_Q8vNgO8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RWoUM-8yEeOflObM3pPwYg" type="_Q8vNgO8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>this.uaservice = service;&#xD;
 		this.mechanisms = new LinkedList&lt;AuthMech>();&#xD;
@@ -3281,10 +3351,10 @@ is binded by UAService.&#xD;
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWo7QO8yEeOflObM3pPwYg" name="initAvailableDevices" specification="_Q8ze8O8yEeOflObM3pPwYg">
               <language>java</language>
-              <body>//		this.mechanism.add(new AuthMech(uaservice, AuthDummyService.class));&#xD;
+              <body>//		this.mechanisms.add(new AuthMech(uaservice, DummyService.class));&#xD;
 		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));&#xD;
-//		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));&#xD;
-//		this.mechanisms.add(new AuthMech(uaservice, LocationService.class));&#xD;
+		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));&#xD;
+		this.mechanisms.add(new AuthMech(uaservice, LocationService.class));&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RWo7Qe8yEeOflObM3pPwYg" name="stopMechanisms" specification="_Q80GAO8yEeOflObM3pPwYg">
@@ -3617,13 +3687,16 @@ this class.&#xD;
             </ownedAttribute>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW4L0O8yEeOflObM3pPwYg" name="onBind" specification="_RS31kO8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RW4L0e8yEeOflObM3pPwYg" name="arg0" type="_RPVZYO8yEeOflObM3pPwYg"/>
-              <ownedParameter xmi:id="_RW4L0u8yEeOflObM3pPwYg" type="_RPXOke8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RW4L0u8yEeOflObM3pPwYg" type="_RPXOke8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>return clientReader.getBinder();&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW4y4O8yEeOflObM3pPwYg" name="getInitialWeight" specification="_Q-rHMO8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RW4y4e8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
               </ownedParameter>
               <language>java</language>
@@ -3658,10 +3731,6 @@ this class.&#xD;
 		}&#xD;
 		&#xD;
 		int decayedScore = this.decayedWeight * this.score;&#xD;
-&#xD;
-		Log.e(TAG, &quot;Service score: &quot; + score);&#xD;
-		Log.e(TAG, &quot;Decayed weight: &quot; + decayedWeight);&#xD;
-		Log.e(TAG, &quot;Decayed score: &quot; + decayedScore);&#xD;
 &#xD;
 		try {&#xD;
 			clientWriter.send(Message.obtain(null, AUTH_MECH_GET_STATUS,&#xD;
@@ -3729,7 +3798,9 @@ this class.&#xD;
               <ownedAttribute xmi:id="_RVd2ke8yEeOflObM3pPwYg" name="service" visibility="private" isLeaf="true" type="_RPRvAO8yEeOflObM3pPwYg" isReadOnly="true" association="_RY8BUe8yEeOflObM3pPwYg"/>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW4y4u8yEeOflObM3pPwYg" name="IncomingHandler" specification="_RQ11QO8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW4y4-8yEeOflObM3pPwYg" name="service" type="_Q-m1wO8yEeOflObM3pPwYg"/>
-                <ownedParameter xmi:id="_RW4y5O8yEeOflObM3pPwYg" type="_Q-sVUO8yEeOflObM3pPwYg" direction="return"/>
+                <ownedParameter xmi:id="_RW4y5O8yEeOflObM3pPwYg" type="_Q-sVUO8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>this.service = new WeakReference&lt;AuthMechService>(service);&#xD;
 		</body>
@@ -3820,6 +3891,7 @@ this class.&#xD;
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RW6BAO8yEeOflObM3pPwYg" name="startTimer" specification="_Q-zqEu8yEeOflObM3pPwYg">
                 <ownedParameter xmi:id="_RW6BAe8yEeOflObM3pPwYg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                 </ownedParameter>
                 <language>java</language>
@@ -3994,7 +4066,9 @@ this class.&#xD;
             </ownedAttribute>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXBVwO8yEeOflObM3pPwYg" name="getInstance" specification="_RTEp4O8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RXBVwe8yEeOflObM3pPwYg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
-              <ownedParameter xmi:id="_RXBVwu8yEeOflObM3pPwYg" type="_Q_cjQO8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RXBVwu8yEeOflObM3pPwYg" type="_Q_cjQO8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>Log.d(TAG, &quot;getInstance+&quot;);&#xD;
 		&#xD;
@@ -4007,12 +4081,15 @@ this class.&#xD;
 			singleton.loadMasterKey();&#xD;
 		}&#xD;
 		&#xD;
+		Log.d(TAG, &quot;getInstance- &quot; + (singleton != null));&#xD;
 		return singleton;&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXB80O8yEeOflObM3pPwYg" name="KeyManager" specification="_RTFQ8O8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RXB80e8yEeOflObM3pPwYg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
-              <ownedParameter xmi:id="_RXB80u8yEeOflObM3pPwYg" type="_Q_cjQO8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RXB80u8yEeOflObM3pPwYg" type="_Q_cjQO8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>this.ctx = ctx;&#xD;
 		this.filePath = this.ctx.getFilesDir().toString();&#xD;
@@ -4136,6 +4213,7 @@ this class.&#xD;
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXCj4O8yEeOflObM3pPwYg" name="hasMasterKey" specification="_Q_iC0O8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RXCj4e8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
               </ownedParameter>
               <language>java</language>
@@ -4143,7 +4221,9 @@ this class.&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXCj4u8yEeOflObM3pPwYg" name="getPrivateKey" specification="_Q_iC0u8yEeOflObM3pPwYg">
-              <ownedParameter xmi:id="_RXCj4-8yEeOflObM3pPwYg" type="_RRKlYe8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RXCj4-8yEeOflObM3pPwYg" type="_RRKlYe8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>KeyStore ks = null;&#xD;
 		RSAPrivateKey privKey = null;&#xD;
@@ -4155,6 +4235,7 @@ this class.&#xD;
 			KeyStore.PrivateKeyEntry ke = (KeyStore.PrivateKeyEntry)ks.getEntry(ALIAS, null);&#xD;
 			if (ke == null) {&#xD;
 				Log.e(TAG, &quot;Null key entry!&quot;);&#xD;
+				return null;&#xD;
 			}&#xD;
 			&#xD;
 			privKey = (RSAPrivateKey) ke.getPrivateKey();&#xD;
@@ -4175,7 +4256,9 @@ this class.&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXCj5O8yEeOflObM3pPwYg" name="getEncryptionCipher" specification="_Q_ip4O8yEeOflObM3pPwYg">
-              <ownedParameter xmi:id="_RXCj5e8yEeOflObM3pPwYg" type="_RRMake8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RXCj5e8yEeOflObM3pPwYg" type="_RRMake8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>Cipher cipher = null;&#xD;
 		&#xD;
@@ -4200,7 +4283,9 @@ this class.&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXDK8O8yEeOflObM3pPwYg" name="getDecryptionCipher" specification="_Q_jQ8O8yEeOflObM3pPwYg">
-              <ownedParameter xmi:id="_RXDK8e8yEeOflObM3pPwYg" type="_RRMake8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RXDK8e8yEeOflObM3pPwYg" type="_RRMake8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>Cipher cipher = null;&#xD;
 		&#xD;
@@ -4225,27 +4310,31 @@ this class.&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXDK8u8yEeOflObM3pPwYg" name="generateStandardKeySpec" specification="_Q_j4AO8yEeOflObM3pPwYg">
-              <ownedParameter xmi:id="_RXDK8-8yEeOflObM3pPwYg" type="_RRPd4e8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RXDK8-8yEeOflObM3pPwYg" type="_RRPd4e8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>KeyPairGeneratorSpec spec = null;&#xD;
 &#xD;
-		Calendar notBefore = Calendar.getInstance();&#xD;
-		Calendar notAfter = Calendar.getInstance();&#xD;
-		notAfter.add(1, Calendar.YEAR);&#xD;
+		Calendar start = new GregorianCalendar();&#xD;
+		Calendar end = new GregorianCalendar();&#xD;
+		end.add(Calendar.YEAR, 50);&#xD;
 &#xD;
 		spec = new KeyPairGeneratorSpec.Builder(ctx)&#xD;
 				.setAlias(ALIAS)&#xD;
-				.setSubject(new X500Principal(&#xD;
-						String.format(&quot;CN=%s&quot;, ALIAS)))&#xD;
+				.setSubject(new X500Principal(&quot;CN=&quot; + ALIAS))&#xD;
 				.setSerialNumber(BigInteger.ONE)&#xD;
-				.setStartDate(notBefore.getTime())&#xD;
-				.setEndDate(notAfter.getTime()).build();&#xD;
+				.setStartDate(start.getTime())&#xD;
+				.setEndDate(end.getTime())&#xD;
+				.build();&#xD;
 &#xD;
 		return spec;&#xD;
 	</body>
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXDK9O8yEeOflObM3pPwYg" name="generateSecretKey" specification="_Q_kfEO8yEeOflObM3pPwYg">
-              <ownedParameter xmi:id="_RXDK9e8yEeOflObM3pPwYg" type="_RRNosu8yEeOflObM3pPwYg" direction="return"/>
+              <ownedParameter xmi:id="_RXDK9e8yEeOflObM3pPwYg" type="_RRNosu8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
+              </ownedParameter>
               <language>java</language>
               <body>SecretKey skey = null;&#xD;
 		KeyGenerator kgen = null;&#xD;
@@ -4267,6 +4356,7 @@ this class.&#xD;
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXDyAO8yEeOflObM3pPwYg" name="getMasterKeyPath" specification="_Q_lGIO8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RXDyAe8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               </ownedParameter>
               <language>java</language>
@@ -4275,10 +4365,28 @@ this class.&#xD;
             </ownedBehavior>
             <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RXDyAu8yEeOflObM3pPwYg" name="isMasterKeyLoaded" specification="_Q_mUQO8yEeOflObM3pPwYg">
               <ownedParameter xmi:id="_RXDyA-8yEeOflObM3pPwYg" direction="return">
+                <name xsi:nil="true"/>
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
               </ownedParameter>
               <language>java</language>
               <body>return this.aesKey != null;&#xD;
+	</body>
+            </ownedBehavior>
+            <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_lrvu8O_9EeOro6Du1a1f1w" name="getFreshInstance" specification="_lrq2cO_9EeOro6Du1a1f1w">
+              <ownedParameter xmi:id="_vFISkPDhEeOS4eqfKUJrJg" direction="return">
+                <name xsi:nil="true"/>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vFISkfDhEeOS4eqfKUJrJg" value="1"/>
+              </ownedParameter>
+              <ownedParameter xmi:id="_vFI5oPDhEeOS4eqfKUJrJg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
+              <language>java</language>
+              <body>Log.d(TAG, &quot;getInstance+&quot;);&#xD;
+&#xD;
+		singleton = new KeyManager(ctx.getApplicationContext());&#xD;
+		singleton.generateMasterKey();&#xD;
+&#xD;
+		Log.d(TAG, &quot;getInstance- &quot; + (singleton != null));&#xD;
+		return singleton;&#xD;
 	</body>
             </ownedBehavior>
             <ownedOperation xmi:id="_Q_g0sO8yEeOflObM3pPwYg" name="generateMasterKey" visibility="private" method="_RXB80-8yEeOflObM3pPwYg"/>
@@ -4406,7 +4514,9 @@ this class.&#xD;
         <packagedElement xmi:type="uml:Class" xmi:id="_RQblke8yEeOflObM3pPwYg" name="SurfaceTexture"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_Q1eH4e8yEeOflObM3pPwYg" name="media">
-        <packagedElement xmi:type="uml:Class" xmi:id="_RP9Ece8yEeOflObM3pPwYg" name="FaceDetector"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_RP9Ece8yEeOflObM3pPwYg" name="FaceDetector">
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_vE96gPDhEeOS4eqfKUJrJg" name="Face"/>
+        </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_RQ774O8yEeOflObM3pPwYg" name="AudioFormat"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_RQ8i8e8yEeOflObM3pPwYg" name="AudioRecord"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_RQ9KAe8yEeOflObM3pPwYg" name="MediaRecorder"/>
@@ -4453,6 +4563,7 @@ this class.&#xD;
         <packagedElement xmi:type="uml:Class" xmi:id="_RQUQ0O8yEeOflObM3pPwYg" name="Random"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_RQi6UO8yEeOflObM3pPwYg" name="HashMap"/>
         <packagedElement xmi:type="uml:DataType" xmi:id="_RRLzge8yEeOflObM3pPwYg" name="Calendar"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_vE_vsPDhEeOS4eqfKUJrJg" name="GregorianCalendar"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_Q3cd0O8yEeOflObM3pPwYg" name="math">
         <packagedElement xmi:type="uml:DataType" xmi:id="_RREewO8yEeOflObM3pPwYg" name="BigInteger"/>
@@ -4576,7 +4687,7 @@ this class.&#xD;
   <UMLLabProfile:Annotations xmi:id="_Q8EfIO8yEeOflObM3pPwYg" base_Element="_Q8DRAO8yEeOflObM3pPwYg">
     <annotations xmi:id="_Q8EfIe8yEeOflObM3pPwYg" name="SuppressWarnings">
       <annotationParameters xmi:id="_Q8EfIu8yEeOflObM3pPwYg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RXUQse8yEeOflObM3pPwYg" value="&quot;unused&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RXRNYO8yEeOflObM3pPwYg" value="&quot;unused&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -4587,7 +4698,7 @@ this class.&#xD;
   <UMLLabProfile:Annotations xmi:id="_Q80tEO8yEeOflObM3pPwYg" base_Element="_Q8vNgO8yEeOflObM3pPwYg">
     <annotations xmi:id="_Q80tEe8yEeOflObM3pPwYg" name="SuppressWarnings">
       <annotationParameters xmi:id="_Q81UIO8yEeOflObM3pPwYg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RXWF4O8yEeOflObM3pPwYg" value="&quot;unused&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_vFMkAPDhEeOS4eqfKUJrJg" value="&quot;unused&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -4643,7 +4754,7 @@ this class.&#xD;
   <UMLLabProfile:Annotations xmi:id="_Q-uxkO8yEeOflObM3pPwYg" base_Element="_Q-sVUO8yEeOflObM3pPwYg">
     <annotations xmi:id="_Q-uxke8yEeOflObM3pPwYg" name="SuppressLint">
       <annotationParameters xmi:id="_Q-uxku8yEeOflObM3pPwYg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RXZwQe8yEeOflObM3pPwYg" value="&quot;HandlerLeak&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_vFNLEPDhEeOS4eqfKUJrJg" value="&quot;HandlerLeak&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -4803,7 +4914,7 @@ this class.&#xD;
   <UMLLabProfile:Annotations xmi:id="_RTaoIe8yEeOflObM3pPwYg" base_Element="_RTaBEO8yEeOflObM3pPwYg">
     <annotations xmi:id="_RTaoIu8yEeOflObM3pPwYg" name="SuppressWarnings">
       <annotationParameters xmi:id="_RTaoI-8yEeOflObM3pPwYg" skipName="true" skipArray="true">
-        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RXRNYO8yEeOflObM3pPwYg" value="&quot;unused&quot;"/>
+        <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_vFNyIPDhEeOS4eqfKUJrJg" value="&quot;unused&quot;"/>
       </annotationParameters>
     </annotations>
   </UMLLabProfile:Annotations>
@@ -4927,6 +5038,7 @@ this class.&#xD;
   <UMLLabProfile:LegacyStyledElement xmi:id="_RV57cO8yEeOflObM3pPwYg" base_Element="_RV5UYu8yEeOflObM3pPwYg"/>
   <uml:OpaqueBehavior xmi:id="_RWntIO8yEeOflObM3pPwYg" name="getConfidence" specification="_RUXDUe8yEeOflObM3pPwYg">
     <ownedParameter xmi:id="_RWoUMO8yEeOflObM3pPwYg" direction="return">
+      <name xsi:nil="true"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
     </ownedParameter>
     <language>java</language>
@@ -5046,30 +5158,21 @@ this class.&#xD;
   <UMLLabProfile:Generics xmi:id="_lqvpYO_9EeOro6Du1a1f1w" genericsValue="Byte" base_Element="_RTnccO8yEeOflObM3pPwYg"/>
   <UMLLabProfile:Array xmi:id="_lq4MQu_9EeOro6Du1a1f1w" dimensions="1" base_Element="_lq3lMO_9EeOro6Du1a1f1w"/>
   <UMLLabProfile:Generics xmi:id="_lq7PkO_9EeOro6Du1a1f1w" genericsValue="VoiceDAO" base_Element="_lq6BcO_9EeOro6Du1a1f1w"/>
-  <UMLLabProfile:LegacyStyledElement xmi:id="_lrpoUe_9EeOro6Du1a1f1w" base_Element="_lrpoUO_9EeOro6Du1a1f1w">
-    <associatedElement xmi:type="uml:Operation" xmi:id="_lrq2cO_9EeOro6Du1a1f1w" name="getData" method="_lrvu8O_9EeOro6Du1a1f1w">
+  <UMLLabProfile:Array xmi:id="_lrqPYe_9EeOro6Du1a1f1w" dimensions="1" base_Element="_lrpoUO_9EeOro6Du1a1f1w"/>
+  <UMLLabProfile:Reference xmi:id="_lr444O_9EeOro6Du1a1f1w" base_Element="_lr4R0O_9EeOro6Du1a1f1w"/>
+  <UMLLabProfile:Array xmi:id="_vEHl8PDhEeOS4eqfKUJrJg" dimensions="1" base_Element="_Q_EIwO8yEeOflObM3pPwYg"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_vElgAPDhEeOS4eqfKUJrJg" base_Element="_lrpoUO_9EeOro6Du1a1f1w">
+    <associatedElement xmi:type="uml:Operation" xmi:id="_lrq2cO_9EeOro6Du1a1f1w" name="getFreshInstance" isStatic="true" method="_lrvu8O_9EeOro6Du1a1f1w">
       <ownedParameter xmi:id="_lrq2ce_9EeOro6Du1a1f1w" direction="return">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrq2cu_9EeOro6Du1a1f1w" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vEFwwPDhEeOS4eqfKUJrJg" value="1"/>
       </ownedParameter>
+      <ownedParameter xmi:id="_vERW8PDhEeOS4eqfKUJrJg" name="ctx" type="_RPULQe8yEeOflObM3pPwYg"/>
     </associatedElement>
   </UMLLabProfile:LegacyStyledElement>
-  <UMLLabProfile:Array xmi:id="_lrqPYe_9EeOro6Du1a1f1w" dimensions="1" base_Element="_lrpoUO_9EeOro6Du1a1f1w"/>
-  <UMLLabProfile:Array xmi:id="_lrq2c-_9EeOro6Du1a1f1w" base_Element="_lrq2cO_9EeOro6Du1a1f1w"/>
-  <uml:OpaqueBehavior xmi:id="_lrvu8O_9EeOro6Du1a1f1w" name="getData" specification="_lrq2cO_9EeOro6Du1a1f1w">
-    <ownedParameter xmi:id="_lrwWAO_9EeOro6Du1a1f1w" direction="return">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lrwWAe_9EeOro6Du1a1f1w" value="*"/>
-    </ownedParameter>
-    <language>java</language>
-    <body>byte[] result = new byte[this.threadData.size()];&#xD;
-&#xD;
-			for (int i = 0; i &lt; result.length; i++) {&#xD;
-				result[i] = this.threadData.get(i);&#xD;
-			}&#xD;
-&#xD;
-			return result;&#xD;
-		</body>
-  </uml:OpaqueBehavior>
-  <UMLLabProfile:Reference xmi:id="_lr444O_9EeOro6Du1a1f1w" base_Element="_lr4R0O_9EeOro6Du1a1f1w"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_vEmuIPDhEeOS4eqfKUJrJg" base_Element="_RTnccO8yEeOflObM3pPwYg"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_vEn8QPDhEeOS4eqfKUJrJg" base_Element="_RVz00e8yEeOflObM3pPwYg"/>
+  <UMLLabProfile:Reference xmi:id="_vE_vsfDhEeOS4eqfKUJrJg" base_Element="_vE_vsPDhEeOS4eqfKUJrJg"/>
+  <UMLLabProfile:LegacyStyledElement xmi:id="_kCNiQPDiEeOS4eqfKUJrJg" base_Element="_kCMUIPDiEeOS4eqfKUJrJg"/>
+  <UMLLabProfile:Reference xmi:id="_kCPXcPDiEeOS4eqfKUJrJg" base_Element="_kCOwYPDiEeOS4eqfKUJrJg"/>
 </xmi:XMI>

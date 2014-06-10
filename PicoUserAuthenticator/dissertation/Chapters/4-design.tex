@@ -66,7 +66,7 @@ In the equation above:
 	\item $P(H|E)$: Represents the probability of hypothesis $H$ after observing evidence $E$. This is the final probability we are trying to compute after each sample. It is also known as the posterior probability. 
 	\item $P(H)$: Represents the probability of hypothesis $H$ before observing evidence $E$. This is also known as the prior probability and is the probability computed at the previous step.
 	\item $P(E|H)$: Represents the probability that the current evidence belongs to hypothesis $H$. It is the probability outputted by the mechanism given the sample data.
-	\item $P(E)$: This is the model evidence, and has a constant value for all hypothesis.
+	\item $P(E)$: This is the model evidence, and has a constant value for all hypotheses.
 \end{itemize}
 
 Although $P(E)$ is constant we need its value in order to calculate $P(H|E)$. We can compute it by using the ``Law of total probability'':
@@ -82,7 +82,7 @@ Using equation \ref{eq:lotp}, Bayes' Law \ref{eq:bayes1} can be written as:
 P(H|E) = \frac{P(H) * P(E|H)}{\sum_{n}^{}P(E|H_n) * P(H_n)}
 \end{equation}
 
-Our model contains only two hypothesis\footnote{Arguably there is a third case where the data sample is not a valid recording of an user. This case is ignored and no probability is computed. The only result in this scenario is the resuming of the decay process in the weight of the mechanism.}: the recording of the data either belongs to the owner, or not. We can therefore consider $P(H)$ to be the probability that the data belongs to the owner and $P(\neg H)$ the probability that the data belongs to someone else. This means the value of $P(\neg H)$ is $1 - P(H)$ and $P(E|\neg H) = 1 - P(E|H)$ Introducing this in equation \ref{eq:bayes2}, the rule for updating the mechanism's probability becomes:
+Our model contains only two hypotheses\footnote{Arguably there is a third case where the data sample is not a valid recording of an user. This case is ignored and no probability is computed. The only result in this scenario is the resuming of the decay process in the weight of the mechanism.}: the recording of the data either belongs to the owner, or not. We can therefore consider $P(H)$ to be the probability that the data belongs to the owner and $P(\neg H)$ the probability that the data belongs to someone else. This means the value of $P(\neg H)$ is $1 - P(H)$ and $P(E|\neg H) = 1 - P(E|H)$ Introducing this in equation \ref{eq:bayes2}, the rule for updating the mechanism's probability becomes:
 
 \begin{equation} 
 \label{eq:final}
