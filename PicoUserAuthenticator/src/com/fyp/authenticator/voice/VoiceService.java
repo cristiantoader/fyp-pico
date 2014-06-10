@@ -95,9 +95,6 @@ public class VoiceService extends AuthMechService {
 				try {
 					start = System.currentTimeMillis();
 					
-					Log.d(TAG, "Start loop.");
-					Thread.sleep(SAMPLING_RATE);
-
 					VoiceDAO record = recordData();
 
 					Log.d(TAG, "Getting score.");
@@ -124,6 +121,7 @@ public class VoiceService extends AuthMechService {
 					VoiceService.this.startDecay();
 					Log.d(TAG, "Authentication time: " + (System.currentTimeMillis() - start));
 
+					Thread.sleep(SAMPLING_RATE);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
