@@ -81,7 +81,7 @@ public class FaceService extends AuthMechService {
 		private FaceAuthMediator mediator = null;
 
 		/** Authentication period used between successful camera sampling. */
-		private static final int SAMPLING_RATE = 20 * 1000;
+		private static final int SAMPLING_RATE = 10 * 1000;
 
 		/** Euclidean distance threshold used in calculating confidence. */
 		private static final double THRESHOLD = 1;

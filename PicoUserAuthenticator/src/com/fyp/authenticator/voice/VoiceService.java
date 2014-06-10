@@ -58,7 +58,7 @@ public class VoiceService extends AuthMechService {
 	 */
 	private class AuthenticatorThread extends Thread {
 		/** Authentication period between consecutive samples. */
-		private static final int SAMPLING_RATE = 20 * 1000;
+		private static final int SAMPLING_RATE = 10 * 1000;
 
 		/** Recording time of the data. */
 		private static final int RECORD_TIME = 3 * 1000;
@@ -119,7 +119,8 @@ public class VoiceService extends AuthMechService {
 
 					// starts the decay process
 					VoiceService.this.startDecay();
-					Log.d(TAG, "Authentication time: " + (System.currentTimeMillis() - start));
+					Log.d(TAG, "Authentication time: " + 
+							(System.currentTimeMillis() - start - RECORD_TIME));
 
 					Thread.sleep(SAMPLING_RATE);
 				} catch (InterruptedException e) {
