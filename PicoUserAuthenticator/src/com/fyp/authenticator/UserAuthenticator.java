@@ -12,9 +12,7 @@ import android.content.Intent;
 import android.util.Log;
 
 /**
- * 
- * This only deals with authentication mechanisms. It communicates with them and
- * calculates confidence.
+ * Class that implements most of the functionality used by UAService.
  * 
  * @author cristi
  * 
@@ -25,12 +23,13 @@ public class UserAuthenticator {
 	/** UAService service reference used for binding on other services. */
 	private Service uaservice = null;
 
-	/** List of available device services used for authentication. */
+	/** List of available authentication mechanism services. */
 	private LinkedList<AuthMech> mechanisms;
 
 	/** Overall confidence level. */
 	private int confidence;
 
+	/** Tag used for debugging. */
 	private static final String TAG = "UserAuthenticator";
 
 	/**
@@ -41,13 +40,16 @@ public class UserAuthenticator {
 		this.uaservice = service;
 		this.mechanisms = new LinkedList<AuthMech>();
 
-		this.initAvailableDevices();
+		this.initAvailableMechianisms();
 	}
 
 	/**
-	 * Returns true if the user is authenticated.
+	 * Getter for the overall confidence level.
 	 * 
-	 * @return true if user is authenticated.
+	 * The method is responsible of calculating the current overall confidence
+	 * and returning the result as an integer ranging from 0 to 100.
+	 * 
+	 * @return the overall confidence level.
 	 */
 	public int getConfidence() {
 		Log.d(TAG, "getConfidence()");
@@ -58,7 +60,7 @@ public class UserAuthenticator {
 
 	/**
 	 * Calculates the confidence level of the authenticator based on existing
-	 * authentication devices.
+	 * authentication mechanisms.
 	 */
 	private void calculateConfidence() {
 		int confidence = 0;
@@ -84,18 +86,22 @@ public class UserAuthenticator {
 	}
 
 	/**
-	 * Checks the available devices that may be used for authentication and
-	 * returns a list of devices.
+	 * Initialises a list of registered authentication mechanisms.
 	 * 
-	 * @return list of authentication devices.
+	 * A list of registered AuthMech objects is initialised. This indirectly
+	 * results in the launch of the authentication mechanism services.
+	 * 
 	 */
-	private void initAvailableDevices() {
+	private void initAvailableMechianisms() {
 //		this.mechanisms.add(new AuthMech(uaservice, DummyService.class));
 		this.mechanisms.add(new AuthMech(uaservice, VoiceService.class));
 		this.mechanisms.add(new AuthMech(uaservice, FaceService.class));
 		this.mechanisms.add(new AuthMech(uaservice, LocationService.class));
 	}
 	
+	/**
+	 * Method used for stopping authentication mechanisms.
+	 */
 	public void stopMechanisms() {
 		Log.d(TAG, "stopMechanisms+");
 		

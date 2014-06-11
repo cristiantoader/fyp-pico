@@ -14,11 +14,14 @@ import android.os.RemoteException;
 import android.util.Log;
 
 /**
- * Abstract class used for predefining the communication channel for all
- * authentication mechanism services.
+ * Abstract class used for standardising all authentication mechanism services.
  * 
  * All authentication mechanisms that are or will be implemented need to extend
  * this class.
+ * 
+ * The class defines a communication interface with AuthMech objects belonging
+ * to UAServce. It also implements a decay process used for periodically
+ * updating the weight of the mechanism.
  * 
  * @author cristi
  * 
@@ -32,11 +35,9 @@ public abstract class AuthMechService extends Service {
 	protected int score = 0;
 
 	/**
-	 * Decayed score. This score needs to be returned to UAService for
-	 * processing.
+	 * Current decayed weight of the mechanism.
 	 */
 	protected int decayedWeight = 0;
-
 	/** Initial weight of the mechanism. */
 	protected int initialWeight = 0;
 
@@ -50,53 +51,55 @@ public abstract class AuthMechService extends Service {
 	/** Request status of authentication mechanism service. */
 	protected static final int AUTH_MECH_GET_STATUS = 2;
 
-	private static final String TAG = "AuthMechService";
-
 	/** Messenger used for writing to the client. */
 	protected Messenger clientWriter = null;
 	/** Messenger used for reading from the client. */
 	protected Messenger clientReader = new Messenger(new IncomingHandler(this));
 
-	/**
-	 * Method called when the service is created.
-	 */
+	/** Logging tag used for debugging.*/
+	private static final String TAG = "AuthMechService";
+	
 	public abstract void onCreate();
 
-	/***
-	 * Method called when the service is destroyed.
-	 */
 	public abstract void onDestroy();
 
 	/**
-	 * Used to return the messenger used for communication with the master
+	 * Used for returning the messenger used for communication with this
 	 * service.
 	 */
 	public IBinder onBind(Intent arg0) {
 		return clientReader.getBinder();
 	}
 
+	/**
+	 * Getter for initial weight of the mechanism.
+	 * 
+	 * @return the initial weight of the mechanism.
+	 */
 	public int getInitialWeight() {
 		return this.initialWeight;
 	}
 	
 	/**
-	 * Used for receiving requests from the UAService UserAuthenticator class.
+	 * Used for receiving requests from the AuthMech objects belonging to
+	 * UAService.
 	 * 
-	 * This class is currently used only for registering the UAService as a
-	 * client. Although explicit confidence requests are supported, such
-	 * requests are never made in this implementation.
+	 * This class is currently used only for registering UAService as a client.
+	 * Although explicit confidence requests are supported, such requests are
+	 * never made with this implementation.
 	 * 
-	 * The updates are made using the clientWriter object instantiated in this
-	 * class.
+	 * Confidence updates are made using the clientWriter object instantiated in
+	 * this class.
 	 * 
 	 * @author cristi
 	 * 
 	 */
 	@SuppressLint("HandlerLeak")
 	class IncomingHandler extends Handler {
-
+		/** Weak reference to the authentication mechanism service.*/
 		private final WeakReference<AuthMechService> service;
 
+		/** Basic constructor that sets the AuthMechSerivce reference. */
 		public IncomingHandler(AuthMechService service) {
 			this.service = new WeakReference<AuthMechService>(service);
 		}
@@ -135,11 +138,11 @@ public abstract class AuthMechService extends Service {
 	}
 
 	/**
-	 * Function used to start the decay of the initial weight.
+	 * Function used for starting the decay of the initial weight.
 	 * 
 	 * This restarts the current weight and starts a timer which periodically
 	 * decays the weight. Upon each successful decay a broadcast is sent back to
-	 * UAService in order to update on the current confidence level.
+	 * the registered AuthMech in order to update its confidence level.
 	 */
 	public void startDecay() {
 		Log.d(TAG, "startDecay+");
@@ -169,15 +172,16 @@ public abstract class AuthMechService extends Service {
 		/** Wrapped handler object used for task scheduling. */
 		private Handler handler = null;
 		
+		/** Flag used for managing the state of the timer. */
 		private volatile boolean running = false;
 		
-		/** Exponential decay rate. */
+		/** Linear decay rate. */
 		protected double rate = 0.8;
 
 		/**
-		 * Method called once every INTERVAL in order to update the
-		 * decayedWeight. Once the weight was decayed, the updated confidence is
-		 * sent to UAService.
+		 * Method called every INTERVAL in order to update the decayedWeight.
+		 * Once the weight was decayed, the updated confidence is sent to
+		 * UAService.
 		 */
 		@Override
 		public void run() {
@@ -194,10 +198,10 @@ public abstract class AuthMechService extends Service {
 		}
 
 		/**
-		 * Starts the decay process of the initialWeight. The updated result may
-		 * be found in decayedWeight.
+		 * Starts the decay process of the initialWeight. The updated result is
+		 * stored in decayedWeight.
 		 * 
-		 * @return
+		 * @return true if the timer is started, false otherwise.
 		 */
 		public boolean startTimer() {
 			Log.d(TAG, "startTimer+");
@@ -244,14 +248,14 @@ public abstract class AuthMechService extends Service {
 		}
 
 		/**
-		 * Exponential decay function for the current confidence level.
+		 * Liner decay function for the current confidence level.
 		 * 
 		 * This function is called periodically in order to decay the confidence
-		 * level of the mechanism. The decay is exponential is a function of
-		 * time between successful authentications. The term
-		 * "successful authentication" means that data collection was possible
-		 * and the mechanism was able to successfully produce a result,
-		 * regardless of what this result may be.
+		 * level of the mechanism. The decay implementation is currently a
+		 * linear decrease function based on time between successful
+		 * authentications. The term "successful authentication" means that data
+		 * collection was possible and the mechanism was able to successfully
+		 * produce a result, regardless of what this result may be.
 		 */
 		private void decay() {
 			Log.d(TAG, "decay+");
@@ -260,6 +264,13 @@ public abstract class AuthMechService extends Service {
 		}
 	}
 
+	/**
+	 * Used for sending the decayed score back to the corresponding AuthMech.
+	 * 
+	 * @param fresh
+	 *            determines if the decayed weight should be reinitialised as a
+	 *            result of a fresh data sample.
+	 */
 	public void sendDecayedScore(boolean fresh) {
 		Log.d(TAG, "sendDecayedScore+");
 		

@@ -14,26 +14,28 @@ import android.os.RemoteException;
 import android.util.Log;
 
 /**
- * Principal class in the authentication scheme.
+ * Main component of the token unlocking prototype.
  * 
- * This class is binded by Pico clients in order to either receive periodic or
- * explicit status updates. This service uses an UserAuthenticator class in
- * order to interface with the available authentication mechanisms. The class is
- * responsible of calculating the current confidence level by binding and
+ * This is implemented as a service that can be bound by other applications. It
+ * gathers available data from the authentication mechanisms and calculates the
+ * overall confidence of the scheme.
+ * 
+ * Authentication feedback can be gathered by external components either by
+ * registering for broadcasts or through explicit requests.
  * 
  * @author cristi
  * 
  */
 public class UAService extends Service {
 
-	/** Bridge to user authenticator class which provides functionality. */
+	/** Bridge to user authenticator class which implements most functionality. */
 	private static UserAuthenticator ua = null;
 
 	/** Authenticator thread responsible of broadcasting messages. */
 	private static AuthenticatorThread serviceThread = null;
 	/** List of binded clients. */
 	private HashMap<Messenger, Integer> clients = new HashMap<Messenger, Integer>();
-	/** Message receiver from binded clients. */
+	/** Message receiver sent to binded clients. */
 	private final Messenger messenger = new Messenger(new IncomingHandler(this));
 
 	/** Constant used to register a client for broadcast. */
@@ -43,10 +45,11 @@ public class UAService extends Service {
 	/** Constant used to request user authentication status. */
 	public static final int MSG_CONFIDENCE_UPDATE = 2;
 
+	/**Logging tag used for debugging. */
 	private static final String TAG = "UAService";
 
 	/**
-	 * When creating the service it gets a reference to the UserAuthenticator
+	 * When creating the service it creates a reference to the UserAuthenticator
 	 * and starts the authenticator thread which is responsible for broadcasting
 	 * results.
 	 */
@@ -102,15 +105,16 @@ public class UAService extends Service {
 	 * Class used when PicoMainActivity binds on this service.
 	 * 
 	 * There is the possibility for explicit updates using
-	 * MSG_CONFIDENCE_UPDATE, but this use case, although implemented, is never
-	 * used.
+	 * MSG_CONFIDENCE_UPDATE, but this feature is never used.
 	 * 
 	 * @author cristi
 	 * 
 	 */
 	static class IncomingHandler extends Handler {
+		/** Weak reference to UAService component. */
 		private final WeakReference<UAService> service;
 
+		/** Basic constructor that registers reference to UAService object. */
 		public IncomingHandler(UAService service) {
 			this.service = new WeakReference<UAService>(service);
 		}
@@ -160,18 +164,24 @@ public class UAService extends Service {
 
 	/**
 	 * Authenticator thread responsible of broadcasting the result to registered
-	 * clients. This is how PicoMainActivity receives its confidence updates.
+	 * clients. This is how clients receive confidence updates.
 	 * 
 	 * @author cristi
 	 * 
 	 */
 	private class AuthenticatorThread extends Thread {
+		/** Flag used for controlling the thread. */
 		private volatile boolean stop;
 
+		/** Basic constructor.*/
 		public AuthenticatorThread() {
 			this.stop = false;
 		}
 
+		/**
+		 * Thread's run method responsible of periodic broadcast of results to
+		 * registered clients.
+		 */
 		@Override
 		public void run() {
 			while (stop != true) {
@@ -185,10 +195,15 @@ public class UAService extends Service {
 			}
 		}
 
+		/** Method used by external objects to stop the thread. */
 		public void stopThread() {
 			this.stop = true;
 		}
 
+		/**
+		 * Method used for acquiring the current overall confidence and
+		 * broadcasting it to registered clients.
+		 */
 		private void broadcastResult() {
 			int confidence = ua.getConfidence();
 

@@ -15,22 +15,22 @@ import android.os.RemoteException;
 import android.util.Log;
 
 /**
- * Class used for communication from the UserAuthenticator to an
- * AuthMechService. It corresponds to one authentication mechanism service. It
- * is binded by UAService.
+ * Used for communication with an authentication mechanism service.
  * 
- * 
- * @author cristi
+ * This class makes communication with authentication mechanism services opaque
+ * to UAService. It is used for launching an authentication mechanism and
+ * listening for status updates. The class only keeps track of the most recent
+ * value provided by the authentication mechanism service.
  * 
  */
 public class AuthMech {
 
-	/** UAService service. */
+	/** UAService reference. */
 	private Service uaservice = null;
 
-	/** Authentication mechanism service. */
+	/** Authentication mechanism service class. */
 	private Class<?> mechServiceClass = null;
-	/** Variable that states if the service is bound. */
+	/** Variable that tracks if the service is bound. */
 	private boolean boundService = false;
 
 	/** Messenger used for sending messages to the service. */
@@ -41,9 +41,18 @@ public class AuthMech {
 	/** Current confidence level registered by the authentication mechanism. */
 	private int mechConfidence = 0;
 
-	/** Current decaying weight of the mechanism computed with the confidence. */
+	/** Original weight of the mechanism service without applying decay. */
 	private int mechWeight = 0;
 
+	/**
+	 * Main constructor used for starting the service and initialising
+	 * communication.
+	 * 
+	 * @param uaservice
+	 *            UAService component to which the object belongs.
+	 * @param serviceClass
+	 *            Class of the authentication mechanism service.
+	 */
 	public AuthMech(Service uaservice, Class<?> serviceClass) {
 		this.uaservice = uaservice;
 		this.mechServiceClass = serviceClass;
@@ -52,30 +61,31 @@ public class AuthMech {
 	}
 
 	/**
-	 * Retrieves the current confidence level of the mechanism.
+	 * Retrieves the current confidence level of the mechanism multiplied by the
+	 * decayed weight.
 	 * 
-	 * The current implementation does not request the mechanism service for a
-	 * confidence update. It is giving feedback based on the latest possible
-	 * calculated confidence according to the mechanism's collection rules.
+	 * The current implementation does not use explicit confidence update
+	 * requests from the mechanism service. This value is communicated
+	 * periodically by the service to this AuthMech object.
 	 * 
-	 * @return
+	 * @return the mechanism's confidence level multiplied by the decayed
+	 *         weight.
 	 */
 	public int getConfidence() {
 		return this.mechConfidence;
 	}
 
 	/**
-	 * Retrieves the current decaying weight used for calculating the
-	 * confidence.
+	 * Retrieves the initial weight of the mechanism before the decay process.
 	 * 
-	 * @return
+	 * @return initial weight of the mechanism.
 	 */
 	public int getWeight() {
 		return this.mechWeight;
 	}
 
 	/**
-	 * Method used to bind on corresponding mechanism service.
+	 * Method used to bind the corresponding mechanism service.
 	 * 
 	 * This method registers the UAService as a client, and the messenger used
 	 * for receiving data from the mechanism service.
@@ -100,9 +110,9 @@ public class AuthMech {
 	}
 
 	/**
-	 * Enables communication between UAService and authentication mechanism
+	 * Enables communication between UAService and an authentication mechanism
 	 * service. May be used to send requests but that functionality is not
-	 * exploited in this implementation.
+	 * used with this implementation.
 	 */
 	private ServiceConnection uaServiceAuthConn = new ServiceConnection() {
 
@@ -131,7 +141,10 @@ public class AuthMech {
 	};
 
 	/**
-	 * Message handler in order to receive feedback from the mechanism service.
+	 * Used for receiving feedback from the mechanism service.
+	 * 
+	 * This class is used for listening for confidence updates from the
+	 * authentication mechanism's service.
 	 * 
 	 * @author cristi
 	 * 
