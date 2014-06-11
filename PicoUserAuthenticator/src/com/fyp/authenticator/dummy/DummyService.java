@@ -4,6 +4,15 @@ import android.util.Log;
 
 import com.fyp.authenticator.AuthMechService;
 
+/**
+ * Class that implements dummy authentication mechanism.
+ * 
+ * The dummy authentication mechanism is created as a service that extends the
+ * AuthMechService class.
+ * 
+ * @author cristi
+ * 
+ */
 public class DummyService extends AuthMechService {
 
 	/** Thread used to periodically authenticate the user and broadcast result. */
@@ -52,10 +61,17 @@ public class DummyService extends AuthMechService {
 		/** Dummy data DAO. */
 		private DummyAuthMediator dummyDAO = null;
 		
+		/** Basic constructor. */
 		public AuthenticatorThread() {
 			this.stop = false;
 		}
 
+		/**
+		 * Main run() method for the thread.
+		 * 
+		 * This method is executed in order to provide periodic authentication
+		 * data.
+		 */
 		@Override
 		public void run() {
 			// instantiating DAO when starting thread.
@@ -80,6 +96,7 @@ public class DummyService extends AuthMechService {
 			}
 		}
 
+		/** Method used for other objects to stop this thread. */
 		public void stopThread() {
 			this.stop = true;
 		}

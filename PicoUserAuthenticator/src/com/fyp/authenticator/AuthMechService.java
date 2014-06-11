@@ -23,6 +23,9 @@ import android.util.Log;
  * to UAServce. It also implements a decay process used for periodically
  * updating the weight of the mechanism.
  * 
+ * All authentication mechanisms extending this class need to declare an initial
+ * confidence level in the onCreate() method.
+ * 
  * @author cristi
  * 
  */
@@ -59,6 +62,12 @@ public abstract class AuthMechService extends Service {
 	/** Logging tag used for debugging.*/
 	private static final String TAG = "AuthMechService";
 	
+	/**
+	 * Standard on create method for the service.
+	 * 
+	 * Classes that implement this method need to initialise the initialWeight
+	 * field.
+	 * */
 	public abstract void onCreate();
 
 	public abstract void onDestroy();
