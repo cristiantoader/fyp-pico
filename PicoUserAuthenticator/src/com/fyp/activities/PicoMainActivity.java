@@ -5,7 +5,6 @@ import java.lang.ref.WeakReference;
 import com.fyp.activities.R;
 import com.fyp.activities.util.SystemUiHider;
 import com.fyp.authenticator.UAService;
-import com.fyp.ctypto.KeyManager;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -28,20 +27,24 @@ import android.widget.TextView;
  * 
  * @see SystemUiHider
  */
+@SuppressWarnings("unused")
 public class PicoMainActivity extends Activity {
 
-	protected static final String TAG = "PicoMainActivity";
-	/**
-	 * UI stuff.
-	 */
-	@SuppressWarnings("unused")
+	/** Main view reference used by the Activity. */
 	private View controlsView;
+	/** Text view used for displaying authentication confidence. */
 	private TextView contentView;
 
-	private final Messenger messageReceiver = new Messenger(
-			new IncomingHandler(this));
+	/** Messenger used for receiving data from UAService. */
+	private Messenger messageReceiver = new Messenger(new IncomingHandler(this));
+	/** Messenger used for sending commands to UAService. */
 	private Messenger messageService = null;
-	private boolean boundService = false;;
+
+	/** State variable that determines if UAService is currently bound. */
+	private boolean boundService = false;
+
+	/** Android logging tag used by the class. */
+	private static final String TAG = "PicoMainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +60,8 @@ public class PicoMainActivity extends Activity {
 
 		findViewById(R.id.ButtonVoice).setOnClickListener(buttonAudioListener);
 		findViewById(R.id.ButtonFace).setOnClickListener(buttonFaceListener);
-		findViewById(R.id.ButtonLocation).setOnClickListener(buttonLocationListener);
-//		findViewById(R.id.ButtonResetKey).setOnClickListener(buttonKeyListener);
-
+		findViewById(R.id.ButtonLocation).setOnClickListener(
+				buttonLocationListener);
 	}
 
 	@Override
@@ -70,15 +72,16 @@ public class PicoMainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-//		doBindService();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-//		doUnbindService();
 	}
 
+	/**
+	 * Method used for starting and binding the activity to UAService.
+	 */
 	private void doBindService() {
 		Intent i = new Intent(this, UAService.class);
 
@@ -88,6 +91,10 @@ public class PicoMainActivity extends Activity {
 		boundService = true;
 	}
 
+	/**
+	 * Method used for unbinding the activity from UAService. This does not stop
+	 * the service.
+	 */
 	private void doUnbindService() {
 		if (boundService) {
 			unbindService(serviceConnection);
@@ -96,7 +103,8 @@ public class PicoMainActivity extends Activity {
 	}
 
 	/**
-	 * Only works if no other clients are connected to the service.
+	 * Method used for stopping UAService. This method only works if no other
+	 * clients are currently connected to the service.
 	 */
 	private void doStopService() {
 		Intent i = new Intent(this, UAService.class);
@@ -104,9 +112,9 @@ public class PicoMainActivity extends Activity {
 	}
 
 	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the
-	 * system UI. This is to prevent the jarring behavior of controls going away
-	 * while interacting with activity UI.
+	 * Listener for the start button of the Activity.
+	 * 
+	 * This listener is responsible for starting and binding the UAService.
 	 */
 	View.OnClickListener buttonStartListener = new View.OnClickListener() {
 		@Override
@@ -119,52 +127,77 @@ public class PicoMainActivity extends Activity {
 		}
 	};
 
+	/**
+	 * Listener for the stop button of the Activity.
+	 * 
+	 * The listener is responsible from unbinding and stopping UAService. It is
+	 * important to stop UAService while testing. Otherwise it will remain
+	 * running in the background.
+	 */
 	View.OnClickListener buttonStopListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			if (boundService) {
 				doUnbindService();
 				doStopService();
-				
+
 				contentView.append("Pico service stopped. \n");
 			}
 
 		}
 	};
 
+	/**
+	 * Listener used for starting the activity responsible of configuring voice
+	 * recognition owner data.
+	 */
 	View.OnClickListener buttonAudioListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(PicoMainActivity.this,
-					VoiceActivity.class));
+			startActivity(new Intent(PicoMainActivity.this, VoiceActivity.class));
 		}
 	};
 
+	/**
+	 * Listener used for starting the activity responsible of configuring face
+	 * recognition owner data.
+	 */
 	View.OnClickListener buttonFaceListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			startActivity(new Intent(PicoMainActivity.this, FaceActivity.class));
 		}
 	};
-	
+
+	/**
+	 * Listener used for starting the activity responsible of configuring
+	 * location analysis owner data.
+	 */
 	View.OnClickListener buttonLocationListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			startActivity(new Intent(PicoMainActivity.this, LocationActivity.class));
+			startActivity(new Intent(PicoMainActivity.this,
+					LocationActivity.class));
 		}
 	};
-	
-//	View.OnClickListener buttonKeyListener = new View.OnClickListener() {
-//		@Override
-//		public void onClick(View v) {
-//			Log.d(TAG, "Generating new master key. All data needs reconfiguration.");
-//			KeyManager.getFreshInstance(PicoMainActivity.this);
-//		}
-//	};
 
+	/**
+	 * The class is responsible of processing messages received from UAService.
+	 * 
+	 * @author cristi
+	 * 
+	 */
 	static class IncomingHandler extends Handler {
 		WeakReference<PicoMainActivity> amwr;
 
+		/**
+		 * Weak reference to the main activity in order to access the text view
+		 * component such that data received from UAService can be displayed by
+		 * the Activity.
+		 * 
+		 * @param am
+		 *            PicoMainActivity reference.
+		 */
 		public IncomingHandler(PicoMainActivity am) {
 			this.amwr = new WeakReference<PicoMainActivity>(am);
 		}
@@ -174,18 +207,13 @@ public class PicoMainActivity extends Activity {
 			switch (msg.what) {
 
 			case UAService.MSG_CONFIDENCE_UPDATE:
-				// boolean authenticated = (msg.arg1 == 1);
-				// amwr.get().contentView.append("Received from service: " +
-				// authenticated
-				// + "\n");
-
 				int confidence = msg.arg1;
 				amwr.get().contentView.append("Confidence level: " + confidence
 						+ "\n");
-
 				break;
 
 			default:
+				Log.w(TAG, "Unknown message received from UAService.");
 				super.handleMessage(msg);
 			}
 		}
@@ -195,9 +223,9 @@ public class PicoMainActivity extends Activity {
 	 * Class used for binding to the UAService.
 	 * 
 	 * This only issues a MSG_REGISTER_CLIENT request. All subsequent
-	 * communication is done via software broadcast from UAService. The
-	 * PicoMainActivity may choose to send explicit requests using the
-	 * messageService object instantiated when binding to the UAService.
+	 * communication is done via messages from UAService. The PicoMainActivity
+	 * may choose to send explicit requests using the messageService object
+	 * instantiated when binding to UAService.
 	 */
 	private ServiceConnection serviceConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {

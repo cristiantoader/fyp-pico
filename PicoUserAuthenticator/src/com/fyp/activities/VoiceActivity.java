@@ -10,30 +10,54 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Main activity used for setting up the voice recognition mechanism.
+ * 
+ * This component provides an interface for the user to register owner and noise
+ * sample data. This information will later be used when training the voice
+ * recognition mechanism.
+ * 
+ * @author cristi
+ * 
+ */
+@SuppressWarnings("unused")
 public class VoiceActivity extends Activity {
-	@SuppressWarnings("unused")
-	private static final String TAG = "VoiceActivity";
-	
-
 	/** Text box used for displaying current recording time. */
 	private EditText timerDisplay = null;
 
 	/** Owner record button. */
 	private Button mRecordOwnerButton = null;
-	/** Noise record button.*/
+	/** Noise record button. */
 	private Button mRecordBackgroundButton = null;
-	
+
+	/** Android logging tag.*/
+	private static final String TAG = "VoiceActivity";
+
+	/**
+	 * Used for managing click events for the record button.
+	 * 
+	 * The class is used for starting and stopping a recording, both for owner
+	 * and noise data.
+	 * 
+	 * @author cristi
+	 * 
+	 */
 	private class AuthRecordListener implements OnClickListener {
+		/** Button used with this action listener object.*/
+		private Button button = null;
+		
 		/** Recording start time. */
 		private long mStartTime = 0;
-		
-		/** VoiceDAO object used for managing recorded data.*/
+
+		/** VoiceDAO object used for managing recorded data. */
 		private VoiceDAO record = null;
-		
-		/** File name of recorded data.*/
+
+		/** File name of recorded data. */
 		private String fileName = null;
-		
+
+		/** Handler used for reposting timer updates. */
 		private Handler timerHandler = new Handler();
+		/** Runnable that sets the current time in the timer display. */
 		private Runnable timerRunable = new Runnable() {
 			@Override
 			public void run() {
@@ -42,28 +66,46 @@ public class VoiceActivity extends Activity {
 				int minutes = seconds / 60;
 				seconds = seconds % 60;
 
-				timerDisplay.setText(String.format("%d:%02d", minutes, seconds));
+				timerDisplay.setText(String.format("%d:%02d", minutes, 
+						seconds));
 				timerHandler.postDelayed(this, 500);
 			}
 
 		};
-		
+
+		/**
+		 * Constructor for the listener class.
+		 * 
+		 * @param isOwner
+		 *            determines if the recording will be for the owner or
+		 *            noise.
+		 */
 		public AuthRecordListener(boolean isOwner) {
 			if (isOwner) {
 				this.fileName = VoiceDAO.OWNER_FN;
+				this.button = VoiceActivity.this.mRecordOwnerButton;
 			} else {
-				this.fileName = VoiceDAO.generateNoiseFileName(VoiceActivity.this);
+				this.fileName = VoiceDAO.generateNoiseFileName(
+						VoiceActivity.this);
+				this.button = VoiceActivity.this.mRecordBackgroundButton;
 			}
 		}
 
+		/**
+		 * On click method called when the button registered with this listener
+		 * is pressed.
+		 * 
+		 * The method performs different tasks based on whether the recording
+		 * has started or not.
+		 */
 		public void onClick(View v) {
 			// start recording
 			if (!isRecording()) {
 				startTimer();
 				startRecording();
 				mRecordOwnerButton.setText("Stop");
-				
-			// stop recording
+
+				// stop recording
 			} else {
 				stopTimer();
 				stopRecording();
@@ -71,28 +113,39 @@ public class VoiceActivity extends Activity {
 			}
 		}
 
+		/** Method responsible of starting the recording timer display. */
 		private void startTimer() {
 			this.mStartTime = System.currentTimeMillis();
 			timerDisplay.setText(String.format("%d:%02d", 0, 0));
 			timerHandler.postDelayed(timerRunable, 1000);
 		}
 
+		/** Method responsible of stopping the recording timer display. */
 		private void stopTimer() {
 			this.mStartTime = 0;
 			timerHandler.removeCallbacks(timerRunable);
 		}
-		
+
+		/** Method that starts the recording process using a VoiceDAO. */
 		private void startRecording() {
 			this.record = new VoiceDAO(VoiceActivity.this, this.fileName);
 			this.record.startRecord();
 		}
 
+		/**
+		 * Method that stops the recording process and saves data to internal
+		 * storage.
+		 */
 		private void stopRecording() {
 			this.record.stopRecord();
 			this.record.saveRecording();
 			this.record = null;
 		}
-		
+
+		/**
+		 * Determines whether a recording was currently started using this
+		 * listener.
+		 */
 		private boolean isRecording() {
 			return this.record != null;
 		}
@@ -105,11 +158,15 @@ public class VoiceActivity extends Activity {
 
 		setContentView(R.layout.activity_voice);
 
-		this.mRecordOwnerButton = (Button) findViewById(R.id.ButtonRecognitoRecordOwner);
-		this.mRecordOwnerButton.setOnClickListener(new  AuthRecordListener(true));
+		this.mRecordOwnerButton = (Button) findViewById(
+				R.id.ButtonRecognitoRecordOwner);
+		this.mRecordOwnerButton.setOnClickListener(
+				new AuthRecordListener(true));
 
-		this.mRecordBackgroundButton = (Button) findViewById(R.id.ButtonRecognitoRecordBackground);
-		this.mRecordBackgroundButton.setOnClickListener(new  AuthRecordListener(false));
+		this.mRecordBackgroundButton = (Button) findViewById(
+				R.id.ButtonRecognitoRecordBackground);
+		this.mRecordBackgroundButton.setOnClickListener(
+				new AuthRecordListener(false));
 
 		this.timerDisplay = (EditText) findViewById(R.id.timer1);
 	}

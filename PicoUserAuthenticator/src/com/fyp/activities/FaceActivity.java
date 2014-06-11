@@ -12,37 +12,65 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+/**
+ * Main activity use for configuring the face recognition mechanism.
+ * 
+ * This class is used for gathering a face sample from the owner of the token.
+ * This will be later used as training data for the face recognition algorithm.
+ * 
+ * @author cristi
+ * 
+ */
 public class FaceActivity extends Activity {
-	private Camera mCamera = null;
-	private CameraPreview mPreview = null;
+	/** Camera object used for taking pictures. */
+	private Camera camera = null;
 
-	private Button mPictureButton = null;
+	/** Standard Camera preview for the user. */
+	private CameraPreview preview = null;
 
+	/** Button used for acquiring a picture from the Camera. */
+	private Button pictureButton = null;
+
+	/**
+	 * Anonymous listener used with the picture button. When pressed it launches
+	 * a Camera.takePicture() event.
+	 * 
+	 */
 	OnClickListener clickerPicture = new OnClickListener() {
 		public void onClick(View v) {
-			mCamera.takePicture(null, null, new OwnerPictureCallback(FaceActivity.this));
+			camera.takePicture(null, null, new OwnerPictureCallback(
+					FaceActivity.this));
 		}
 	};
 
+	/**
+	 * Method called when the Activity is created.
+	 * 
+	 * This method is used for initialising the user interface and registering
+	 * listeners.
+	 */
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
 		setContentView(R.layout.activity_face);
 
-		mCamera = new FaceDAO(this).getCameraInstance();
-		mPreview = new CameraPreview(this, mCamera);
-		
-		FrameLayout previewLayout = (FrameLayout) findViewById(R.id.camera_preview);
-		previewLayout.addView(mPreview);
+		camera = new FaceDAO(this).getCameraInstance();
+		preview = new CameraPreview(this, camera);
 
-		this.mPictureButton = (Button) findViewById(R.id.ButtonFaceCapture);
-		this.mPictureButton.setOnClickListener(clickerPicture);
+		FrameLayout previewLayout = (FrameLayout) findViewById(R.id.camera_preview);
+		previewLayout.addView(preview);
+
+		this.pictureButton = (Button) findViewById(R.id.ButtonFaceCapture);
+		this.pictureButton.setOnClickListener(clickerPicture);
 	}
 
+	/**
+	 * Method called when the Activity is sent to background.
+	 */
 	@Override
 	protected void onPause() {
-		mCamera = null;
+		camera = null;
 		super.onPause();
 	}
 

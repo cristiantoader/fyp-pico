@@ -81,14 +81,11 @@ A compromise solution is needed for the two scenarios. Non-biometric mechanisms 
 % Alternative solution: heartbeat
 An alternative solution to the problem presented above is to have an auxiliary biometric sensor that the owner would carry at all times. A good example is a heartbeat monitor. This can be embedded in an every day item such as a watch. The heartbeat authentication mechanism combined with the existing location analysis mechanism should provide a sufficiently high confidence level to unlock Pico for any medium-security authentication session.
 
-% TODO!!
 \section{Functional evaluation}
 \label{functionaleval}
-We have performed a series of tests in order to assess the usability of the scheme's prototype. 
+We have performed a series of tests in order to assess the usability and performance of the scheme's prototype. 
 
-Battery power is a scarce resource for hand-held devices. The amount of time they can function without recharging directly determines their availability. The token unlocking scheme we have proposed requires periodic sampling of sensor data. This can be a power consuming task, if not managed appropriately. Given that the prototype's individual mechanisms currently use a configurable sampling rate, we continue by analysing the power consumption changes with various intervals.
-
-The power consumption analysis was performed using the Trepn profiling tool developed by Qualcomm\footnote{The tool's official website can be found at the following address: https://developer.qualcomm.com/mobile-development/increase-app-performance/trepn-profiler}. The results are posted in table \ref{tab:powerprofile}. We analyse for different sampling rates the scheme's resource consumption while collecting and processing data. Using the profiler we gather the application's average CPU and power consumption. The tool only provides overall battery usage, which includes other Android components. Therefore, when calculating the average power consumed by the application, we deduct the base power consumption of $30.33 mW$ that was obtained by analysing the system without running the prototype. Although this introduces a margin of error, overall results should serve as a valid approximation.
+Battery power is a scarce resource for hand-held devices. The amount of time they can function without recharging directly determines their availability. The token unlocking scheme we have proposed requires periodic sampling of sensor data. This can be a power consuming task, if not managed appropriately. Given that the prototype's individual mechanisms use a configurable sampling rate, we continue by analysing the power consumption for different time intervals. The analysis was performed using the Trepn profiling tool developed by Qualcomm\footnote{The tool's official website can be found at the following address: https://developer.qualcomm.com/mobile-development/increase-app-performance/trepn-profiler}. Results for the application's average CPU and Power usage are posted in table \ref{tab:powerprofile}.
 
 \begin{table}
     \begin{tabular}{l|l|l|l}
@@ -105,9 +102,9 @@ The power consumption analysis was performed using the Trepn profiling tool deve
 	\label{tab:powerprofile}
 \end{table}
 
-Results from table \ref{tab:powerprofile} show a relatively high CPU and Power usage for a small sampling rate of 5 seconds. This drops considerably in the following tests. In order to have the prototype constantly functional, sampling rates need to be configured in conjunction with the decay process and initial weights of the mechanisms. This is a multivariate optimisation problem, where we are trying to minimise power consumption and the error rate of the device.
+Results from table \ref{tab:powerprofile} show a high CPU and Power usage for a small sampling rate of 5 seconds. This drops considerably as the sampling time interval increases. In order to have the prototype constantly functional, sampling rates need to be configured in conjunction with the decay process and initial weights of the mechanisms. This is a multivariate optimisation problem, where we are trying to minimise the power consumption and error rate of mechanism.
 
-In order to assess the time performance scheme's authentication mechanisms, we have timed different sections in table \ref{tab:timeprofile}.
+In order to assess the time performance of the prototype, we have recorded key stages for each mechanism in table \ref{tab:timeprofile}.
 \begin{table}
     \begin{tabular}{l|l|l}
 		Mechanism         & Initialisation (s) 	& Authentication (s) \\ \hline
@@ -119,7 +116,7 @@ In order to assess the time performance scheme's authentication mechanisms, we h
 	\label{tab:timeprofile}
 \end{table}
 
-Results reveal that the prototype has a high initialisation time for the face recognition mechanism. This would have a direct impact on the efficiency of the token, as the owner would have to wait on the first use of the unlocking mechanism. However, authentication time is relatively small with a maximum of 2 seconds. With the current periodic sampling implementation this time could be hidden from the user by making the thread sleep less, depending on the amount of time spent during the authentication process. However, a different implementation that uses external events may not.
+Results show a high initialisation time for the face recognition mechanism. This has a direct impact on the token's usability, as the owner has to wait during the first use of the unlocking mechanism. However, authentication time is relatively small with a maximum of 2 seconds. With the current periodic sampling implementation, the delay can be hidden from the user by adjusting the sampling rate of each mechanism. However, results from table \ref{tab:timeprofile} can be relevant for implementations that do not sample data at fixed time intervals.
 
 \section{Token unlocking framework evaluation}
 We will continue by evaluating the proposed scheme with the token unlocking framework defined in section \ref{tokenframework}.
