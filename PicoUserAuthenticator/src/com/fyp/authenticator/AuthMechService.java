@@ -63,13 +63,19 @@ public abstract class AuthMechService extends Service {
 	private static final String TAG = "AuthMechService";
 	
 	/**
-	 * Standard on create method for the service.
+	 * Standard onCreate method for the service.
 	 * 
 	 * Classes that implement this method need to initialise the initialWeight
 	 * field.
 	 * */
 	public abstract void onCreate();
 
+	/**
+	 * Standard onDestroy method for the service.
+	 * 
+	 * Classes that implement this method need to call decayTimer.stopTimer() in
+	 * orde to stop the decay process.
+	 */
 	public abstract void onDestroy();
 
 	/**

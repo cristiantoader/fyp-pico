@@ -10,18 +10,39 @@ import android.util.Log;
 import facerecognition.javafaces.FaceRec;
 import facerecognition.javafaces.MatchResult;
 
+/**
+ * Class used for mediating calls to the Recognito biometric library.
+ * 
+ * @author cristi
+ * 
+ */
 public class FaceAuthMediator {
-
+	/** Face recognition recognito object. */
 	private FaceRec faceRec = null;
 
+	/** Directory containing training data. */
 	private String trainDirectory = null;
+	/** Name of the owner image used for training. */
 	private String ownerImage = null;
 
+	/** Number of registered faces in training data. */
 	private static final String NUM_FACES = "1";
+	
+	/** Euclidean distance threshold used with the library. */
 	private static final String THRESHOLD = "2";
 
+	/** Tag used for debugging. */
 	private static final String TAG = "FaceDAO";
 
+	/**
+	 * Main constructor for the class.
+	 * 
+	 * The initialises the face recognition library and performs training on the
+	 * owner data.
+	 * 
+	 * @param ctx
+	 *            Context used for file access.
+	 */
 	public FaceAuthMediator(Context ctx) {
 		Log.d(TAG, "FaceDAO+");
 
@@ -35,7 +56,10 @@ public class FaceAuthMediator {
 		Log.d(TAG, "FaceDAO-");
 	}
 
-	public void trainFaceRecognizer() {
+	/**
+	 * Method used for training the recognito face recogniser.
+	 */
+	private void trainFaceRecognizer() {
 		Log.d(TAG, "trainFaceRecognizer+");
 
 		MatchResult r = this.faceRec.processSelections(getAbsoluteFilePath(),
@@ -45,6 +69,17 @@ public class FaceAuthMediator {
 		Log.d(TAG, "trainFaceRecognizer-");
 	}
 
+	/**
+	 * Method used for getting an Euclidean distance confidence level for the
+	 * supplied input data.
+	 * 
+	 * The method uses the recognito library to perform biometric authentication
+	 * based on the supplied data.
+	 * 
+	 * @param faceObject
+	 *            Challenge used for biometric authentication.
+	 * @return Euclidean distance confidence level for supplied challenge.
+	 */
 	public double getMatch(Bitmap faceObject) {
 		double result = 0;
 		MatchResult r = null;
@@ -67,6 +102,10 @@ public class FaceAuthMediator {
 		return result;
 	}
 
+	/**
+	 * Getter for the owner image absolute file path. 
+	 * @return
+	 */
 	private String getAbsoluteFilePath() {
 		String res = this.trainDirectory + "/" + ownerImage;
 		Log.d(TAG, res);
@@ -81,6 +120,13 @@ public class FaceAuthMediator {
 		return res;
 	}
 
+	/**
+	 * Debugging method used for printing the MatchResult from the recognito
+	 * library.
+	 * 
+	 * @param r
+	 *            match result that will get printed.
+	 */
 	private static void printMatch(MatchResult r) {
 		if (r != null) {
 			Log.d(TAG, "MatchResult success: " + r.getMatchSuccess());
@@ -95,6 +141,11 @@ public class FaceAuthMediator {
 		}
 	}
 
+	/**
+	 * Returns the name of the owner image from the training data directory.
+	 * 
+	 * @return the name of the owner image from the training data directory.
+	 */
 	private String getOwnerImage() {
 		String owner = null;
 
@@ -124,7 +175,8 @@ public class FaceAuthMediator {
 	 * data is valid for face recognition.
 	 * 
 	 * @param img
-	 * @return
+	 *            Image for which the check is made.
+	 * @return true if img contains at least one face.
 	 */
 	public static boolean hasFace(Bitmap img) {
 		int maxFaces = 10;

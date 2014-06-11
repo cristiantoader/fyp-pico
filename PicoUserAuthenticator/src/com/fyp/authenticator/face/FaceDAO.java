@@ -12,11 +12,22 @@ import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.util.Log;
 
+/**
+ * Class used for mediating the interface with the camera.
+ * 
+ * It provides access to camera objects and support for gathering pictures.
+ * 
+ * @author cristi
+ * 
+ */
 public class FaceDAO {
-
+	/** Camera object used for gathering pictures. */
 	private Camera camera = null;
-	private static final String TAG = "CameraUtil";
+	
+	/** Application context used for file access. */
 	private Context context = null;
+	
+	/** Bitmap associated with the DAO. */
 	private volatile Bitmap picture = null;
 
 	/** Flag used to mark that face image data is ready for processing. */
@@ -28,6 +39,15 @@ public class FaceDAO {
 	 */
 	private final SurfaceTexture dummyTexture = new SurfaceTexture(1);
 
+	/** Tag used for debugging. */
+	private static final String TAG = "FaceDAO";
+	
+	/**
+	 * Basic constructor that registers application context.
+	 * 
+	 * @param context
+	 *            application context.
+	 */
 	public FaceDAO(Context context) {
 		this.context = context;
 	}
@@ -53,6 +73,7 @@ public class FaceDAO {
 		return camera;
 	}
 
+	/** Method used for initialising the camera used with the DAO. */
 	public boolean initialiseCamera() {
 		boolean success = false;
 
@@ -77,6 +98,13 @@ public class FaceDAO {
 		return success;
 	}
 
+	/**
+	 * Method used for taking a picture from the camera.
+	 * 
+	 * The camera needs to be initialised prior to calling this method.
+	 * 
+	 * @return Picture acquired from the Camera.
+	 */
 	public Bitmap takePicture() {
 		this.camera.takePicture(null, null, jpgCallpack);
 
@@ -94,6 +122,10 @@ public class FaceDAO {
 		return this.picture;
 	}
 
+	/**
+	 * Anonymous callback object for pictures received from the camera. Input
+	 * data is scaled to 50% to save memory when performing authentication.
+	 */
 	PictureCallback jpgCallpack = new PictureCallback() {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			Log.d("CAMERA", "jpgCallpack");

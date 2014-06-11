@@ -8,7 +8,7 @@ import android.util.Log;
 import com.fyp.authenticator.AuthMechService;
 
 /**
- * Face recognition mechanism used in the proposed scheme.
+ * Face recognition service mechanism used in the proposed scheme.
  * 
  * @author cristi
  * 
@@ -60,7 +60,7 @@ public class FaceService extends AuthMechService {
 	/**
 	 * Returns true if the mechanism is supported by hand held hardware.
 	 * 
-	 * @return
+	 * @return true if the mechanism is supported by hand held hardware.
 	 */
 	private boolean isSupported() {
 		return getApplicationContext().getPackageManager().hasSystemFeature(
@@ -77,17 +77,24 @@ public class FaceService extends AuthMechService {
 		/** Flag used for a gentle stop of the thread. */
 		private volatile boolean running = false;
 
-		/** DAO used to interface with the face recognition library. */
+		/** Mediator used to interface with the face recognition library. */
 		private FaceAuthMediator mediator = null;
 
-		/** Authentication period used between successful camera sampling. */
+		/** DAO for interfacing with the Android Camera. */
+		private FaceDAO cameraUtil = null;
+		
+		/** Authentication sampling rate. */
 		private static final int SAMPLING_RATE = 10 * 1000;
 
 		/** Euclidean distance threshold used in calculating confidence. */
 		private static final double THRESHOLD = 1;
 
-		private FaceDAO cameraUtil = null;
-
+		/**
+		 * Main run() method for the thread.
+		 * 
+		 * This method is executed in order to provide periodic authentication
+		 * data.
+		 */
 		public void run() {
 			long start = System.currentTimeMillis();
 			
@@ -141,11 +148,13 @@ public class FaceService extends AuthMechService {
 
 		}
 
+		/** Method used for other objects to start this thread. */
 		public void startThread() {
 			this.running = true;
 			this.start();
 		}
-
+		
+		/** Method used for other objects to stop this thread. */
 		public void stopThread() {
 			this.running = false;
 		}
