@@ -7,12 +7,19 @@ import android.util.Log;
 
 import com.fyp.authenticator.AuthMechService;
 
+/**
+ * Location analysis service mechanism used in the proposed scheme.
+ * 
+ * @author cristi
+ *
+ */
 public class LocationService extends AuthMechService {
 
+	/** Thread used for periodic authentication. */
+	private AuthenticatorThread locationThread = null;
+	
 	/** Logging tag. */
 	private static final String TAG = "LocationService";
-	
-	private AuthenticatorThread locationThread = null;
 	
 	@Override
 	public void onCreate() {
@@ -57,13 +64,8 @@ public class LocationService extends AuthMechService {
 		/** Authentication period between consecutive samples. */
 		private static final int SAMPLING_RATE = 10 * 1000;
 
-		/**
-		 * Number of acceptable meters threshold
-		 */
+		/** Threshold for the number of acceptable meters.*/
 		private static final double THRESHOLD = 2;
-
-		/** Logging tag. */
-		private static final String TAG = "LocationServiceThread";
 
 		/** Flag used to gently stop the thread. */
 		private volatile boolean stop;
@@ -71,14 +73,28 @@ public class LocationService extends AuthMechService {
 		/** Service context. */
 		private Context ctx = null;
 		
+		/** Mediator object for location analysis algorithm. */
 		private LocationAuthMediator mediator = null;
+		/** Data access object used for collecting location samples. */
 		private LocationDAO dao = null;
 		
+		/** Logging tag. */
+		private static final String TAG = "LocationServiceThread";
+		
+		/**
+		 * Basic constructor.
+		 */
 		public AuthenticatorThread() {
 			this.stop = false;
 			this.ctx = LocationService.this;
 		}
 
+		/**
+		 * Main run() method for the thread.
+		 * 
+		 * This method is executed in order to provide periodic authentication
+		 * data.
+		 */
 		@Override
 		public void run() {
 			Looper.prepare();
@@ -125,6 +141,7 @@ public class LocationService extends AuthMechService {
 			}
 		}
 
+		/** Method used for other objects to stop this thread. */
 		public void stopThread() {
 			this.stop = true;
 		}
