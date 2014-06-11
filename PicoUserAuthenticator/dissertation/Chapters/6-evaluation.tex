@@ -215,29 +215,3 @@ The only property where Picosiblings outperforms the scheme presented in this di
 
 In conclusion, by using the new token unlocking mechanism, overall Pico would improve 2 properties in exchange for one.
 
-% NOTE: Future work and conclusion can be another chapter.
-\section{Future work}
-% Introduction to future work
-The token unlocking mechanism proposed in this project offers a new perspective to Pico unlocking. The assessment presented in this chapter shows that it offers a reliable alternative to Picosiblings. However, improvements can be made both to its design and implementation.
-
-% Experiment with weights and decay factors
-The Android prototype was developed as a proof of concept. Further experiments need to be performed using different weights and decay functions. A user study is required in order to determine the acceptable time interval between consecutive explicit authentication requests, and the implementation needs to be adapted accordingly. Furthermore, explicit authentication mechanisms need to be developed for the Android prototype.
-
-% Add aditional mechanisms and improve accuracy of current.
-The set of individual mechanisms used with the scheme's prototype can be improved. Better biometric libraries should be either developed or imported in order to increase the accuracy of the implementation. Furthermore, additional mechanisms should be developed for the platform. A number of viable suggestions are made in appendix \ref{AppendixC}.
-
-% Take data samples based on external events
-With the current prototype, the voice and face recognition mechanisms sample data at fixed time intervals. This should be change by taking advantage of user behaviour and Android events. Examples for this were given in section \ref{impleoverview}. 
-
-The face recognition mechanism can be improved either by introducing another library that performs face detection, or by using a different face recognition library that offers both features. Cryptographic support needs to be added for this mechanism.  It can be performed through additional modifications of the {\tt Javafaces} library that would allow it to use raw data during the training process.
-
-% Safer implementation
-A safer prototype would be to develop a root system service using the Android NDK C compiler. The binary has to be included in the system partition of the boot image in order to be accessible by the {\tt init} process during start up. The {\tt init.rc} configuration file used by {\tt init} also needs to be configured to start the service. This implementation requires modifications to the {\tt /system} partition. The process does not limit to simply gaining root privileges. The root directory {\tt /} is mounted as ramdisk, and therefore any modifications will be reverted once the device is rebooted. In order to make persistent changes, the user needs to modify the boot image, and re-flash it on the device.
-
-\section{Conclusions}
-The purpose of this dissertation was to create a new scheme for unlocking the Pico token. We have adapted the UDS framework developed by Bonneau et al \cite{bonneau2012quest} to create a token unlocking framework. Both frameworks were used in evaluating the solution proposed in this dissertation. Results have shown that although the new scheme does not completely outperform Picosiblings, they offer a larger number of benefits. The new token unlocking mechanism was prototyped on an Android smart phone, proving that the design can be implemented using existing hardware.
-
-
-%=========================================================================================================================
-% END OF PAPER
-%=========================================================================================================================
