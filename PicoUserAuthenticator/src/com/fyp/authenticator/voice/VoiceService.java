@@ -5,9 +5,7 @@ import com.fyp.authenticator.AuthMechService;
 import android.util.Log;
 
 /**
- * Observable service which needs to keep track of the user authentication
- * state. When requested, the UAService will require to know the current state
- * of this observable.
+ * Voice recognition service mechanism used in the proposed scheme.
  * 
  * @author cristi
  * 
@@ -60,29 +58,37 @@ public class VoiceService extends AuthMechService {
 		/** Authentication period between consecutive samples. */
 		private static final int SAMPLING_RATE = 10 * 1000;
 
-		/** Recording time of the data. */
+		/** Recording time of sample data. */
 		private static final int RECORD_TIME = 3 * 1000;
 
-		/**
-		 * Threshold used in transforming Euclidean distance into a probability.
-		 */
+		/** Threshold used in transforming Euclidean distance into a probability.*/
 		private static final double THRESHOLD = 2;
-
-		/** Logging tag. */
-		private static final String TAG = "VoiceServiceThread";
 
 		/** Flag used to gently stop the thread. */
 		private volatile boolean stop;
 
-		/** DAO used to interface with the voice recognition library. */
+		/** Mediator for the voice recognition library. */
 		private VoiceAuthMediator mediator = null;
 
+		/** Data access object for recording data. */
 		private VoiceDAO record = null;
 		
+		/** Logging tag. */
+		private static final String TAG = "VoiceServiceThread";
+		
+		/**
+		 * Basic constructor.
+		 */
 		public AuthenticatorThread() {
 			this.stop = false;
 		}
 
+		/**
+		 * Main run() method for the thread.
+		 * 
+		 * This method is executed in order to provide periodic authentication
+		 * data.
+		 */
 		@Override
 		public void run() {
 			long start = System.currentTimeMillis();
@@ -131,14 +137,15 @@ public class VoiceService extends AuthMechService {
 			}
 		}
 
+		/** Method used for stopping the thread. */
 		public void stopThread() {
 			this.stop = true;
 		}
 
-		/***
-		 * Auxiliary method used to record a data sample.
+		/**
+		 * Auxiliary method used to record a data sample using a VoiceDAO.
 		 * 
-		 * @return
+		 * @return recording data sample as a VoiceDAO.
 		 */
 		private VoiceDAO recordData() {
 			Log.d(TAG, "recordData+");

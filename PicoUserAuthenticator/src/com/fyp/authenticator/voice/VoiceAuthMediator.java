@@ -9,6 +9,12 @@ import android.util.Log;
 
 import com.bitsinharmony.recognito.Recognito;
 
+/**
+ * Class used to mediate calls to the Recognito library.
+ * 
+ * @author cristi
+ * 
+ */
 public class VoiceAuthMediator {
 	
 	/**Android context used for file IO*/
@@ -17,10 +23,14 @@ public class VoiceAuthMediator {
 	/** Reference to recognito library object */
 	private Recognito<String> recognito = new Recognito<String>();
 
+	/** Logging tag used for debugging. */
 	private static final String TAG = "VoiceAuthMediator";
 
 	/**
-	 * Constructor
+	 * Main constructor.
+	 * 
+	 * The constructor registers the application context and trains the
+	 * recognito library object.
 	 * 
 	 * @param ctx
 	 *            android context for application path.
@@ -32,8 +42,7 @@ public class VoiceAuthMediator {
 	}
 
 	/**
-	 * Trains recognito library for the owner's voice. Searches through internal
-	 * data in order to train the recognito library.
+	 * Method used for training the recognito object using owner and noise data.
 	 */
 	private void trainRecognito() {
 		Log.i(TAG, "trainRecognito+");
@@ -72,9 +81,12 @@ public class VoiceAuthMediator {
 	
 	/**
 	 * Return's the match distance between the current recording and the owner.
+	 * The result is returned as a Euclidean distance.
 	 * 
-	 * @param filename
-	 * @return recording match indicator.
+	 * @param record
+	 *            VoiceDAO challenge used for recognition.
+	 * @return Euclidean distance indicating the confidence level that the
+	 *         record represents the owner.
 	 */
 	public double getMatch(VoiceDAO record) {
 		boolean owner = false;

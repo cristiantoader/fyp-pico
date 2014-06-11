@@ -20,39 +20,52 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.util.Log;
 
+/**
+ * Class used for managing recording data.
+ * 
+ * The class provides features for recording and saving sample record data.
+ * 
+ * @author cristi
+ * 
+ */
 public class VoiceDAO {
-
-	/** Audio recorder object. */
+	/** Android context used with the class. */
+	private Context ctx = null;
+	
+	/** Anrdoid object for recording data. */
 	private AudioRecord mRecorder = null;
 
 	/** Recording thread. */
 	private RecordingThread rt = new RecordingThread();
 
-	/** Audio record data. */
+	/** Predefined AudioRecord data sample rate. */
 	private static final int SAMPLE_RATE = 44100;
+	/** Predefined AudioRecord data channel configuration. */
 	private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_MONO;
+	/** Predefined AudioRecord data format. */
 	private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
 
+	/** Minimum buffer size used when recording data. */
+	private int minBufferSize = 0;
+	
+	/** Recording data in byte format. */
 	private byte[] data = null;
 
+	/** Logging tag used for debugging. */
 	private static final String TAG = "VoideDAO";
-	private int minBufferSize = 0;
 
 	/** Audio file name. */
 	private String name = null;
 	/** Audio file path. */
 	private String filePath = null;
 
-	/** Android context used with the class. */
-	private Context ctx = null;
-
+	/** Predefined variable for the owner file name. */
 	public static final String OWNER_FN = "owner.3gp";
 
 	/**
 	 * Public constructor of voice object.
 	 * 
-	 * This class can be used for recording, saving, and loading data from
-	 * filesystem.
+	 * The constructor registers the application context and file path data.
 	 * 
 	 * @param context
 	 *            application context used for file management.
@@ -67,6 +80,9 @@ public class VoiceDAO {
 
 	}
 
+	/**
+	 * Method used for starting to record data from the microphone.
+	 */
 	public void startRecord() {
 
 		if (this.data != null) {
@@ -84,7 +100,15 @@ public class VoiceDAO {
 		this.rt.startThread();
 	}
 
+	/**
+	 * Method used for stopping to record data from the microphone.
+	 */
 	public void stopRecord() {
+		if (this.rt == null) {
+			Log.w(TAG, "DAO is not currently recording!");
+			return;
+		}
+		
 		this.mRecorder.stop();
 		this.mRecorder.release();
 		this.mRecorder = null;
@@ -94,6 +118,10 @@ public class VoiceDAO {
 		this.rt = null;
 	}
 
+	/**
+	 * Method used for saving recorded data in internal storage. Data is saved
+	 * in encrypted format.
+	 */
 	public void saveRecording() {
 		KeyManager km = null;
 
@@ -105,6 +133,11 @@ public class VoiceDAO {
 		if (new File(getAbsoluteFilePath()).exists()) {
 			Log.w(TAG, "File with the same name will get overwritten: "
 					+ getAbsoluteFilePath());
+		}
+		
+		if (this.data == null) {
+			Log.w(TAG, "No data was recorded for saving.");
+			return;
 		}
 
 		try {
@@ -125,12 +158,20 @@ public class VoiceDAO {
 		Log.d(TAG, "saveRecording-");
 	}
 
+	/**
+	 * Getter for recording sample rate.
+	 * 
+	 * @return recording sample rate.
+	 */
 	public static int getSampleRate() {
 		return SAMPLE_RATE;
 	}
 
 	/**
-	 * Retrieves the recording data from the record saved in internal memory.
+	 * Retrieves recording data in double[] format either from within the object
+	 * or from internal memory.
+	 * 
+	 * If data is retrieved from internal memory, it is first decrypted.
 	 * 
 	 * @return recording data from the record saved in internal memory.
 	 */
@@ -169,7 +210,7 @@ public class VoiceDAO {
 	}
 
 	/**
-	 * Loads recording from file.
+	 * Loads decrypted recording data from file.
 	 */
 	private void loadDataFromFile() {
 		KeyManager km = null;
@@ -216,20 +257,35 @@ public class VoiceDAO {
 		return new File(getAbsoluteFilePath()).exists() || this.data != null;
 	}
 
+	/**
+	 * Getter for the recording file absolute file path.
+	 * 
+	 * @return the recording file absolute file path.
+	 */
 	private String getAbsoluteFilePath() {
 		return this.filePath + "/" + this.name;
 	}
 
+	/**
+	 * Class used for recording data from the microphone.
+	 * 
+	 * @author cristi
+	 * 
+	 */
 	private class RecordingThread extends Thread {
+		/** Flag used for gently stopping the thread.*/
 		private volatile boolean recording = false;
 
+		/** Byte list used when gathering data from the microphone input stream. */
 		private ArrayList<Byte> threadData = new ArrayList<Byte>();
 
+		/** Method used for starting the recording thread. */
 		public void startThread() {
 			this.recording = true;
 			this.start();
 		}
 
+		/** Method used for stopping the recording thread. */
 		public void stopThread() {
 			try {
 				this.recording = false;
@@ -239,6 +295,9 @@ public class VoiceDAO {
 			}
 		}
 
+		/**
+		 * Main thread method used for recording and processing microphone data.
+		 */
 		public void run() {
 			int read = 0;
 			byte buffer[] = new byte[minBufferSize];
@@ -247,19 +306,33 @@ public class VoiceDAO {
 				read = mRecorder.read(buffer, 0, buffer.length);
 
 				if (read != AudioRecord.ERROR_INVALID_OPERATION) {
-					addData(buffer);
+					addData(buffer, read);
 				} else {
 					Log.w(TAG, "AudioRecord error!");
 				}
 			}
 		}
 
-		private void addData(byte[] data) {
-			for (byte b : data) {
-				this.threadData.add(b);
+		/**
+		 * Adds a byte[] of data to the overall data gathered by the thread.
+		 * 
+		 * @param data
+		 *            buffer containing recording data.
+		 * @param read
+		 *            number of bytes from the buffer that contain recording
+		 *            data.
+		 */
+		private void addData(byte[] data, int read) {
+			for (int i = 0; i < read; i++) {
+				this.threadData.add(data[i]);
 			}
 		}
 
+		/**
+		 * Returns all the data collected by the recording thread.
+		 * 
+		 * @return data collected by the recording thread.
+		 */
 		public byte[] getData() {
 			byte[] result = new byte[this.threadData.size()];
 
@@ -271,6 +344,11 @@ public class VoiceDAO {
 		}
 	}
 
+	/**
+	 * Getter for the name of the recording.
+	 * 
+	 * @return the name of the recording.
+	 */
 	public String getName() {
 		return this.name;
 	}
@@ -293,6 +371,17 @@ public class VoiceDAO {
 		return fn;
 	}
 
+	/**
+	 * Method used for loading noise DAOs.
+	 * 
+	 * The method searches the application for recorded noise files and creates
+	 * a DAO linked list all recorded noises. This method is used during the
+	 * training process of the voice recognition library.
+	 * 
+	 * @param ctx
+	 *            application context used for file access.
+	 * @return VoiceDAO list of noises saved in internal storage.
+	 */
 	public static LinkedList<VoiceDAO> getNoiseDAOs(Context ctx) {
 		File dir = ctx.getFilesDir();
 		LinkedList<VoiceDAO> noises = new LinkedList<VoiceDAO>();
