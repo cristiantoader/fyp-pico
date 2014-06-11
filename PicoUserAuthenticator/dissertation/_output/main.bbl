@@ -5,11 +5,11 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Morris and Thompson(1979)]{morris1979password}
-Robert Morris and Ken Thompson.
-\newblock Password security: A case history.
-\newblock \emph{Communications of the ACM}, 22\penalty0 (11):\penalty0
-  594--597, 1979.
+\bibitem[Yan et~al.(2004)Yan, Blackwell, Anderson, and Grant]{yan2004password}
+Jeff~Jianxin Yan, Alan~F Blackwell, Ross~J Anderson, and Alasdair Grant.
+\newblock Password memorability and security: Empirical results.
+\newblock \emph{IEEE Security \& privacy}, 2\penalty0 (5):\penalty0 25--31,
+  2004.
 
 \bibitem[Oechslin(2003)]{oechslin2003making}
 Philippe Oechslin.
@@ -17,33 +17,17 @@ Philippe Oechslin.
 \newblock In \emph{Advances in Cryptology-CRYPTO 2003}, pages 617--630.
   Springer, 2003.
 
-\bibitem[Yan et~al.(2004)Yan, Blackwell, Anderson, and Grant]{yan2004password}
-Jeff~Jianxin Yan, Alan~F Blackwell, Ross~J Anderson, and Alasdair Grant.
-\newblock Password memorability and security: Empirical results.
-\newblock \emph{IEEE Security \& privacy}, 2\penalty0 (5):\penalty0 25--31,
-  2004.
+\bibitem[Morris and Thompson(1979)]{morris1979password}
+Robert Morris and Ken Thompson.
+\newblock Password security: A case history.
+\newblock \emph{Communications of the ACM}, 22\penalty0 (11):\penalty0
+  594--597, 1979.
 
 \bibitem[Adams and Sasse(1999)]{adams1999users}
 Anne Adams and Martina~Angela Sasse.
 \newblock Users are not the enemy.
 \newblock \emph{Communications of the ACM}, 42\penalty0 (12):\penalty0 40--46,
   1999.
-
-\bibitem[Bonneau et~al.(2012)Bonneau, Herley, Van~Oorschot, and
-  Stajano]{bonneau2012quest}
-Joseph Bonneau, Cormac Herley, Paul~C Van~Oorschot, and Frank Stajano.
-\newblock The quest to replace passwords: A framework for comparative
-  evaluation of web authentication schemes.
-\newblock In \emph{Security and Privacy (SP), 2012 IEEE Symposium on}, pages
-  553--567. IEEE, 2012.
-
-\bibitem[Clarke et~al.(2002)Clarke, Furnell, Rodwell, and
-  Reynolds]{clarke2002acceptance}
-Nathan~L Clarke, Steven~M Furnell, Phihp~M Rodwell, and Paul~L. Reynolds.
-\newblock Acceptance of subscriber authentication methods for mobile telephony
-  devices.
-\newblock \emph{Computers \& Security}, 21\penalty0 (3):\penalty0 220--228,
-  2002.
 
 \bibitem[Stajano(2011)]{stajano2011pico}
 Frank Stajano.
@@ -55,6 +39,14 @@ Oliver Stannard and Frank Stajano.
 \newblock Am i in good company? a privacy-protecting protocol for cooperating
   ubiquitous computing devices.
 \newblock In \emph{Security Protocols XX}, pages 223--230. Springer, 2012.
+
+\bibitem[Bonneau et~al.(2012)Bonneau, Herley, Van~Oorschot, and
+  Stajano]{bonneau2012quest}
+Joseph Bonneau, Cormac Herley, Paul~C Van~Oorschot, and Frank Stajano.
+\newblock The quest to replace passwords: A framework for comparative
+  evaluation of web authentication schemes.
+\newblock In \emph{Security and Privacy (SP), 2012 IEEE Symposium on}, pages
+  553--567. IEEE, 2012.
 
 \bibitem[Florencio and Herley(2007)]{florencio2007large}
 Dinei Florencio and Cormac Herley.
@@ -94,6 +86,14 @@ Nathan~L Clarke, SM~Furnell, Benn~M. Lines, and Paul~L Reynolds.
   on mobile handsets.
 \newblock In \emph{Security and Privacy in the Age of Uncertainty}, pages
   97--108. Springer, 2003.
+
+\bibitem[Clarke et~al.(2002)Clarke, Furnell, Rodwell, and
+  Reynolds]{clarke2002acceptance}
+Nathan~L Clarke, Steven~M Furnell, Phihp~M Rodwell, and Paul~L. Reynolds.
+\newblock Acceptance of subscriber authentication methods for mobile telephony
+  devices.
+\newblock \emph{Computers \& Security}, 21\penalty0 (3):\penalty0 220--228,
+  2002.
 
 \bibitem[Williamson and Money-America’s(2006)]{williamson2006enhanced}
 Gregory~D Williamson and GE~Money-America’s.

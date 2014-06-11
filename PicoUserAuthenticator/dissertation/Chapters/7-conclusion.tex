@@ -6,7 +6,23 @@
 
 \lhead{Chapter 7. \emph{Conclusion}} % Change X to a consecutive number; this is for the header on each page - perhaps a shortened title
 
-The purpose of this dissertation was to create a new scheme for unlocking the Pico token. We have adapted the UDS framework developed by Bonneau et al \cite{bonneau2012quest} to create a token unlocking framework. Both frameworks were used in evaluating the solution proposed in this dissertation. Results have shown that although the new scheme does not completely outperform Picosiblings, they offer a larger number of benefits. The new token unlocking mechanism was prototyped on an Android smart phone, proving that the design can be implemented using existing hardware.
+The purpose of this dissertation was to provide an alternative unlocking scheme for the Pico token \cite{stajano2011pico}. We have started by analysing its design in chapter \ref{Chapter2}. Using this we have identified that a new unlocking mechanism requires to be memorywise effortless, and has to support continuous authentication.
+
+We have identified and briefly presented the web authentication UDS assessment framework developed by Bonneau et al \cite{bonneau2012quest}. This work provided an initial evaluation of Pico using Picosiblings. Analysing the paper revealed issues of the Pico token, some of which directly related to its unlocking mechanism (e.g. not easy to learn).
+
+To have a better way of evaluating a token unlocking scheme, in section \ref{tokenframework} we have created a derivation of the original framework by Bonneau et al. Some properties were removed, and others were changed in order to fit the context of token unlocking mechanisms. Furthermore, we have extended the framework by adding 4 additional properties.
+
+Having a list of requirements, and a way of assessing a new solution, we have designed a new scheme based on combining biometric and behavioural analysis mechanisms. Each mechanism generates a probability that the owner is in possession of the token. These probabilities are combined using a modified weighted sum, in order to generate an overall confidence level. Another original contribution is that each mechanism has an initial weight that decays in time from one valid data sample to the other. 
+
+% TODO: android prototype
+Given a well defined design of the new scheme, we have successfully developed a prototype using a Google Nexus 5 device that runs an Android 4.4.2 operating system. This has proven that the solution can be implemented using existing hardware. Furthermore, the prototype offered useful insight for future implementations of the scheme. We have concluded that an efficient implementation requires authentication mechanisms to run as independent processes. We have presented a basic application design, and showed how different components should communicate. As presented, data should be validated prior to analysis, and in the lack of a valid sample, the weight decay process should continue. An unexpected problem was that although the Android platform offers the full range of sensors for the implementation of multiple mechanisms (details in appendix \ref{AppendixC}), the lack of open source biometric libraries has lead to a low precision of the overall scheme.
+
+% TODO: evaluation of scheme
+The proposed unlocking mechanism was evaluated by using the UDS framework developed by Bonneau et al, and the token unlocking framework developed in section \ref{tokenframework}. The results of the analysis have shown that the new proposed scheme cannot completely outperform Picosiblings due to the ``unlinkable'' property. Otherwise, results have shown an overall improvement in the number of offered properties. A power consumption analysis shows that 
+
+A threat model of the prototype has shown a number of attacks that may be performed on the Android application. Important insight was provided when studying design model attacks in section \ref{secdesignattacks}. This has shown that in scenarios where no valid data can be collected, a compromise needs to be made regarding the time interval between successful explicit authentication requests. Together with the power consumption analysis, this essentially becomes an multivariate optimisation problem where we are trying to minimise power consumption and user inconvenience, while maximising accuracy.
+
+In conclusion, the new token unlocking scheme offers Pico an overall improvement. However, additional work is required in order to improve details of the design, as well as the prototype. Improvements that can be brought to the project are presented in the following section. 
 
 \section*{Future work}
 % Introduction to future work
