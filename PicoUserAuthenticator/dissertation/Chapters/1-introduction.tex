@@ -25,18 +25,17 @@ Picosiblings are a sensible solution to unlocking Pico. However, they are purely
 The purpose of this dissertation is to design and prototype a better token unlocking mechanism for Pico. According to its design, the process should be memoryless, and enable continuous authentication. The token should lock and unlock automatically only in the presence of its owner. The solutions that seem to best fit these requirements are biometric authentication mechanisms. Therefore, we have explored the possibility of combining multiple biometrics and behavioural analysis as part of an unified solution. The output from each mechanism is combined to generate an overall confidence level, reflecting that the owner is still in possession of the Pico.
 
 % Contributions
-% TODO: REPHRASE
 A number of contributions have been made throughout this dissertation project. The following list presents a summary of these achievements, with further details in the following chapters.
 \begin{itemize}
-	\item For creating a new unlocking mechanism, we have identified a list of requirements by analysing how Stajano \cite{stajano2011pico} designed the Pico token.
+	\item For creating a new unlocking mechanism, we have identified a list of requirements by analysing how Stajano \cite{stajano2011pico} designed the original Pico token.
 
 	\item In order to have an evaluation platform for the solution, we have created an assessment framework derived from the work by Bonneau et al \cite{bonneau2012quest}. This is used to evaluate a couple of existing token unlocking mechanisms, including Picosiblings. The results are used as a benchmark when evaluating the proposed solution.
 	
 	\item We have designed a new token unlocking mechanism. The solution may be used in any type of user authentication, but it is presented in the context of unlocking the Pico token. 
 	
-	\item We have developed an Android application prototype. The purpose of the implementation is to prove that the design can be developed using existing hardware. 
+	\item We have developed an Android application prototype. The purpose of the implementation is to check that the design can be developed using existing hardware. 
 	
-	\item We have analysed power consumption as well as timings of different authentication stages. These results should reveal any limitations and downsides of the scheme.
+	\item We have analysed the prototype's power consumption as well as timings of different authentication stages. These results should reveal any limitations and downsides of the scheme.
 	
 	\item The scheme is evaluated using the token unlocking evaluation framework, and the UDS framework developed by Bonneau et al. A comparison is made with Picosiblings in order to identify performance differences. We aimed for the proposed scheme to achieve better results in at least some categories of the token unlocking framework.
 	
