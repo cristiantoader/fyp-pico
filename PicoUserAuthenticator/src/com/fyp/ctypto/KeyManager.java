@@ -34,24 +34,47 @@ import android.content.Context;
 import android.security.KeyPairGeneratorSpec;
 import android.util.Log;
 
+/**
+ * Class used for managing the application's cryptographic material.
+ * 
+ * The class uses the Android KeyStore in order to securely store an RSA key
+ * pair used for protecting a master AES key. The master AES key is used for
+ * cryptographic protection of owner data files.
+ * 
+ * @author cristi
+ * 
+ */
 public class KeyManager {
-
+	/** Application context used for file access. */
 	private Context ctx = null;
 
+	/** AES master key used for decryption of owner data files*/
 	private SecretKey aesKey = null;
-	
-	private String filePath = null;
-	
-	private static final String ALIAS = "PicoAuthenticatorKP1";
-	private static final String ALGORITHM = "RSA";
+	/** File path for the AES master key.*/
+	private String aesFilePath = null;
+	/** AES master key file name.*/
 	private static final String AES_FILENAME = "master-key.dat";
-	
+	/** Key size in bytes of the AES master key. */
 	private static final int AES_KEYSIZE = 32;
 	
+	/**KeyStore alias used for RSA key pair. */
+	private static final String ALIAS = "PicoAuthenticatorKP1";
+	/**KeyStore algorithm for RSA key pair. */
+	private static final String ALGORITHM = "RSA";
+	
+	/** Logging tag used for debugging. */
 	private static final String TAG = "KeyManager";
 	
+	/** Singleton object for the class. */
 	private static KeyManager singleton = null;
 	
+	/**
+	 * Getter for the singleton class object.
+	 * 
+	 * @param ctx
+	 *            application context.
+	 * @return singleton class object.
+	 */
 	public static KeyManager getInstance(Context ctx) {
 		Log.d(TAG, "getInstance+");
 		
@@ -67,22 +90,24 @@ public class KeyManager {
 		Log.d(TAG, "getInstance- " + (singleton != null));
 		return singleton;
 	}
-	
-	public static KeyManager getFreshInstance(Context ctx) {
-		Log.d(TAG, "getInstance+");
 
-		singleton = new KeyManager(ctx.getApplicationContext());
-		singleton.generateMasterKey();
-
-		Log.d(TAG, "getInstance- " + (singleton != null));
-		return singleton;
-	}
-	
+	/**
+	 * Private class constructor.
+	 * 
+	 * @param ctx
+	 *            application context.
+	 */
 	private KeyManager(Context ctx) {
 		this.ctx = ctx;
-		this.filePath = this.ctx.getFilesDir().toString();
+		this.aesFilePath = this.ctx.getFilesDir().toString();
 	}
 
+	/**
+	 * Private method used for generating the AES master key.
+	 * 
+	 * A new RSA key pair is generated, stored in the Android KeyStore, and used
+	 * for saving an encrypted copy of the AES master key in internal storage.
+	 */
 	private void generateMasterKey() {
 		KeyPair kp = null;
 
@@ -141,6 +166,10 @@ public class KeyManager {
 		Log.d(TAG, "generateMasterKey()-");
 	}
 	
+	/**
+	 * Method used for loading the AES master key from internal storage. If no
+	 * master key exists, then a new master key is created.
+	 */
 	private void loadMasterKey() {
 		RSAPrivateKey privKey = null;
 		Cipher cipher = null;
@@ -197,10 +226,21 @@ public class KeyManager {
 
 	}
 	
+	/**
+	 * Method used for checking if the master key exists in internal storage.
+	 * 
+	 * @return true if the master key exists in internal storage.
+	 */
 	private boolean hasMasterKey() {
 		return new File(getMasterKeyPath()).exists();
 	}
 	
+	/**
+	 * Method used for acquiring the RSA private key from the Android KeyStore
+	 * that can be used for decoding the AES master key.
+	 * 
+	 * @return RSA private key used for decoding AES master key.
+	 */
 	private RSAPrivateKey getPrivateKey() {
 		KeyStore ks = null;
 		RSAPrivateKey privKey = null;
@@ -232,9 +272,14 @@ public class KeyManager {
 		return privKey;
 	}
 	
+	/**
+	 * Method used by clients to get an AES master key encryption cipher.
+	 * 
+	 * @return AES master key encryption cipher
+	 */
 	public Cipher getEncryptionCipher() {
 		Cipher cipher = null;
-		
+
 		if (this.aesKey == null) {
 			Log.e(TAG, "Need to load AES key first!");
 			return null;
@@ -255,18 +300,23 @@ public class KeyManager {
 		return cipher;
 	}
 	
+	/**
+	 * Method used by clients to get an AES master key decryption cipher.
+	 * 
+	 * @return AES master key decryption cipher
+	 */
 	public Cipher getDecryptionCipher() {
 		Cipher cipher = null;
-		
+
 		if (this.aesKey == null) {
 			Log.e(TAG, "Need to load AES key first!");
 			return null;
 		}
-		
+
 		try {
-  			cipher = Cipher.getInstance("AES");
+			cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.DECRYPT_MODE, this.aesKey);
-			
+
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
@@ -274,11 +324,17 @@ public class KeyManager {
 		} catch (InvalidKeyException e) {
 			e.printStackTrace();
 		}
-		
+
 		return cipher;
 	}
 	
 
+	/**
+	 * Method used for generating an RSA key specification used when generating
+	 * an RSA key.
+	 * 
+	 * @return RSA key specification.
+	 */
 	private KeyPairGeneratorSpec generateStandardKeySpec() {
 		KeyPairGeneratorSpec spec = null;
 
@@ -297,10 +353,15 @@ public class KeyManager {
 		return spec;
 	}
 	
+	/**
+	 * Method used for generating the master AES key.
+	 * 
+	 * @return master AES key.
+	 */
 	private SecretKey generateSecretKey() {
 		SecretKey skey = null;
 		KeyGenerator kgen = null;
-		
+
 		try {
 			kgen = KeyGenerator.getInstance("AES", "BC");
 			kgen.init(AES_KEYSIZE * 8);
@@ -316,11 +377,21 @@ public class KeyManager {
 		return skey;
 	}
 	
+	/**
+	 * Getter for AES master key path, including file name.
+	 * 
+	 * @return AES master key path, including file name.
+	 */
 	private String getMasterKeyPath() {
-		return this.filePath + "/" + AES_FILENAME;
+		return this.aesFilePath + "/" + AES_FILENAME;
 	}
-
 	
+	/**
+	 * Method used for checking if the AES master key is loaded in the
+	 * KeyManager.
+	 * 
+	 * @return true if the key is loaded in the KeyManager.
+	 */
 	private boolean isMasterKeyLoaded() {
 		return this.aesKey != null;
 	}
