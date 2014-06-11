@@ -42,10 +42,10 @@
 \contentsline {section}{\numberline {6.5}Future work}{53}{section.98}
 \contentsline {section}{\numberline {6.6}Conclusions}{54}{section.99}
 \vspace {2em}
-\contentsline {chapter}{\numberline {A}Android development and security}{56}{appendix.100}
-\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{62}{appendix.116}
-\contentsline {section}{\numberline {B.1}PIN}{62}{section.117}
-\contentsline {section}{\numberline {B.2}Face unlock}{63}{section.121}
-\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{65}{appendix.122}
+\contentsline {chapter}{\numberline {A}Android development and security}{55}{appendix.100}
+\contentsline {chapter}{\numberline {B}Token Unlocking Framework evaluation examples}{61}{appendix.116}
+\contentsline {section}{\numberline {B.1}PIN}{61}{section.117}
+\contentsline {section}{\numberline {B.2}Face unlock}{62}{section.121}
+\contentsline {chapter}{\numberline {C}Examples of supported Android authentication mechanisms}{64}{appendix.122}
 \vspace {2em}
-\contentsline {chapter}{Bibliography}{70}{dummy.124}
+\contentsline {chapter}{Bibliography}{69}{dummy.124}

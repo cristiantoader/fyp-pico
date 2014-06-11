@@ -8,15 +8,36 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/*
- * Author: http://developer.android.com/guide/topics/media/camera.html
+/**
+ * This class was originally developed by Google Android authors.
+ * 
+ * This class is based on code downloaded from [1], with small changes. The link
+ * was last visited on 06.11.2014.
+ * 
+ * [1] http://developer.android.com/guide/topics/media/camera.html
  */
 public class CameraPreview extends SurfaceView implements
 		SurfaceHolder.Callback {
-	private static final String TAG = "CameraPreview";
+	/** Surface holder for displaying current data from camera. */
 	private SurfaceHolder mHolder;
+
+	/** Camera object for gathering data. */
 	private Camera mCamera;
 
+	/** Logging tag used for debugging. */
+	private static final String TAG = "CameraPreview";
+
+	/**
+	 * Constructor for the camera preview.
+	 * 
+	 * The class registers the camera and context used for displaying the
+	 * preview.
+	 * 
+	 * @param context
+	 *            Component context used with the preview.
+	 * @param camera
+	 *            Camera object for which the preview is displayed.
+	 */
 	public CameraPreview(Context context, Camera camera) {
 		super(context);
 		mCamera = camera;
