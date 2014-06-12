@@ -350,7 +350,12 @@ public abstract class AuthMechService extends Service {
 		Log.d(TAG, "P(H|E) = " + phe);
 
 		// saving posterior as prior for next iteration.
-		this.prior = phe;
+		if (phe != 0) {
+			this.prior = phe;
+		} else {
+			// we don't let it be 0, otherwise the score will always remain 0
+			this.prior = 0.01;
+		}
 
 		this.score = (int) (phe * 100);
 		this.decayedWeight = this.initialWeight;
