@@ -1,0 +1,238 @@
+cristi@cristi-Aspire-5755G:/media/Acer/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dissertation/word-count/texcount$ perl texcount.pl ../../Chapters/1-introduction.tex
+File: ../../Chapters/1-introduction.tex
+Encoding: utf8
+Words in text: 713
+Words in headers: 1
+Words outside text (captions, etc.): 0
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+
+cristi@cristi-Aspire-5755G:/media/Acer/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dissertation/word-count/texcount$ perl texcount.pl -brief -inc ../../Chapters/1-introduction.tex
+713+1+0 (1/0/0/0) File: ../../Chapters/1-introduction.tex
+cristi@cristi-Aspire-5755G:/media/Acer/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dissertation/word-count/texcount$ perl texcount.pl -inc ../../Chapters/1-introduction.tex
+File: ../../Chapters/1-introduction.tex
+Encoding: utf8
+Words in text: 713
+Words in headers: 1
+Words outside text (captions, etc.): 0
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+
+cristi@cristi-Aspire-5755G:/media/Acer/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dissertation/word-count/texcount$ perl texcount.pl -inc ../../Chapters/*.tex
+File: ../../Chapters/1-introduction.tex
+Encoding: utf8
+Words in text: 713
+Words in headers: 1
+Words outside text (captions, etc.): 0
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+
+File: ../../Chapters/2-pico.tex
+Encoding: ascii
+Words in text: 1190
+Words in headers: 4
+Words outside text (captions, etc.): 26
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+
+File: ../../Chapters/3-framework.tex
+Encoding: ascii
+Words in text: 2544
+Words in headers: 11
+Words outside text (captions, etc.): 124
+Number of headers: 5
+Number of floats/tables/figures: 1
+Number of math inlines: 5
+Number of math displayed: 0
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  47+2+0 (1/0/0/0) Chapter: Assessment framework
+  542+3+4 (1/0/0/0) Section: UDS assessment framework
+  1478+3+68 (1/0/5/0) Section: Token unlocking framework
+  326+2+45 (1/0/0/0) Section: Picosiblings evaluation
+  151+1+7 (1/1/0/0) Section: Conclusions
+
+File: ../../Chapters/4-design.tex
+Encoding: ascii
+Words in text: 2036
+Words in headers: 17
+Words outside text (captions, etc.): 102
+Number of headers: 9
+Number of floats/tables/figures: 0
+Number of math inlines: 35
+Number of math displayed: 5
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  3+1+0 (1/0/0/0) Chapter: Design
+  145+2+18 (1/0/0/0) Section: Design requirements
+  72+2+0 (1/0/0/0) Section: Proposed solution
+  206+3+0 (1/0/0/0) Subsection: Multi-level unlocking model
+  277+2+0 (1/0/1/0) Subsection: Decaying weights
+  203+2+0 (1/0/2/0) Subsection: Explicit authentication
+  379+2+46 (1/0/19/5) Subsection: Authentication result
+  651+2+38 (1/0/13/0) Section: Related work
+  100+1+0 (1/0/0/0) Section: Conclusions
+
+File: ../../Chapters/5-implementation.tex
+Encoding: ascii
+Words in text: 3589
+Words in headers: 24
+Words outside text (captions, etc.): 280
+Number of headers: 13
+Number of floats/tables/figures: 8
+Number of math inlines: 11
+Number of math displayed: 1
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  99+2+24 (1/0/0/0) Chapter: Implementation Prototype
+  139+2+24 (1/0/0/0) Section: Implementation overview
+  52+2+17 (1/1/0/0) Section: Implementation details
+  370+1+131 (1/1/0/0) Subsection: UAService
+  1931+10+72 (5/5/7/1) Subsection: Authentication mechanisms
+  80+2+0 (1/0/0/0) Subsection: Owner configuration
+  202+2+2 (1/1/0/0) Subsection: Cryptographic protection
+  152+1+10 (1/0/0/0) Section: Conclusion
+  564+2+0 (1/0/4/0) Section: Related work
+
+File: ../../Chapters/6-evaluation.tex
+Encoding: ascii
+Words in text: 2565
+Words in headers: 18
+Words outside text (captions, etc.): 103
+Number of headers: 9
+Number of floats/tables/figures: 4
+Number of math inlines: 2
+Number of math displayed: 0
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  114+1+0 (1/0/0/0) Chapter: Evaluation
+  1506+8+48 (5/0/2/0) Section: Threat model
+  291+2+26 (1/2/0/0) Section: Functional evaluation
+  469+4+26 (1/1/0/0) Section: Token unlocking framework evaluation
+  185+3+3 (1/1/0/0) Section: UDS framework evaluation
+
+File: ../../Chapters/7-conclusion.tex
+Encoding: ascii
+Words in text: 940
+Words in headers: 3
+Words outside text (captions, etc.): 0
+Number of headers: 2
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  599+1+0 (1/0/0/0) Chapter: Conclusion
+  341+2+0 (1/0/0/0) Section: Future work
+
+File: ../../Chapters/ChapterTemplate.tex
+Encoding: ascii
+Words in text: 327
+Words in headers: 13
+Words outside text (captions, etc.): 0
+Number of headers: 5
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  5+3+0 (1/0/0/0) Chapter: Chapter Title Here
+  69+3+0 (1/0/0/0) Section: Main Section 1
+  52+2+0 (1/0/0/0) Subsection: Subsection 1
+  85+2+0 (1/0/0/0) Subsection: Subsection 2
+  116+3+0 (1/0/0/0) Section: Main Section 2
+
+Total
+Words in text: 13904
+Words in headers: 91
+Words outside text (captions, etc.): 635
+Number of headers: 45
+Number of floats/tables/figures: 13
+Number of math inlines: 53
+Number of math displayed: 6
+Files: 8
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  713+1+0 (1/0/0/0) File(s) total: ../../Chapters/1-introduction.tex
+  1190+4+26 (1/0/0/0) File(s) total: ../../Chapters/2-pico.tex
+  2544+11+124 (5/1/5/0) File(s) total: ../../Chapters/3-framework.tex
+  2036+17+102 (9/0/35/5) File(s) total: ../../Chapters/4-design.tex
+  3589+24+280 (13/8/11/1) File(s) total: ../../Chapters/5-implementation.tex
+  2565+18+103 (9/4/2/0) File(s) total: ../../Chapters/6-evaluation.tex
+  940+3+0 (2/0/0/0) File(s) total: ../../Chapters/7-conclusion.tex
+  327+13+0 (5/0/0/0) File(s) total: ../../Chapters/ChapterTemplate.tex
+
+cristi@cristi-Aspire-5755G:/media/Acer/Users/cristi/workspace/android/fyp-pico/PicoUserAuthenticator/dissertation/word-count/texcount$ perl texcount.pl -inc ../../Appendices/*.tex
+File: ../../Appendices/Appendix-android.tex
+Encoding: ascii
+Words in text: 1802
+Words in headers: 4
+Words outside text (captions, etc.): 67
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 1
+Number of math displayed: 0
+
+File: ../../Appendices/Appendix-frameworkex.tex
+Encoding: ascii
+Words in text: 793
+Words in headers: 8
+Words outside text (captions, etc.): 53
+Number of headers: 3
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  66+5+0 (1/0/0/0) Chapter: Token Unlocking Framework evaluation examples
+  382+1+53 (1/0/0/0) Section: PIN
+  345+2+0 (1/0/0/0) Section: Face unlock
+
+File: ../../Appendices/Appendix-mechanisms.tex
+Encoding: ascii
+Words in text: 1560
+Words in headers: 6
+Words outside text (captions, etc.): 13
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 2
+Number of math displayed: 0
+
+File: ../../Appendices/AppendixTemplate.tex
+Encoding: ascii
+Words in text: 10
+Words in headers: 3
+Words outside text (captions, etc.): 0
+Number of headers: 1
+Number of floats/tables/figures: 0
+Number of math inlines: 0
+Number of math displayed: 0
+
+Total
+Words in text: 4165
+Words in headers: 21
+Words outside text (captions, etc.): 133
+Number of headers: 6
+Number of floats/tables/figures: 0
+Number of math inlines: 3
+Number of math displayed: 0
+Files: 4
+Subcounts:
+  text+headers+captions (#headers/#floats/#inlines/#displayed)
+  1802+4+67 (1/0/1/0) File(s) total: ../../Appendices/Appendix-android.tex
+  793+8+53 (3/0/0/0) File(s) total: ../../Appendices/Appendix-frameworkex.tex
+  1560+6+13 (1/0/2/0) File(s) total: ../../Appendices/Appendix-mechanisms.tex
+  10+3+0 (1/0/0/0) File(s) total: ../../Appendices/AppendixTemplate.tex
+  
+  
+  
+- manual count of words in tables... : 80 + 34 + 15 + 63 + 81 = 273
+- total = 14903
