@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014 Cristian Toader
+ *
+ * See the file license.txt for copying permission.
+ * 
+ */
+
 package com.fyp.authenticator.location;
 
 import android.content.Context;
