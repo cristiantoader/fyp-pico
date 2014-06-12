@@ -204,9 +204,15 @@ public class VoiceDAO {
 	 * @return recording data.
 	 */
 	private double[] getDataFromObject() {
-		double[] result = new double[this.data.length];
+		double[] result = null;
 
 		Log.d(TAG, "getDataFromObject+");
+		
+		if (this.data == null) {
+			Log.e(TAG, "Null data in object.");
+			return null;
+		}
+		result = new double[this.data.length];
 		
 		for (int i = 0; i < result.length; i++) {
 			result[i] = ((double) this.data[i]) / 128;

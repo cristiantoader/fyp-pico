@@ -137,6 +137,9 @@ public abstract class AuthMechService extends Service {
 
 			case AUTH_MECH_REGISTER:
 				am.clientWriter = msg.replyTo;
+				
+				// we send an initial score of 0 basically
+				sendDecayedScore();
 				break;
 
 			case AUTH_MECH_UNREGISTER:

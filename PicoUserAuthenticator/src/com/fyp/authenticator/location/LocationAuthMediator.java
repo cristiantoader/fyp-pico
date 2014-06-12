@@ -91,6 +91,11 @@ public class LocationAuthMediator {
 			fis = new FileInputStream(getAbsoluteFilePath());
 			cis = new CipherInputStream(fis, km.getDecryptionCipher());
 
+			if (cis == null || fis == null) {
+				Log.e(TAG, "Error creating decryption cipher");
+				return;
+			}
+			
 			int b;
 			ArrayList<Byte> decByteList = new ArrayList<Byte>();
 			while ((b = cis.read()) != -1) {
@@ -127,6 +132,8 @@ public class LocationAuthMediator {
 			Log.d(TAG, "Owner file not found.");
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
