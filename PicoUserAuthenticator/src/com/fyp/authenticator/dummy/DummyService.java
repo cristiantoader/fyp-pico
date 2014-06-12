@@ -81,6 +81,8 @@ public class DummyService extends AuthMechService {
 		 */
 		@Override
 		public void run() {
+			int peh = 0;
+			
 			// instantiating DAO when starting thread.
 			if (dummyDAO == null) {
 				dummyDAO = new DummyAuthMediator();
@@ -91,8 +93,8 @@ public class DummyService extends AuthMechService {
 				try {
 					Thread.sleep(AUTH_PERIOD);
 
-					score = dummyDAO.getMatch();
-					sendDecayedScore(true);
+					peh = dummyDAO.getMatch();
+					sendDecayedScore(peh);
 
 					// start decaying process after collecting data
 					DummyService.this.startDecay();

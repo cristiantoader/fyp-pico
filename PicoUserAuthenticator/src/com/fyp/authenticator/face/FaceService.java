@@ -103,6 +103,7 @@ public class FaceService extends AuthMechService {
 		 * data.
 		 */
 		public void run() {
+			int peh = 0;
 			long start = System.currentTimeMillis();
 			
 			// instantiate face DAO when thread starts
@@ -139,8 +140,8 @@ public class FaceService extends AuthMechService {
 						dscore = THRESHOLD;
 					}
 
-					score = (int) (Math.floor((1 - dscore / THRESHOLD) * 100));
-					sendDecayedScore(true);
+					peh = (int) (Math.floor((1 - dscore / THRESHOLD) * 100));
+					sendDecayedScore(peh);
 
 					// start decaying process after collecting data
 					FaceService.this.startDecay();

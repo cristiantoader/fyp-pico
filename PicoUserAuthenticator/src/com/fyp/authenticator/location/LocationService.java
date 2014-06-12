@@ -106,6 +106,7 @@ public class LocationService extends AuthMechService {
 		public void run() {
 			Looper.prepare();
 
+			int peh = 0;
 			long start = System.currentTimeMillis();
 			
 			// instantiating voice DAO when thread starts.
@@ -133,10 +134,10 @@ public class LocationService extends AuthMechService {
 					dscore = (dscore > THRESHOLD) ? THRESHOLD : dscore;
 					
 					Log.d(TAG, "Calculating percentage score.");
-					score = (int) ((1 - dscore / THRESHOLD) * 100);
+					peh = (int) ((1 - dscore / THRESHOLD) * 100);
 					
-					Log.d(TAG, "Starting decay process for score " + score);
-					sendDecayedScore(true);
+					Log.d(TAG, "Starting decay process for score " + peh);
+					sendDecayedScore(peh);
 					startDecay();
 					
 					Log.d(TAG, "Authentication time: " + (System.currentTimeMillis() - start));

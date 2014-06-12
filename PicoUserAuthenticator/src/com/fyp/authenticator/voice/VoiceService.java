@@ -99,6 +99,7 @@ public class VoiceService extends AuthMechService {
 		@Override
 		public void run() {
 			long start = System.currentTimeMillis();
+			int peh = 0;
 			
 			// instantiating voice DAO when thread starts.
 			this.mediator = new VoiceAuthMediator(VoiceService.this);
@@ -129,8 +130,8 @@ public class VoiceService extends AuthMechService {
 						dscore = THRESHOLD;
 					}
 
-					score = (int) Math.floor((1 - dscore / THRESHOLD) * 100);
-					sendDecayedScore(true);
+					peh = (int) Math.floor((1 - dscore / THRESHOLD) * 100);
+					sendDecayedScore(peh);
 
 					// starts the decay process
 					VoiceService.this.startDecay();

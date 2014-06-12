@@ -42,7 +42,10 @@ public abstract class AuthMechService extends Service {
 	 * Latest authentication score. This needs to be multiplied by decaying
 	 * weight factor.
 	 */
-	protected int score = 0;
+	private int score = 0;
+	
+	/** Prior probability used for Euclidean update. */
+	private double prior = 0;
 
 	/**
 	 * Current decayed weight of the mechanism.
@@ -210,7 +213,7 @@ public abstract class AuthMechService extends Service {
 			Log.d(TAG, "timer run method.");
 			
 			decay();
-			sendDecayedScore(false);
+			sendDecayedScore();
 			
 			// only reschedule if running is true
 			if (this.running == true) {
@@ -287,19 +290,58 @@ public abstract class AuthMechService extends Service {
 	}
 
 	/**
-	 * Used for sending the decayed score back to the corresponding AuthMech.
+	 * Used for sending computing the new score and sending it to the
+	 * corresponding AuthMech.
 	 * 
-	 * @param fresh
-	 *            determines if the decayed weight should be reinitialised as a
-	 *            result of a fresh data sample.
+	 * The function uses the supplied evidence probability from parameter
+	 * <code>newScore</code> in order to compute the new posterior probability
+	 * that will be multiplied by the mechanism's initial weight and the result
+	 * is sent to the corresponding <code>AuthMech</code> object.
+	 * 
+	 * The posterior probability is calculated using Euclidean update. The
+	 * equation is summarised as follows:
+	 * 
+	 * P(H|E) = (P(H) * P(E|H)) / 
+	 * 		(P(H) * P(E|H) + P(~H) * P(E|~H));
+	 * 
+	 * In this equation: 
+	 * 		P(H) = <code>this.prior</code> 
+	 * 		P(E|H) = <code>newScore</code>
+	 * 
+	 * @param newScore
+	 *            this is the current probability recorded by the mechanism. It
+	 *            is the probability that the sample E supports the hypothesis H
+	 *            that the owner is present, mathematically noted as P(E|H).
 	 */
-	public void sendDecayedScore(boolean fresh) {
+	public void sendDecayedScore(int newScore) {
 		Log.d(TAG, "sendDecayedScore+");
-		
-		if (fresh) {
-			this.decayedWeight = this.initialWeight;
-		}
-		
+
+		// P(H) = prior probability.
+		double ph = this.prior;
+		// P(E|H) = probability of evidence belonging to hypothesis.
+		double peh = ((double) newScore) / 100;
+		// P(H|E) = posterior probability.
+		double phe = 0;
+
+		// calculating posterior probability.
+		phe = (ph * peh) / (ph * peh + (1 - ph) * (1 - peh));
+
+		// saving posterior as prior for next iteration.
+		this.prior = phe;
+
+		this.score = (int) (phe * 100);
+		this.decayedWeight = this.initialWeight;
+
+		sendDecayedScore();
+	}
+
+	/**
+	 * Function used for calculating and sending the current decayed score to
+	 * the registered <code>AuthMech</code>.
+	 */
+	public void sendDecayedScore() {
+		Log.d(TAG, "sendDecayedScore()+");
+
 		int decayedScore = this.decayedWeight * this.score;
 
 		try {
@@ -308,7 +350,7 @@ public abstract class AuthMechService extends Service {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		Log.d(TAG, "sendDecayedScore-");
 	}
 }
