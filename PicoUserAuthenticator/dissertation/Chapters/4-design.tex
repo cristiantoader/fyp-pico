@@ -42,7 +42,7 @@ Data samples captured for authentication are not always meaningful. For example,
 % 	TODO: can drop this if needed!
 Let us take for example a voice recognition mechanism which samples data every minute. The current weight of the mechanism is 0 so its output is completely ignored. The next sample is recorded, and the voice recognition mechanism outputs a confidence of $70\%$ that the owner is present. After the successful recording, the mechanism weight is updated to its predefined starting value of 30. For the next 10 minutes the owner will be silently reading a book. Since the mechanism only identifies background noise, the weight value of 30 decreases in time. This will induce a smaller impact of the mechanism on the overall score. Each mechanism weight can decrease down to 0, at which point the mechanism is ignored. Computing the overall score will be explained in more detail later in the chapter.
 
-\subsection{Explicit authentication}
+\subsection*{Explicit authentication}
 % Explicit authentication mechanisms
 We need to consider the case where the owner wants to use Pico to authenticate to a high security app, given a low confidence level from the authenticator. As an example, the Pico owner wants to access their bank account after sitting silent in a dark room for the past hour. Let us say the app requires a confidence level of $95\%$. Due to the lack of valid authentication data, the authenticator only outputs a $20\%$ overall confidence that the owner is present. To solve this problem we have introduced the concept of explicit authentication mechanisms. When the confidence score drops below the threshold required by an app, the user is given the chance to provide valid data samples to one or more mechanisms through an explicit request.
 

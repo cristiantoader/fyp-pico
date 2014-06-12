@@ -71,7 +71,7 @@ Pico needs to be unlocked only in the presence of its owner. In order to do so, 
 The most unfavourable scenario is to have the owner silently sitting at work with their smart phone on the table. Voice and face recognition mechanisms would not gather any valid samples. Location data can be collected, offering some confidence that the owner is present. If authentication is required for a high security transaction, such as logging in to an online banking account, the overall score outputted by the scheme would not be high enough to grant access. The scheme would therefore make an explicit authentication request, offering the user the possibility to generate valid data.
 
 % No owner and no data
-The main problem with the scheme is not denying service to the owner, but falsely granting it. Given the same situation as before, let us assume the owner forgets the smart phone on their desk and leaves the office for a break. Just as before, only location data can be collected, providing some confidence that the owner is present. Ideally as the owner leaves, most authentication sessions managed by the Pico should be closed. This should happen once the confidence level becomes too low, and the explicit authentication mechanisms are ignored.
+The main problem with the scheme is not denying service to the owner, but rather falsely granting it. Given the same situation as before, let us assume the owner forgets the smart phone on their desk and leaves the office for a break. Just as before, only location data can be collected, providing some confidence that the owner is present. Ideally as the owner leaves, most authentication sessions managed by the Pico should be closed. This should happen once the confidence level becomes too low, and the explicit authentication mechanisms are ignored.
 
 % Compromise solution
 From the authenticator's perspective there is no difference between the two scenarios presented above. The first suggests that non biometric mechanisms should provide sufficient confidence to provide authentication when the owner ``goes silent''. The second scenario requires the opposite; when the owner can no longer provide biometric data, they are likely no longer with the token and Pico should lock. 
@@ -112,7 +112,7 @@ In order to assess the time performance of the prototype, we have recorded key s
 		Face recognition  & 18.134        		& 1.951          \\
 		Location analysis & 0.192          		& 0.012          \\
     \end{tabular}
-	\caption{Mechanisms' timing performance results.}
+	\caption{Timing performance results.}
 	\label{tab:timeprofile}
 \end{table}
 
@@ -162,7 +162,7 @@ The results are summarised in table \ref{table:tokenresults}. Column properties 
     Non-disclosability                  & \cellcolor{red!25}Not-offered   		& \cellcolor{green!25}Offered    		\\
     \end{tabular}
 
-	\caption{Token unlocking framework results compared with Picosiblings.}
+	\caption{Token unlocking framework results.}
 	\label{table:tokenresults}
 
 \end{table}

@@ -17,7 +17,6 @@
 \contentsline {chapter}{\numberline {4}Design}{17}{chapter.25}
 \contentsline {section}{\numberline {4.1}Design requirements}{17}{section.26}
 \contentsline {section}{\numberline {4.2}Proposed solution}{17}{section.28}
-\contentsline {subsection}{\numberline {4.2.1}Explicit authentication}{19}{subsection.31}
 \contentsline {section}{\numberline {4.3}Related work}{21}{section.39}
 \contentsline {section}{\numberline {4.4}Conclusions}{23}{section.42}
 \contentsline {chapter}{\numberline {5}Implementation Prototype}{24}{chapter.43}
