@@ -134,6 +134,7 @@ public class FaceService extends AuthMechService {
 					
 					if (!FaceAuthMediator.hasFace(picture)) {
 						Log.w(TAG, "No faces in picture. continue decay.");
+						Thread.sleep(SAMPLING_RATE);
 						continue;
 					}
 					

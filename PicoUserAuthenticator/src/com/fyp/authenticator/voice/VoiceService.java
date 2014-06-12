@@ -123,6 +123,7 @@ public class VoiceService extends AuthMechService {
 					double dscore = this.mediator.getMatch(record);
 					if (dscore == -1) {
 						Log.w(TAG, "Noise detected, continuing decay.");
+						Thread.sleep(SAMPLING_RATE);
 						continue;
 					}
 					

@@ -128,6 +128,7 @@ public class LocationService extends AuthMechService {
 					Location current = dao.getCurrentLocation();
 					if (current == null) {
 						Log.w(TAG, "location not available, continue decay.");
+						Thread.sleep(SAMPLING_RATE);
 						continue;
 					}
 					
