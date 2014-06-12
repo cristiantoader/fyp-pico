@@ -105,11 +105,8 @@ public class AuthMech {
 
 	/**
 	 * Method used to unBind service.
-	 * 
-	 * @param conn
-	 *            service connection to unbind.
 	 */
-	public void doUnbindService(ServiceConnection conn) {
+	public void doUnbindService() {
 		if (boundService) {
 			uaservice.unbindService(uaServiceAuthConn);
 			boundService = false;

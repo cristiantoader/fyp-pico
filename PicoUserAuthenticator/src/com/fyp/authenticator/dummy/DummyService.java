@@ -52,7 +52,9 @@ public class DummyService extends AuthMechService {
 			}
 		}
 
-		this.decayTimer.stopTimer();
+		if (this.decayTimer != null) {
+			this.decayTimer.stopTimer();
+		}
 	}
 
 	/**

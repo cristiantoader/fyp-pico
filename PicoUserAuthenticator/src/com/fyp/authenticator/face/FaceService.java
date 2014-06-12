@@ -60,7 +60,10 @@ public class FaceService extends AuthMechService {
 			}
 		}
 
-		this.decayTimer.stopTimer();
+		if (this.decayTimer != null) {
+			this.decayTimer.stopTimer();
+		}
+		
 		Log.d(TAG, "onDestroy-");
 	}
 

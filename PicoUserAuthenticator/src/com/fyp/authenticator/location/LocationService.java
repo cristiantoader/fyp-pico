@@ -58,7 +58,9 @@ public class LocationService extends AuthMechService {
 			}
 		}
 		
-		this.decayTimer.stopTimer();
+		if (this.decayTimer != null) {
+			this.decayTimer.stopTimer();
+		}
 	}
 
 	/**

@@ -85,6 +85,7 @@ public class UserAuthenticator {
 
 		// cap the confidence level at 100
 		if (confidence > 100) {
+			Log.w(TAG, "Truncating confidence from " + confidence);
 			confidence = 100;
 		}
 
@@ -114,6 +115,8 @@ public class UserAuthenticator {
 		
 		for (AuthMech mech : this.mechanisms) {
 			Log.d(TAG, "stopping " + mech.getClass());
+			
+			mech.doUnbindService();
 			
 			Intent i = new Intent(this.uaservice, mech.getClass());
 			this.uaservice.stopService(i);
