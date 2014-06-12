@@ -51,13 +51,13 @@ The following list contains the subset of the UDS framework developed by Bonneau
   %
   % TODO: example not good as PIN unlocks account not the token!
   \item[Memorywise-effortless] \hfill \\
-  Users do not need to remember any type of secret (e.g. passwords, physical signatures, drawings). The original property was quasi-offered if one secret would be used with multiple accounts, but this will not apply for security tokens. As an example the RSA SecurID \footnote{http://www.emc.com/domains/rsa/index.htm?id=1156} is used in conjunction with a password in order to authenticate the user, and therefore does not offer this property.
+  Users do not need to remember any type of secret (e.g. passwords, physical signatures, drawings). The original property was quasi-offered if one secret would be used with multiple accounts, but this will not apply for security tokens. As an example the RSA SecurID\footnote{http://www.emc.com/domains/rsa/index.htm?id=1156} is used in conjunction with a password in order to authenticate the user, and therefore does not offer this property.
   
   \item[Nothing-to-carry] \hfill \\
   The unlocking mechanism does not require any additional hardware except for the token. The property is quasi-satisfied in the case of hardware the user would have carried on a normal basis such as a mobile phone. An example mechanism that quasi-offers the property is Picosiblings, which uses small devices embedded in everyday items. Biometric mechanisms that require additional sensors such as a fingerprint reader do not satisfy this property. 
   
   \item[Easy-to-learn] \hfill \\
-  Users that want to use the unlocking mechanism would be able to learn it with ease. For example, Picosiblings do not offer this property because of the complexity of their management\footnote{As discussed in the previous chapter \ref{Chapter2}, each Picosibling contains a k-out-of-n secret used to reconstruct the ``Pico Master Key''. The owner needs to choose the right combination of Picosiblings in order to unlock the Pico, which may prove difficult.}. However, PINs or passwords do, as users are already familiar with this type of authentication.
+  Users that want to use the unlocking mechanism would be able to learn it with ease. For example, Picosiblings do not offer this property because of the complexity of their management\footnote{As discussed in chapter \ref{Chapter2}, each Picosibling contains a k-out-of-n secret used to reconstruct the ``Pico Master Key''. The owner needs to choose the right combination of Picosiblings in order to unlock the Pico, which may prove difficult.}. However, PINs or passwords do, as users are already familiar with this type of authentication.
   
   \item[Efficient-to-use] \hfill \\
   The amount of time the user needs to wait for the token to be unlocked is reasonably short. This includes the time required to provide authentication input, and set up the unlocking mechanism. As an example, the input and processing time for PINs is very low, and therefore the scheme offers the property. However, mechanisms based on biometrics may not, depending on the implementation.
@@ -143,7 +143,7 @@ The original paper marks Pico as not ``accessible'' due to the coordinated use o
 % 	TODO:
 %		- ask about Picosiblings protocol and fill in the reason for resilient-to-targeted-impersonation
 %
-Since the scheme does not rely on user input, it is ``resilient-to-physical-observations''. Based on the Picosiblings description given by Stajano \cite{stajano2011pico} the scheme offers ``resilient-to-targeted-impersonation'', ``resilience-to-throttled-guessing'', and ``resilient-to-unthrottled-guessing''. Any attacker can unlock Pico if they are also in possession its Picosiblings. However due to the auxiliary shared secrets \footnote{Picosiblings also relies on two special shares. One is unlocked using biometric authentication, and the other is provided by an external server. Using these shares would only grant the thief a limited time window before the token is either locked remotely or the shares expire.} the scheme quasi-offers ``resilient-to-theft''. Each Picosibling only works with one verifier (i.e. its master Pico), and therefore is ``unlinkable''. The scheme was designed to provide ``continuous-authentication''. Because of the k-out-of-n master key reconstruction mechanism, Picosiblings can only have the locked and unlocked states. Therefore they do not offer ``multi-level-unlocking''. The scheme does not satisfy the ``non-disclosability'' property, because the owner is free to give away the Pico with its Picosiblings.
+Since the scheme does not rely on user input, it is ``resilient-to-physical-observations''. Based on the Picosiblings description given by Stajano \cite{stajano2011pico} the scheme offers ``resilient-to-targeted-impersonation'', ``resilience-to-throttled-guessing'', and ``resilient-to-unthrottled-guessing''. Any attacker can unlock Pico if they are also in possession its Picosiblings. However due to the auxiliary shared secrets\footnote{Picosiblings also relies on two special shares. One is unlocked using biometric authentication, and the other is provided by an external server. Using these shares would only grant the thief a limited time window before the token is either locked remotely or the shares expire.} the scheme quasi-offers ``resilient-to-theft''. Each Picosibling only works with one verifier (i.e. its master Pico), and therefore is ``unlinkable''. The scheme was designed to provide ``continuous-authentication''. Because of the k-out-of-n master key reconstruction mechanism, Picosiblings can only have the locked and unlocked states. Therefore they do not offer ``multi-level-unlocking''. The scheme does not satisfy the ``non-disclosability'' property, because the owner is free to give away the Pico with its Picosiblings.
 	
 \section{Conclusions}
 % Conclusion  paragraph
@@ -152,7 +152,7 @@ We have developed a token unlocking evaluation framework. The result is strongly
 The Picosiblings scheme was evaluated using the token unlocking framework. This will serve as a benchmark when comparing to the new solution proposed in this dissertation. Two additional example mechanisms were assessed, with details in appendix \ref{AppendixA}. A summary of the results is posted in table \ref{table:results}. Each property is highlighted with an appropriate colour in order to allow for quicker analysis.
 
 
-\begin{table}
+\begin{table}[h]
     \begin{tabular}{l|l|l|l}
     Property                            & PIN           					& Picosiblings  					& Face recognition \\ \hline
     Memorywise-effortless               & \cellcolor{red!25}Not-offered   	& \cellcolor{green!25}Offered       & \cellcolor{green!25}Offered          \\

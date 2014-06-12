@@ -27,7 +27,7 @@ Breaking the scheme's availability while the device is in the possession of the 
 Let us analyse what denial of service (DoS) exploits can be achieved by a remote attacker. Removing the owner configuration data from internal storage would make the authenticator unusable. This can only be achieved if the attacker (or a malware application designed by the attacker) manages to get root access on the device. Given the Linux permissions model, there would be no way to protect this data from deletion. However, without root access the application data cannot be accessed or modified.
 
 % Availability: dos via sensor locking
-Based on each device platform, multiple apps recording data from a sensor may not be possible. This can enable a DoS attack on the prototype by having malware locking sensors before the authenticator. This would make data collection impossible, and therefore the mechanisms' weights would gradually decrease to 0. The overall confidence level would be lowered, preventing the user from authenticating. After performing experiments, we can confirm this problem for the Google Nexus 5 smart phone when two applications try to record microphone data using different sampling rates \footnote{The apps were trying to record microphone data using the AudioRecord class; application one was using a sampling rate of 44100 and application two 22050.}.
+Based on each device platform, multiple apps recording data from a sensor may not be possible. This can enable a DoS attack on the prototype by having malware locking sensors before the authenticator. This would make data collection impossible, and therefore the mechanisms' weights would gradually decrease to 0. The overall confidence level would be lowered, preventing the user from authenticating. After performing experiments, we can confirm this problem for the Google Nexus 5 smart phone when two applications try to record microphone data using different sampling rates\footnote{The apps were trying to record microphone data using the AudioRecord class; application one was using a sampling rate of 44100 and application two 22050.}.
 
 % Availability: starting multiple connections
 The current prototype is susceptible to a DoS attack caused by too many clients registered with the authenticator. Given that no permission is required to register to the {\tt UAService} component, an unlimited number of connections can be made. Therefore, broadcasting the authentication status to each client may cause considerable delays. Furthermore, in order to unburden the developer from developing thread-safe code, ICC is performed on a single thread. This means that by spamming {\tt UAService} with requests, the attacker can achieve a DoS attack for legitimate Pico clients. This can be fixed if we only allow access to application developed by the same author as the authenticator app.
@@ -37,7 +37,7 @@ The current prototype is susceptible to a DoS attack caused by too many clients 
 The prototype stores data in internal storage, and cannot be accessed by other applications due to the Linux permissions mechanism. However, as mentioned in the previous section, if the attacker gains root privileges it may modify any data on the device. The attack can be performed regardless of physical access.
 
 % Integrity: Binder communication ok
-From a data flow point of view, ICC is performed using the {\tt /dev/binder} node driver. According to the official Android source code \footnote{For convenience, a link to the binder driver is found here: https://android.googlesource.com/kernel/common.git/+/android-3.0/drivers/staging/android/binder.c (visited on 06.02.2014).}, although the node is readable and writeable by any application, communication is performed using IOCTL calls. Data is transferred from one component to the other without the possibility to intercept or modify. Given that Android ICC is secure, data either from the sensors or from app components cannot be tampered.
+From a data flow point of view, ICC is performed using the {\tt /dev/binder} node driver. According to the official Android source code\footnote{For convenience, a link to the binder driver is found here: https://android.googlesource.com/kernel/common.git/+/android-3.0/drivers/staging/android/binder.c (visited on 06.02.2014).}, although the node is readable and writeable by any application, communication is performed using IOCTL calls. Data is transferred from one component to the other without the possibility to intercept or modify. Given that Android ICC is secure, data either from the sensors or from app components cannot be tampered.
 
 \subsubsection*{Confidentiality}
 % Confidentiality: same owner
@@ -87,7 +87,7 @@ We have performed a series of tests in order to assess the usability and perform
 
 Battery power is a scarce resource for hand-held devices. The amount of time they can function without recharging directly determines their availability. The token unlocking scheme we have proposed requires periodic sampling of sensor data. This can be a power consuming task, if not managed appropriately. Given that the prototype's individual mechanisms use a configurable sampling rate, we continue by analysing the power consumption for different time intervals. The analysis was performed using the Trepn profiling tool developed by Qualcomm\footnote{The tool's official website can be found at the following address: https://developer.qualcomm.com/mobile-development/increase-app-performance/trepn-profiler}. Results for the application's average CPU and Power usage are posted in table \ref{tab:powerprofile}.
 
-\begin{table}
+\begin{table}[h]
     \begin{tabular}{l|l|l|l}
     Test number & Sampling rate (s) & Average CPU (\%) & Average Power (mW) \\ \hline
     1           & 5                 & 10.61            & 313.17             \\
@@ -105,7 +105,7 @@ Battery power is a scarce resource for hand-held devices. The amount of time the
 Results from table \ref{tab:powerprofile} show a high CPU and Power usage for a small sampling rate of 5 seconds. This drops considerably as the sampling time interval increases. In order to have the prototype constantly functional, sampling rates need to be configured in conjunction with the decay process and initial weights of the mechanisms. This is a multivariate optimisation problem, where we are trying to minimise the power consumption and error rate of mechanism.
 
 In order to assess the time performance of the prototype, we have recorded key stages for each mechanism in table \ref{tab:timeprofile}.
-\begin{table}
+\begin{table}[h]
     \begin{tabular}{l|l|l}
 		Mechanism         & Initialisation (s) 	& Authentication (s) \\ \hline
 		Voice recognition & 2.586	            & 0.897          \\
@@ -133,7 +133,7 @@ Given that multiple continuous authentication mechanisms are combined, the schem
 From a security perspective the scheme is ``resilient-to-physical-observations''. If an attacker would have valid pre-recordings of the owner for all biometric mechanisms, they would still need to perform these in a location considered safe by the authenticator. Furthermore, the replays would have to be performed periodically in order to keep the authentication session alive. Therefore, due to the difficulty to perform a replay attack, the scheme is considered to be ``resilient-to-targeted-impersonation''. The ``resilient-to-throttled-guessing'', ``resilient-to-unthrottled-guessing'', and ``resilient-to-theft'' properties do not apply. The scheme is not ``unlinkable'' because biometric data is unique for each individual. In order to satisfy the Pico requirements, all mechanism involved in the token unlocking process support ``continuous-authentication''. The authenticator provides as final feedback a confidence level, which allows for ``multi-level-unlocking''. Intentional disclosure of authentication credentials would pose the same difficulties as a replay attack, and therefore the scheme offers ``non-disclosability''.
 
 % Summary of results
-The results are summarised in table \ref{table:tokenresults}. Column properties are highlighted to facilitate the comparison with the Picosiblings solution \footnote{The colours have the following meanings based on the result: green - offered, red - not offered, and yellow - quasi offered.}.
+The results are summarised in table \ref{table:tokenresults}. Column properties are highlighted to facilitate the comparison with the Picosiblings solution\footnote{The colours have the following meanings based on the result: green - offered, red - not offered, and yellow - quasi offered.}.
 
 \begin{table}
     \begin{tabular}{l|l|l|l}
@@ -210,10 +210,8 @@ We now perform the reassessment of a Pico that uses our proposed token unlocking
 \end{table}
 
 % How Pico is improved
-The UDS framework assessment shows similar results to the token unlocking framework. By using the new scheme, Pico achieves an overall better score. It now offers ``easy-to-learn'', as it no longer requires Picosibling secret share management. In the lack of a cost analysis, we will consider that even with the new scheme the ``negligible-cost-per-user'' property is not offered. By relying on more than auxiliary devices, a Pico that uses the proposed scheme does offer ``resilient-to-theft''.
+The UDS framework assessment shows similar results to the token unlocking framework. By using the new scheme, Pico achieves a better overall score by improving two properties in exchange for one. It now offers ``easy-to-learn'', as it no longer requires Picosibling secret share management. In the lack of a cost analysis, we will consider that even with the new scheme the ``negligible-cost-per-user'' property is not offered. By relying on more than auxiliary devices, a Pico that uses the proposed scheme does offer ``resilient-to-theft''.
 
 % The downsides and conclusion
-The only property where Picosiblings outperforms the scheme presented in this dissertation is ``unlinkable''. Unfortunately, this trade-off cannot be fixed	as the mechanisms combined in the scheme need to rely on biometrics and behavioural analysis, which are unique for each individual. 
-
-In conclusion, by using the new token unlocking mechanism, overall Pico would improve 2 properties in exchange for one.
+The only property where Picosiblings outperforms the scheme presented in this dissertation is ``unlinkable''. Unfortunately, this trade-off cannot be fixed	as the mechanisms combined in the scheme need to rely on biometrics and behavioural analysis, which are unique for each individual.
 
