@@ -10,7 +10,6 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- TODO: Remove this when not testing.  -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -65,8 +64,15 @@
 
         <service
             android:name="com.fyp.authenticator.UAService"
+            android:exported="true"
             android:process=":UAService" >
+            <intent-filter>
+                <action android:name="MSG_REGISTER_CLIENT" />
+                <action android:name="MSG_UNREGISTER_CLIENT" />
+                <action android:name="MSG_CONFIDENCE_UPDATE" />
+            </intent-filter>
         </service>
+        
         <service
             android:name="com.fyp.authenticator.dummy.DummyService"
             android:process=":AuthDummyService" >
