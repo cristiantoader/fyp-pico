@@ -110,13 +110,13 @@ public class VoiceActivity extends Activity {
 			if (!isRecording()) {
 				startTimer();
 				startRecording();
-				mRecordOwnerButton.setText("Stop");
+				this.button.setText("Stop");
 
 				// stop recording
 			} else {
 				stopTimer();
 				stopRecording();
-				mRecordOwnerButton.setText("Record");
+				this.button.setText("Record");
 			}
 		}
 
