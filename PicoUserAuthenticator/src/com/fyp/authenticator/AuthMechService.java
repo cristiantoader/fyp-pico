@@ -44,8 +44,8 @@ public abstract class AuthMechService extends Service {
 	 */
 	private int score = 0;
 	
-	/** Prior probability used for Euclidean update. */
-	private double prior = 0;
+	/** Prior probability used for Bayesian update. */
+	private double prior = -1;
 
 	/**
 	 * Current decayed weight of the mechanism.
@@ -298,7 +298,7 @@ public abstract class AuthMechService extends Service {
 	 * that will be multiplied by the mechanism's initial weight and the result
 	 * is sent to the corresponding <code>AuthMech</code> object.
 	 * 
-	 * The posterior probability is calculated using Euclidean update. The
+	 * The posterior probability is calculated using Bayesian update. The
 	 * equation is summarised as follows:
 	 * 
 	 * P(H|E) = (P(H) * P(E|H)) / 
@@ -314,8 +314,24 @@ public abstract class AuthMechService extends Service {
 	 *            that the owner is present, mathematically noted as P(E|H).
 	 */
 	public void sendDecayedScore(int newScore) {
-		Log.d(TAG, "sendDecayedScore+");
+		Log.d(TAG, "sendDecayedScore(newscore)+");
 
+		if (newScore > 100) {
+			Log.w(TAG, "New score value too high, needs truncating: "
+					+ newScore);
+			newScore = 100;
+		}
+
+		if (newScore < 0) {
+			Log.w(TAG, "New score value too low, needs truncating: " + newScore);
+			newScore = 0;
+		}
+
+		if (this.prior == -1) {
+			Log.d(TAG, "initialisinst prior");
+			this.prior = ((double)newScore) / 100;
+		}
+		
 		// P(H) = prior probability.
 		double ph = this.prior;
 		// P(E|H) = probability of evidence belonging to hypothesis.
@@ -323,8 +339,12 @@ public abstract class AuthMechService extends Service {
 		// P(H|E) = posterior probability.
 		double phe = 0;
 
+		Log.d(TAG, "P(H) = " + ph);
+		Log.d(TAG, "P(E|H) = " + peh);
+
 		// calculating posterior probability.
 		phe = (ph * peh) / (ph * peh + (1 - ph) * (1 - peh));
+		Log.d(TAG, "P(H|E) = " + phe);
 
 		// saving posterior as prior for next iteration.
 		this.prior = phe;
@@ -333,6 +353,7 @@ public abstract class AuthMechService extends Service {
 		this.decayedWeight = this.initialWeight;
 
 		sendDecayedScore();
+		Log.d(TAG, "sendDecayedScore(newscore)-");
 	}
 
 	/**
