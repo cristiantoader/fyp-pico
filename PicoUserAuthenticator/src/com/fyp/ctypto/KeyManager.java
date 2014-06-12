@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014 Cristian Toader
  *
- * See the file license.txt for copying permission.
+ * See the file license.txt for copying permission (MIT licence).
  * 
  */
 
