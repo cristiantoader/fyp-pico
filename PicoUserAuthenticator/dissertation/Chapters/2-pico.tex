@@ -54,7 +54,7 @@ The locking process is an important aspect of Pico that was not yet fully descri
 % Reconstructing master key.
 The Pico authentication credentials are encrypted using the ``Pico Master Key''. The key is not available on the token and can only be reconstructed using k-out-of-n secret sharing, as described by Shamir \cite{shamir1979share}. Except for two shares which will be discussed later, each k-out-of-n secret is held by a Picosibling. 
 
-Using an initialisation process based on the ``resurrecting duckling'' \cite{stajano2000resurrecting}, each Picosibling is securely paired with Pico. The token sends periodic ping requests to which all initialised Picosiblings are expected to respond. During a successful ping, each Picosibling sends its k-out-of-n share to Pico. Given enough secrets, the ``Pico Master Key'' is reconstructed and Pico becomes unlocked.
+Using an initialisation process based on the ``resurrecting duckling'' \cite{stajano2000resurrecting} policy, each Picosibling is securely paired with Pico. The token sends periodic ping requests to which all initialised Picosiblings are expected to respond. During a successful ping, each Picosibling sends its k-out-of-n share to Pico. Given enough secrets, the ``Pico Master Key'' is reconstructed and Pico becomes unlocked.
 
 Internally, Pico keeps a slot array for each paired Picosibling. Each slot contains a countdown value, and the key share provided by the Picosibling. When the countdown value expires, the share becomes deleted. Similarly, if k shares are not acquired before a predefined time-out period, all shares are removed.
 

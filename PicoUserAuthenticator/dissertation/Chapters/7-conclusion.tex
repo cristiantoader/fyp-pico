@@ -14,17 +14,17 @@ To have a better way of evaluating a token unlocking scheme, in section \ref{tok
 
 Having a list of requirements, and a way of assessing the new solution, we have designed a scheme based on combining biometric and behavioural analysis mechanisms. Each mechanism generates a probability that the owner is in possession of the token. These probabilities are combined using a modified weighted sum, in order to generate an overall confidence level. Another original contribution is that each mechanism has an initial weight that decays in time from one valid data sample to the other. 
 
-% TODO: android prototype
+% android prototype
 Given a well defined design of the new scheme, we have successfully developed a prototype using a Google Nexus 5 device that runs an Android 4.4.2 operating system. This has proven that the solution can be implemented using existing hardware. Furthermore, the prototype offered useful insight for future implementations of the scheme. We have concluded that an efficient implementation requires authentication mechanisms to run as independent processes. We have presented a basic application design, and showed how different components should interact. As presented, data should be validated prior to analysis, and in the lack of a valid sample, the weight decay process should continue. An unexpected problem was that although the Android platform offers a wide range of sensors for the implementation of multiple mechanisms (details in appendix \ref{AppendixC}), the lack of open source biometric libraries has lead to a low precision of the overall scheme.
 
-% TODO: evaluation of scheme
+% evaluation of scheme
 The proposed unlocking mechanism was evaluated using the UDS framework developed by Bonneau et al, and the token unlocking framework developed in section \ref{tokenframework}. The results of the analysis have shown that the new proposed scheme cannot completely outperform Picosiblings due to the ``unlinkable'' property. Otherwise, results have shown an overall improvement in the number of offered properties. In addition, the new unlocking mechanism offers the possibility of having a granular unlocking, where the Pico token could offer individual locked and ulocked states based on the current confidence level and the security level required by the account.
 
 A threat model of the prototype has shown a number of attacks that may be performed on the Android application. Important insight was provided when studying design model attacks in section \ref{secdesignattacks}. This has shown that in scenarios where no valid data can be collected, a compromise needs to be made regarding the time interval between successful explicit authentication requests. Together with the power consumption analysis, this essentially becomes an multivariate optimisation problem where we are trying to minimise power consumption and user inconvenience, while maximising accuracy.
 
-In conclusion, the new token unlocking scheme offers Pico an overall improvement. However, additional work is required in order to improve details of the design, as well as the prototype. Additional details are presented in the following section. 
-
 \section*{Future work}
+As shown in the previous section, the new token unlocking scheme offers Pico an overall improvement. However, additional work is required in order to improve details of the design, as well as the prototype. Additional details are presented in this section. 
+
 % Experiment with weights and decay factors
 The Android prototype was developed as a proof of concept. Further experiments need to be performed using different weights and decay functions. A user study is required in order to determine the acceptable time interval between consecutive explicit authentication requests, and the implementation needs to be adapted accordingly. When performing this analysis, the power consumption results from section \ref{} need to be considered, in order to improve the lifetime of the device.
 

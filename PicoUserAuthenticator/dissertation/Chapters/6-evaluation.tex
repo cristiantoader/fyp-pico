@@ -112,11 +112,13 @@ In order to assess the time performance of the prototype, we have recorded key s
 		Face recognition  & 18.134        		& 1.951          \\
 		Location analysis & 0.192          		& 0.012          \\
     \end{tabular}
-	\caption{Application profiling results using Trepn}
+	\caption{Mechanisms' timing performance results.}
 	\label{tab:timeprofile}
 \end{table}
 
 Results show a high initialisation time for the face recognition mechanism. This has a direct impact on the token's usability, as the owner has to wait during the first use of the unlocking mechanism. However, authentication time is relatively small with a maximum of 2 seconds. With the current periodic sampling implementation, the delay can be hidden from the user by adjusting the sampling rate of each mechanism. However, results from table \ref{tab:timeprofile} can be relevant for implementations that do not sample data at fixed time intervals.
+
+The precision of each authentication mechanism used in the scheme is outside the scope of this project. However, we have performed a series of informal tests showing that data validation is performed accurately. The face recognition mechanism correctly identifies when a face is not present in the camera image, and background noise is correctly detected by the voice recognition mechanism.
 
 \section{Token unlocking framework evaluation}
 We will continue by evaluating the proposed scheme with the token unlocking framework defined in section \ref{tokenframework}.

@@ -5,6 +5,19 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Stajano(2011)]{stajano2011pico}
+Frank Stajano.
+\newblock Pico: No more passwords!
+\newblock In \emph{Security Protocols XIX}, pages 49--81. Springer, 2011.
+
+\bibitem[Bonneau et~al.(2012)Bonneau, Herley, Van~Oorschot, and
+  Stajano]{bonneau2012quest}
+Joseph Bonneau, Cormac Herley, Paul~C Van~Oorschot, and Frank Stajano.
+\newblock The quest to replace passwords: A framework for comparative
+  evaluation of web authentication schemes.
+\newblock In \emph{Security and Privacy (SP), 2012 IEEE Symposium on}, pages
+  553--567. IEEE, 2012.
+
 \bibitem[Yan et~al.(2004)Yan, Blackwell, Anderson, and Grant]{yan2004password}
 Jeff~Jianxin Yan, Alan~F Blackwell, Ross~J Anderson, and Alasdair Grant.
 \newblock Password memorability and security: Empirical results.
@@ -29,24 +42,11 @@ Anne Adams and Martina~Angela Sasse.
 \newblock \emph{Communications of the ACM}, 42\penalty0 (12):\penalty0 40--46,
   1999.
 
-\bibitem[Stajano(2011)]{stajano2011pico}
-Frank Stajano.
-\newblock Pico: No more passwords!
-\newblock In \emph{Security Protocols XIX}, pages 49--81. Springer, 2011.
-
 \bibitem[Stannard and Stajano(2012)]{stannard2012good}
 Oliver Stannard and Frank Stajano.
 \newblock Am i in good company? a privacy-protecting protocol for cooperating
   ubiquitous computing devices.
 \newblock In \emph{Security Protocols XX}, pages 223--230. Springer, 2012.
-
-\bibitem[Bonneau et~al.(2012)Bonneau, Herley, Van~Oorschot, and
-  Stajano]{bonneau2012quest}
-Joseph Bonneau, Cormac Herley, Paul~C Van~Oorschot, and Frank Stajano.
-\newblock The quest to replace passwords: A framework for comparative
-  evaluation of web authentication schemes.
-\newblock In \emph{Security and Privacy (SP), 2012 IEEE Symposium on}, pages
-  553--567. IEEE, 2012.
 
 \bibitem[Florencio and Herley(2007)]{florencio2007large}
 Dinei Florencio and Cormac Herley.

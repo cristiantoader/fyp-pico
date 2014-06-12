@@ -107,8 +107,7 @@ Computer Security Group \\ Computer Laboratory \\[2cm] % Research group name and
 
 I, Cristian Toader of Churchill College, being a candidate for the M.Phil. in Advanced Computer Science, hereby declare that this report and the work described in it are my own work, unaided except as may be specified below, and that the report does not contain material that has already been used to any substantial extent for a comparable purpose.
 
-% TODO:
-Total word count: 14943 (from page 1, excluding the appendix and bibliography).
+Total word count: 14903 (starting from page 1 excluding appendix sections and bibliography) \footnote{Word count of main text, headers, footnotes, floats, and captions was computed using the command: {\tt texcount -inc Chapters/*.tex}. The word count for tables was computed manually to a total of 273.}.
 
 Signed:\\
 \rule[1em]{25em}{0.5pt} % This prints a line for the signature
@@ -145,8 +144,13 @@ Date:\\
 \addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
 
 \abstract{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+Passwords are currently the most widely used authentication mechanism. However, as shown in the literature numerous times, they have become obsolete for the current technological context. The Pico project designed by Stajano \cite{stajano2011pico} was created with the purpose of completely replacing passwords. It is a security token used for generating credentials and providing authentication for the user. It has an additional layer of security, by only being usable in the presence of its owner. This is currently achieved using auxiliary devices called Picosiblings. The scope of this dissertation was to create a new token unlocking mechanism, that would offer Pico a different perspective to detecting the presence of its owner. 
 
-The abstract needs to be written at the end.
+We have started by analysing the Pico design, and identifying any requirements for the new unlocking mechanism. In order to have a reliable way of assessing the solution, we have identified an assessment framework developed by Bonneau et al \cite{bonneau2012quest}. Furthermore, we have created a token unlocking assessment framework adapted from a subset of the work by Bonneau et al, to which we have added additional properties.
+
+Having identified the set of requirements, as well the evaluation criteria, we have considered that a solution based on biometrics would be most appropriate. We have designed a token unlocking scheme that combines multiple biometric and behavioural analysis mechanisms in order to generate an overall confidence level. The solution was prototyped using an Android 4.4.2 smart-phone device, therefore proving that it can be developed using existing hardware. Additional threat modelling, and power analyses offer additional insight regarding limitations of the scheme.
+
+Both the token unlocking and Bonneau et al \cite{bonneau2012quest} frameworks were used for assessing the proposed solution. Comparing the results with those of Picosiblings shows that we do not completely outperform the original solution, but we do offer an overall better result.
 
 \clearpage % Start a new page
 
@@ -158,7 +162,14 @@ The abstract needs to be written at the end.
 
 \acknowledgements{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
 
-The acknowledgements and the people to thank go here, don't forget to include your project advisor\ldots
+In writing this dissertation, I would like to thank my supervisor, Dr Frank Stajano. I am especially grateful for providing me with with such an interesting research topic, and including me as part of the Pico team. I appreciate all the advice and the learning environment that he has created during our weekly discussions. Furthermore, his patience and useful suggestions while writing this dissertation are invaluable.
+
+Without the help of the University of Cambridge Computer Laboratory, I would not have been able to finish this dissertation. They have provided me with all the support necessary while conducting the research part of the project. I am especially grateful for the creative discussions and suggestions provided by the team of Pico research assistants during our regular meetings. I would also like to thank Laurent Simon, for invaluable advice while developing the Android prototype.
+
+I appreciate the hard work and dedication of the open source community. In particular I would like to thank the developers of the Javafaces and Recognito libraries, without which the prototype for this dissertation could not have been completed.
+
+Finally, I would like to thank Stefan Saftescu and Leila Malika for proofreading and suggestions made for a draft of my dissertation. As a non-native speaker, their advice has considerably improved the quality of my project.
+
 }
 \clearpage % Start a new page
 
@@ -181,16 +192,16 @@ The acknowledgements and the people to thank go here, don't forget to include yo
 %	ABBREVIATIONS
 %----------------------------------------------------------------------------------------
 
-\clearpage % Start a new page
+%\clearpage % Start a new page
 
-\setstretch{1.5} % Set the line spacing to 1.5, this makes the following tables easier to read
+%\setstretch{1.5} % Set the line spacing to 1.5, this makes the following tables easier to read
 
-\lhead{\emph{Abbreviations}} % Set the left side page header to "Abbreviations"
-\listofsymbols{ll} % Include a list of Abbreviations (a table of two columns)
-{
-\textbf{LAH} & \textbf{L}ist \textbf{A}bbreviations \textbf{H}ere \\
+%\lhead{\emph{Abbreviations}} % Set the left side page header to "Abbreviations"
+%\listofsymbols{ll} % Include a list of Abbreviations (a table of two columns)
+%{
+%\textbf{LAH} & \textbf{L}ist \textbf{A}bbreviations \textbf{H}ere \\
 %\textbf{Acronym} & \textbf{W}hat (it) \textbf{S}tands \textbf{F}or \\
-}
+%}
 
 %----------------------------------------------------------------------------------------
 %	SYMBOLS
